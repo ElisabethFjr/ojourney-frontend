@@ -9,7 +9,7 @@ function Navbar({ homePageStyle }: NavbarProps) {
   return (
     <nav className="header-navbar">
       <ul className="header-navbar-list">
-        <li>
+        {/* <li>
           <NavLink
             to="/"
             className={
@@ -56,7 +56,7 @@ function Navbar({ homePageStyle }: NavbarProps) {
           >
             Se déconnecter
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink
             to="/signInSignUp"
