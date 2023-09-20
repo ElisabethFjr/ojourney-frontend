@@ -5,7 +5,6 @@ import './SignUpForm.scss';
 function SignUpForm() {
   return (
     <div className="form-content">
-      <h1 className="form-title">Créez un compte</h1>
       <form className="form-element">
         <FieldForm name="lastname" placeholder="Nom" type="text" />
         <FieldForm name="firstname" placeholder="Prénom" type="text" />

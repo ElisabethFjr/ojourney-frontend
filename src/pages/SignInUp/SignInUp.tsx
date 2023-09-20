@@ -14,6 +14,9 @@ function SignInUp() {
   return (
     <main className="main form">
       <div className="form-container">
+        <h1 className="form-title">
+          {signIn ? 'Connectez-vous' : 'Créez un compte'}
+        </h1>
         <div className="form-header">
           <button
             onClick={toggleForm}
