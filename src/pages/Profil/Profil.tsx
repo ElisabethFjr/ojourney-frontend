@@ -1,8 +1,6 @@
 
 import './Profil.scss';
 
-import Header from '../../layout/Header/Header';
-import Footer from '../../layout/Footer/Footer';
 
 function Profil()
 {

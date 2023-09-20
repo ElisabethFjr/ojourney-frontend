@@ -6,9 +6,8 @@
   justify-content: center;
   height : 200px;
   font-size: 0,8rem;
-  margin-left: 20%;
-  margin-right: 20%;
   margin-top: 4.5rem;
+  background-color: v.$color-grey-lightest;
 }
 
 h2 {
@@ -21,6 +20,10 @@ h2 {
   border: 0.1rem solid;
   margin-bottom: 2.5rem;
   padding: 0.5rem;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-bottom: 2.5rem;
+  
 }
 
 .main-data {
@@ -28,6 +31,9 @@ h2 {
   border: 0.1rem solid;
   margin-bottom: 2.5rem;
   padding: 0.5rem;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-bottom: 2.5rem;
 }
 
 .main-consent {
@@ -35,6 +41,9 @@ h2 {
   border: 0.1rem solid;
   margin-bottom: 2.5rem;
   padding: 0.5rem;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-bottom: 2.5rem;
 }
 
 .main-delete {
@@ -42,17 +51,22 @@ h2 {
   border: 0.1rem solid;
   margin-bottom: 2.5rem;
   padding: 0.5rem;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-bottom: 2.5rem;
+  
 }
 
-.button {
+button {
 
-  padding: 0.6rem v.$gutter;
-  font-weight: 600;
+  font-weight: 300;
   border: none;
-  border-bottom: 3px solid v.$color-grey;
-  background-color: transparent;
+  border: 3px solid #ff8a5c;
+  background-color: white;
+  color: #ff8a5c;
   cursor: pointer;
   transition: all 0.3s ease;
+  float: right;
 
 }
 
