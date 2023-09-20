@@ -2,19 +2,27 @@ import './Navbar.scss';
 
 function Navbar() {
   return (
-    <nav className="navbar">
-      <ul>
+    <nav className="header-navbar">
+      <ul className="header-navbar-list">
         <li>
-          <a href="/profil">Mes voyages</a>
+          <a className="header-navbar-list-link" href="/profil">
+            Mes voyages
+          </a>
         </li>
         <li>
-          <a href="/voyages">Nouveau voyage</a>
+          <a className="header-navbar-list-link" href="/voyages">
+            Nouveau voyage
+          </a>
         </li>
         <li>
-          <a href="/voyages">Profil</a>
+          <a className="header-navbar-list-link" href="/voyages">
+            Profil
+          </a>
         </li>
         <li>
-          <a href="/avion">Se déconnecter</a>
+          <a className="header-navbar-list-link" href="/avion">
+            Se déconnecter
+          </a>
         </li>
       </ul>
     </nav>

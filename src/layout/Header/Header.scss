@@ -1,7 +1,14 @@
-.app-header {
+@use '../../styles/variables' as v;
+
+.header {
+  position: fixed;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 50px;
-  background-color: #f8f9fa;
+  width: 100vw;
+  padding: 0.8rem 3rem;
+  background-color: v.$color-white;
+  box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }

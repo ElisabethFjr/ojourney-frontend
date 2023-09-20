@@ -1,28 +1,27 @@
 import './Footer.scss';
 
 function Footer() {
-
-  const now = new Date();
-  const year = now.getFullYear();
-
   return (
     <footer className="footer">
+      <div className="footer-nav">
+        <a className="footer-nav-link" href="/about">
+          A propos
+        </a>
 
-      <a className="liens">
+        <a className="footer-nav-link" href="/contact">
+          Contact
+        </a>
 
-      <a href="propos">A propos</a>
+        <a className="footer-nav-link" href="/legalNotice">
+          Mentions légales
+        </a>
+      </div>
 
-      <a href="contact">Contact</a>
-
-      <a href="MentionsLegales">Mentions légales</a>
-
-      </a>
-
-     <p href="copyright">@ {year} O'journey - tous droits réservés</p>
-
+      <p className="footer-copyright">
+        @ 2023 O&apos;journey - Tous droits réservés
+      </p>
     </footer>
   );
-
 }
 
 export default Footer;

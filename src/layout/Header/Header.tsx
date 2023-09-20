@@ -1,10 +1,10 @@
 import Navbar from '../Navbar/Navbar';
-import './Header copy.scss';
+import './Header.scss';
 
 function Header() {
   return (
-    <header className="app-header">
-      <h1>O&apos;Journey</h1>
+    <header className="header">
+      <h1 className="header-logo">O&apos;Journey</h1>
       <Navbar />
     </header>
   );

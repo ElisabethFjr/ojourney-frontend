@@ -1,16 +1,24 @@
-.navbar {
-  ul {
-    list-style: none;
+@use '../../styles/variables' as v;
+
+.header-navbar {
+  font-weight: 400;
+  font-size: v.$font-size;
+
+  &-list {
     display: flex;
-    justify-content: space-around;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 4rem;
+    list-style: none;
   }
 
-  a {
+  &-list-link {
     text-decoration: none;
-    color: #333;
-    padding: 10px;
+    color: v.$color-text;
+    font-weight: 600;
+
     &:hover {
-      color: #007bff;
+      color: v.$color-primary;
     }
   }
 }

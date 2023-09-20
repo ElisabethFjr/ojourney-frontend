@@ -1,11 +1,13 @@
 // COLORS
-$color-bg: #fbfbfb;
-$color-white: #fff;
-$color-text: #1a1616;
-$color-primary: #ff805c;
+$color-primary: #ff8a5c;
+$color-primary-lightest: lighten($color-primary, 22%);
 $color-primary-darkest: darken($color-primary, 8%);
-$color-grey-light: #fbfbfb;
-$color-grey-dark: #e6e4e4;
+$color-grey: #e2e1e1;
+$color-grey-lightest: lighten($color-grey, 8%);
+$color-grey-darkest: darken($color-grey, 20%);
+$color-text: #1a1616;
+$color-bg: lighten($color-primary, 31%);
+$color-white: #fff;
 
 // LAYOUT
 $gutter: 1.6rem;
@@ -13,3 +15,4 @@ $border-radius: 0.5rem;
 
 // FONT
 $font: 'Nunito';
+$font-size: 1rem;
