@@ -5,6 +5,7 @@ import Home from '../../pages/Home/Home';
 import SignInUp from '../../pages/SignInUp/SignInUp';
 import Footer from '../../layout/Footer/Footer';
 import './App.scss';
+import Profil from '../../pages/Profil/Profil';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signInSignUp" element={<SignInUp />} />
+        <Route path="/profil" element={<Profil />} />
       </Routes>
       <Footer />
     </div>
