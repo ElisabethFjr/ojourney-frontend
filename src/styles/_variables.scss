@@ -1,3 +1,15 @@
-$color: #fff;
-$color-primary: #61dafb;
-$color-bg: #282c34;
+// COLORS
+$color-bg: #fbfbfb;
+$color-white: #fff;
+$color-text: #1a1616;
+$color-primary: #ff805c;
+$color-primary-darkest: darken($color-primary, 8%);
+$color-grey-light: #fbfbfb;
+$color-grey-dark: #e6e4e4;
+
+// LAYOUT
+$gutter: 1.6rem;
+$border-radius: 0.5rem;
+
+// FONT
+$font: 'Nunito';
