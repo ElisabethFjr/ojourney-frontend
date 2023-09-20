@@ -1,33 +1,68 @@
 import { NavLink } from 'react-router-dom';
 import './Navbar.scss';
 
-function Navbar() {
+interface NavbarProps {
+  homePageStyle: boolean;
+}
+
+function Navbar({ homePageStyle }: NavbarProps) {
   return (
     <nav className="header-navbar">
       <ul className="header-navbar-list">
         <li>
-          <NavLink to="/signInSignUp" className="header-navbar-list-link">
-            S&apos;inscrire/Se Connecter
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/" className="header-navbar-list-link">
+          <NavLink
+            to="/"
+            className={
+              homePageStyle
+                ? 'header-navbar-list-link header-navbar-list-link--white'
+                : 'header-navbar-list-link'
+            }
+          >
             Mes voyages
           </NavLink>
         </li>
         <li>
-          <NavLink to="/" className="header-navbar-list-link">
+          <NavLink
+            to="/"
+            className={
+              homePageStyle
+                ? 'header-navbar-list-link header-navbar-list-link--white'
+                : 'header-navbar-list-link'
+            }
+          >
             Nouveau voyage
           </NavLink>
         </li>
         <li>
-          <NavLink to="/" className="header-navbar-list-link">
+          <NavLink
+            to="/"
+            className={
+              homePageStyle
+                ? 'header-navbar-list-link header-navbar-list-link--white'
+                : 'header-navbar-list-link'
+            }
+          >
             Profil
           </NavLink>
         </li>
         <li>
-          <NavLink to="/" className="header-navbar-list-link">
+          <NavLink
+            to="/"
+            className={
+              homePageStyle
+                ? 'header-navbar-list-link header-navbar-list-link--white'
+                : 'header-navbar-list-link'
+            }
+          >
             Se déconnecter
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/signInSignUp"
+            className="header-navbar-list-link signin-signup"
+          >
+            Se Connecter/S&apos;inscrire
           </NavLink>
         </li>
       </ul>

@@ -12,8 +12,18 @@
   box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.3);
   z-index: 1;
 
+  &--transparent {
+    background: none;
+    box-shadow: none;
+  }
+
   &-logo-link {
     text-decoration: none;
     color: v.$color-text;
+
+    &--white {
+      text-decoration: none;
+      color: v.$color-white;
+    }
   }
 }

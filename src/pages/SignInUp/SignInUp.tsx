@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import SignInForm from '../../components/SignInForm/SignInForm';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
-import Header from '../../layout/Header/Header';
-import Footer from '../../layout/Footer/Footer';
 
 import './SignInUp.scss';
 

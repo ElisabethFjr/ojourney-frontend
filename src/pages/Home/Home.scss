@@ -1,7 +1,62 @@
+@use '../../styles/variables' as v;
+
 .home {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   flex-grow: 1;
-  margin-top: 4.5rem;
+  background-image: url('../../assets/Images/anders-jilden-cYrMQA7a3Wc-unsplash.jpg');
+  background-position: center;
+  background-size: cover;
+
+  &-container {
+    width: 100%;
+
+    &-box {
+      max-width: 950px;
+      width: 100%;
+      padding: 0 6%;
+    }
+  }
+
+  &-title {
+    padding-bottom: 2rem;
+    color: v.$color-white;
+    font-weight: 900;
+    font-size: 3.5rem;
+    line-height: 1.4;
+
+    & span {
+      color: v.$color-primary;
+    }
+  }
+
+  &-overview {
+    max-width: 480px;
+    width: 100%;
+    padding-bottom: 2rem;
+    color: v.$color-white;
+    font-size: 1.1rem;
+  }
+
+  &-button {
+    padding: 0.6rem v.$gutter;
+    background-color: v.$color-primary;
+    border: none;
+    border-radius: v.$border-radius;
+    font-weight: 600;
+    font-size: v.$font-size;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &-link {
+      color: v.$color-white;
+      text-decoration: none;
+    }
+
+    &:hover {
+      background-color: v.$color-primary-darkest;
+    }
+  }
 }

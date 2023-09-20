@@ -7,10 +7,16 @@
   color: v.$color-white;
   text-align: center;
 
+  &--transparent {
+    background-color: #1b3856;
+    position: absolute;
+    bottom: 0;
+  }
+
   &-nav {
     display: flex;
     justify-content: center;
-    gap: 4rem;
+    gap: 2rem;
     &-link {
       text-decoration: none;
       color: v.$color-white;
