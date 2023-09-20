@@ -1,12 +1,8 @@
 import './Footer.scss';
 
-interface FooterProps {
-  homePageStyle: boolean;
-}
-
-function Footer({ homePageStyle }: FooterProps) {
+function Footer() {
   return (
-    <footer className={homePageStyle ? 'footer footer--transparent' : 'footer'}>
+    <footer className="footer">
       <div className="footer-nav">
         <a className="footer-nav-link" href="/about">
           A propos

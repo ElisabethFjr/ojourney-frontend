@@ -3,26 +3,15 @@ import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './Header.scss';
 
-interface HeaderProps {
-  homePageStyle: boolean;
-}
-
-function Header({ homePageStyle }: HeaderProps) {
+function Header() {
   return (
-    <header className={homePageStyle ? 'header header--transparent' : 'header'}>
+    <header className="header">
       <h1 className="header-logo">
-        <Link
-          className={
-            homePageStyle
-              ? 'header-logo-link header-logo-link--white'
-              : 'header-logo-link'
-          }
-          to="/"
-        >
+        <Link className="header-logo-link" to="/">
           O&apos;Journey
         </Link>
       </h1>
-      <Navbar homePageStyle={homePageStyle} />
+      <Navbar />
     </header>
   );
 }

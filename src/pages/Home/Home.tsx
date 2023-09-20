@@ -7,14 +7,15 @@ function Home() {
       <div className="home-container">
         <div className="home-container-box">
           <h1 className="home-title">
-            Explorons le monde ensemble avec <span>O&apos;Journey.</span>
+            Organisez vos voyages en groupe avec <span>O&apos;Journey.</span>
           </h1>
           <p className="home-overview">
-            Simplifiez la planification de votre voyage en couple, entre amis ou
-            en famille. Regroupez informations et idées, décidez ensemble et
-            vivez des aventures inoubliables.
+            Simplifiez la planification de votre futur voyages avec vos proches.
+            Regroupez informations et idées, décidez ensemble et vivez des
+            aventures inoubliables. Connectez-vous ou créez un compte pour
+            commencer.
           </p>
-          <ButtonColor text="Commencer" to="/SignInSignUp" />
+          <ButtonColor text="Commencer à planifier" to="/SignInSignUp" />
         </div>
       </div>
     </main>
