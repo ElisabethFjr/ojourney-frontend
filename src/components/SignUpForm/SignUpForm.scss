@@ -1,0 +1,26 @@
+@use '../../styles/variables' as v;
+
+.form {
+  &-title {
+    margin-bottom: 1.8rem;
+    font-size: 2rem;
+  }
+
+  &-submit-button {
+    width: 100%;
+    margin-bottom: 3rem;
+    padding: 0.6rem;
+    background-color: v.$color-primary;
+    border: none;
+    border-radius: v.$border-radius;
+    color: v.$color-white;
+    font-weight: 600;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: v.$color-primary-darkest;
+    }
+  }
+}

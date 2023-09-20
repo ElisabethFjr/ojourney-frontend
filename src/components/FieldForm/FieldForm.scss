@@ -1,0 +1,30 @@
+@use '../../styles/variables' as v;
+
+.field {
+  margin-bottom: v.$gutter;
+
+  &-input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid v.$color-grey-dark;
+    border-radius: v.$border-radius;
+    font-weight: 300;
+    transition: all 0.3s ease;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
