@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-
+import ButtonColor from '../../components/ButtonColor/ButtonColor';
 import './Home.scss';
 
 function Home() {
@@ -15,11 +14,7 @@ function Home() {
             en famille. Regroupez informations et idées, décidez ensemble et
             vivez des aventures inoubliables.
           </p>
-          <button className="home-button" type="button">
-            <Link to="/SignInSignUp" className="home-button-link">
-              Commencer
-            </Link>
-          </button>
+          <ButtonColor text="Commencer" to="/SignInSignUp" />
         </div>
       </div>
     </main>

@@ -1,4 +1,5 @@
 import FieldForm from '../FieldForm/FieldForm';
+import ButtonForm from '../ButtonSubmit/ButtonSubmit';
 import './SignInForm.scss';
 
 function SignInForm() {
@@ -8,9 +9,7 @@ function SignInForm() {
       <form className="form-element">
         <FieldForm name="email" placeholder="Email" type="email" />
         <FieldForm name="password" placeholder="Mot de passe" type="password" />
-        <button className="form-submit-button" type="submit">
-          Se Connecter
-        </button>
+        <ButtonForm text="Se Connecter" />
       </form>
     </div>
   );

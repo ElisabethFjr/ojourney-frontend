@@ -1,0 +1,21 @@
+@use './../../styles/variables' as v;
+
+.button--color {
+  padding: 0.6rem v.$gutter;
+  background-color: v.$color-primary;
+  border: none;
+  border-radius: v.$border-radius;
+  font-weight: 600;
+  font-size: v.$font-size;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &-link {
+    color: v.$color-white;
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: v.$color-primary-darkest;
+  }
+}
