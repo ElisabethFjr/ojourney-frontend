@@ -6,11 +6,17 @@ function SignInForm() {
   return (
     <div className="form-content">
       <form className="form-element">
-        <InputField name="email" placeholder="Email" type="email" />
+        <InputField
+          name="email"
+          placeholder="Email"
+          type="email"
+          icon="fa-solid fa-at"
+        />
         <InputField
           name="password"
           placeholder="Mot de passe"
           type="password"
+          icon="fa-solid fa-lock"
         />
         <ButtonForm text="Se Connecter" />
       </form>

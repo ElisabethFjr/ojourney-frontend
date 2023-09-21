@@ -6,23 +6,39 @@ import Main from '../../layout/Main/Main';
 import './CreateTrip.scss';
 
 function CreateTrip() {
+  const handleFile = (file: File) => {
+    console.log('Fichier sélectionné :', file);
+  };
+
   return (
     <Main>
       <h1 className="main-title">Créer un nouveau voyage</h1>
       <form className="form-container">
         <h2 className="form-title">Nouveau voyage</h2>
-        <InputField name="localisation" placeholder="Destination" type="text" />
+        <InputField
+          name="localisation"
+          placeholder="Destination"
+          type="text"
+          icon="fa-solid fa-location-dot"
+        />
         <InputField
           name="date_start"
           placeholder="Date de départ"
           type="date"
+          icon=""
         />
-        <InputField name="date_end" placeholder="Date de retour" type="date" />
+        <InputField
+          name="date_end"
+          placeholder="Date de retour"
+          type="date"
+          icon=""
+        />
         <TextareaField
           name="description"
           placeholder="Description du voyage (facultatif)"
+          icon="fa-solid fa-pen-nib"
         />
-        <InputFieldImage />
+        <InputFieldImage handleFile={handleFile} />
         <ButtonSubmit text="Créer le voyage" />
       </form>
     </Main>

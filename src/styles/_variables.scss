@@ -1,6 +1,7 @@
 // COLORS
 $color-primary: #ff7d5c;
-$color-primary-lightest: lighten($color-primary, 10%);
+$color-primary-lightest: lighten($color-primary, 20%);
+$color-primary-lightest2: lighten($color-primary, 28%);
 $color-primary-darkest: darken($color-primary, 8%);
 $color-accent: #1b3856;
 $color-grey: #e8ebee;
@@ -9,7 +10,7 @@ $color-grey-darkest: darken($color-grey, 36%);
 $color-text: #12273c;
 $color-bg: lighten($color-primary, 31%);
 $color-white: #fff;
-$color-red: rgb(204, 38, 55);
+$color-red: #cc2637;
 
 // LAYOUT
 $gutter: 1.6rem;

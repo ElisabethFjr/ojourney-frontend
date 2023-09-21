@@ -1,33 +1,28 @@
 @use '../../styles/variables' as v;
 
-.field-input-image {
+.field-input-file {
+  display: none;
+}
+
+.field-input-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 0.6rem v.$gutter;
   width: 100%;
-  padding: 0.6rem;
-  //border: 1px solid v.$color-grey;
+  gap: 1rem;
+  background-color: v.$color-white;
+  border: 2px solid v.$color-primary;
   border-radius: v.$border-radius;
-  font-weight: 300;
+  color: v.$color-primary;
+  font-weight: 600;
+  font-size: v.$font-size;
+  cursor: pointer;
   transition: all 0.3s ease;
 
-  &:focus {
-    outline: none;
-    box-shadow: 0px 2px 6px rgba(18, 39, 60, 0.2);
+  &:hover {
+    background-color: v.$color-primary-lightest2;
   }
-}
-
-.field-label-image {
-  background-color: v.$color-white;
-}
-.field {
-  margin-bottom: 1.4rem;
-}
-
-.visually-hidden {
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
 }

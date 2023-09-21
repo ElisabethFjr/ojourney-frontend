@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import './ButtonColor.scss';
 
-interface ButtonColorProps {
+export interface ButtonColorProps {
   text: string;
   to: string;
 }

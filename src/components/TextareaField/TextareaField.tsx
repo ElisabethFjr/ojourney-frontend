@@ -4,9 +4,10 @@ import './TextareaField.scss';
 interface TextareaFieldProps {
   name: string;
   placeholder: string;
+  icon: string;
 }
 
-function TextareaField({ name, placeholder }: TextareaFieldProps) {
+function TextareaField({ name, placeholder, icon }: TextareaFieldProps) {
   const [value, setValue] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -18,14 +19,17 @@ function TextareaField({ name, placeholder }: TextareaFieldProps) {
       <label className="field-label visually-hidden" htmlFor={name}>
         {placeholder}
       </label>
-      <textarea
-        className="field-textarea"
-        value={value}
-        onChange={handleChange}
-        name={name}
-        placeholder={placeholder}
-        id={name}
-      />
+      <div className="field-container icon-textarea">
+        <i className={icon} />
+        <textarea
+          className="field-textarea"
+          value={value}
+          onChange={handleChange}
+          name={name}
+          placeholder={placeholder}
+          id={name}
+        />
+      </div>
     </div>
   );
 }
