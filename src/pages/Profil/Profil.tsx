@@ -1,8 +1,11 @@
+import Main from '../../layout/Main/Main';
+import ButtonColor from '../../components/ButtonColor/ButtonColor';
 import './Profil.scss';
+import ButtonDanger from '../../components/ButtonDanger/ButtonDanger';
 
 function Profil() {
   return (
-    <main className="main-profil">
+    <Main>
       <h1>Profil</h1>
 
       <div className="main-information">
@@ -11,9 +14,7 @@ function Profil() {
         <p>Mot de pass : </p>
         <p>Projet voyage(s) en cours :</p>
 
-        <button className="button-profil" type="button">
-          Modifier infos
-        </button>
+        <ButtonColor text="Modifier les informations" to="#" />
       </div>
 
       <div className="main-data">
@@ -23,9 +24,7 @@ function Profil() {
           Vous pouvez à tout moment consulter toutes les données vous concernant
           recueillies par l&apos;application
         </p>
-        <button className="button-profil" type="button">
-          Télécharger mes données
-        </button>
+        <ButtonColor text="Télécharger mes données" to="#" />
       </div>
 
       <div className="main-consent">
@@ -37,9 +36,8 @@ function Profil() {
             <li>Newsletter : Autorisé</li>
           </ul>
         </p>
-        <button className="button-profil" type="button">
-          Modifier mes consentements
-        </button>
+
+        <ButtonColor text="Modifier mes consentements" to="#" />
       </div>
 
       <div className="main-delete">
@@ -49,11 +47,9 @@ function Profil() {
           de toutes les données vous concernant. Cette action est définitive et
           irréversible
         </p>
-        <button className="button-profil" type="button">
-          Supprimer compte
-        </button>
+        <ButtonDanger text="Supprimer le compte" />
       </div>
-    </main>
+    </Main>
   );
 }
 
