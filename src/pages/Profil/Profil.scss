@@ -12,8 +12,7 @@
 }
 
 h1 {
-
-  margin-bottom: 1.8rem;
+  margin: 2;
   font-size: 2rem;
   }
 
@@ -24,7 +23,7 @@ h2 {
 
 .main-information, .main-data, .main-consent, .main-delete {
   
-  width: 650px;
+  width: 700px;
   height: 160px;
   padding: v.$gutter;
   background-color: v.$color-white;
@@ -48,6 +47,7 @@ button {
   cursor: pointer;
   transition: all 0.3s ease;
   float: right;
+  padding: 5px;
 
 }
 
