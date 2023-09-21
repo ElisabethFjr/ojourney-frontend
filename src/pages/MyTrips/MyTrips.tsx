@@ -7,36 +7,32 @@ import bin from '../../assets/Images/bin.png';
 export default function MyTrips() {
   return (
     <main>
-      <div className="MyTrip">
+      <div className="trips">
         <div>
-          <h1 className="MyTrip-title">Mes Voyages</h1>
+          <h1 className="trips-title">Mes Voyages</h1>
         </div>
-        <img className="MyTrip-plane" src={plane} alt="avion" />
-        <p className="MyTrip-text">Aucun voyage disponible.</p>
+        <img className="trips-plane" src={plane} alt="avion" />
+        <p className="trips-text">Aucun voyage disponible.</p>
         <p>Commencez en créant un nouveau voyage.</p>
 
-        <Link to="/" className="MyTrip-button-trip">
+        <Link to="/" className="trips-button-trip">
           + Créer un nouveau voyage
         </Link>
       </div>
-      <div className="MyTrips">
-        <h1 className="MyTrips-title">Mes Voyages</h1>
-        <article className="MyTrips-item">
-          <img className="MyTrips-item-plane" src={plane} alt="" />
-          <div className="MyTrips-item-form">
-            <div className="MyTrips-item-bloc">
-              <h1 className="MyTrips-item-bloc-title">Titre du voyage</h1>
-              <div className="Mytrips-item-bloc-logo">
+      <div className="trips">
+        <h1 className="trips-title">Mes Voyages</h1>
+        <article className="trips-item">
+          <img className="trips-item-plane" src={plane} alt="" />
+          <div className="trips-item-form">
+            <div className="trips-item-bloc">
+              <h1 className="trips-item-bloc-title">Titre du voyage</h1>
+              <div className="trips-item-bloc-logo">
                 <img
                   src={pencil}
                   alt="edit"
-                  className="MyTrips-item-bloc-logo-one"
+                  className="trips-item-bloc-logo-one"
                 />
-                <img
-                  src={bin}
-                  alt="bin"
-                  className="MyTrips-item-bloc-logo-two"
-                />
+                <img src={bin} alt="bin" className="trips-item-bloc-logo-two" />
               </div>
             </div>
             <h3>
@@ -45,7 +41,7 @@ export default function MyTrips() {
                 XXX
               </Link>
             </h3>
-            <p className="MyTrips-item-description">
+            <p className="trips-item-description">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
               molestiae fugit in saepe laudantium accusantium veritatis quidem
               cupiditate error, optio minus, magnam a temporibus consequuntur!
@@ -53,22 +49,18 @@ export default function MyTrips() {
             </p>
           </div>
         </article>
-        <article className="MyTrips-item">
-          <img className="MyTrips-item-plane" src={plane} alt="" />
-          <div className="MyTrips-item-form">
-            <div className="MyTrips-item-bloc">
-              <h1 className="MyTrips-item-bloc-title">Titre du voyage</h1>
-              <div className="Mytrips-item-bloc-logo">
+        <article className="trips-item">
+          <img className="trips-item-plane" src={plane} alt="" />
+          <div className="trips-item-form">
+            <div className="trips-item-bloc">
+              <h1 className="trips-item-bloc-title">Titre du voyage</h1>
+              <div className="trips-item-bloc-logo">
                 <img
                   src={pencil}
                   alt="edit"
-                  className="MyTrips-item-bloc-logo-one"
+                  className="trips-item-bloc-logo-one"
                 />
-                <img
-                  src={bin}
-                  alt="bin"
-                  className="MyTrips-item-bloc-logo-two"
-                />
+                <img src={bin} alt="bin" className="trips-item-bloc-logo-two" />
               </div>
             </div>
             <h3>
@@ -77,7 +69,7 @@ export default function MyTrips() {
                 XXX
               </Link>
             </h3>
-            <p className="MyTrips-item-description">
+            <p className="trips-item-description">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
               molestiae fugit in saepe laudantium accusantium veritatis quidem
               cupiditate error, optio minus, magnam a temporibus consequuntur!
@@ -85,22 +77,18 @@ export default function MyTrips() {
             </p>
           </div>
         </article>
-        <article className="MyTrips-item">
-          <img className="MyTrips-item-plane" src={plane} alt="" />
-          <div className="MyTrips-item-form">
-            <div className="MyTrips-item-bloc">
-              <h1 className="MyTrips-item-bloc-title">Titre du voyage</h1>
-              <div className="Mytrips-item-bloc-logo">
+        <article className="trips-item">
+          <img className="trips-item-plane" src={plane} alt="" />
+          <div className="trips-item-form">
+            <div className="trips-item-bloc">
+              <h1 className="trips-item-bloc-title">Titre du voyage</h1>
+              <div className="trips-item-bloc-logo">
                 <img
                   src={pencil}
                   alt="edit"
-                  className="MyTrips-item-bloc-logo-one"
+                  className="trips-item-bloc-logo-one"
                 />
-                <img
-                  src={bin}
-                  alt="bin"
-                  className="MyTrips-item-bloc-logo-two"
-                />
+                <img src={bin} alt="bin" className="trips-item-bloc-logo-two" />
               </div>
             </div>
             <h3>
@@ -109,7 +97,7 @@ export default function MyTrips() {
                 XXX
               </Link>
             </h3>
-            <p className="MyTrips-item-description">
+            <p className="trips-item-description">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
               molestiae fugit in saepe laudantium accusantium veritatis quidem
               cupiditate error, optio minus, magnam a temporibus consequuntur!

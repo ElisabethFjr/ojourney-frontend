@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <nav className="header-navbar">
       <ul className="header-navbar-list">
-       <li>
+        <li>
           <NavLink to="/MyTrips" className="header-navbar-list-link">
             Mes voyages
           </NavLink>

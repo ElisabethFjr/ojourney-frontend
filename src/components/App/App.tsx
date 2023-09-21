@@ -1,13 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
 
 import Header from '../../layout/Header/Header';
+import Footer from '../../layout/Footer/Footer';
+
 import Home from '../../pages/Home/Home';
 import SignInUp from '../../pages/SignInUp/SignInUp';
 import CreateTrip from '../../pages/CreateTrip/CreateTrip';
-import Footer from '../../layout/Footer/Footer';
 import MyTrips from '../../pages/MyTrips/MyTrips';
-import './App.scss';
 import Profil from '../../pages/Profil/Profil';
+
+import './App.scss';
 
 function App() {
   return (
