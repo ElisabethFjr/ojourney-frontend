@@ -1,8 +1,8 @@
 import './MyTrips.scss';
 import { Link } from 'react-router-dom';
-import plane from '../../assets/Images/plane.png';
-import pencil from '../../assets/Images/pencil.png';
-import bin from '../../assets/Images/bin.png';
+import plane from '../../assets/images/plane.png';
+import pencil from '../../assets/images/pencil.png';
+import bin from '../../assets/images/bin.png';
 
 export default function MyTrips() {
   return (
