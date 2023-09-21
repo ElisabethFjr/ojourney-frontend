@@ -20,5 +20,22 @@
     &:hover {
       color: v.$color-primary;
     }
+
+    &.signin-signup {
+      padding: 0.6rem v.$gutter;
+      border: 2px solid v.$color-primary;
+      border-radius: v.$border-radius;
+      color: v.$color-primary;
+      font-weight: 600;
+      font-size: v.$font-size;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: v.$color-white;
+        border: 2px solid v.$color-primary-darkest;
+        background-color: v.$color-primary-darkest;
+      }
+    }
   }
 }

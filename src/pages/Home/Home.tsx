@@ -1,20 +1,23 @@
-import { Link } from 'react-router-dom';
-
+import ButtonColor from '../../components/ButtonColor/ButtonColor';
 import './Home.scss';
 
 function Home() {
   return (
-    <main className="main home">
-      <h1>Voici notre site O&apos;journey</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis tempora
-        neque tenetur nostrum fugit cupiditate consequuntur odit dignissimos
-        reprehenderit, doloremque aliquam deserunt voluptas aliquid in possimus
-        unde iure facere impedit.
-      </p>
-      <button type="button">
-        <Link to="/SignInSignUp">S&apos;inscrire/Se connecter</Link>
-      </button>
+    <main className="home">
+      <div className="home-container">
+        <div className="home-container-box">
+          <h1 className="home-title">
+            Organisez vos voyages en groupe avec <span>O&apos;Journey.</span>
+          </h1>
+          <p className="home-overview">
+            Simplifiez la planification de votre futur voyages avec vos proches.
+            Regroupez informations et idées, décidez ensemble et vivez des
+            aventures inoubliables. Connectez-vous ou créez un compte pour
+            commencer.
+          </p>
+          <ButtonColor text="Commencer à planifier" to="/SignInSignUp" />
+        </div>
+      </div>
     </main>
   );
 }

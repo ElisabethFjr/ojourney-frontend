@@ -1,10 +1,10 @@
-import FieldForm from '../FieldForm/FieldForm';
+import FieldForm from '../InputField/InputField';
+import ButtonForm from '../ButtonSubmit/ButtonSubmit';
 import './SignUpForm.scss';
 
 function SignUpForm() {
   return (
     <div className="form-content">
-      <h1 className="form-title">Créez un compte</h1>
       <form className="form-element">
         <FieldForm name="lastname" placeholder="Nom" type="text" />
         <FieldForm name="firstname" placeholder="Prénom" type="text" />
@@ -15,9 +15,7 @@ function SignUpForm() {
           placeholder="Mot de passe (confirmation)"
           type="password"
         />
-        <button className="form-submit-button" type="submit">
-          S&apos;inscrire
-        </button>
+        <ButtonForm text="S'inscrire" />
       </form>
     </div>
   );

@@ -1,7 +1,46 @@
+@use '../../styles/variables' as v;
+
 .home {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   flex-grow: 1;
   margin-top: 4.5rem;
+  width: 100%;
+  min-height: 100%;
+  background-image: url('../../assets/images/anders-jilden-cYrMQA7a3Wc-unsplash.jpg');
+  background-position: left;
+  background-size: cover;
+
+  &-container {
+    width: 100%;
+
+    &-box {
+      max-width: 950px;
+      width: 100%;
+      padding: 0 6%;
+    }
+  }
+
+  &-title {
+    padding-bottom: 2rem;
+    color: v.$color-white;
+    font-weight: 900;
+    font-size: 3.5rem;
+    line-height: 1.4;
+
+    & span {
+      color: v.$color-primary;
+    }
+  }
+
+  &-overview {
+    max-width: 480px;
+    width: 100%;
+    padding-bottom: 2rem;
+    color: v.$color-white;
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
 }

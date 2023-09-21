@@ -5,18 +5,13 @@ function Navbar() {
   return (
     <nav className="header-navbar">
       <ul className="header-navbar-list">
-        <li>
-          <NavLink to="/signInSignUp" className="header-navbar-list-link">
-            S&apos;inscrire/Se Connecter
-          </NavLink>
-        </li>
-        <li>
+       <li>
           <NavLink to="/MyTrips" className="header-navbar-list-link">
             Mes voyages
           </NavLink>
         </li>
         <li>
-          <NavLink to="/" className="header-navbar-list-link">
+          <NavLink to="/createTrip" className="header-navbar-list-link">
             Nouveau voyage
           </NavLink>
         </li>
@@ -28,6 +23,14 @@ function Navbar() {
         <li>
           <NavLink to="/" className="header-navbar-list-link">
             Se déconnecter
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/signInSignUp"
+            className="header-navbar-list-link signin-signup"
+          >
+            Se Connecter/S&apos;inscrire
           </NavLink>
         </li>
       </ul>

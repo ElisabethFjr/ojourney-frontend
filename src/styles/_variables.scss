@@ -1,11 +1,12 @@
 // COLORS
-$color-primary: #ff8a5c;
+$color-primary: #ff7d5c;
 $color-primary-lightest: lighten($color-primary, 22%);
 $color-primary-darkest: darken($color-primary, 8%);
-$color-grey: #e2e1e1;
-$color-grey-lightest: lighten($color-grey, 8%);
+$color-accent: #1b3856;
+$color-grey: #e8ebee;
+$color-grey-lightest: lighten($color-grey, 4%);
 $color-grey-darkest: darken($color-grey, 20%);
-$color-text: #1a1616;
+$color-text: #12273c;
 $color-bg: lighten($color-primary, 31%);
 $color-white: #fff;
 

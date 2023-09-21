@@ -3,14 +3,14 @@
 .footer {
   width: 100%;
   padding: 1.4rem;
-  background-color: v.$color-grey-darkest;
+  background-color: v.$color-accent;
   color: v.$color-white;
   text-align: center;
 
   &-nav {
     display: flex;
     justify-content: center;
-    gap: 4rem;
+    gap: 2rem;
     &-link {
       text-decoration: none;
       color: v.$color-white;
