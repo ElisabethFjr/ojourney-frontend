@@ -9,7 +9,7 @@ function Profil()
     <h1>Profil</h1>
 
 <div className="main-information">
-<h2>Vos informations</h2>
+<h2>Vos informations :</h2>
 <p>Email : </p>
 <p>Mot de pass : </p>
 <p>Projet voyage(s) en cours :</p>
@@ -20,7 +20,7 @@ function Profil()
 </div>
 
 <div className="main-data">
-<h2>Vos données</h2>
+<h2>Vos données :</h2>
 
 <p>Vous pouvez à tout moment consulter toutes les données vous concernant recueillies par l'application</p>
 <button type="button-data">
@@ -29,7 +29,7 @@ function Profil()
 </div>
 
 <div className="main-consent">
-<h2>Traitement de vos données</h2>
+<h2>Traitement de vos données :</h2>
 <p>Vos choix pour le traitement de vos données sont les suivants : 
   <ul>
 <li>Usage commercial : Refusé</li>
@@ -42,7 +42,7 @@ function Profil()
 </div>
 
 <div className="main-delete">
-<h2>Droits à l'oubli</h2>
+<h2>Droits à l'oubli : </h2>
 <p>Vous pouvez à tout moment demander la suppression de votre compte et de toutes les données vous concernant.
   Cette action est définitive et irréversible
 </p>
