@@ -11,7 +11,7 @@ function Navbar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/" className="header-navbar-list-link">
+          <NavLink to="/MyTrips" className="header-navbar-list-link">
             Mes voyages
           </NavLink>
         </li>
