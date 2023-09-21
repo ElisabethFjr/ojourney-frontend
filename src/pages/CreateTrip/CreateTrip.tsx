@@ -1,5 +1,6 @@
 import ButtonSubmit from '../../components/ButtonSubmit/ButtonSubmit';
 import InputField from '../../components/InputField/InputField';
+import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';
 import Main from '../../layout/Main/Main';
 import './CreateTrip.scss';
@@ -21,6 +22,7 @@ function CreateTrip() {
           name="description"
           placeholder="Description du voyage (facultatif)"
         />
+        <InputFieldImage />
         <ButtonSubmit text="Créer le voyage" />
       </form>
     </Main>
