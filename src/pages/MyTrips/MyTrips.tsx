@@ -2,8 +2,6 @@ import Main from '../../layout/Main/Main';
 import ButtonColor from '../../components/ButtonColor/ButtonColor';
 
 import plane from '../../assets/images/plane.png';
-import pencil from '../../assets/images/pencil.png';
-import bin from '../../assets/images/bin.png';
 
 import './MyTrips.scss';
 import TripCard from '../../components/TripCard/TripCard';
