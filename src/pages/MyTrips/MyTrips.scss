@@ -1,6 +1,6 @@
 @use '../../styles/variables' as v;
 
-.MyTrips {
+.MyTrip {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,13 +8,16 @@
   flex-grow: 1;
   margin-top: 4.5rem;
 }
-.plane {
-  width: 40%;
+.MyTrip-title {
+  color: v.$color-primary;
 }
-.text {
+.MyTrip-plane {
+  width: 10%;
+}
+.MyTrip-text {
   font-weight: bold;
 }
-.create-trip {
+.MyTrip-button-trip {
   display: inline-block;
   padding: 10px 20px;
   background-color: v.$color-primary;
@@ -22,6 +25,7 @@
   text-decoration: none;
   border-radius: 4px;
   font-size: 16px;
+  margin: v.$gutter;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 
@@ -39,7 +43,7 @@
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Ajoute un focus pour l'accessibilité */
   }
 }
-.MyTrips2 {
+.MyTrips {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,17 +52,47 @@
   margin-top: 4.5rem;
   overflow-y: auto;
 }
-.plane2 {
-  width: 20%;
-}
-.item {
+.MyTrips-item {
   display: flex;
   flex-direction: row;
   width: 50%;
+  border: 1px solid black;
+  margin: v.$gutter;
 }
-.form {
+.MyTrips-title {
+  color: v.$color-primary;
+}
+.MyTrips-item-plane {
+  width: 20%;
+  border: 1px solid black;
+}
+.MyTrips-item-form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: v.$gutter;
+}
+.MyTrips-item-bloc {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.Mytrips-item-bloc-logo {
+  display: flex;
+  gap: 1rem;
+}
+.MyTrips-item-bloc-logo-one {
+  display: flex;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: v.$color-primary;
+}
+.MyTrips-item-bloc-logo-two {
+  display: flex;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: v.$color-primary;
 }
