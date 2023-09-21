@@ -4,15 +4,19 @@ import './ButtonColor.scss';
 
 interface ButtonColorProps {
   text: string;
-  to: string;
+  to?: string;
 }
 
 function ButtonColor({ text, to }: ButtonColorProps) {
   return (
     <button className="button--color" type="button">
-      <Link to={to} className="button--color-link">
-        {text}
-      </Link>
+      {to ? (
+        <Link to={to} className="button--color-link">
+          {text}
+        </Link>
+      ) : (
+        { text }
+      )}
     </button>
   );
 }
