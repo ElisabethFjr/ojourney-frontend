@@ -1,98 +1,95 @@
 @use '../../styles/variables' as v;
 
-.MyTrip {
+.trips {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
   margin-top: 4.5rem;
-}
-.MyTrip-title {
-  color: v.$color-primary;
-}
-.MyTrip-plane {
-  width: 10%;
-}
-.MyTrip-text {
-  font-weight: bold;
-}
-.MyTrip-button-trip {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: v.$color-primary;
-  color: v.$color-white;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 16px;
-  margin: v.$gutter;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
 
-  &:hover {
-    background-color: v.$color-grey-darkest;
+  &-title {
     color: v.$color-primary;
   }
 
-  &:active {
-    background-color: #004a99;
+  &-plane {
+    width: 10%;
   }
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Ajoute un focus pour l'accessibilité */
+  &-text {
+    font-weight: bold;
   }
-}
-.MyTrips {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  margin-top: 4.5rem;
-  overflow-y: auto;
-}
-.MyTrips-item {
-  display: flex;
-  flex-direction: row;
-  width: 50%;
-  border: 1px solid black;
-  margin: v.$gutter;
-}
-.MyTrips-title {
-  color: v.$color-primary;
-}
-.MyTrips-item-plane {
-  width: 20%;
-  border: 1px solid black;
-}
-.MyTrips-item-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: v.$gutter;
-}
-.MyTrips-item-bloc {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-}
-.Mytrips-item-bloc-logo {
-  display: flex;
-  gap: 1rem;
-}
-.MyTrips-item-bloc-logo-one {
-  display: flex;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  background-color: v.$color-primary;
-}
-.MyTrips-item-bloc-logo-two {
-  display: flex;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  background-color: v.$color-primary;
+
+  &-button-trip {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: v.$color-primary;
+    color: v.$color-white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin: v.$gutter;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: v.$color-grey-darkest;
+      color: v.$color-primary;
+    }
+
+    &:active {
+      background-color: #004a99;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Ajoute un focus pour l'accessibilité */
+    }
+  }
+
+  &-item {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    border: 1px solid black;
+    margin: v.$gutter;
+
+    &-plane {
+      width: 20%;
+      border: 1px solid black;
+    }
+    &-form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: v.$gutter;
+    }
+    &-bloc {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      &-logo {
+        display: flex;
+        gap: 1rem;
+
+        &-one {
+          display: flex;
+          align-items: center;
+          width: 30px;
+          height: 30px;
+          background-color: v.$color-primary;
+        }
+
+        &-two {
+          display: flex;
+          align-items: center;
+          width: 30px;
+          height: 30px;
+          background-color: v.$color-primary;
+        }
+      }
+    }
+  }
 }

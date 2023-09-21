@@ -8,7 +8,7 @@ function CreateTrip() {
   return (
     <Main>
       <h1 className="main-title">Créer un nouveau voyage</h1>
-      <div className="form-container">
+      <form className="form-container">
         <h2 className="form-title">Nouveau voyage</h2>
         <InputField name="localisation" placeholder="Destination" type="text" />
         <InputField
@@ -22,7 +22,7 @@ function CreateTrip() {
           placeholder="Description du voyage (facultatif)"
         />
         <ButtonSubmit text="Créer le voyage" />
-      </div>
+      </form>
     </Main>
   );
 }
