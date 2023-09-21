@@ -4,66 +4,48 @@
   
   align-items: center;
   justify-content: center;
-  height : 200px;
+  display: flex;
+  flex-direction: column;
   font-size: 0,8rem;
   margin-top: 4.5rem;
   background-color: v.$color-grey-lightest;
 }
+
+h1 {
+
+  margin-bottom: 1.8rem;
+  font-size: 2rem;
+  }
 
 h2 {
 
   font-size: 1rem;
 }
 
-.main-information {
-
-  border: 0.1rem solid;
-  margin-bottom: 2.5rem;
-  padding: 0.5rem;
-  margin-left: 20%;
-  margin-right: 20%;
-  padding-bottom: 2.5rem;
+.main-information, .main-data, .main-consent, .main-delete {
   
-}
-
-.main-data {
   
-  border: 0.1rem solid;
-  margin-bottom: 2.5rem;
-  padding: 0.5rem;
-  margin-left: 20%;
-  margin-right: 20%;
-  padding-bottom: 2.5rem;
-}
-
-.main-consent {
-  
-  border: 0.1rem solid;
-  margin-bottom: 2.5rem;
-  padding: 0.5rem;
-  margin-left: 20%;
-  margin-right: 20%;
-  padding-bottom: 2.5rem;
-}
-
-.main-delete {
-
-  border: 0.1rem solid;
-  margin-bottom: 2.5rem;
-  padding: 0.5rem;
-  margin-left: 20%;
-  margin-right: 20%;
-  padding-bottom: 2.5rem;
-  
+  width: 650px;
+  height: 160px;
+  padding: v.$gutter;
+  background-color: v.$color-white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: v.$border-radius;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 button {
 
   font-weight: 300;
+  background-color: v.$color-primary;
   border: none;
-  border: 3px solid #ff8a5c;
-  background-color: white;
-  color: #ff8a5c;
+  border-radius: v.$border-radius;
+  color: v.$color-white;
+  font-weight: 600;
+  font-size: v.$font-size;
   cursor: pointer;
   transition: all 0.3s ease;
   float: right;
