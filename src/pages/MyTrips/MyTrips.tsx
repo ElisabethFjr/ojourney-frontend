@@ -1,111 +1,46 @@
-import './MyTrips.scss';
-import { Link } from 'react-router-dom';
+import Main from '../../layout/Main/Main';
+import ButtonColor from '../../components/ButtonColor/ButtonColor';
+
 import plane from '../../assets/images/plane.png';
 import pencil from '../../assets/images/pencil.png';
 import bin from '../../assets/images/bin.png';
 
+import './MyTrips.scss';
+import TripCard from '../../components/TripCard/TripCard';
+
 export default function MyTrips() {
   return (
-    <main>
-      <div className="trips">
-        <div>
-          <h1 className="trips-title">Mes Voyages</h1>
-        </div>
-        <img className="trips-plane" src={plane} alt="avion" />
-        <p className="trips-text">Aucun voyage disponible.</p>
-        <p>Commencez en créant un nouveau voyage.</p>
-
-        <Link to="/" className="trips-button-trip">
-          + Créer un nouveau voyage
-        </Link>
-      </div>
-      <div className="trips">
-        <h1 className="trips-title">Mes Voyages</h1>
-        <article className="trips-item">
-          <img className="trips-item-plane" src={plane} alt="" />
-          <div className="trips-item-form">
-            <div className="trips-item-bloc">
-              <h1 className="trips-item-bloc-title">Titre du voyage</h1>
-              <div className="trips-item-bloc-logo">
-                <img
-                  src={pencil}
-                  alt="edit"
-                  className="trips-item-bloc-logo-one"
-                />
-                <img src={bin} alt="bin" className="trips-item-bloc-logo-two" />
-              </div>
-            </div>
-            <h3>
-              Creé par
-              <Link to="/" target="_blank" rel="">
-                XXX
-              </Link>
-            </h3>
-            <p className="trips-item-description">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-              molestiae fugit in saepe laudantium accusantium veritatis quidem
-              cupiditate error, optio minus, magnam a temporibus consequuntur!
-              Nisi maiores quas soluta alias!
-            </p>
-          </div>
-        </article>
-        <article className="trips-item">
-          <img className="trips-item-plane" src={plane} alt="" />
-          <div className="trips-item-form">
-            <div className="trips-item-bloc">
-              <h1 className="trips-item-bloc-title">Titre du voyage</h1>
-              <div className="trips-item-bloc-logo">
-                <img
-                  src={pencil}
-                  alt="edit"
-                  className="trips-item-bloc-logo-one"
-                />
-                <img src={bin} alt="bin" className="trips-item-bloc-logo-two" />
-              </div>
-            </div>
-            <h3>
-              Creé par
-              <Link to="/" target="_blank" rel="">
-                XXX
-              </Link>
-            </h3>
-            <p className="trips-item-description">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-              molestiae fugit in saepe laudantium accusantium veritatis quidem
-              cupiditate error, optio minus, magnam a temporibus consequuntur!
-              Nisi maiores quas soluta alias!
-            </p>
-          </div>
-        </article>
-        <article className="trips-item">
-          <img className="trips-item-plane" src={plane} alt="" />
-          <div className="trips-item-form">
-            <div className="trips-item-bloc">
-              <h1 className="trips-item-bloc-title">Titre du voyage</h1>
-              <div className="trips-item-bloc-logo">
-                <img
-                  src={pencil}
-                  alt="edit"
-                  className="trips-item-bloc-logo-one"
-                />
-                <img src={bin} alt="bin" className="trips-item-bloc-logo-two" />
-              </div>
-            </div>
-            <h3>
-              Creé par
-              <Link to="/" target="_blank" rel="">
-                XXX
-              </Link>
-            </h3>
-            <p className="trips-item-description">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-              molestiae fugit in saepe laudantium accusantium veritatis quidem
-              cupiditate error, optio minus, magnam a temporibus consequuntur!
-              Nisi maiores quas soluta alias!
-            </p>
-          </div>
-        </article>
-      </div>
-    </main>
+    <Main>
+      <h1 className="mytrips-title">Mes Voyages</h1>
+      <section className="no-trip-container">
+        <img className="no-trip-image" src={plane} alt="avion" />
+        <p className="no-trip-message">Aucun voyage disponible.</p>
+        <p className="no-trip-instruction">
+          Commencez en créant un nouveau voyage.
+        </p>
+        <ButtonColor text="Créer un nouveau voyage" to="/createTrip" />
+        <TripCard
+          srcTripImage="https://storage.googleapis.com/twg-content/original_images/Insights_Voyage_2019_Think_with_Google_France-compressed.jpg"
+          altImage="O'Jouney colorado van"
+          authorName="Bidule"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
+          tripTitle="Voyage aux States"
+        />
+        <TripCard
+          srcTripImage="https://storage.googleapis.com/twg-content/original_images/Insights_Voyage_2019_Think_with_Google_France-compressed.jpg"
+          altImage="O'Jouney colorado van"
+          authorName="Bidule"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
+          tripTitle="Voyage aux States"
+        />
+        <TripCard
+          srcTripImage="https://storage.googleapis.com/twg-content/original_images/Insights_Voyage_2019_Think_with_Google_France-compressed.jpg"
+          altImage="O'Jouney colorado van"
+          authorName="Bidule"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
+          tripTitle="Voyage aux States"
+        />
+      </section>
+    </Main>
   );
 }
