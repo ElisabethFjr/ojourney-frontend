@@ -1,4 +1,4 @@
-import FieldForm from '../FieldForm/FieldForm';
+import FieldForm from '../InputField/InputField';
 import ButtonForm from '../ButtonSubmit/ButtonSubmit';
 import './SignUpForm.scss';
 

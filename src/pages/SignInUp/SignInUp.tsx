@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import SignInForm from '../../components/SignInForm/SignInForm';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
+import Main from '../../layout/Main/Main';
 
 import './SignInUp.scss';
 
@@ -12,7 +13,7 @@ function SignInUp() {
   };
 
   return (
-    <main className="main form">
+    <Main>
       <div className="form-container">
         <h1 className="form-title">
           {signIn ? 'Connectez-vous' : 'Créez un compte'}
@@ -43,7 +44,7 @@ function SignInUp() {
         </div>
         {signIn ? <SignInForm /> : <SignUpForm />}
       </div>
-    </main>
+    </Main>
   );
 }
 
