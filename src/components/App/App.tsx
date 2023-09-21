@@ -8,7 +8,7 @@ import SignInUp from '../../pages/SignInUp/SignInUp';
 import CreateTrip from '../../pages/CreateTrip/CreateTrip';
 import MyTrips from '../../pages/MyTrips/MyTrips';
 import Profil from '../../pages/Profil/Profil';
-import ConsulMyTrip from '../../pages/ConsulMyTrip/ConsulMyTrip';
+import ConsulMyTrip from '../../pages/OneTrip/OneTrip';
 
 import './App.scss';
 

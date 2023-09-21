@@ -25,7 +25,7 @@ export default function MyTrips() {
           <img className="trips-item-plane" src={plane} alt="" />
           <div className="trips-item-form">
             <div className="trips-item-bloc">
-              <h1 className="trips-item-bloc-title">Titre du voyage</h1>
+              <h2 className="trips-item-bloc-title">Titre du voyage</h2>
               <div className="trips-item-bloc-logo">
                 <Link to="/ConsulMyTrip">
                   <img
