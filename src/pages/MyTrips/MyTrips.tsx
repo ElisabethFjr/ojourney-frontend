@@ -15,7 +15,7 @@ export default function MyTrips() {
         <p className="trips-text">Aucun voyage disponible.</p>
         <p>Commencez en créant un nouveau voyage.</p>
 
-        <Link to="/" className="trips-button-trip">
+        <Link to="/ConsulMyTrip" className="trips-button-trip">
           + Créer un nouveau voyage
         </Link>
       </div>
@@ -27,11 +27,13 @@ export default function MyTrips() {
             <div className="trips-item-bloc">
               <h1 className="trips-item-bloc-title">Titre du voyage</h1>
               <div className="trips-item-bloc-logo">
-                <img
-                  src={pencil}
-                  alt="edit"
-                  className="trips-item-bloc-logo-one"
-                />
+                <Link to="/ConsulMyTrip">
+                  <img
+                    src={pencil}
+                    alt="edit"
+                    className="trips-item-bloc-logo-one"
+                  />
+                </Link>
                 <img src={bin} alt="bin" className="trips-item-bloc-logo-two" />
               </div>
             </div>
@@ -55,11 +57,13 @@ export default function MyTrips() {
             <div className="trips-item-bloc">
               <h1 className="trips-item-bloc-title">Titre du voyage</h1>
               <div className="trips-item-bloc-logo">
-                <img
-                  src={pencil}
-                  alt="edit"
-                  className="trips-item-bloc-logo-one"
-                />
+                <Link to="/ConsulTrip">
+                  <img
+                    src={pencil}
+                    alt="edit"
+                    className="trips-item-bloc-logo-one"
+                  />
+                </Link>
                 <img src={bin} alt="bin" className="trips-item-bloc-logo-two" />
               </div>
             </div>
@@ -83,11 +87,13 @@ export default function MyTrips() {
             <div className="trips-item-bloc">
               <h1 className="trips-item-bloc-title">Titre du voyage</h1>
               <div className="trips-item-bloc-logo">
-                <img
-                  src={pencil}
-                  alt="edit"
-                  className="trips-item-bloc-logo-one"
-                />
+                <Link to="/ConsulTrip">
+                  <img
+                    src={pencil}
+                    alt="edit"
+                    className="trips-item-bloc-logo-one"
+                  />
+                </Link>
                 <img src={bin} alt="bin" className="trips-item-bloc-logo-two" />
               </div>
             </div>

@@ -1,0 +1,102 @@
+@use '../../styles/variables' as v;
+
+.Detail-Trip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  margin-top: 4.5rem;
+}
+.item {
+  display: flex;
+  flex-direction: row;
+  border: 1px black solid;
+}
+.item-img {
+  width: 20%;
+}
+.bloc {
+  display: flex;
+  flex-direction: column;
+}
+.Detail-Trip-User {
+  display: flex;
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+
+  margin: v.$gutter;
+}
+
+.Detail-Trip-User-Img {
+  width: 5%;
+  margin: v.$gutter;
+}
+
+.Add-Links-Trip {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Activity-Description {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+}
+
+.button-links-trip {
+  font-weight: 300;
+  background-color: v.$color-primary;
+  border: none;
+  border-radius: v.$border-radius;
+  color: v.$color-white;
+  font-weight: 600;
+  font-size: v.$font-size;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  float: right;
+  padding: 5px;
+}
+
+.Activity-information {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.icon-Activity {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  float: right;
+  margin: 5px;
+}
+
+.title-icon-activity {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.location-bloc {
+  display: flex;
+  flex-direction: row;
+}
+.location-img {
+  width: 1%;
+}
+.info-bloc {
+  display: flex;
+  flex-direction: row;
+}
+.info-img {
+  width: 2%;
+}
+.localisation-bloc-1 {
+  display: flex;
+  flex-direction: row;
+}
+.location-bloc-1-img {
+  width: 1%;
+}
