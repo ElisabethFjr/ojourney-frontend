@@ -1,0 +1,28 @@
+@use '../../styles/variables' as v;
+
+.field-input-file {
+  display: none;
+}
+
+.field-input-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 0.6rem v.$gutter;
+  width: 100%;
+  gap: 1rem;
+  background-color: v.$color-white;
+  border: 2px solid v.$color-primary;
+  border-radius: v.$border-radius;
+  color: v.$color-primary;
+  font-weight: 600;
+  font-size: v.$font-size;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: v.$color-primary-lightest2;
+  }
+}

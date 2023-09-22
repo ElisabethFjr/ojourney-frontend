@@ -1,4 +1,4 @@
-import FieldForm from '../InputField/InputField';
+import InputField from '../InputField/InputField';
 import ButtonForm from '../ButtonSubmit/ButtonSubmit';
 import './SignUpForm.scss';
 
@@ -6,14 +6,35 @@ function SignUpForm() {
   return (
     <div className="form-content">
       <form className="form-element">
-        <FieldForm name="lastname" placeholder="Nom" type="text" />
-        <FieldForm name="firstname" placeholder="Prénom" type="text" />
-        <FieldForm name="email" placeholder="Email" type="email" />
-        <FieldForm name="password" placeholder="Mot de passe" type="password" />
-        <FieldForm
+        <InputField
+          name="lastname"
+          placeholder="Nom"
+          type="text"
+          icon="fa-solid fa-user"
+        />
+        <InputField
+          name="firstname"
+          placeholder="Prénom"
+          type="text"
+          icon="fa-solid fa-user"
+        />
+        <InputField
+          name="email"
+          placeholder="Email"
+          type="email"
+          icon="fa-solid fa-at"
+        />
+        <InputField
+          name="password"
+          placeholder="Mot de passe"
+          type="password"
+          icon="fa-solid fa-lock"
+        />
+        <InputField
           name="confirmation"
           placeholder="Mot de passe (confirmation)"
           type="password"
+          icon="fa-solid fa-lock"
         />
         <ButtonForm text="S'inscrire" />
       </form>

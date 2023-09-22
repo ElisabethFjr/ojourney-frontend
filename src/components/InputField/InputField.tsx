@@ -5,9 +5,10 @@ interface InputFieldProps {
   name: string;
   placeholder: string;
   type: string;
+  icon: string;
 }
 
-function InputField({ name, placeholder, type }: InputFieldProps) {
+function InputField({ name, icon, placeholder, type }: InputFieldProps) {
   const [value, setValue] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,15 +20,18 @@ function InputField({ name, placeholder, type }: InputFieldProps) {
       <label className="field-label visually-hidden" htmlFor={name}>
         {placeholder}
       </label>
-      <input
-        className="field-input"
-        value={value}
-        onChange={handleChange}
-        name={name}
-        placeholder={placeholder}
-        id={name}
-        type={type}
-      />
+      <div className="field-container">
+        <i className={icon} />
+        <input
+          className="field-input"
+          value={value}
+          onChange={handleChange}
+          name={name}
+          placeholder={placeholder}
+          id={name}
+          type={type}
+        />
+      </div>
     </div>
   );
 }
