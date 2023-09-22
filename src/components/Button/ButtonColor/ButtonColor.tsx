@@ -12,7 +12,7 @@ function ButtonColor({ text, to, icon }: ButtonColorProps) {
   return (
     <button className="button--color" type="button">
       <Link to={to} className="button--color-link">
-        <i className={icon} />
+        {icon && <i className={icon} />}
         {text}
       </Link>
     </button>

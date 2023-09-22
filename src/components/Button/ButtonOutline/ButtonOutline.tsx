@@ -12,7 +12,7 @@ function ButtonOutline({ text, to, icon }: ButtonOutlineProps) {
   return (
     <button className="button--outline" type="button">
       <Link to={to} className="button--outline-link">
-        <i className={icon} />
+        {icon && <i className={icon} />}
         {text}
       </Link>
     </button>
