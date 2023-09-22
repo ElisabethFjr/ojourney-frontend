@@ -18,21 +18,19 @@ function TripCard({
   tripTitle,
 }: TripCardProps) {
   return (
-    <Link to="/myTrip" className="trip-link">
-      <article className="trip-card">
-        <img className="trip-card-image" src={srcTripImage} alt={altImage} />
-        <div className="trip-card-container">
-          <div className="trip-card-header">
-            <h3 className="trip-card-header-title">{tripTitle}</h3>
-            <div className="trip-card-header-icon">
-              <i className="fa-solid fa-pen" />
-              <i className="fa-solid fa-trash" />
-            </div>
+    <Link to="/myTrip" className="trip-card">
+      <img className="trip-card-image" src={srcTripImage} alt={altImage} />
+      <div className="trip-card-container">
+        <div className="trip-card-header">
+          <h3 className="trip-card-header-title">{tripTitle}</h3>
+          <div className="trip-card-header-icon">
+            <i className="fa-solid fa-pen" />
+            <i className="fa-solid fa-trash" />
           </div>
-          <p className="trip-card-author">Creé par {authorName}</p>
-          <p className="trip-card-description">{description}</p>
         </div>
-      </article>
+        <p className="trip-card-author">Creé par {authorName}</p>
+        <p className="trip-card-description">{description}</p>
+      </div>
     </Link>
   );
 }

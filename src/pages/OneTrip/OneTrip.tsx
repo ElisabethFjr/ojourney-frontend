@@ -20,7 +20,7 @@ function OneTrip() {
             alt="plane"
           />
           <div className="one-trip-overview-container">
-            <h1 className="one-trip-overview-title">Titre du voyage</h1>
+            <h1 className="one-trip-overview-title">Voyage au Canada</h1>
             <div className="one-trip-overview-date">
               <i className="fa-solid fa-calendar" />
               <p className="one-trip-overview-date-name">1 Jan - 2 Jan 2024</p>
@@ -43,10 +43,10 @@ function OneTrip() {
 
         <section className="one-trip-members">
           <ButtonColor text="Ajouter" to="#" icon="fa-solid fa-user-plus" />
-          <i className="fa-solid fa-user" />
-          <i className="fa-solid fa-user" />
-          <i className="fa-solid fa-user" />
-          <i className="fa-solid fa-user" />
+          <i className="fa-solid fa-user one-trip-members-icon" />
+          <i className="fa-solid fa-user one-trip-members-icon" />
+          <i className="fa-solid fa-user one-trip-members-icon" />
+          <i className="fa-solid fa-user one-trip-members-icon" />
         </section>
 
         <section className="one-trip-propositions">

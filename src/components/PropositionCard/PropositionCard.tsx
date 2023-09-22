@@ -20,32 +20,30 @@ function PropositionCard({
   url,
 }: PropositionCardProps) {
   return (
-    <Link to="/createLink" className="proposition-link">
-      <article className="proposition-card">
-        <img
-          className="proposition-card-image"
-          src={previewImageUrl}
-          alt={altImage}
-        />
-        <div className="proposition-card-container">
-          <div className="proposition-card-header">
-            <h3 className="proposition-card-header-title">{title}</h3>
-            <div className="proposition-card-header-icon">
-              <i className="fa-solid fa-pen" />
-              <i className="fa-solid fa-trash" />
-            </div>
+    <Link to="/createLink" className="proposition-card">
+      <img
+        className="proposition-card-image"
+        src={previewImageUrl}
+        alt={altImage}
+      />
+      <div className="proposition-card-container">
+        <div className="proposition-card-header">
+          <h3 className="proposition-card-header-title">{title}</h3>
+          <div className="proposition-card-header-icon">
+            <i className="fa-solid fa-pen" />
+            <i className="fa-solid fa-trash" />
           </div>
-          <p className="proposition-card-author">Creé par {authorName}</p>
-          <div className="proposition-card-localisation">
-            <i className="fa-solid fa-location-dot" />
-            <p className="proposition-card-localisation-name">{localisation}</p>
-          </div>
-          <Link to={url} className="proposition-card-url-detail">
-            <i className="fa-solid fa-square-arrow-up-right" />
-            Voir détail
-          </Link>
         </div>
-      </article>
+        <p className="proposition-card-author">Creé par {authorName}</p>
+        <div className="proposition-card-localisation">
+          <i className="fa-solid fa-location-dot" />
+          <p className="proposition-card-localisation-name">{localisation}</p>
+        </div>
+        <Link to={url} className="proposition-card-url-detail">
+          <i className="fa-solid fa-square-arrow-up-right" />
+          Voir détail
+        </Link>
+      </div>
     </Link>
   );
 }
