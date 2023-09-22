@@ -1,7 +1,7 @@
 import Main from '../../layout/Main/Main';
 
-import ButtonColor from '../../components/ButtonColor/ButtonColor';
-import ButtonDanger from '../../components/ButtonDanger/ButtonDanger';
+import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
+import ButtonDanger from '../../components/Button/ButtonDanger/ButtonDanger';
 
 import './Profil.scss';
 

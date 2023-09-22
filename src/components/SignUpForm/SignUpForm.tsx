@@ -1,5 +1,5 @@
 import InputField from '../InputField/InputField';
-import ButtonForm from '../ButtonSubmit/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import './SignUpForm.scss';
 
 function SignUpForm() {
@@ -36,7 +36,7 @@ function SignUpForm() {
           type="password"
           icon="fa-solid fa-lock"
         />
-        <ButtonForm text="S'inscrire" />
+        <ButtonSubmit text="S'inscrire" />
       </form>
     </div>
   );

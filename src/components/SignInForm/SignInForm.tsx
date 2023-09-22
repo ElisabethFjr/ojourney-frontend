@@ -1,5 +1,5 @@
 import InputField from '../InputField/InputField';
-import ButtonForm from '../ButtonSubmit/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import './SignInForm.scss';
 
 function SignInForm() {
@@ -18,7 +18,7 @@ function SignInForm() {
           type="password"
           icon="fa-solid fa-lock"
         />
-        <ButtonForm text="Se Connecter" />
+        <ButtonSubmit text="Se Connecter" />
       </form>
     </div>
   );

@@ -1,12 +1,12 @@
 import Main from '../../layout/Main/Main';
-import ButtonColor from '../../components/ButtonColor/ButtonColor';
+import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
 
 import plane from '../../assets/images/plane.png';
 
 import './MyTrips.scss';
 import TripCard from '../../components/TripCard/TripCard';
 
-export default function MyTrips() {
+function MyTrips() {
   return (
     <Main>
       <h1 className="main-title">Mes Voyages</h1>
@@ -29,3 +29,4 @@ export default function MyTrips() {
   );
 }
 
+export default MyTrips;

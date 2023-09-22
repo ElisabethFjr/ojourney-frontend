@@ -10,7 +10,7 @@ interface ButtonOutlineProps {
 function ButtonOutline({ text, to }: ButtonOutlineProps) {
   return (
     <button className="button--outline" type="button">
-      <Link to={to} className="button--outline-link">
+      <{to} className="button--outline-link">
         {text}
       </Link>
     </button>
