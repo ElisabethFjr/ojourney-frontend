@@ -1,7 +1,7 @@
 import Main from '../../layout/Main/Main';
 import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
 
-import plane from '../../assets/images/plane.png';
+import travel from '../../assets/images/travel.png';
 
 import './MyTrips.scss';
 import TripCard from '../../components/TripCard/TripCard';
@@ -11,7 +11,11 @@ function MyTrips() {
     <Main>
       <h1 className="main-title">Mes Voyages</h1>
       <section className="no-trip-container">
-        <img className="no-trip-image" src={plane} alt="avion" />
+        <img
+          className="no-trip-image"
+          src={travel}
+          alt="O'Journey plane travelling"
+        />
         <p className="no-trip-message">Aucun voyage disponible.</p>
         <p className="no-trip-instruction">
           Commencez en créant un nouveau voyage.
