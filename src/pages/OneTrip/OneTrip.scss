@@ -8,27 +8,9 @@
     width: 90%;
     gap: 1rem;
   }
-  &-members {
-    border-bottom: 1px solid v.$color-grey-middle;
-    width: 90%;
-    padding: 0.5rem 0 1.5rem 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    gap: 1rem;
-
-    &-icon {
-      border: 2px solid v.$color-primary;
-      padding: 0.7rem;
-      border-radius: 100%;
-      font-size: 1.2rem;
-    }
-  }
 
   &-overview {
     border-bottom: 1px solid v.$color-grey-middle;
-    width: 90%;
     padding-bottom: 1.5rem;
     display: flex;
     flex-direction: row;
@@ -64,6 +46,34 @@
       flex-direction: row;
       gap: 0.5rem;
       justify-content: start;
+      align-items: center;
+    }
+  }
+
+  &-members {
+    border-bottom: 1px solid v.$color-grey-middle;
+    padding: 0.5rem 0 1.5rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+
+    &-icon {
+      border: 2px solid v.$color-primary;
+      padding: 0.7rem;
+      border-radius: 100%;
+      font-size: 1.2rem;
+    }
+  }
+
+  &-propositions {
+    &-title {
+      padding: 1rem 0;
+    }
+    &-add-container {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
     }
   }

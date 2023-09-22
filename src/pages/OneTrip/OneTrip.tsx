@@ -61,15 +61,15 @@ function OneTrip() {
               icon="fa-solid fa-plus"
             />
             {/* <PropositionCard /> */}
-            <PropositionCard
-              previewImageUrl="https://www.raftbanff.com/Portals/0/EasyDNNNews/44/1000600p702EDNmainHydra--Georgia-Russell-9996-2.jpg"
-              altImage="Rafting au Canada"
-              title="Rafting Hydra River"
-              authorName="Eli la magnifique"
-              localisation="Hydra River"
-              url="https://www.raftbanff.com/About/Details/ArtMID/702/ArticleID/44/Best-Whitewater-rafting-rivers-in-Canada"
-            />
           </div>
+          <PropositionCard
+            previewImageUrl="https://www.raftbanff.com/Portals/0/EasyDNNNews/44/1000600p702EDNmainHydra--Georgia-Russell-9996-2.jpg"
+            altImage="Rafting au Canada"
+            title="Rafting Hydra River"
+            authorName="Eli la magnifique"
+            localisation="Hydra River"
+            url="https://www.raftbanff.com/About/Details/ArtMID/702/ArticleID/44/Best-Whitewater-rafting-rivers-in-Canada"
+          />
         </section>
       </div>
     </Main>
