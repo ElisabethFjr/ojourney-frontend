@@ -2,93 +2,74 @@ import { Link } from 'react-router-dom';
 
 import Main from '../../layout/Main/Main';
 
+import ButtonOutline from '../../components/Button/ButtonOutline/ButtonOutline';
+import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
+// import PropositionCard from '../../components/PropositionCard/PropositionCard';
+
 import './OneTrip.scss';
+import PropositionCard from '../../components/PropositionCard/PropositionCard';
 
 function OneTrip() {
   return (
     <Main>
       <div className="one-trip-container">
-        {/* one-trip-card */}
-        <article className="one-trip-card">
+        <section className="one-trip-overview">
           <img
-            className="one-trip-card-image"
+            className="one-trip-overview-image"
             src="https://fastly.picsum.photos/id/664/200/200.jpg?hmac=d8ZWM7R6VABV4JdJPvmCOGPqq3E6KTIFDz-FYp73TJo"
             alt="plane"
           />
-          <div className="one-trip-card-container">
-            <h2 className="one-trip-card-title">Titre du voyage</h2>
-            <div className="one-trip-card-date">
+          <div className="one-trip-overview-container">
+            <h1 className="one-trip-overview-title">Titre du voyage</h1>
+            <div className="one-trip-overview-date">
               <i className="fa-solid fa-calendar" />
-              <p className="one-trip-card-date-name">date</p>
+              <p className="one-trip-overview-date-name">1 Jan - 2 Jan 2024</p>
             </div>
-            <div className="one-trip-card-localisation">
+            <div className="one-trip-overview-localisation">
               <i className="fa-solid fa-location-dot" />
-              <p className="one-trip-card-localisation-name">Localisation</p>
+              <p className="one-trip-overview-localisation-name">Canada</p>
             </div>
-            <p className="one-trip-card-description">
+            <p className="one-trip-overview-description">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              corporis iur e p
+              corporis iur e p Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Saepe corporis iur e p
             </p>
-          </div>
-        </article>
-        {/* one-trip-users */}
-        <div className="one-trip-users">
-          <i className="fa-solid fa-user" />
-          <i className="fa-solid fa-user" />
-          <i className="fa-solid fa-user" />
-          <i className="fa-solid fa-user" />
-        </div>
-        {/* one-trip-link */}
-        <section className="one-trip-link">
-          <h2 className="one-trip-link-title">Liens</h2>
-          <div className="one-trip-link-header">
-            <p className="one-trip-link-header-example">
-              Faites une nouvelle propositions.
-            </p>
-            <button className="one-trip-link-header-button" type="button">
-              + Ajouter un lien
-            </button>
-          </div>
-          <article className="one-trip-link-card">
-            <img
-              className="one-trip-link-card-image"
-              src="https://fastly.picsum.photos/id/664/200/200.jpg?hmac=d8ZWM7R6VABV4JdJPvmCOGPqq3E6KTIFDz-FYp73TJo"
-              alt="plane"
-            />
-
-            <div className="one-trip-link-card-container">
-              <div className="one-trip-link-card-header">
-                <h3 className="one-trip-link-card-header-title">
-                  Titre/description de l activité
-                </h3>
-                <div className="one-trip-link-card-header-icon">
-                  <i className="fa-solid fa-pen" />
-                  <i className="fa-solid fa-trash" />
-                </div>
-              </div>
-              <p className="one-trip-link-card-author">
-                {' '}
-                Ajouté par{' '}
-                <Link to="/" target="_blank" rel="">
-                  XXX
-                </Link>
-              </p>
-              <div className="one-trip-link-card-localisation">
-                <i className="fa-solid fa-location-dot" />
-                <p className="one-trip-link-card-localisation-name">
-                  Localisation
-                </p>
-              </div>
-              <div className="one-trip-link-card-info">
-                <Link
-                  to="/detail-path"
-                  className="one-trip-link-card-info-example"
-                >
-                  Voir détail
-                </Link>
-              </div>
+            <div className="one-trip-overview-buttons">
+              <ButtonOutline to="#" text="Editer" icon="fa-solid fa-pen" />
+              <ButtonOutline to="#" text="Supprimer" icon="fa-solid fa-trash" />
             </div>
-          </article>
+          </div>
+        </section>
+
+        <section className="one-trip-members">
+          <ButtonColor text="Ajouter" to="#" icon="fa-solid fa-user-plus" />
+          <i className="fa-solid fa-user" />
+          <i className="fa-solid fa-user" />
+          <i className="fa-solid fa-user" />
+          <i className="fa-solid fa-user" />
+        </section>
+
+        <section className="one-trip-propositions">
+          <h2 className="one-trip-propositions-title">Propositions</h2>
+          <div className="one-trip-propositions-add-container">
+            <p className="one-trip-propositions-add-text">
+              Faites une nouvelle proposition.
+            </p>
+            <ButtonColor
+              to="#"
+              text="Ajouter un lien"
+              icon="fa-solid fa-plus"
+            />
+            {/* <PropositionCard /> */}
+            <PropositionCard
+              previewImageUrl="https://www.raftbanff.com/Portals/0/EasyDNNNews/44/1000600p702EDNmainHydra--Georgia-Russell-9996-2.jpg"
+              altImage="Rafting au Canada"
+              title="Rafting Hydra River"
+              authorName="Eli la magnifique"
+              localisation="Hydra River"
+              url="https://www.raftbanff.com/About/Details/ArtMID/702/ArticleID/44/Best-Whitewater-rafting-rivers-in-Canada"
+            />
+          </div>
         </section>
       </div>
     </Main>

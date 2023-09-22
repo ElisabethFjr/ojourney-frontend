@@ -1,4 +1,4 @@
-import ButtonSubmit from '../../components/ButtonSubmit/ButtonSubmit';
+import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
 import InputField from '../../components/InputField/InputField';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';

@@ -2,15 +2,17 @@ import { Link } from 'react-router-dom';
 
 import './ButtonOutline.scss';
 
-interface ButtonOutlineProps {
+export interface ButtonOutlineProps {
   text: string;
   to: string;
+  icon?: string;
 }
 
-function ButtonOutline({ text, to }: ButtonOutlineProps) {
+function ButtonOutline({ text, to, icon }: ButtonOutlineProps) {
   return (
     <button className="button--outline" type="button">
-      <{to} className="button--outline-link">
+      <Link to={to} className="button--outline-link">
+        <i className={icon} />
         {text}
       </Link>
     </button>

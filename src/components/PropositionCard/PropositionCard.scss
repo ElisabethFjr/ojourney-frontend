@@ -1,12 +1,13 @@
 @use '../../styles/_variables' as v;
 
-.trip-card {
+.proposition-card {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: start;
   max-width: 800px;
   width: 90%;
+  height: 100%;
   margin: auto;
   background-color: v.$color-white;
   border-radius: v.$border-radius;
@@ -14,16 +15,9 @@
   color: v.$color-text;
   text-decoration: none;
 
-  &-author {
-    padding-bottom: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: normal;
-    color: v.$color-grey-darkest;
-  }
-
   &-image {
     width: 40%;
-    height: 100%;
+    max-height: 100%;
     object-fit: cover;
     object-position: center;
     border-radius: v.$border-radius 0 0 v.$border-radius;
@@ -58,5 +52,26 @@
       justify-content: space-around;
       gap: 1rem;
     }
+  }
+
+  &-author {
+    padding-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: v.$color-grey-darkest;
+  }
+
+  &-localisation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &-url-detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
   }
 }

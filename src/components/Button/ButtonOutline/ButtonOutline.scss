@@ -1,4 +1,4 @@
-@use './../../styles/variables' as v;
+@use '../../../styles/variables' as v;
 
 .button--outline {
   padding: 0.6rem v.$gutter;
@@ -10,6 +10,14 @@
   font-size: v.$font-size;
   cursor: pointer;
   transition: all 0.3s ease;
+
+  &-link {
+    color: v.$color-primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
 
   &:hover {
     background-color: v.$color-primary-lightest2;

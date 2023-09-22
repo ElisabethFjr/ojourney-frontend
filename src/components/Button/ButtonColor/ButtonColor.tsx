@@ -5,12 +5,14 @@ import './ButtonColor.scss';
 export interface ButtonColorProps {
   text: string;
   to: string;
+  icon?: string;
 }
 
-function ButtonColor({ text, to }: ButtonColorProps) {
+function ButtonColor({ text, to, icon }: ButtonColorProps) {
   return (
     <button className="button--color" type="button">
       <Link to={to} className="button--color-link">
+        <i className={icon} />
         {text}
       </Link>
     </button>

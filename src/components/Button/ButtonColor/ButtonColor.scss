@@ -1,4 +1,4 @@
-@use './../../styles/variables' as v;
+@use '../../../styles/variables' as v;
 
 .button--color {
   padding: 0.6rem v.$gutter;
@@ -12,7 +12,10 @@
 
   &-link {
     color: v.$color-white;
-    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   &:hover {
