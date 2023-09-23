@@ -7,12 +7,12 @@ function Navbar() {
     <nav className="header-navbar">
       <ul className="header-navbar-list">
         <li>
-          <NavLink to="/myTrips" className="header-navbar-list-link">
+          <NavLink to="/my-trips" className="header-navbar-list-link">
             Mes voyages
           </NavLink>
         </li>
         <li>
-          <NavLink to="/newTrip" className="header-navbar-list-link">
+          <NavLink to="/new-trip" className="header-navbar-list-link">
             Nouveau voyage
           </NavLink>
         </li>
@@ -28,7 +28,7 @@ function Navbar() {
         </li>
         <li>
           <NavLink
-            to="/signInSignUp"
+            to="/signin-signup"
             className="header-navbar-list-link signin-signup"
           >
             Se Connecter/S&apos;inscrire

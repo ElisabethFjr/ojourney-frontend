@@ -16,7 +16,7 @@ function Home() {
             aventures inoubliables. Connectez-vous ou créez un compte pour
             commencer.
           </p>
-          <ButtonColor text="Commencer à planifier" to="/SignInSignUp" />
+          <ButtonColor text="Commencer à planifier" to="/signin-signup" />
         </div>
       </div>
     </main>
