@@ -1,9 +1,6 @@
-import Main from '../../layout/Main/Main';
-
 import road from '../../assets/images/road.png';
 
 import './Error.scss';
-import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
 
 function Error() {
   return (
