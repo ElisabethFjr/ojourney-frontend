@@ -1,9 +1,10 @@
 import Main from '../../layout/Main/Main';
 
-import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
+import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';
+import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
 
 import './NewTrip.scss';
 
@@ -15,7 +16,7 @@ function NewTrip() {
   return (
     <Main>
       <h1 className="main-title">Créer un nouveau voyage</h1>
-      <form className="form-container">
+      <FormContainer>
         <h2 className="form-title">Nouveau voyage</h2>
         <InputField
           name="localisation"
@@ -42,7 +43,7 @@ function NewTrip() {
         />
         <InputFieldImage handleFile={handleFile} />
         <ButtonSubmit text="Créer le voyage" />
-      </form>
+      </FormContainer>
     </Main>
   );
 }

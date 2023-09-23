@@ -1,10 +1,11 @@
 import Main from '../../layout/Main/Main';
+
 import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
+import TripCard from '../../components/TripCard/TripCard';
 
 import travel from '../../assets/images/travel.png';
 
 import './MyTrips.scss';
-import TripCard from '../../components/TripCard/TripCard';
 
 function MyTrips() {
   return (
@@ -20,7 +21,11 @@ function MyTrips() {
         <p className="no-trip-instruction">
           Commencez en créant un nouveau voyage.
         </p>
-        <ButtonColor text="Créer un nouveau voyage" to="/newTrip" />
+        <ButtonColor
+          text="Nouveau voyage"
+          to="/newTrip"
+          icon="fa-solid fa-plus"
+        />
         <TripCard
           srcTripImage="https://storage.googleapis.com/twg-content/original_images/Insights_Voyage_2019_Think_with_Google_France-compressed.jpg"
           altImage="O'Jouney colorado van"

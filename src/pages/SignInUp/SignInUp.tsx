@@ -1,7 +1,10 @@
 import { useState } from 'react';
+
+import Main from '../../layout/Main/Main';
+
+import FormContainer from '../../components/FormContainer/FormContainer';
 import SignInForm from '../../components/SignInForm/SignInForm';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
-import Main from '../../layout/Main/Main';
 
 import './SignInUp.scss';
 
@@ -14,7 +17,7 @@ function SignInUp() {
 
   return (
     <Main>
-      <div className="form-container">
+      <FormContainer>
         <h1 className="form-title">
           {signIn ? 'Connectez-vous' : 'Créez un compte'}
         </h1>
@@ -43,7 +46,7 @@ function SignInUp() {
           </button>
         </div>
         {signIn ? <SignInForm /> : <SignUpForm />}
-      </div>
+      </FormContainer>
     </Main>
   );
 }

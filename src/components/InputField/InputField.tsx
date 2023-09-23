@@ -1,4 +1,5 @@
 import { useState, ChangeEvent } from 'react';
+
 import './InputField.scss';
 
 interface InputFieldProps {
