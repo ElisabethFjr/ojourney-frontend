@@ -13,6 +13,7 @@ import NewProposition from '../../pages/NewProposition/NewProposition';
 import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
+import Error from '../../pages/Error/Error';
 
 import './App.scss';
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
     </div>
