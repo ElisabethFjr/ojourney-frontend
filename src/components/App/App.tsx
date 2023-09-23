@@ -23,11 +23,11 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signInSignUp" element={<SignInUp />} />
+        <Route path="/signin-signup" element={<SignInUp />} />
         <Route path="/profil" element={<Profil />} />
-        <Route path="/newTrip" element={<NewTrip />} />
-        <Route path="/myTrips" element={<MyTrips />} />
-        <Route path="/myTrip" element={<OneTrip />} />
+        <Route path="/new-trip" element={<NewTrip />} />
+        <Route path="/my-trips" element={<MyTrips />} />
+        <Route path="/my-trip" element={<OneTrip />} />
         <Route path="/new-proposition" element={<NewProposition />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

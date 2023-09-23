@@ -23,7 +23,7 @@ function MyTrips() {
         </p>
         <ButtonColor
           text="Nouveau voyage"
-          to="/newTrip"
+          to="/new-trip"
           icon="fa-solid fa-plus"
         />
         <TripCard

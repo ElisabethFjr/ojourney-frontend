@@ -18,7 +18,7 @@ function TripCard({
   tripTitle,
 }: TripCardProps) {
   return (
-    <Link to="/myTrip" className="trip-card">
+    <Link to="/my-trip" className="trip-card">
       <img className="trip-card-image" src={srcTripImage} alt={altImage} />
       <div className="trip-card-container">
         <div className="trip-card-header">
