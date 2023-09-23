@@ -1,4 +1,5 @@
 import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
+
 import './Home.scss';
 
 function Home() {

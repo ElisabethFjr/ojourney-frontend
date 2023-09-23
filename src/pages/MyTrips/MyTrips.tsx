@@ -1,10 +1,11 @@
 import Main from '../../layout/Main/Main';
+
 import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
+import TripCard from '../../components/TripCard/TripCard';
 
 import travel from '../../assets/images/travel.png';
 
 import './MyTrips.scss';
-import TripCard from '../../components/TripCard/TripCard';
 
 function MyTrips() {
   return (

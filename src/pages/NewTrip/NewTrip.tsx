@@ -1,12 +1,12 @@
 import Main from '../../layout/Main/Main';
 
-import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
+import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';
+import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
 
 import './NewTrip.scss';
-import FormContainer from '../../components/FormContainer/FormContainer';
 
 function NewTrip() {
   const handleFile = (file: File) => {
