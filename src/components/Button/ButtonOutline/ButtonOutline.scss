@@ -12,11 +12,11 @@
   transition: all 0.3s ease;
 
   &-link {
-    color: v.$color-primary;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
+    color: v.$color-primary;
   }
 
   &:hover {

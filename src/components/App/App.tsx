@@ -5,10 +5,13 @@ import Footer from '../../layout/Footer/Footer';
 
 import Home from '../../pages/Home/Home';
 import SignInUp from '../../pages/SignInUp/SignInUp';
-import CreateTrip from '../../pages/CreateTrip/CreateTrip';
-import MyTrips from '../../pages/MyTrips/MyTrips';
 import Profil from '../../pages/Profil/Profil';
+import NewTrip from '../../pages/NewTrip/NewTrip';
+import MyTrips from '../../pages/MyTrips/MyTrips';
 import OneTrip from '../../pages/OneTrip/OneTrip';
+import About from '../../pages/About/About';
+import Contact from '../../pages/Contact/Contact';
+import Terms from '../../pages/Terms/Terms';
 
 import './App.scss';
 
@@ -19,10 +22,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signInSignUp" element={<SignInUp />} />
-        <Route path="/createTrip" element={<CreateTrip />} />
-        <Route path="/myTrips" element={<MyTrips />} />
         <Route path="/profil" element={<Profil />} />
+        <Route path="/newTrip" element={<NewTrip />} />
+        <Route path="/myTrips" element={<MyTrips />} />
         <Route path="/myTrip" element={<OneTrip />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/terms" element={<Terms />} />
       </Routes>
       <Footer />
     </div>

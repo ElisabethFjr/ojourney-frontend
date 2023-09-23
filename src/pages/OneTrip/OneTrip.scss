@@ -1,22 +1,13 @@
 @use '../../styles/variables' as v;
 
 .one-trip {
-  &-container {
-    display: flex;
-    flex-direction: column;
-    max-width: 900px;
-    width: 90%;
-    gap: 1rem;
-  }
-
   &-overview {
-    border-bottom: 1px solid v.$color-grey-middle;
-    padding-bottom: 1.5rem;
     display: flex;
-    flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid v.$color-grey-middle;
 
     &-image {
       width: 30%;
@@ -43,31 +34,31 @@
     &-date,
     &-localisation {
       display: flex;
-      flex-direction: row;
-      gap: 0.5rem;
       justify-content: start;
       align-items: center;
+      gap: 0.5rem;
     }
   }
 
   &-members {
-    border-bottom: 1px solid v.$color-grey-middle;
-    padding: 0.5rem 0 1.5rem 0;
     display: flex;
-    flex-direction: row;
     justify-content: start;
-    align-items: center;
+    align-items: start;
     gap: 1rem;
+    width: 100%;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid v.$color-grey-middle;
 
     &-icon {
-      border: 2px solid v.$color-primary;
       padding: 0.7rem;
+      border: 2px solid v.$color-primary;
       border-radius: 100%;
       font-size: 1.2rem;
     }
   }
 
   &-propositions {
+    width: 100%;
     &-title {
       padding: 1rem 0;
     }

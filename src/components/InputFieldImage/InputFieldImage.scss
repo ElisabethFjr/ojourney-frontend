@@ -6,13 +6,12 @@
 
 .field-input-btn {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
+  width: 100%;
   margin: auto;
   padding: 0.6rem v.$gutter;
-  width: 100%;
-  gap: 1rem;
   background-color: v.$color-white;
   border: 2px solid v.$color-primary;
   border-radius: v.$border-radius;

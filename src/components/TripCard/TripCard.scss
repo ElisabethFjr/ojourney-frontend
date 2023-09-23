@@ -1,14 +1,13 @@
 @use '../../styles/_variables' as v;
 
 .trip-card {
+  overflow: hidden;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: start;
   max-width: 800px;
   width: 90%;
   height: 200px;
-  overflow: hidden;
   margin: 2rem 0;
   background-color: v.$color-white;
   border-radius: v.$border-radius;
@@ -34,10 +33,9 @@
 
   &-header {
     display: flex;
-    flex-direction: row;
-    width: 100%;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 
     &-title {
       font-size: 1.5rem;
@@ -45,7 +43,6 @@
 
     &-icon {
       display: flex;
-      flex-direction: row;
       align-items: center;
       justify-content: space-around;
       gap: 1rem;

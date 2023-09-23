@@ -1,13 +1,12 @@
 @use '../../styles/_variables' as v;
 
 .proposition-card {
+  overflow: hidden;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: start;
   width: 100%;
   height: 200px;
-  overflow: hidden;
   margin: 2rem auto;
   background-color: v.$color-white;
   border-radius: v.$border-radius;
@@ -33,10 +32,9 @@
 
   &-header {
     display: flex;
-    flex-direction: row;
-    width: 100%;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 
     &-title {
       font-size: 1.5rem;
@@ -44,7 +42,6 @@
 
     &-icon {
       display: flex;
-      flex-direction: row;
       align-items: center;
       justify-content: space-around;
       gap: 1rem;
