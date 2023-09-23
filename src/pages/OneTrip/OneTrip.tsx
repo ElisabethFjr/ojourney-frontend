@@ -51,8 +51,11 @@ function OneTrip() {
           <p className="one-trip-propositions-add-text">
             Faites une nouvelle proposition.
           </p>
-          <ButtonColor to="#" text="Ajouter un lien" icon="fa-solid fa-plus" />
-          {/* <PropositionCard /> */}
+          <ButtonColor
+            to="/new-proposition"
+            text="Nouvelle proposition"
+            icon="fa-solid fa-plus"
+          />
         </div>
         <PropositionCard
           previewImageUrl="https://www.raftbanff.com/Portals/0/EasyDNNNews/44/1000600p702EDNmainHydra--Georgia-Russell-9996-2.jpg"

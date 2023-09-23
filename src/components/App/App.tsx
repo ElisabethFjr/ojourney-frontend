@@ -9,6 +9,7 @@ import Profil from '../../pages/Profil/Profil';
 import NewTrip from '../../pages/NewTrip/NewTrip';
 import MyTrips from '../../pages/MyTrips/MyTrips';
 import OneTrip from '../../pages/OneTrip/OneTrip';
+import NewProposition from '../../pages/NewProposition/NewProposition';
 import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
@@ -26,6 +27,7 @@ function App() {
         <Route path="/newTrip" element={<NewTrip />} />
         <Route path="/myTrips" element={<MyTrips />} />
         <Route path="/myTrip" element={<OneTrip />} />
+        <Route path="/new-proposition" element={<NewProposition />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
