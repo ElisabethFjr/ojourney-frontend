@@ -1,11 +1,13 @@
+import Main from '../../layout/Main/Main';
+
 import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
 import InputField from '../../components/InputField/InputField';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';
-import Main from '../../layout/Main/Main';
-import './CreateTrip.scss';
 
-function CreateTrip() {
+import './NewTrip.scss';
+
+function NewTrip() {
   const handleFile = (file: File) => {
     console.log('Fichier sélectionné :', file);
   };
@@ -45,4 +47,4 @@ function CreateTrip() {
   );
 }
 
-export default CreateTrip;
+export default NewTrip;
