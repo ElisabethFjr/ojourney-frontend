@@ -1,10 +1,24 @@
 import Main from '../../layout/Main/Main';
 
+import road from '../../assets/images/road.png';
+
 import './Error.scss';
+import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
 
 function Error() {
   return (
-    <Main>Whoops ! Il semblerait que cette page soit partie en vacances.</Main>
+    <main className="error">
+      <h1 className="error-title">Erreur 404</h1>
+      <p className="error-message">
+        Whoops ! Il semblerait que cette page soit partie en vacances.
+      </p>
+
+      <img
+        className="error-image"
+        src={road}
+        alt="O'Journey road sticker orange yellow error 404"
+      />
+    </main>
   );
 }
 
