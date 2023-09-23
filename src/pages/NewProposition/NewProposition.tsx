@@ -1,5 +1,6 @@
 import Main from '../../layout/Main/Main';
 
+import FormContainer from '../../components/FormContainer/FormContainer';
 import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
 import InputField from '../../components/InputField/InputField';
 
@@ -9,7 +10,7 @@ function NewProposition() {
   return (
     <Main>
       <h1 className="main-title">Faire une proposition</h1>
-      <form className="form-container">
+      <FormContainer>
         <h2 className="form-title">Proposition</h2>
         <InputField
           name="description"
@@ -30,7 +31,7 @@ function NewProposition() {
           icon="fa-solid fa-link"
         />
         <ButtonSubmit text="Valider la proposition" />
-      </form>
+      </FormContainer>
     </Main>
   );
 }
