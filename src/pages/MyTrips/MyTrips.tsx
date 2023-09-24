@@ -26,6 +26,8 @@ function MyTrips() {
           to="/new-trip"
           icon="fa-solid fa-plus"
         />
+      </section>
+      <section className="trips-container">
         <TripCard
           srcTripImage="https://storage.googleapis.com/twg-content/original_images/Insights_Voyage_2019_Think_with_Google_France-compressed.jpg"
           altImage="O'Jouney colorado van"

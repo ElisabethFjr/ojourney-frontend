@@ -39,33 +39,35 @@ function NewTrip() {
   return (
     <Main>
       <h1 className="main-title">Créer un nouveau voyage</h1>
-      <FormContainer>
-        <h2 className="form-title">Nouveau voyage</h2>
-        {/* Localisation Input */}
-        <InputField
-          name="localisation"
-          placeholder="Destination"
-          type="text"
-          icon="fa-solid fa-location-dot"
-        />
-        {/* Dates Picker Inputs (Start - End) */}
-        <InputDatesPicker
-          startDate={startDate}
-          endDate={endDate}
-          onStartDateChange={handleStartDateChange}
-          onEndDateChange={handleEndDateChange}
-        />
-        {/* Description Textarea */}
-        <TextareaField
-          name="description"
-          placeholder="Description du voyage (facultatif)"
-          icon="fa-solid fa-pen-nib"
-        />
-        {/* Image File Selection Input */}
-        <InputFieldImage handleFile={handleFile} />
-        {/* Form Submit Button */}
-        <ButtonSubmit text="Créer le voyage" />
-      </FormContainer>
+      <section className="new-trip-container">
+        <FormContainer>
+          <h2 className="form-title">Nouveau voyage</h2>
+          {/* Localisation Input */}
+          <InputField
+            name="localisation"
+            placeholder="Destination"
+            type="text"
+            icon="fa-solid fa-location-dot"
+          />
+          {/* Dates Picker Inputs (Start - End) */}
+          <InputDatesPicker
+            startDate={startDate}
+            endDate={endDate}
+            onStartDateChange={handleStartDateChange}
+            onEndDateChange={handleEndDateChange}
+          />
+          {/* Description Textarea */}
+          <TextareaField
+            name="description"
+            placeholder="Description du voyage (facultatif)"
+            icon="fa-solid fa-pen-nib"
+          />
+          {/* Image File Selection Input */}
+          <InputFieldImage handleFile={handleFile} />
+          {/* Form Submit Button */}
+          <ButtonSubmit text="Créer le voyage" />
+        </FormContainer>
+      </section>
     </Main>
   );
 }
