@@ -17,36 +17,40 @@ function SignInUp() {
 
   return (
     <Main>
-      <FormContainer>
-        <h1 className="form-title">
-          {signIn ? 'Connectez-vous' : 'Créez un compte'}
-        </h1>
-        <div className="form-header">
-          <button
-            onClick={toggleForm}
-            className={
-              signIn
-                ? 'form-toggle-button button--active'
-                : 'form-toggle-button'
-            }
-            type="button"
-          >
-            Connexion
-          </button>
-          <button
-            onClick={toggleForm}
-            className={
-              !signIn
-                ? 'form-toggle-button button--active'
-                : 'form-toggle-button'
-            }
-            type="button"
-          >
-            Inscription
-          </button>
-        </div>
-        {signIn ? <SignInForm /> : <SignUpForm />}
-      </FormContainer>
+      <section className="sign-form-container">
+        <FormContainer>
+          <h1 className="sign-form-title">
+            {signIn ? 'Connectez-vous' : 'Créez un compte'}
+          </h1>
+
+          <div className="sign-form-header">
+            <button
+              onClick={toggleForm}
+              className={
+                signIn
+                  ? 'sign-form-toggle-button button--active'
+                  : 'sign-form-toggle-button'
+              }
+              type="button"
+            >
+              Connexion
+            </button>
+            <button
+              onClick={toggleForm}
+              className={
+                !signIn
+                  ? 'sign-form-toggle-button button--active'
+                  : 'sign-form-toggle-button'
+              }
+              type="button"
+            >
+              Inscription
+            </button>
+          </div>
+
+          {signIn ? <SignInForm /> : <SignUpForm />}
+        </FormContainer>
+      </section>
     </Main>
   );
 }
