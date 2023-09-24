@@ -12,11 +12,13 @@
 	},
 	"dependencies": {
 		"react": "^18.2.0",
+		"react-datepicker": "^4.18.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.16.0"
 	},
 	"devDependencies": {
 		"@types/react": "^18.0.28",
+		"@types/react-datepicker": "^4.15.0",
 		"@types/react-dom": "^18.0.11",
 		"@typescript-eslint/eslint-plugin": "^5.58.0",
 		"@typescript-eslint/parser": "^5.58.0",
