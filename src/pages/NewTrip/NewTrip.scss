@@ -1,15 +1,26 @@
 @use '../../styles/variables' as v;
 
-.field-input {
-  width: auto;
+.field {
+  position: relative;
 }
 
 .react-datepicker {
   border: none;
-  width: 100%;
   background-color: v.$color-white;
-  border: 1px solid v.$color-grey-lightest;
+  box-shadow: 0px 2px 6px rgba(18, 39, 60, 0.1);
   font-family: 'Lato';
+
+  &-wrapper,
+  &__input-container,
+  &__input-container input {
+    width: 100%;
+  }
+
+  &-popper {
+    position: absolute !important;
+    inset: 100% auto auto 0 !important;
+    transform: none !important;
+  }
 
   &__triangle {
     display: none;
@@ -44,6 +55,7 @@
       background-color: v.$color-primary-lightest;
     }
     &--today {
+      border-radius: 50%;
       background-color: v.$color-primary-lightest2;
     }
   }
