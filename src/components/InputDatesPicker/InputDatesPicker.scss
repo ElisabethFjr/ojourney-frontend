@@ -7,6 +7,7 @@
 .react-datepicker {
   background-color: v.$color-white;
   border: none;
+  border-radius: v.$border-radius;
   box-shadow: 0px 2px 6px rgba(18, 39, 60, 0.2);
   font-family: 'Lato';
   width: 100%;
@@ -30,6 +31,16 @@
 
   &__month-container {
     width: 100%;
+  }
+
+  &__navigation--previous {
+    top: 5%;
+    left: 20%;
+  }
+
+  &__navigation--next {
+    top: 5%;
+    right: 20%;
   }
 
   &__header {
