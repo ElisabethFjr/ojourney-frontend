@@ -7,7 +7,7 @@
     align-items: center;
     gap: 1rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid v.$color-grey-middle;
+    border-bottom: 1px solid v.$color-grey-middle-lighten;
 
     &-image {
       width: 30%;
@@ -47,7 +47,7 @@
     gap: 1rem;
     width: 100%;
     padding: 1.5rem 0;
-    border-bottom: 1px solid v.$color-grey-middle;
+    border-bottom: 1px solid v.$color-grey-middle-lighten;
 
     &-icon {
       padding: 0.7rem;

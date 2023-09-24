@@ -2,7 +2,7 @@
 
 .field {
   margin-bottom: 1.4rem;
-  border: 1px solid v.$color-grey;
+  border: 1px solid v.$color-grey-lightest;
   border-radius: v.$border-radius;
 
   &:hover {
@@ -46,4 +46,9 @@
   margin: -1px;
   padding: 0;
   border: 0;
+}
+
+input[type='date'] {
+  appearance: none;
+  border: initial;
 }
