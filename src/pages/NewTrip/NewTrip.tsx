@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import fr from 'date-fns/locale/fr';
+import { format } from 'date-fns';
 
 import Main from '../../layout/Main/Main';
 
@@ -15,6 +17,8 @@ import './NewTrip.scss';
 function NewTrip() {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
+
+  registerLocale('fr', fr);
 
   const handleFile = (file: File) => {
     console.log('Fichier sélectionné :', file);
@@ -45,6 +49,8 @@ function NewTrip() {
               startDate={startDate}
               endDate={endDate}
               placeholderText="Date de début (jj/mm/aaaa)"
+              dateFormat="dd/MM/yyyy"
+              locale="fr"
             />
           </div>
         </div>

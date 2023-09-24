@@ -1,7 +1,12 @@
 @use '../../styles/variables' as v;
 
+.field-input {
+  width: auto;
+}
+
 .react-datepicker {
   border: none;
+  width: 100%;
   background-color: v.$color-white;
   border: 1px solid v.$color-grey-lightest;
   font-family: 'Lato';
