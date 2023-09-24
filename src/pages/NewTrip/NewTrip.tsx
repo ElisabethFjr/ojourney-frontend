@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { format } from 'date-fns';
@@ -15,11 +16,24 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './NewTrip.scss';
 
 function NewTrip() {
+  // States variables declaration
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
+  // Register french locale for DatePickers
   registerLocale('fr', fr);
 
+  // Event handler for start date change
+  const handleStartDateChange = (date: Date) => {
+    setStartDate(date);
+  };
+
+  // Event handler for end date change
+  const handleEndDateChange = (date: Date) => {
+    setEndDate(date);
+  };
+
+  // Event handler for the image file selection
   const handleFile = (file: File) => {
     console.log('Fichier sélectionné :', file);
   };
@@ -29,12 +43,14 @@ function NewTrip() {
       <h1 className="main-title">Créer un nouveau voyage</h1>
       <FormContainer>
         <h2 className="form-title">Nouveau voyage</h2>
+        {/* Localisation Input */}
         <InputField
           name="localisation"
           placeholder="Destination"
           type="text"
           icon="fa-solid fa-location-dot"
         />
+        {/* Start Date Input */}
         <div className="field">
           <label className="field-label visually-hidden" htmlFor="date_start">
             Date de début
@@ -44,16 +60,17 @@ function NewTrip() {
             <DatePicker
               className="field-input"
               selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              onChange={handleStartDateChange}
               selectsStart
               startDate={startDate}
               endDate={endDate}
               placeholderText="Date de début (jj/mm/aaaa)"
               dateFormat="dd/MM/yyyy"
-              locale="fr"
+              locale="fr" // set french locale
             />
           </div>
         </div>
+        {/* End Date Input */}
         <div className="field">
           <label className="field-label visually-hidden" htmlFor="date_start">
             Date de fin
@@ -63,23 +80,26 @@ function NewTrip() {
             <DatePicker
               className="field-input"
               selected={endDate}
-              onChange={(date) => setEndDate(date)}
+              onChange={handleEndDateChange}
               selectsEnd
               startDate={startDate}
               endDate={endDate}
               minDate={startDate}
               placeholderText="Date de fin (jj/mm/aaaa)"
               dateFormat="dd/MM/yyyy"
-              locale="fr"
+              locale="fr" // set french locale
             />
           </div>
         </div>
+        {/* Description Textarea */}
         <TextareaField
           name="description"
           placeholder="Description du voyage (facultatif)"
           icon="fa-solid fa-pen-nib"
         />
+        {/* Image File Selection Input */}
         <InputFieldImage handleFile={handleFile} />
+        {/* Form Submit Button */}
         <ButtonSubmit text="Créer le voyage" />
       </FormContainer>
     </Main>
