@@ -1,0 +1,49 @@
+@use '../../styles/variables' as v;
+
+.react-datepicker {
+  border: none;
+  background-color: v.$color-white;
+  border: 1px solid v.$color-grey-lightest;
+  font-family: 'Lato';
+
+  &__triangle {
+    display: none;
+  }
+
+  &__header {
+    background-color: v.$color-primary-lightest2;
+    border: none;
+  }
+
+  &__current-month {
+    color: v.$color-text;
+    font-size: 1rem;
+  }
+
+  &__day {
+    &:hover {
+      border-radius: 50%;
+      background-color: v.$color-primary;
+      color: v.$color-white;
+    }
+    &-name {
+      color: v.$color-text;
+    }
+    &--selected {
+      border-radius: 50%;
+      background-color: v.$color-primary;
+      color: v.$color-white;
+    }
+    &--in-range {
+      border-radius: 50%;
+      background-color: v.$color-primary-lightest;
+    }
+    &--today {
+      background-color: v.$color-primary-lightest2;
+    }
+  }
+
+  &__week {
+    color: v.$color-text;
+  }
+}

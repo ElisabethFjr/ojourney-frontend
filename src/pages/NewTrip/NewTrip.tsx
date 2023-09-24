@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import DatePicker from 'react-datepicker';
+
 import Main from '../../layout/Main/Main';
 
 import FormContainer from '../../components/FormContainer/FormContainer';
@@ -6,9 +9,13 @@ import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';
 import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
 
+import 'react-datepicker/dist/react-datepicker.css';
 import './NewTrip.scss';
 
 function NewTrip() {
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+
   const handleFile = (file: File) => {
     console.log('Fichier sélectionné :', file);
   };
@@ -24,18 +31,41 @@ function NewTrip() {
           type="text"
           icon="fa-solid fa-location-dot"
         />
-        <InputField
-          name="date_start"
-          placeholder="Date de départ"
-          type="date"
-          icon=""
-        />
-        <InputField
-          name="date_end"
-          placeholder="Date de retour"
-          type="date"
-          icon=""
-        />
+        <div className="field">
+          <label className="field-label visually-hidden" htmlFor="date_start">
+            Date de début
+          </label>
+          <div className="field-container">
+            <i className="fa-solid fa-calendar" />
+            <DatePicker
+              className="field-input"
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              placeholderText="Date de début (jj/mm/aaaa)"
+            />
+          </div>
+        </div>
+        <div className="field">
+          <label className="field-label visually-hidden" htmlFor="date_start">
+            Date de fin
+          </label>
+          <div className="field-container">
+            <i className="fa-solid fa-calendar" />
+            <DatePicker
+              className="field-input"
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              placeholderText="Date de fin (jj/mm/aaaa)"
+            />
+          </div>
+        </div>
         <TextareaField
           name="description"
           placeholder="Description du voyage (facultatif)"
