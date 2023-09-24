@@ -13,6 +13,7 @@ function InputField({ name, icon, placeholder, type }: InputFieldProps) {
   const [value, setValue] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
     setValue(event.target.value);
   };
 
