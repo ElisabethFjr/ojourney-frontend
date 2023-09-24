@@ -1,0 +1,134 @@
+@use '../../styles/variables' as v;
+
+.field {
+  position: relative;
+}
+
+.react-datepicker {
+  background-color: v.$color-white;
+  border: none;
+  box-shadow: 0px 2px 6px rgba(18, 39, 60, 0.2);
+  font-family: 'Lato';
+  width: 100%;
+
+  &-wrapper,
+  &__input-container,
+  &__input-container input {
+    width: 100%;
+  }
+
+  &-popper {
+    position: absolute !important;
+    inset: 100% auto auto 10.5% !important;
+    transform: none !important;
+    width: 90%;
+  }
+
+  &__triangle {
+    display: none;
+  }
+
+  &__month-container {
+    width: 100%;
+  }
+
+  &__header {
+    padding: 1rem 0;
+    background-color: v.$color-white;
+    border: none;
+    border-bottom: 1px solid v.$color-grey-lightest;
+  }
+
+  &__current-month {
+    color: v.$color-text;
+    font-size: 1rem;
+    text-transform: capitalize;
+  }
+
+  &__month {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    width: 100%;
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 1rem 0;
+  }
+
+  &__day {
+    color: v.$color-text;
+
+    &:hover {
+      border-radius: v.$border-radius;
+      background-color: v.$color-primary-lightest;
+      color: v.$color-white;
+    }
+
+    &-names {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+      width: 100%;
+      padding-top: 0.5rem;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    &-name {
+      color: v.$color-grey-darkest;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    &--today {
+      border-radius: v.$border-radius;
+      font-weight: 900;
+    }
+
+    &--in-selecting-range {
+      background-color: v.$color-primary-lightest !important;
+      font-weight: 700;
+    }
+
+    &--selected,
+    &--in-range {
+      border-radius: v.$border-radius;
+      background-color: v.$color-primary-lightest;
+      color: v.$color-white;
+    }
+
+    &--selecting-range-start,
+    &--selecting-range-end {
+      border-radius: v.$border-radius;
+      background-color: v.$color-primary !important;
+      color: v.$color-white;
+    }
+
+    &--keyboard-selected {
+      background-color: unset;
+    }
+  }
+
+  &__week {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    width: 100%;
+    color: v.$color-text;
+  }
+}
+
+.react-datepicker__day--in-selecting-range:not(
+    .react-datepicker__day--in-range,
+    .react-datepicker__month-text--in-range,
+    .react-datepicker__quarter-text--in-range,
+    .react-datepicker__year-text--in-range
+  ) {
+  background-color: v.$color-primary-lightest;
+  border-radius: v.$border-radius;
+  color: v.$color-white;
+}

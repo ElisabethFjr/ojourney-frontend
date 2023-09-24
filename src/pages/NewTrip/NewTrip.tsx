@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import DatePicker, { registerLocale } from 'react-datepicker';
-import fr from 'date-fns/locale/fr';
 import { format } from 'date-fns';
 
 import Main from '../../layout/Main/Main';
@@ -14,22 +12,22 @@ import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './NewTrip.scss';
+import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker';
 
 function NewTrip() {
   // States variables declaration
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
-  // Register french locale for DatePickers
-  registerLocale('fr', fr);
-
   // Event handler for start date change
   const handleStartDateChange = (date: Date) => {
+    console.log(date);
     setStartDate(date);
   };
 
   // Event handler for end date change
   const handleEndDateChange = (date: Date) => {
+    console.log(date);
     setEndDate(date);
   };
 
@@ -50,47 +48,13 @@ function NewTrip() {
           type="text"
           icon="fa-solid fa-location-dot"
         />
-        {/* Start Date Input */}
-        <div className="field">
-          <label className="field-label visually-hidden" htmlFor="date_start">
-            Date de début
-          </label>
-          <div className="field-container">
-            <i className="fa-solid fa-calendar" />
-            <DatePicker
-              className="field-input"
-              selected={startDate}
-              onChange={handleStartDateChange}
-              selectsStart
-              startDate={startDate}
-              endDate={endDate}
-              placeholderText="Date de début (jj/mm/aaaa)"
-              dateFormat="dd/MM/yyyy"
-              locale="fr" // set french locale
-            />
-          </div>
-        </div>
-        {/* End Date Input */}
-        <div className="field">
-          <label className="field-label visually-hidden" htmlFor="date_start">
-            Date de fin
-          </label>
-          <div className="field-container">
-            <i className="fa-solid fa-calendar" />
-            <DatePicker
-              className="field-input"
-              selected={endDate}
-              onChange={handleEndDateChange}
-              selectsEnd
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
-              placeholderText="Date de fin (jj/mm/aaaa)"
-              dateFormat="dd/MM/yyyy"
-              locale="fr" // set french locale
-            />
-          </div>
-        </div>
+        {/* Dates Picker Inputs (Start - End) */}
+        <InputDatesPicker
+          startDate={startDate}
+          endDate={endDate}
+          onStartDateChange={handleStartDateChange}
+          onEndDateChange={handleEndDateChange}
+        />
         {/* Description Textarea */}
         <TextareaField
           name="description"
