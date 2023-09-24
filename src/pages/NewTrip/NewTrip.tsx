@@ -41,7 +41,7 @@ function NewTrip() {
       <h1 className="main-title">Créer un nouveau voyage</h1>
       <section className="new-trip-container">
         <FormContainer>
-          <h2 className="form-title">Nouveau voyage</h2>
+          <h2 className="new-trip-form-title">Nouveau voyage</h2>
           {/* Localisation Input */}
           <InputField
             name="localisation"
