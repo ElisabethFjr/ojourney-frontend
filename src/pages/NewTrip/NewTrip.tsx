@@ -69,6 +69,8 @@ function NewTrip() {
               endDate={endDate}
               minDate={startDate}
               placeholderText="Date de fin (jj/mm/aaaa)"
+              dateFormat="dd/MM/yyyy"
+              locale="fr"
             />
           </div>
         </div>
