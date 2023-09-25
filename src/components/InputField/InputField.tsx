@@ -1,4 +1,5 @@
 import { useState, ChangeEvent } from 'react';
+import DOMPurify from 'dompurify';
 
 import './InputField.scss';
 
@@ -13,8 +14,8 @@ function InputField({ name, icon, placeholder, type }: InputFieldProps) {
   const [value, setValue] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-    setValue(event.target.value);
+    const sanitizedValue = DOMPurify.sanitize(event.target.value);
+    setValue(sanitizedValue);
   };
 
   return (
