@@ -1,13 +1,15 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axios';
 
 import InputField from '../InputField/InputField';
 import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 import './SignUpForm.scss';
 
 function SignUpForm() {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
   // Gérer la soumission du formulaire d'inscription
@@ -15,21 +17,40 @@ function SignUpForm() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    // setShowSuccessMessage(true);
+
+    const password = formData.get('password') as string;
+    const confirmation = formData.get('confirmation') as string;
+
+    if (password !== confirmation) {
+      setErrorMessage("La confirmation de mot de passe n'est pas valide.");
+      return;
+    }
+    setErrorMessage(null);
 
     // Envoyer les données du formulaire d'inscription sous forme JSON avec Axios
-    try {
-      const jsonData = Object.fromEntries(formData.entries());
-      const { data } = await axiosInstance.post('/signUp', jsonData);
-      navigate('/my-trips', { replace: true });
-      console.log('Inscription réussie', data);
-    } catch (error) {
-      console.error(error);
-    }
+    const jsonData = Object.fromEntries(formData.entries());
+    await axiosInstance
+      .post('/signUp', jsonData)
+      .then((data) => {
+        console.log('Inscription réussie', data);
+        // setShowSuccessMessage(true);
+        navigate('/my-trips', { replace: true });
+      })
+      .catch((error) => {
+        console.error(error);
+        if (error.response) {
+          setErrorMessage(error.response.data.error);
+        } else {
+          setErrorMessage("Une erreur s'est produite lors de l'inscription.");
+        }
+      });
   };
 
   return (
     <form className="form-content" onSubmit={handleSubmit}>
+      {errorMessage && (
+        <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+      )}
       <InputField
         name="lastname"
         placeholder="Nom"

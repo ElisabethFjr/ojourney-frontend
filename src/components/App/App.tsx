@@ -14,7 +14,7 @@ import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
-import FlashMessage from '../FashMessage/FlashMessage';
+import FlashMessage from '../FlashMessage/FlashMessage';
 
 import './App.scss';
 
