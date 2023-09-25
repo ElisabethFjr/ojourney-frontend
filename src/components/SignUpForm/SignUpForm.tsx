@@ -1,4 +1,5 @@
 import { FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axios';
 
 import InputField from '../InputField/InputField';
@@ -7,23 +8,25 @@ import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import './SignUpForm.scss';
 
 function SignUpForm() {
-  // Axio Api post /signUp
+  const navigate = useNavigate();
 
-  // Gestionnaire d'évenement au submit du formulaire
-
+  // Gérer la soumission du formulaire d'inscription
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jsonData = Object.fromEntries(formData.entries());
-    console.log(jsonData);
-  };
+    // setShowSuccessMessage(true);
 
-  //   try {
-  //     const jsonData = Object.fromEntries(formData);
-  //     const { data } = await axiosInstance.post('/signUp', jsonData);
-  //   } catch (error) {}
-  // };
+    // Envoyer les données du formulaire d'inscription sous forme JSON avec Axios
+    try {
+      const jsonData = Object.fromEntries(formData.entries());
+      const { data } = await axiosInstance.post('/signUp', jsonData);
+      navigate('/my-trips', { replace: true });
+      console.log('Inscription réussie', data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <form className="form-content" onSubmit={handleSubmit}>

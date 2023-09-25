@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
@@ -14,6 +14,7 @@ import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
+import FlashMessage from '../FashMessage/FlashMessage';
 
 import './App.scss';
 
@@ -21,6 +22,7 @@ function App() {
   return (
     <div className="app-container">
       <Header />
+      <FlashMessage type="success" text="Inscription réussie !" />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin-signup" element={<SignInUp />} />

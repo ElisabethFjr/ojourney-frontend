@@ -1,0 +1,54 @@
+@use '../../styles/variables' as v;
+@use 'sass:color';
+
+// Message temporaire qui apparaît en haut de l'écran
+// et disparaît après Xms  (durée paramétrée dans le composant)
+
+$height: 3rem;
+$header-height: 4.5rem;
+
+$color: #000000;
+$color-error: #d01f16;
+$color-success: #09771d;
+
+@keyframes show {
+  0% {
+    top: $header-height - $height;
+  }
+  10% {
+    top: $header-height;
+  }
+  90% {
+    top: $header-height;
+  }
+  100% {
+    top: $header-height - $height;
+  }
+}
+
+.flash {
+  animation-name: show;
+  animation-timing-function: linear;
+  // animation-duration: 3000ms; // voit le composant (prop `duration`)
+  background: $color;
+  color: color.scale($color, $lightness: -70%);
+  height: $height;
+  line-height: $height;
+  left: 0;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: $header-height;
+  transition: top 0.3 linear;
+  z-index: 100;
+
+  &--success {
+    background-color: $color-success;
+    color: #fff;
+  }
+
+  &--error {
+    background-color: $color-error;
+    color: #fff;
+  }
+}
