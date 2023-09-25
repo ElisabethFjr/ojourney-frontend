@@ -1,15 +1,32 @@
+import { FormEvent } from 'react';
+import axiosInstance from '../../utils/axios';
+
 import InputField from '../InputField/InputField';
 import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 
 import './SignUpForm.scss';
 
 function SignUpForm() {
-
   // Axio Api post /signUp
-  
+
+  // Gestionnaire d'évenement au submit du formulaire
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const jsonData = Object.fromEntries(formData.entries());
+    console.log(jsonData);
+  };
+
+  //   try {
+  //     const jsonData = Object.fromEntries(formData);
+  //     const { data } = await axiosInstance.post('/signUp', jsonData);
+  //   } catch (error) {}
+  // };
 
   return (
-    <div className="form-content">
+    <form className="form-content" onSubmit={handleSubmit}>
       <InputField
         name="lastname"
         placeholder="Nom"
@@ -41,7 +58,7 @@ function SignUpForm() {
         icon="fa-solid fa-lock"
       />
       <ButtonSubmit text="S'inscrire" />
-    </div>
+    </form>
   );
 }
 
