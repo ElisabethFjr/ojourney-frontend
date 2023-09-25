@@ -14,7 +14,8 @@ import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
-import FlashMessage from '../FlashMessage/FlashMessage';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
 
 import './App.scss';
 
@@ -22,7 +23,7 @@ function App() {
   return (
     <div className="app-container">
       <Header />
-      <FlashMessage type="success" text="Inscription réussie !" />
+      <ConfirmModal />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin-signup" element={<SignInUp />} />
@@ -34,6 +35,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/confirm-account" element={<ConfirmAccount />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />

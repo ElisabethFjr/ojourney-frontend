@@ -5,10 +5,12 @@ import axiosInstance from '../../utils/axios';
 import InputField from '../InputField/InputField';
 import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
 import './SignUpForm.scss';
 
 function SignUpForm() {
+  const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -33,8 +35,7 @@ function SignUpForm() {
       .post('/signUp', jsonData)
       .then((data) => {
         console.log('Inscription réussie', data);
-        // setShowSuccessMessage(true);
-        navigate('/my-trips', { replace: true });
+        setShowModalConfirm(true);
       })
       .catch((error) => {
         console.error(error);
@@ -48,6 +49,7 @@ function SignUpForm() {
 
   return (
     <form className="form-content" onSubmit={handleSubmit}>
+      {showModalConfirm && <ConfirmModal />}
       {errorMessage && (
         <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
       )}
