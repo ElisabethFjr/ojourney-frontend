@@ -4,6 +4,10 @@ import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import './SignUpForm.scss';
 
 function SignUpForm() {
+
+  // Axio Api post /signUp
+  
+
   return (
     <div className="form-content">
       <InputField
