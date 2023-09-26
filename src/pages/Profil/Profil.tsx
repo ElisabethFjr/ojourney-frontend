@@ -33,13 +33,13 @@ function Profil() {
 
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Traitement de vos données</h2>
-        <p>
+        <div>
           Vos choix pour le traitement de vos données sont les suivants :
           <ul>
             <li>Usage commercial : Refusé</li>
             <li>Newsletter : Autorisé</li>
           </ul>
-        </p>
+        </div>
         <div className="profil-card-btn-container">
           <ButtonColor text="Modifier mes consentements" to="#" />
         </div>

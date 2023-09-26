@@ -1,0 +1,21 @@
+@use '../../styles/variables' as v;
+
+.error-message {
+  &-icon {
+    padding: 0 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  &-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    background-color: #eec8c5;
+    border: 1px solid #cc9d9c;
+    border-radius: v.$border-radius;
+    color: #b93934;
+    padding: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+}

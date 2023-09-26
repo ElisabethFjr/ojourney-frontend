@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
@@ -14,6 +14,7 @@ import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
+import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
 
 import './App.scss';
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/confirm-account" element={<ConfirmAccount />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
