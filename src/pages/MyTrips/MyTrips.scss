@@ -1,0 +1,34 @@
+@use '../../styles/variables' as v;
+
+.no-trip {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  &-image {
+    width: 15%;
+    padding-bottom: 2rem;
+  }
+
+  &-message {
+    font-weight: bold;
+  }
+
+  &-instruction {
+    padding-bottom: 2rem;
+  }
+}
+
+.trips {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+}

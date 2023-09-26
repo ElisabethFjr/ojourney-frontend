@@ -7,4 +7,23 @@ body {
   font-family: v.$font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: v.$color-text;
+}
+
+.main-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 40%;
+    display: block;
+    height: 2px;
+    left: 0;
+    margin: 0 auto;
+    right: 0;
+    background-color: v.$color-primary;
+    bottom: -10px;
+  }
 }

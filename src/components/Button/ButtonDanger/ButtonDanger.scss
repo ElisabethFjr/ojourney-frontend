@@ -1,0 +1,17 @@
+@use '../../../styles/variables' as v;
+
+.button--danger {
+  padding: 0.6rem v.$gutter;
+  background-color: rgba(204, 38, 55, 0.8);
+  border: 3px solid v.$color-red;
+  border-radius: v.$border-radius;
+  font-weight: 700;
+  font-size: v.$font-size;
+  color: v.$color-white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: v.$color-red;
+  }
+}

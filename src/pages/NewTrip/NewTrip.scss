@@ -1,0 +1,16 @@
+@use '../../styles/variables' as v;
+
+.new-trip {
+  &-form-title {
+    text-align: center;
+    padding-bottom: 2rem;
+  }
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+}

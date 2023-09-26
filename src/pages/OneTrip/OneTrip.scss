@@ -1,0 +1,71 @@
+@use '../../styles/variables' as v;
+
+.one-trip {
+  &-overview {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid v.$color-grey-middle-lighten;
+
+    &-image {
+      width: 30%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: v.$border-radius 0 0 v.$border-radius;
+    }
+
+    &-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      height: 100%;
+      gap: 0.5rem;
+    }
+
+    &-buttons {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    &-date,
+    &-localisation {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+
+  &-members {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid v.$color-grey-middle-lighten;
+
+    &-icon {
+      padding: 0.7rem;
+      border: 2px solid v.$color-primary;
+      border-radius: 100%;
+      font-size: 1.2rem;
+    }
+  }
+
+  &-propositions {
+    width: 100%;
+    &-title {
+      padding: 1rem 0;
+    }
+    &-add-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+@use '../../styles/variables' as v;
+
+.sign-form {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &-title {
+    margin-bottom: 2.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    font-size: v.$font-size;
+  }
+
+  &-toggle-button {
+    width: 100%;
+    padding: 0.6rem v.$gutter;
+    font-weight: 700;
+    border: none;
+    border-bottom: 3px solid v.$color-grey;
+    background-color: transparent;
+    color: v.$color-text;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: v.$color-primary-lightest;
+      border-bottom: 3px solid v.$color-primary-lightest;
+    }
+
+    &.button--active {
+      color: v.$color-primary;
+      border-bottom: 3px solid v.$color-primary;
+    }
+  }
+}

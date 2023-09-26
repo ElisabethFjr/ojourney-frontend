@@ -1,0 +1,25 @@
+@use '../../styles/variables' as v;
+
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0;
+  line-height: 2;
+
+  &-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+  }
+
+  &-message {
+    padding-bottom: 2rem;
+  }
+
+  &-image {
+    max-width: 180px;
+    width: 90%;
+    height: auto;
+  }
+}

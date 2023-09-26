@@ -1,0 +1,22 @@
+@use '../../styles/variables' as v;
+
+.profil-card {
+  max-width: 900px;
+  width: 90%;
+  margin: 1rem 0;
+  padding: v.$gutter;
+  background-color: v.$color-white;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+  border-radius: v.$border-radius;
+
+  &-subtitle {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  &-btn-container {
+    display: flex;
+    justify-content: end;
+    margin-top: 0.7rem;
+  }
+}

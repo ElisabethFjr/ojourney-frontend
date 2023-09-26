@@ -1,0 +1,36 @@
+@use '../../styles/variables' as v;
+
+.field {
+  &-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 0.6rem;
+    border: none;
+    border-radius: v.$border-radius;
+    background-color: v.$color-white;
+    font-weight: 300;
+    transition: all 0.3s ease;
+    &:focus,
+    &:hover {
+      outline: none;
+    }
+  }
+}
+.icon-textarea {
+  justify-content: center;
+  align-items: start;
+  .fa-solid {
+    padding-top: 1rem;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}

@@ -1,0 +1,41 @@
+@use '../../styles/variables' as v;
+
+.header-navbar {
+  font-weight: 400;
+  font-size: v.$font-size;
+
+  &-list {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 4rem;
+    list-style: none;
+  }
+
+  &-list-link {
+    text-decoration: none;
+    color: v.$color-text;
+    font-weight: 700;
+
+    &:hover {
+      color: v.$color-primary;
+    }
+
+    &.signin-signup {
+      padding: 0.6rem v.$gutter;
+      border: 2px solid v.$color-primary;
+      border-radius: v.$border-radius;
+      color: v.$color-primary;
+      font-weight: 700;
+      font-size: v.$font-size;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: v.$color-white;
+        border: 2px solid v.$color-primary;
+        background-color: v.$color-primary;
+      }
+    }
+  }
+}
