@@ -1,6 +1,6 @@
 @use '../../styles/variables' as v;
 
-.modal-overlay {
+.modal-background {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,14 +13,28 @@
   z-index: 1000;
 }
 
-.modal-content {
+.modal-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   width: 80%;
   max-width: 500px;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 5px;
+  background-color: v.$color-white;
+  padding: 2rem;
+  border-radius: v.$border-radius;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  position: relative;
+}
+
+.modal-icon {
+  font-size: 2rem;
+  color: v.$color-primary;
+}
+
+.modal-text {
+  text-align: center;
 }
 
 .modal-close-btn {
@@ -30,4 +44,13 @@
   border: none;
   background: transparent;
   cursor: pointer;
+
+  &-icon {
+    font-size: 1.5rem;
+    color: v.$color-grey-darkest;
+
+    &:hover {
+      color: v.$color-text;
+    }
+  }
 }

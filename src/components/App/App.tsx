@@ -14,7 +14,6 @@ import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
 
 import './App.scss';
@@ -23,7 +22,6 @@ function App() {
   return (
     <div className="app-container">
       <Header />
-      <ConfirmModal />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin-signup" element={<SignInUp />} />
