@@ -1,5 +1,4 @@
 import { FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axios';
 
 import InputField from '../InputField/InputField';
@@ -12,7 +11,6 @@ import './SignUpForm.scss';
 function SignUpForm() {
   const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const navigate = useNavigate();
 
   // Gérer la soumission du formulaire d'inscription
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -28,6 +26,9 @@ function SignUpForm() {
       return;
     }
     setErrorMessage(null);
+
+    // Supprimer le champ 'confirmation' des données à envoyer
+    formData.delete('confirmation');
 
     // Envoyer les données du formulaire d'inscription sous forme JSON avec Axios
     const jsonData = Object.fromEntries(formData.entries());
