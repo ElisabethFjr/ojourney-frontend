@@ -51,6 +51,7 @@ export const login = createAsyncThunk('/login', async (formData: FormData) => {
     return data;
   } catch (error: any) {
     console.error(error.response.data.error);
+    throw new Error(error.response?.data?.error);
   }
 });
 
@@ -63,8 +64,7 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     // Login promise rejected
     .addCase(login.rejected, (state, action) => {
-      state.errorMessage =
-        action.error.message ?? 'Mot de passe ou adresse email invalide'; // Store the error message
+      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
       console.log('Promise rejected');
     })
     // Login promise success
