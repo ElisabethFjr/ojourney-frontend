@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login } from '../../store/reducers/user';
@@ -13,21 +13,24 @@ function SignInForm() {
   // Initialize Hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  
-  // Get states from Redux 
-  const pseudo = useAppSelector((state) => state.user.data.pseudo) as string | null;
-  const errorMessage = useAppSelector((state) => state.user.errorMessage) as string | null;
+
+  // Get states from Redux
+  const errorMessage = useAppSelector((state) => state.user.errorMessage);
+  const isConnected = useAppSelector((state) => state.user.isConnected);
 
   // Handle SignIn form submit
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    dispatch(login(formData));
-    if (!errorMessage) {
-      navigate('/my-trips'); // If no error (login success), redirect the use to '/my-trips'
-    }
+    await dispatch(login(formData));
   };
+
+  useEffect(() => {
+    if (isConnected) {
+      navigate('/my-trips');
+    }
+  }, [navigate, isConnected]);
 
   return (
     <div className="form-content">
@@ -43,11 +46,11 @@ function SignInForm() {
         />
         <InputField
           name="password"
-          placeholder="Mot de passe"
+          placeholder="Password"
           type="password"
           icon="fa-solid fa-lock"
         />
-        <ButtonSubmit text="Se Connecter" />
+        <ButtonSubmit text="Log In" />
       </form>
     </div>
   );
