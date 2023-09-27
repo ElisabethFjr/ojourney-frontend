@@ -8,6 +8,11 @@ import {
 // Import axios
 import axiosInstance from '../../utils/axios';
 
+// Définir le type pour error
+interface Error {
+  message: string;
+}
+
 // Type user states
 interface UserState {
   data: {
@@ -45,15 +50,18 @@ export const login = createAsyncThunk(
       // Convert formData
       const objData = Object.fromEntries(formData);
       // POST user data to login endpoint
-      const { data } = await axiosInstance.post('/signIn', objData);
+      const { data } = await axiosInstance.post('/signIn', objData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
       // Set JWT token in axios headers
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       // For security do not store the token in redux
       delete data.token;
 
       return data;
-    } catch (error: any) {
-      console.error(error.response.data.error);
+    } catch (error) {
       throw new Error(error.response?.data?.error);
     }
   }
