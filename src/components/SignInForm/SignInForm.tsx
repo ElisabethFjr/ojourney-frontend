@@ -15,8 +15,8 @@ function SignInForm() {
   const navigate = useNavigate();
   
   // Get states from Redux 
-  const pseudo = useAppSelector((state) => state.user.pseudo);
-  const errorMessage = useAppSelector((state) => state.user.errorMessage);
+  const pseudo = useAppSelector((state) => state.user.pseudo) as string | null;
+  const errorMessage = useAppSelector((state) => state.user.errorMessage) as string | null;
 
   // Handle SignIn form submit
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -24,7 +24,9 @@ function SignInForm() {
     const form = event.currentTarget;
     const formData = new FormData(form);
     dispatch(login(formData));
-    // navigate('/my-trips');
+    if (!errorMessage) {
+      navigate('/my-trips'); // If no error (login success), redirect the use to '/my-trips'
+    }
   };
 
   return (

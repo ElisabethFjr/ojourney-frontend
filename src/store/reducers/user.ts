@@ -20,21 +20,19 @@ export const initialState: UserState = {
   errorMessage : null
 };
 
-// Create Actions
-
-// Logout action
+// Create Logout action
 export const logout = createAction('/logout');
 
-// Login action
+// Create async Login action
 export const login = createAsyncThunk('/login', async (formData: FormData) => {
 // Convert formData
   const objData = Object.fromEntries(formData);
-// Send a POST request to the /login endpoint with the user's data
+// POST user data to login endpoint
   const { data } = await axiosInstance.post('/login', objData);
-// Set the JWT token received from the server to the default axios headers
+// Set JWT token in axios headers
   axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-// Remove the token from the data object to avoid storing it in redux
-  delete data.token;
+// For security do not store the token in redux 
+ delete data.token;
 
   return data as {
     pseudo: string;
@@ -50,7 +48,7 @@ const userReducer = createReducer(initialState, (builder) => {
     }) 
     // Login primise rejected
     .addCase(login.rejected, (state, action) => {
-      state.errorMessage = action.error.message; // Store the error message
+      state.errorMessage = action.error.message ?? null; // Store the error message
     })
     // Login promise success
     .addCase(login.fulfilled, (state, action) => {
