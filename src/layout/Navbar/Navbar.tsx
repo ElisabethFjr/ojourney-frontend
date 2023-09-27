@@ -9,8 +9,10 @@ function Navbar() {
   const dispatch = useAppDispatch();
 
   // Get state from Redux 
-  const pseudo = useAppSelector((state) => state.user.pseudo);
+  const pseudo = useAppSelector((state) => state.user.data.pseudo) as string | null;
+  console.log("Valeur actuelle du pseudo:", pseudo);
 
+  
   // Handle Logout
   const handleLogout = () => {
     dispatch(logout());
