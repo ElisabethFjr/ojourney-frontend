@@ -15,7 +15,7 @@ function SignInForm() {
   const navigate = useNavigate();
   
   // Get states from Redux 
-  const pseudo = useAppSelector((state) => state.user.pseudo) as string | null;
+  const pseudo = useAppSelector((state) => state.user.data.pseudo) as string | null;
   const errorMessage = useAppSelector((state) => state.user.errorMessage) as string | null;
 
   // Handle SignIn form submit

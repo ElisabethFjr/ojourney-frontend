@@ -10,13 +10,25 @@ import axiosInstance from '../../utils/axios';
 
 // Type user states
 interface UserState {
-  pseudo: string | null;
+  data: {
+    firstname: string | null;
+    lastname: string | null;
+    email: string | null;
+    password: string |null;
+    pseudo: string | null;
+  }
   errorMessage: string | null ;
 }
 
 // User Reducer initial states
 export const initialState: UserState = {
-  pseudo: null,
+  data: {
+    firstname: null,
+    lastname:  null,
+    email: null,
+    password: null,
+    pseudo: null
+  },
   errorMessage : null
 };
 
@@ -29,14 +41,13 @@ export const login = createAsyncThunk('/login', async (formData: FormData) => {
   const objData = Object.fromEntries(formData);
 // POST user data to login endpoint
   const { data } = await axiosInstance.post('/signIn', objData);
+  console.log(data)
 // Set JWT token in axios headers
   axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
 // For security do not store the token in redux 
  delete data.token;
 
-  return data as {
-    pseudo: string;
-  };
+  return data;
 });
 
 // Create User Reducer
@@ -52,12 +63,16 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     // Login promise success
     .addCase(login.fulfilled, (state, action) => {
-      state.pseudo = action.payload.pseudo; // Store the user's pseudo
+      state.data = {
+        ...state.data,
+        ...action.payload,
+        pseudo: action.payload.firstname, // Set pseudo to firstname
+      };
       state.errorMessage = null;
     })
     // Logout
     .addCase(logout, (state) => {
-      state.pseudo = null; // Reset pseudo to null after logout
+      state.data = initialState.data; // Reset user data to initial state
       delete axiosInstance.defaults.headers.common.Authorization; // Delete the JWT from instance Axios Instance headers
     });
 });
