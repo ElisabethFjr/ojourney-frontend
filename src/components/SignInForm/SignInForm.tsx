@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from 'react'; // Ajoutez React ici
+import React, { FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login } from '../../store/reducers/user';
@@ -19,18 +19,18 @@ function SignInForm() {
   const errorMessage = useAppSelector((state) => state.user.errorMessage);
 
   // Handle SignIn form submit
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    dispatch(login(formData));
-  };
 
-  useEffect(() => {
-    if (isConnected) {
-      navigate('/my-trips'); // Redirect the user after a successful login
+    try {
+      await dispatch(login(formData));
+      // Redirect the user only if the login is successful
+    } catch (error) {
+      console.error('Login error:', error);
     }
-  }, [isConnected, navigate]);
+  };
 
   return (
     <div className="form-content">
@@ -46,11 +46,11 @@ function SignInForm() {
         />
         <InputField
           name="password"
-          placeholder="Mot de passe"
+          placeholder="Password"
           type="password"
           icon="fa-solid fa-lock"
         />
-        <ButtonSubmit text="Se Connecter" />
+        <ButtonSubmit text="Log In" />
       </form>
     </div>
   );

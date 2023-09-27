@@ -38,16 +38,20 @@ export const logout = createAsyncThunk('/logout', async () => {
 
 // Create async Login action
 export const login = createAsyncThunk('/login', async (formData: FormData) => {
-  // Convert formData
-  const objData = Object.fromEntries(formData);
-  // POST user data to login endpoint
-  const { data } = await axiosInstance.post('/signIn', objData);
-  // Set JWT token in axios headers
-  axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-  // For security do not store the token in redux
-  delete data.token;
+  try {
+    // Convert formData
+    const objData = Object.fromEntries(formData);
+    // POST user data to login endpoint
+    const { data } = await axiosInstance.post('/signIn', objData);
+    // Set JWT token in axios headers
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+    // For security do not store the token in redux
+    delete data.token;
 
-  return data;
+    return data;
+  } catch (error: any) {
+    console.error(error.response.data.error);
+  }
 });
 
 // Create User Reducer
