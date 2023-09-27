@@ -21,14 +21,14 @@ export const initialState: UserState = {
 };
 
 // Create Logout action
-export const logout = createAction('/logout');
+export const logout = createAction('/signOut');
 
 // Create async Login action
 export const login = createAsyncThunk('/login', async (formData: FormData) => {
 // Convert formData
   const objData = Object.fromEntries(formData);
 // POST user data to login endpoint
-  const { data } = await axiosInstance.post('/login', objData);
+  const { data } = await axiosInstance.post('/signIn', objData);
 // Set JWT token in axios headers
   axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
 // For security do not store the token in redux 
