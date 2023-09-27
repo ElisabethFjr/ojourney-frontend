@@ -50,11 +50,7 @@ export const login = createAsyncThunk(
       // Convert formData
       const objData = Object.fromEntries(formData);
       // POST user data to login endpoint
-      const { data } = await axiosInstance.post('/signIn', objData, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
+      const { data } = await axiosInstance.post('/signIn', objData);
       // Set JWT token in axios headers
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       // For security do not store the token in redux
