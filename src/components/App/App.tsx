@@ -1,4 +1,5 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, Routes, useLocation, } from 'react-router-dom';
 
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
@@ -19,6 +20,12 @@ import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
 import './App.scss';
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  
   return (
     <div className="app-container">
       <Header />
