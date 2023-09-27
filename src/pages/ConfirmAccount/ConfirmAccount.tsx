@@ -9,9 +9,10 @@ import './ConfirmAccount.scss';
 
 function ConfirmAccount() {
   const [isConfirmed, setIsConfirmed] = useState(false);
-  const { token } = useParams();
+  // const { token } = useParams();
   // const token = new URLSearchParams(document.location.search);
   // const tokenValue = token.get('token');
+  const token = document.location.hash.split('?')[1];
 
   useEffect(() => {
     async function confirmEmail() {
@@ -29,7 +30,7 @@ function ConfirmAccount() {
         });
     }
     confirmEmail();
-  }), [token];
+  }, []);
 
   return (
     <Main>

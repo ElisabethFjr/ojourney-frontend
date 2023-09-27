@@ -33,7 +33,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
-        <Route path="/confirm-account/:token" element={<ConfirmAccount />} />
+        <Route path="/confirm-account" element={<ConfirmAccount />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
