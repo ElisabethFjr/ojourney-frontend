@@ -39,7 +39,7 @@ function Navbar() {
             </li>
             <li>
               <NavLink
-                to="/signin-signOut"
+                to="/"
                 className="header-navbar-list-link signin-signup"
                 onClick={handleLogout}
               >
