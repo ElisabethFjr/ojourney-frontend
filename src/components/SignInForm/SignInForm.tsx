@@ -15,22 +15,22 @@ function SignInForm() {
   const navigate = useNavigate();
 
   // Get states from Redux
-  const isConnected = useAppSelector((state) => state.user.isConnected);
   const errorMessage = useAppSelector((state) => state.user.errorMessage);
+  const isConnected = useAppSelector((state) => state.user.isConnected);
 
   // Handle SignIn form submit
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-
-    try {
-      await dispatch(login(formData));
-      // Redirect the user only if the login is successful
-    } catch (error) {
-      console.error('Login error:', error);
-    }
+    await dispatch(login(formData));
   };
+
+  useEffect(() => {
+    if (isConnected) {
+      navigate('/my-trips');
+    }
+  }, [navigate, isConnected]);
 
   return (
     <div className="form-content">
