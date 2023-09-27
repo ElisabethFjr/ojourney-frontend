@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // Imports
 import {
   createReducer,
@@ -7,11 +9,6 @@ import {
 
 // Import axios
 import axiosInstance from '../../utils/axios';
-
-// Définir le type pour error
-interface Error {
-  message: string;
-}
 
 // Type user states
 interface UserState {
@@ -58,7 +55,14 @@ export const login = createAsyncThunk(
 
       return data;
     } catch (error) {
-      throw new Error(error.response?.data?.error);
+      // Check if the error is an Axios error Type and has a response
+      if (axios.isAxiosError(error) && error.response) {
+        // Throw an error with the server's error message
+        throw new Error(error.response.data.error);
+      } else {
+        // If it's not an Axios error or doesn't have a response, throw a generic error
+        throw new Error('UNKNOWN_ERROR');
+      }
     }
   }
 );
