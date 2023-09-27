@@ -20,17 +20,14 @@ function ConfirmAccount() {
         .get(`/confirm?confirm=${token}`)
         .then((response) => {
           setIsConfirmed(true);
-          console.log('Réponse ok');
-          console.log(`Réponse: ${response.data}`);
         })
         .catch((error) => {
           setIsConfirmed(false);
-          console.log('Erreur');
-          console.log(error);
+          console.error(error);
         });
     }
     confirmEmail();
-  }, []);
+  }, [token]);
 
   return (
     <Main>
