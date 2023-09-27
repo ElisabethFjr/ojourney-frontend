@@ -9,8 +9,8 @@ function Navbar() {
   const dispatch = useAppDispatch();
 
   // Get state from Redux
-  const pseudo = useAppSelector((state) => state.user.data.pseudo);
-  console.log('Valeur actuelle du pseudo:', pseudo);
+  const isConnected = useAppSelector((state) => state.user.isConnected);
+  console.log('Est connecté !', isConnected);
 
   // Handle Logout
   const handleLogout = () => {
@@ -20,7 +20,7 @@ function Navbar() {
   return (
     <nav className="header-navbar">
       <ul className="header-navbar-list">
-        {pseudo ? (
+        {isConnected ? (
           <>
             <li>
               <NavLink to="/my-trips" className="header-navbar-list-link">

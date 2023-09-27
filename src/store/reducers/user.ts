@@ -1,9 +1,5 @@
 // Imports
-import {
-  createReducer,
-  createAction,
-  createAsyncThunk,
-} from '@reduxjs/toolkit';
+import { createReducer, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Import axios
 import axiosInstance from '../../utils/axios';
@@ -15,9 +11,10 @@ interface UserState {
     lastname: string | null;
     email: string | null;
     password: string | null;
-    pseudo: string | null;
   };
+  isConnected: boolean;
   errorMessage: string | null;
+  flashMessage: string | null;
 }
 
 // User Reducer initial states
@@ -27,13 +24,17 @@ export const initialState: UserState = {
     lastname: null,
     email: null,
     password: null,
-    pseudo: null,
   },
+  isConnected: false,
   errorMessage: null,
+  flashMessage: null,
 };
 
 // Create Logout action
-export const logout = createAction('/signOut');
+export const logout = createAsyncThunk('/logout', async () => {
+  await axiosInstance.post('/signOut');
+  // return { flashMessage: 'Déconnexion réussie' };
+});
 
 // Create async Login action
 export const login = createAsyncThunk('/login', async (formData: FormData) => {
@@ -41,7 +42,6 @@ export const login = createAsyncThunk('/login', async (formData: FormData) => {
   const objData = Object.fromEntries(formData);
   // POST user data to login endpoint
   const { data } = await axiosInstance.post('/signIn', objData);
-  console.log('Valeur  du pseudo:', data);
   // Set JWT token in axios headers
   axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
   // For security do not store the token in redux
@@ -57,22 +57,26 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(login.pending, (state) => {
       state.errorMessage = null;
     })
-    // Login primise rejected
+    // Login promise rejected
     .addCase(login.rejected, (state, action) => {
-      state.errorMessage = action.error.message ?? null; // Store the error message
+      state.errorMessage =
+        action.error.message ?? 'Mot de passe ou adresse email invalide'; // Store the error message
+      console.log('Promise rejected');
     })
     // Login promise success
     .addCase(login.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
         ...action.payload,
-        pseudo: action.payload.firstname, // Set pseudo to firstname
       };
+      state.isConnected = true;
       state.errorMessage = null;
+      console.log('Promise succeed');
     })
     // Logout
-    .addCase(logout, (state) => {
+    .addCase(logout.fulfilled, (state) => {
       state.data = initialState.data; // Reset user data to initial state
+      state.isConnected = false;
       delete axiosInstance.defaults.headers.common.Authorization; // Delete the JWT from instance Axios Instance headers
     });
 });
