@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="app-container">
       <Header />
-      <Routes>
+      <Routes> 
         <Route path="/" element={<Home />} />
         <Route path="/signin-signup" element={<SignInUp />} />
         <Route path="/profil" element={<Profil />} />

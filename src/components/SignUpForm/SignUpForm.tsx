@@ -9,28 +9,31 @@ import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import './SignUpForm.scss';
 
 function SignUpForm() {
-  const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  // Declaration state variables
+  const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false); // State to display or not confirmation modal
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State to display an error message
 
-  // Gérer la soumission du formulaire d'inscription
+  // Handle SignUp form submit
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Extract password and confirmation from formData
     const password = formData.get('password') as string;
     const confirmation = formData.get('confirmation') as string;
 
+    // Check match password and confirmation, if not, display an error message
     if (password !== confirmation) {
       setErrorMessage("La confirmation de mot de passe n'est pas valide.");
       return;
     }
     setErrorMessage(null);
 
-    // Supprimer le champ 'confirmation' des données à envoyer
+    // Remove the 'confirmation' field from the data to be sent
     formData.delete('confirmation');
 
-    // Envoyer les données du formulaire d'inscription sous forme JSON avec Axios
+    // Send registration form data (JSON) to the server using Axios
     const jsonData = Object.fromEntries(formData.entries());
     await axiosInstance
       .post('/signUp', jsonData)
