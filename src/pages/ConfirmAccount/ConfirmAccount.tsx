@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axiosInstance from '../../utils/axios';
 
 import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
@@ -8,7 +9,9 @@ import './ConfirmAccount.scss';
 
 function ConfirmAccount() {
   const [isConfirmed, setIsConfirmed] = useState(false);
-  const token = new URLSearchParams(document.location.search);
+  const { token } = useParams();
+  // const token = new URLSearchParams(document.location.search);
+  // const tokenValue = token.get('token');
 
   useEffect(() => {
     async function confirmEmail() {
@@ -26,7 +29,7 @@ function ConfirmAccount() {
         });
     }
     confirmEmail();
-  });
+  }), [token];
 
   return (
     <Main>
