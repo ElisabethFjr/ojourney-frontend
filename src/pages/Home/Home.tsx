@@ -1,4 +1,5 @@
-import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
+import { Link } from 'react-router-dom';
+import Button from '../../components/Button/Button';
 
 import './Home.scss';
 
@@ -16,7 +17,14 @@ function Home() {
             aventures inoubliables. Connectez-vous ou créez un compte pour
             commencer.
           </p>
-          <ButtonColor text="Commencer à planifier" to="/signin-signup" />
+          <Link to="/signin-signup">
+            <Button
+              type="button"
+              text="Commencer à planifier"
+              customClass="color"
+            />
+          </Link>
+          {/* <ButtonColor text="Commencer à planifier" /> */}
         </div>
       </div>
     </main>
