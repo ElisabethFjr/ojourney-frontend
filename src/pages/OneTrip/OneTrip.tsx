@@ -4,6 +4,7 @@ import ButtonOutline from '../../components/Button/ButtonOutline/ButtonOutline';
 import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
 import PropositionCard from '../../components/PropositionCard/PropositionCard';
 
+
 import './OneTrip.scss';
 
 function OneTrip() {
@@ -33,6 +34,7 @@ function OneTrip() {
           <div className="one-trip-overview-buttons">
             <ButtonOutline to="#" text="Editer" icon="fa-solid fa-pen" />
             <ButtonOutline to="#" text="Supprimer" icon="fa-solid fa-trash" />
+                
           </div>
         </div>
       </section>
