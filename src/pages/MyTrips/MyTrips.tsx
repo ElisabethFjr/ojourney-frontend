@@ -26,7 +26,12 @@ function MyTrips() {
   // Function to fetch all trips data from the server with awiosInstance
   const fetchData = async () => {
     await axiosInstance
-      .get('/trips')
+      .get('/trips', {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${localStorage.getItem('token').replace(/"|_/g, '')}`,
+        },
+      })
       .then((response) => {
         console.log(response);
         setTripsData(response.data);

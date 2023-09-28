@@ -58,7 +58,10 @@ function NewTrip() {
 
     await axiosInstance
       .post('/trips', objData, {
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${localStorage.getItem('token').replace(/"|_/g, '')}`,
+        },
       })
       .then(() => {
         // created = true;
