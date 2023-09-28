@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Trip } from '../../@types';
 
 import './TripCard.scss';
+import ButtonIcon from '../ButtonIcon/ButtonIcon';
 
 export interface TripCardProps {
   srcTripImage: string;
@@ -23,6 +24,14 @@ function TripCard({
   linkHref,
   trip,
 }: TripCardProps) {
+  const handleClickEdit = () => {
+    console.log('Au clic sur le bouton, afficher la page EditTrip');
+  };
+
+  const handleClickDelete = () => {
+    console.log('Au clic sur le bouton, afficher la modale ConfirmDelete');
+  };
+
   return (
     <Link to={linkHref} className="trip-card">
       <img className="trip-card-image" src={srcTripImage} alt={altImage} />
@@ -30,8 +39,11 @@ function TripCard({
         <div className="trip-card-header">
           <h3 className="trip-card-header-title">{localisation}</h3>
           <div className="trip-card-header-icon">
-            <i className="fa-solid fa-pen" />
-            <i className="fa-solid fa-trash" />
+            <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
+            <ButtonIcon
+              icon="fa-solid fa-trash"
+              handleClick={handleClickDelete}
+            />
           </div>
         </div>
         <p className="trip-card-author">Creé par {authorName}</p>
