@@ -36,7 +36,7 @@
 //             <Text>Localisation du voyage : {trip.localisation}</Text>
 //             <Text>Description du voyage : {trip.description}</Text>
 //             <Text>URL de l'image du voyage : {trip.url_image}</Text>
-//             } 
+//             }
 //             ) : (
 //               <Text>Vous n'avez pas de projet de voyage en cours</Text>
 //             )

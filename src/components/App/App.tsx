@@ -49,7 +49,7 @@ function App() {
         <Route path="/new-trip" element={<NewTrip />} />
         <Route path="/my-trips" element={<MyTrips />} />
         <Route path="/my-trip/:id" element={<OneTrip />} />
-        <Route path="/new-proposition" element={<NewProposition />} />
+        <Route path="/new-proposition/:id" element={<NewProposition />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />

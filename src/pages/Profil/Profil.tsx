@@ -98,8 +98,13 @@ function Profil() {
         <div>
           Vos choix pour le traitement de vos données sont les suivants :
           <ul>
-            <li>Usage commercial : Refusé</li>
-            <li>Newsletter : Autorisé</li>
+            <li>
+              Usage commercial :{' '}
+              {data.consent_commercial ? 'Accepté' : 'Refusé'}
+            </li>
+            <li>
+              Newsletter : {data.consent_newsletter ? 'Accepté' : 'Refusé'}
+            </li>
           </ul>
         </div>
         <div className="profil-card-btn-container">

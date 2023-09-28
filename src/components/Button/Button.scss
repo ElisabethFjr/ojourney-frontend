@@ -55,6 +55,18 @@
     }
   }
 
+  // OUTLINE GREY BUTTON
+  &--outline-dark {
+    background-color: transparent;
+    border: 3px solid v.$color-text;
+    border-radius: v.$border-radius;
+    color: v.$color-text;
+
+    &:hover {
+      background-color: v.$color-grey-lightest;
+    }
+  }
+
   // LARGE BUTTON
   &--width {
     width: 100%;

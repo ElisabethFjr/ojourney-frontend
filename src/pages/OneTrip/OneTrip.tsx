@@ -129,7 +129,7 @@ function OneTrip() {
           <p className="one-trip-propositions-add-text">
             Faites une nouvelle proposition.
           </p>
-          <Link to="/new-proposition">
+          <Link to={`/new-proposition/${id}`}>
             <Button
               text="Nouvelle proposition"
               icon="fa-solid fa-plus"

@@ -1,4 +1,5 @@
 import { useState, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
@@ -14,7 +15,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './NewTrip.scss';
 
 function NewTrip() {
-  // States variables declaration
+  const navigate = useNavigate();
+
   const [startDate, setStartDate] = useState<Date>(new Date()); // Trip start date
   const [endDate, setEndDate] = useState<Date>(new Date()); // Trip end date
 
@@ -28,13 +30,11 @@ function NewTrip() {
 
   // Event handler for start date change
   const handleStartDateChange = (date: Date) => {
-    console.log(date);
     setStartDate(date);
   };
 
   // Event handler for end date change
   const handleEndDateChange = (date: Date) => {
-    console.log(date);
     setEndDate(date);
   };
 
@@ -55,17 +55,15 @@ function NewTrip() {
 
     // Send newTrip form data (JSON) to the server with Axios
     const objData = Object.fromEntries(formData);
-    console.log('----- Contenu de FormData -----');
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
+
     await axiosInstance
       .post('/trips', objData, {
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
       })
-      .then((response) =>
-        console.log('Création de voyage réussie:', response.data)
-      )
+      .then(() => {
+        // created = true;
+        navigate(`/my-trips`);
+      })
       .catch((error) => {
         console.error(error);
       });

@@ -22,6 +22,8 @@ interface UserState {
     email: string | null;
     password: string | null;
     trips: Trip[] | null;
+    consent_newsletter: boolean | false;
+    consent_commercial: boolean | false;
   };
   isConnected: boolean;
   errorMessage: string | null;
@@ -37,6 +39,8 @@ export const initialState: UserState = {
     email: null,
     password: null,
     trips: null,
+    consent_commercial: false,
+    consent_newsletter: false,
   },
   isConnected: false,
   errorMessage: null,
@@ -58,7 +62,7 @@ export const login = createAsyncThunk(
       // Set JWT token in axios headers
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       // For security do not store the token in redux
-      localStorage.setItem('token', JSON.stringify(data.token));
+      // localStorage.setItem('token', JSON.stringify(data.token));
       delete data.token;
 
       return data;

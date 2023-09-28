@@ -8,6 +8,7 @@ import Main from '../../layout/Main/Main';
 
 import TripCard from '../../components/TripCard/TripCard';
 import Button from '../../components/Button/Button';
+import ModalDeleteConfirmation from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
 
 import travel from '../../assets/images/travel.png';
 
@@ -60,6 +61,10 @@ function MyTrips() {
 
   return (
     <Main>
+      {/* <ModalDeleteConfirmation
+        title="Confirmation suppression"
+        text="Êtes-vous sûr de vouloir supprimer ce voyage ?"
+      /> */}
       <h1 className="main-title">Mes Voyages</h1>
 
       {/* Conditional rendering based on the tripsData's length */}
