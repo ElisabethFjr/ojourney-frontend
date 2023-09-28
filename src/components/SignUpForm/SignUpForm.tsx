@@ -2,9 +2,9 @@ import { FormEvent, useState } from 'react';
 import axiosInstance from '../../utils/axios';
 
 import InputField from '../InputField/InputField';
-import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import Button from '../Button/Button';
 
 import './SignUpForm.scss';
 
@@ -91,7 +91,11 @@ function SignUpForm() {
         type="password"
         icon="fa-solid fa-lock"
       />
-      <ButtonSubmit text="S'inscrire" />
+      <Button
+        text="S'inscrire"
+        customClass="color button--width"
+        type="submit"
+      />
     </form>
   );
 }

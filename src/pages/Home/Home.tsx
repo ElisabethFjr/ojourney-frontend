@@ -17,14 +17,13 @@ function Home() {
             aventures inoubliables. Connectez-vous ou créez un compte pour
             commencer.
           </p>
-          <Link to="/signin-signup">
+          <Link to="/signin-signup" className="home-link">
             <Button
               type="button"
               text="Commencer à planifier"
               customClass="color"
             />
           </Link>
-          {/* <ButtonColor text="Commencer à planifier" /> */}
         </div>
       </div>
     </main>

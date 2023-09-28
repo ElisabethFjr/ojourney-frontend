@@ -10,13 +10,18 @@ import {
 // Import axios
 import axiosInstance from '../../utils/axios';
 
+// Import types
+import { Trip } from '../../@types';
+
 // Type user states
 interface UserState {
   data: {
+    id: number | null;
     firstname: string | null;
     lastname: string | null;
     email: string | null;
     password: string | null;
+    trips: Trip[] | null;
   };
   isConnected: boolean;
   errorMessage: string | null;
@@ -26,10 +31,12 @@ interface UserState {
 // User Reducer initial states
 export const initialState: UserState = {
   data: {
+    id: null,
     firstname: null,
     lastname: null,
     email: null,
     password: null,
+    trips: null,
   },
   isConnected: false,
   errorMessage: null,

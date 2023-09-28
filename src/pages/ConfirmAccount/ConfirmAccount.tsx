@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axiosInstance from '../../utils/axios';
 
-import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
 import Main from '../../layout/Main/Main';
+import Button from '../../components/Button/Button';
 
 import './ConfirmAccount.scss';
 
@@ -41,7 +41,9 @@ function ConfirmAccount() {
               Vous pouvez maintenant vous connecter en cliquant sur le bouton
               ci-dessous.
             </p>
-            <ButtonColor text="Se Connecter" to="/signin-signup" />
+            <Link to="/signin-signup">
+              <Button text="Se Connecter" customClass="color" type="button" />
+            </Link>
           </>
         ) : (
           <>

@@ -7,7 +7,7 @@ import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';
-import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
+import Button from '../../components/Button/Button';
 import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -98,7 +98,11 @@ function NewTrip() {
             {/* Image File Selection Input */}
             <InputFieldImage handleFile={handleFile} />
             {/* Form Submit Button */}
-            <ButtonSubmit text="Créer le voyage" />
+            <Button
+              text="Créer le voyage"
+              type="submit"
+              customClass="color button--width"
+            />
           </form>
         </FormContainer>
       </section>

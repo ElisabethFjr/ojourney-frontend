@@ -1,14 +1,57 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
+
+import axiosInstance from '../../utils/axios';
+
 import Main from '../../layout/Main/Main';
 
-import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
 import TripCard from '../../components/TripCard/TripCard';
+import Button from '../../components/Button/Button';
 
 import travel from '../../assets/images/travel.png';
+
+import { Trip } from '../../@types';
 
 import './MyTrips.scss';
 
 function MyTrips() {
-  return (
+  const [tripData, setTripData] = useState<Trip[]>([]);
+
+  const data = useAppSelector((state) => state.user.data);
+
+  const fetchData = async () => {
+    await axiosInstance
+      .get('/trips')
+      .then((response) => {
+        console.log(response);
+        setTripData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  useEffect(() => {
+    try {
+      fetchData();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+  const allTrips = tripData.map((trip) => (
+    <li key={trip.id}>
+      <TripCard
+        srcTripImage={trip.url_image}
+        altImage="O'Jouney"
+        authorName={`${data.firstname} ${data.lastname}`}
+        description={trip.description}
+        localisation={trip.localisation}
+        linkHref={`/my-trip/${trip.id}`}
+      />
+    </li>
+  ));
+
+  return tripData.length === 0 ? (
     <Main>
       <h1 className="main-title">Mes Voyages</h1>
       <section className="no-trip-container">
@@ -21,20 +64,21 @@ function MyTrips() {
         <p className="no-trip-instruction">
           Commencez en créant un nouveau voyage.
         </p>
-        <ButtonColor
-          text="Nouveau voyage"
-          to="/new-trip"
-          icon="fa-solid fa-plus"
-        />
+        <Link to="/new-trip">
+          <Button
+            text="Nouveau voyage"
+            icon="fa-solid fa-plus"
+            type="button"
+            customClass="color"
+          />
+        </Link>
       </section>
+    </Main>
+  ) : (
+    <Main>
+      <h1 className="main-title">Mes Voyages</h1>
       <section className="trips-container">
-        <TripCard
-          srcTripImage="https://storage.googleapis.com/twg-content/original_images/Insights_Voyage_2019_Think_with_Google_France-compressed.jpg"
-          altImage="O'Jouney colorado van"
-          authorName="Bidule"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
-          tripTitle="Voyage au Canada"
-        />
+        <ul>{allTrips}</ul>
       </section>
     </Main>
   );

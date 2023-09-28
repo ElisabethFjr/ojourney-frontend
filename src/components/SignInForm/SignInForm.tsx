@@ -1,11 +1,11 @@
-import React, { FormEvent, useEffect } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login } from '../../store/reducers/user';
 
 import InputField from '../InputField/InputField';
-import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import Button from '../Button/Button';
 
 import './SignInForm.scss';
 
@@ -50,7 +50,11 @@ function SignInForm() {
           type="password"
           icon="fa-solid fa-lock"
         />
-        <ButtonSubmit text="Log In" />
+        <Button
+          text="Se Connecter"
+          customClass="color button--width"
+          type="submit"
+        />
       </form>
     </div>
   );

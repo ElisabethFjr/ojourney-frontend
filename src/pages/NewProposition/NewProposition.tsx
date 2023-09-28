@@ -1,10 +1,10 @@
 import Main from '../../layout/Main/Main';
 
 import FormContainer from '../../components/FormContainer/FormContainer';
-import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
 import InputField from '../../components/InputField/InputField';
 
 import './NewProposition.scss';
+import Button from '../../components/Button/Button';
 
 function NewProposition() {
   return (
@@ -30,7 +30,11 @@ function NewProposition() {
           type="url"
           icon="fa-solid fa-link"
         />
-        <ButtonSubmit text="Valider la proposition" />
+        <Button
+          text="Valider la proposition"
+          customClass="color"
+          type="button"
+        />
       </FormContainer>
     </Main>
   );
