@@ -1,4 +1,7 @@
 import { ChangeEvent, useRef } from 'react';
+
+import Button from '../Button/Button';
+
 import './InputFieldImage.scss';
 
 interface InputFieldImageProps {
@@ -36,9 +39,13 @@ function InputFieldImage({ handleFile }: InputFieldImageProps) {
         type="file"
         ref={hiddenFileInput}
       />
-      <button className="field-input-btn" type="button" onClick={handleClick}>
-        <i className="fa-regular fa-image" /> Ajouter une image
-      </button>
+      <Button
+        text="Ajouter une image"
+        customClass="outline"
+        type="button"
+        onClick={handleClick}
+        icon="fa-regular fa-image"
+      />
     </div>
   );
 }

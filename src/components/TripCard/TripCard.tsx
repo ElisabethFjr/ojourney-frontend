@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
 
+import { Trip } from '../../@types';
+
 import './TripCard.scss';
 
-interface TripCardProps {
+export interface TripCardProps {
   srcTripImage: string;
   altImage: string;
   authorName: string;
   description: string;
-  tripTitle: string;
+  localisation: string;
+  linkHref: string;
+  trip?: Trip;
 }
 
 function TripCard({
@@ -15,14 +19,16 @@ function TripCard({
   altImage,
   authorName,
   description,
-  tripTitle,
+  localisation,
+  linkHref,
+  trip,
 }: TripCardProps) {
   return (
-    <Link to="/my-trip" className="trip-card">
+    <Link to={linkHref} className="trip-card">
       <img className="trip-card-image" src={srcTripImage} alt={altImage} />
       <div className="trip-card-container">
         <div className="trip-card-header">
-          <h3 className="trip-card-header-title">{tripTitle}</h3>
+          <h3 className="trip-card-header-title">{localisation}</h3>
           <div className="trip-card-header-icon">
             <i className="fa-solid fa-pen" />
             <i className="fa-solid fa-trash" />

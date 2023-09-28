@@ -1,0 +1,74 @@
+@use '../../styles/variables' as v;
+
+.button-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem v.$gutter;
+  border-radius: v.$border-radius;
+  font-size: v.$font-size;
+  font-weight: 700;
+  cursor: pointer;
+
+  // COLOR BUTTON
+  &--color {
+    transition: all 0.3s ease;
+    background-color: v.$color-primary;
+    border: none;
+    color: v.$color-white;
+
+    &:hover {
+      background-color: v.$color-primary-darkest;
+    }
+  }
+
+  // DANGER BUTTON
+  &--danger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem v.$gutter;
+    border-radius: v.$border-radius;
+    font-size: v.$font-size;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: rgba(204, 38, 55, 0.8);
+    border: 3px solid v.$color-red;
+    color: v.$color-white;
+
+    &:hover {
+      background-color: v.$color-red;
+    }
+  }
+
+  // OUTLINE BUTTON
+  &--outline {
+    background-color: transparent;
+    border: 2px solid v.$color-primary;
+    border-radius: v.$border-radius;
+    color: v.$color-primary;
+
+    &:hover {
+      background-color: v.$color-primary-lightest2;
+    }
+  }
+
+  // OUTLINE GREY BUTTON
+  &--outline-dark {
+    background-color: transparent;
+    border: 3px solid v.$color-text;
+    border-radius: v.$border-radius;
+    color: v.$color-text;
+
+    &:hover {
+      background-color: v.$color-grey-lightest;
+    }
+  }
+
+  // LARGE BUTTON
+  &--width {
+    width: 100%;
+  }
+}

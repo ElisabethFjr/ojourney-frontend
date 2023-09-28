@@ -1,4 +1,5 @@
 import { useState, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
@@ -7,18 +8,19 @@ import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';
-import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
+import Button from '../../components/Button/Button';
 import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './NewTrip.scss';
 
 function NewTrip() {
-  // States variables declaration
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date());
+  const navigate = useNavigate();
 
-  // Function to change Dates format
+  const [startDate, setStartDate] = useState<Date>(new Date()); // Trip start date
+  const [endDate, setEndDate] = useState<Date>(new Date()); // Trip end date
+
+  // Function to change Dates format to YYYY-MM-DD
   const changeDateFormat = (date: Date) => {
     const year = date.toLocaleString('default', { year: 'numeric' });
     const month = date.toLocaleString('default', { month: '2-digit' });
@@ -28,13 +30,11 @@ function NewTrip() {
 
   // Event handler for start date change
   const handleStartDateChange = (date: Date) => {
-    console.log(date);
     setStartDate(date);
   };
 
   // Event handler for end date change
   const handleEndDateChange = (date: Date) => {
-    console.log(date);
     setEndDate(date);
   };
 
@@ -42,30 +42,31 @@ function NewTrip() {
   const handleFile = (file: File) => {
     console.log('Fichier sélectionné :', file);
   };
+
+  // Event handler for the newTrip form submit
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Change dates format
     formData.append('date_start', changeDateFormat(startDate));
     formData.append('date_end', changeDateFormat(endDate));
-    const formSent = Object.fromEntries(formData);
-    console.log('----- Contenu de FormData -----');
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
 
-    try {
-      // L'URL doit être adaptée à votre API
-      await axiosInstance
-        .post('/trips', formSent, {
-          headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        })
-        .then((response) => console.log('Server Response:', response.data));
-    } catch (error) {
-      console.error("Erreur lors de l'ajout du voyage:", error);
-      // Gérer l'erreur (affichez un message d'erreur à l'utilisateur, par exemple)
-    }
+    // Send newTrip form data (JSON) to the server with Axios
+    const objData = Object.fromEntries(formData);
+
+    await axiosInstance
+      .post('/trips', objData, {
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      })
+      .then(() => {
+        // created = true;
+        navigate(`/my-trips`);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -97,8 +98,12 @@ function NewTrip() {
             />
             {/* Image File Selection Input */}
             <InputFieldImage handleFile={handleFile} />
-            {/* Form Submit Button */}
-            <ButtonSubmit text="Créer le voyage" />
+            {/* Submit Button */}
+            <Button
+              text="Créer le voyage"
+              type="submit"
+              customClass="color button--width"
+            />
           </form>
         </FormContainer>
       </section>

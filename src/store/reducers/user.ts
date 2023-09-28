@@ -10,13 +10,20 @@ import {
 // Import axios
 import axiosInstance from '../../utils/axios';
 
+// Import types
+import { Trip } from '../../@types';
+
 // Type user states
 interface UserState {
   data: {
+    id: number | null;
     firstname: string | null;
     lastname: string | null;
     email: string | null;
     password: string | null;
+    trips: Trip[] | null;
+    consent_newsletter: boolean | false;
+    consent_commercial: boolean | false;
   };
   isConnected: boolean;
   errorMessage: string | null;
@@ -26,10 +33,14 @@ interface UserState {
 // User Reducer initial states
 export const initialState: UserState = {
   data: {
+    id: null,
     firstname: null,
     lastname: null,
     email: null,
     password: null,
+    trips: null,
+    consent_commercial: false,
+    consent_newsletter: false,
   },
   isConnected: false,
   errorMessage: null,
@@ -51,7 +62,7 @@ export const login = createAsyncThunk(
       // Set JWT token in axios headers
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       // For security do not store the token in redux
-      localStorage.setItem('token', JSON.stringify(data.token));
+      // localStorage.setItem('token', JSON.stringify(data.token));
       delete data.token;
 
       return data;

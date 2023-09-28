@@ -2,9 +2,9 @@ import { FormEvent, useState } from 'react';
 import axiosInstance from '../../utils/axios';
 
 import InputField from '../InputField/InputField';
-import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import Button from '../Button/Button';
 
 import './SignUpForm.scss';
 
@@ -33,7 +33,7 @@ function SignUpForm() {
     // Remove the 'confirmation' field from the data to be sent
     formData.delete('confirmation');
 
-    // Send registration form data (JSON) to the server using Axios
+    // Send registration form data (JSON) to the server with Axios
     const jsonData = Object.fromEntries(formData.entries());
     await axiosInstance
       .post('/signUp', jsonData, {
@@ -91,7 +91,11 @@ function SignUpForm() {
         type="password"
         icon="fa-solid fa-lock"
       />
-      <ButtonSubmit text="S'inscrire" />
+      <Button
+        text="S'inscrire"
+        customClass="color button--width"
+        type="submit"
+      />
     </form>
   );
 }

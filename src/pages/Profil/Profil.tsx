@@ -1,19 +1,52 @@
+import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
+import axiosInstance from '../../utils/axios';
+// import { PDFDownloadLink } from '@react-pdf/renderer';
+// import Document from './Document.js'
+
 import Main from '../../layout/Main/Main';
 
-import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
-import ButtonDanger from '../../components/Button/ButtonDanger/ButtonDanger';
-
 import './Profil.scss';
-import { useAppSelector } from '../../hooks/redux';
+import Button from '../../components/Button/Button';
 
 function Profil() {
   const data = useAppSelector((state) => state.user.data);
 
   // const handleClickOnGetData = (event: FormEvent<HTMLFormElement>) => {
   //   event.preventDefault();
-  //   dispatch(login(formData));
-  //   if (!errorMessage) {
-  //     navigate('/my-trips'); // If no error (login success), redirect the use to '/my-trips'
+  //   console.log(data);
+  // };
+
+  // // Envoyer nouveau consents au backend /!\
+  // const handleClickChangeConsents = async (
+  //   event: FormEvent<HTMLFormElement>
+  // ) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(form);
+  //   const formSent = Object.fromEntries(formData);
+  //   try {
+  //     const response = await axiosInstance.patch(`/users/${data.id}`, formSent);
+  //     console.log(response.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // // Envoyer le password au backend /!\
+  // const handleClickDeleteAccount = async (
+  //   event: FormEvent<HTMLFormElement>
+  // ) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(form);
+  //   const formSent = Object.fromEntries(formData);
+  //   try {
+  //     const response = await axiosInstance.delete(
+  //       `/users/${data.id}`,
+  //       formSent
+  //     );
+  //     console.log(response.data);
+  //   } catch (err) {
+  //     console.log(err);
   //   }
   // };
 
@@ -28,12 +61,18 @@ function Profil() {
         </p>
         <p>Email : {data.email}</p>
         <p>Mot de passe : {data.password}</p>
-        <p>Projet voyage(s) en cours : 3</p>
+        <p>Projet voyage(s) en cours : {data.trips.length}</p>
         <div className="profil-card-btn-container">
-          <ButtonColor text="Modifier les informations" to="#" />
+          <Link to="/edit-profil">
+            <Button
+              text="Modifier les informations"
+              customClass="color"
+              type="button"
+            />
+          </Link>
         </div>
       </section>
-
+      {/* Installer react-pdf */}
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Vos données</h2>
         <p>
@@ -41,11 +80,16 @@ function Profil() {
           recueillies par l&apos;application
         </p>
         <div className="profil-card-btn-container">
-          <ButtonColor
+          <Button
             text="Télécharger mes données"
-            // onClick={handleClickOnGetData}
-            to="#"
+            customClass="color"
+            type="button"
           />
+          {/* <PDFDownloadLink document={<PdfFile data={data}/>} fileName="informations.pdf">
+            {({ blob, url, loading, error }) =>
+                loading ? 'Loading document...' : 'Télécharger vos données'
+            }
+          </PDFDownloadLink> */}
         </div>
       </section>
 
@@ -54,12 +98,22 @@ function Profil() {
         <div>
           Vos choix pour le traitement de vos données sont les suivants :
           <ul>
-            <li>Usage commercial : Refusé</li>
-            <li>Newsletter : Autorisé</li>
+            <li>
+              Usage commercial :{' '}
+              {data.consent_commercial ? 'Accepté' : 'Refusé'}
+            </li>
+            <li>
+              Newsletter : {data.consent_newsletter ? 'Accepté' : 'Refusé'}
+            </li>
           </ul>
         </div>
         <div className="profil-card-btn-container">
-          <ButtonColor text="Modifier mes consentements" to="#" />
+          <Button
+            text="Modifier mes consentements"
+            customClass="color"
+            type="button"
+            // onClick={handleClickChangeConsents}
+          />
         </div>
       </section>
 
@@ -71,7 +125,12 @@ function Profil() {
           irréversible
         </p>
         <div className="profil-card-btn-container">
-          <ButtonDanger text="Supprimer le compte" />
+          <Button
+            text="Supprimer le compte"
+            customClass="danger"
+            type="button"
+            // onClick={handleClickDeleteAccount}
+          />
         </div>
       </section>
     </Main>

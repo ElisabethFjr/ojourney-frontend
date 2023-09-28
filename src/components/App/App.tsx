@@ -22,27 +22,24 @@ import EditTrip from '../../pages/EditTrip/EditTrip';
 import './App.scss';
 
 function App() {
-
   const location = useLocation();
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
-  
-
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Simuler une attente (par exemple, un appel API) avec setTimeout
     setTimeout(() => {
       setLoading(false); // Stopper le chargement après 3 secondes
-    }, 3000);
+    }, 2000);
   }, []); // L'effet ne se déclenche qu'une fois (comme componentDidMount)
 
   if (loading) {
     return <Loading />;
   }
-
   return (
     <div className="app-container">
       <Header />
@@ -53,8 +50,8 @@ function App() {
         <Route path="/new-trip" element={<NewTrip />} />
         <Route path="/edit-trip" element={<EditTrip />} />
         <Route path="/my-trips" element={<MyTrips />} />
-        <Route path="/my-trip" element={<OneTrip />} />
-        <Route path="/new-proposition" element={<NewProposition />} />
+        <Route path="/my-trip/:id" element={<OneTrip />} />
+        <Route path="/new-proposition/:id" element={<NewProposition />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />

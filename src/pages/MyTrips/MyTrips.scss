@@ -10,7 +10,7 @@
   }
 
   &-image {
-    width: 15%;
+    width: 25%;
     padding-bottom: 2rem;
   }
 
@@ -30,5 +30,13 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 100%;
+  }
+}
+ul {
+  width: 100%;
+  li {
+    width: 100%;
+    list-style: none;
   }
 }

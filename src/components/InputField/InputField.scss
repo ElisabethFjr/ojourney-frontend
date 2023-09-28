@@ -4,6 +4,7 @@
   margin-bottom: 1.8rem;
   border: 1px solid v.$color-grey-lightest;
   border-radius: v.$border-radius;
+  width: 100%;
 
   &:focus-within {
     border: 2px solid v.$color-accent;
