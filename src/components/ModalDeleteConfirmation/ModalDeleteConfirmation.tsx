@@ -27,6 +27,7 @@ function ModalDeleteConfirm({ title, text }: ModalDeleteConfirmProps) {
             <h1 className="modal-delete-title">{title}</h1>
             <p className="modal-delete-text">{text}</p>
             <div className="modal-delete-button-container">
+              
               <Button
                 text="Annuler"
                 type="button"

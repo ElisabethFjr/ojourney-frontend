@@ -18,6 +18,7 @@ import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
 import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
 import EditTrip from '../../pages/EditTrip/EditTrip';
+import NewPassword from '../../pages/NewPassword/NewPassword';
 
 import './App.scss';
 
@@ -56,6 +57,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/confirm-account" element={<ConfirmAccount />} />
+        <Route path="/new-password" element={<NewPassword/>} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
