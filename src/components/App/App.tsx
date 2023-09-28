@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
-import { Route, Routes, useLocation, } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
+import Loading from './Loading';
 
 import Home from '../../pages/Home/Home';
 import SignInUp from '../../pages/SignInUp/SignInUp';
@@ -20,16 +21,31 @@ import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
 import './App.scss';
 
 function App() {
+
   const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
   
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simuler une attente (par exemple, un appel API) avec setTimeout
+    setTimeout(() => {
+      setLoading(false); // Stopper le chargement après 3 secondes
+    }, 3000);
+  }, []); // L'effet ne se déclenche qu'une fois (comme componentDidMount)
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="app-container">
       <Header />
-      <Routes> 
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin-signup" element={<SignInUp />} />
         <Route path="/profil" element={<Profil />} />

@@ -36,7 +36,11 @@ function SignUpForm() {
     // Send registration form data (JSON) to the server using Axios
     const jsonData = Object.fromEntries(formData.entries());
     await axiosInstance
-      .post('/signUp', jsonData)
+      .post('/signUp', jsonData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
       .then((data) => {
         console.log('Inscription réussie', data);
         setShowModalConfirm(true);

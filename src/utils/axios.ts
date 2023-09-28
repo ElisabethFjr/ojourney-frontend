@@ -1,5 +1,12 @@
 import axios from 'axios';
 
-export default axios.create({
+const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
 });
+
+// axiosInstance.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+export default axiosInstance;
