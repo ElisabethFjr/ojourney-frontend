@@ -55,7 +55,8 @@
 }
 
 .react-datepicker {
-  position: relative;
+  position: absolute;
+  z-index: 1;
   display: inline-block;
   background-color: v.$color-white;
   border: 1px solid v.$color-grey-lightest;
@@ -72,10 +73,11 @@
   &-popper {
     position: absolute;
     z-index: 1;
-    inset: 100% auto auto 10.5%;
+    inset: 1 auto auto 10.5% !important;
     transform: none;
     width: 90%;
     padding: 0.5rem 0;
+    width: 100%;
   }
 
   &__month-container {
