@@ -17,7 +17,7 @@ function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`button--${customClass || ''}`}
+      className={`button-style button-style--${customClass || ''}`}
       type={type}
       onClick={onClick}
     >

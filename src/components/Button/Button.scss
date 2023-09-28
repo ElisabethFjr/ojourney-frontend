@@ -1,26 +1,28 @@
 @use '../../styles/variables' as v;
 
-.button {
+.button-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem v.$gutter;
+  border-radius: v.$border-radius;
+  font-size: v.$font-size;
+  font-weight: 700;
+  cursor: pointer;
+
   // COLOR BUTTON
   &--color {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem v.$gutter;
+    transition: all 0.3s ease;
     background-color: v.$color-primary;
     border: none;
-    border-radius: v.$border-radius;
     color: v.$color-white;
-    font-weight: 700;
-    font-size: v.$font-size;
-    cursor: pointer;
-    transition: all 0.3s ease;
 
     &:hover {
       background-color: v.$color-primary-darkest;
     }
   }
+
   // DANGER BUTTON
   &--danger {
     display: flex;
@@ -28,38 +30,33 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.6rem v.$gutter;
+    border-radius: v.$border-radius;
+    font-size: v.$font-size;
+    font-weight: 700;
+    cursor: pointer;
     background-color: rgba(204, 38, 55, 0.8);
     border: 3px solid v.$color-red;
-    border-radius: v.$border-radius;
-    font-weight: 700;
-    font-size: v.$font-size;
     color: v.$color-white;
-    cursor: pointer;
-    transition: all 0.3s ease;
 
     &:hover {
       background-color: v.$color-red;
     }
   }
+
   // OUTLINE BUTTON
   &--outline {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    color: v.$color-primary;
-    padding: 0.6rem v.$gutter;
     background-color: transparent;
     border: 2px solid v.$color-primary;
     border-radius: v.$border-radius;
     color: v.$color-primary;
-    font-weight: 700;
-    font-size: v.$font-size;
-    cursor: pointer;
-    transition: all 0.3s ease;
 
     &:hover {
       background-color: v.$color-primary-lightest2;
     }
+  }
+
+  // LARGE BUTTON
+  &--width {
+    width: 100%;
   }
 }
