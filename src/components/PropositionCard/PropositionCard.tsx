@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import './PropositionCard.scss';
+import ButtonIcon from '../ButtonIcon/ButtonIcon';
 
 interface PropositionCardProps {
   previewImageUrl: string;
@@ -19,6 +20,14 @@ function PropositionCard({
   localisation,
   url,
 }: PropositionCardProps) {
+  const handleClickEdit = () => {
+    console.log('Au clic sur le bouton, afficher la page EditProposition');
+  };
+
+  const handleClickDelete = () => {
+    console.log('Au clic sur le bouton, afficher la modale ConfirmDelete');
+  };
+
   return (
     <Link to={url} className="proposition-card-url-detail">
       <img
@@ -30,8 +39,11 @@ function PropositionCard({
         <div className="proposition-card-header">
           <h3 className="proposition-card-header-title">{title}</h3>
           <div className="proposition-card-header-icon">
-            <i className="fa-solid fa-pen" />
-            <i className="fa-solid fa-trash" />
+            <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
+            <ButtonIcon
+              icon="fa-solid fa-trash"
+              handleClick={handleClickDelete}
+            />
           </div>
         </div>
         <p className="proposition-card-author">Creé par {authorName}</p>
