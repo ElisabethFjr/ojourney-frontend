@@ -46,12 +46,14 @@ function SignInForm() {
           placeholder="Email"
           type="email"
           icon="fa-solid fa-at"
+          required
         />
         <InputField
           name="password"
           placeholder="Password"
           type="password"
           icon="fa-solid fa-lock"
+          required
           autocomplete="off"
         />
         <Button

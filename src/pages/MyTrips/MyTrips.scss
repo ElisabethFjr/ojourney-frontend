@@ -32,11 +32,12 @@
     height: 100%;
     width: 100%;
   }
-}
-ul {
-  width: 100%;
-  li {
+
+  &-list {
     width: 100%;
-    list-style: none;
+    &-item {
+      width: 100%;
+      list-style: none;
+    }
   }
 }

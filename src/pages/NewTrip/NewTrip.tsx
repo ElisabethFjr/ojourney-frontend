@@ -87,6 +87,7 @@ function NewTrip() {
               placeholder="Destination"
               type="text"
               icon="fa-solid fa-location-dot"
+              required
             />
             {/* Dates Picker Inputs (Start - End) */}
             <InputDatesPicker
@@ -98,7 +99,7 @@ function NewTrip() {
             {/* Description Textarea */}
             <TextareaField
               name="description"
-              placeholder="Description du voyage (facultatif)"
+              placeholder="Description (facultatif)"
               icon="fa-solid fa-pen-nib"
             />
             {/* Image File Selection Input */}

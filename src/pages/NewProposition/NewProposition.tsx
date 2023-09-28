@@ -7,6 +7,7 @@ import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 
 import './NewProposition.scss';
+import TextareaField from '../../components/TextareaField/TextareaField';
 
 function NewProposition() {
   const navigate = useNavigate();
@@ -45,12 +46,6 @@ function NewProposition() {
           <form onSubmit={handleSubmit}>
             <h2 className="new-proposition-form-title">Proposition</h2>
             <InputField
-              name="description"
-              placeholder="Nom de la proposition"
-              type="text"
-              icon="fa-solid fa-pen-nib"
-            />
-            <InputField
               name="localisation"
               placeholder="Localisation"
               type="text"
@@ -58,9 +53,16 @@ function NewProposition() {
             />
             <InputField
               name="url"
-              placeholder="URL de la proposition"
+              placeholder="Adresse URL"
               type="url"
               icon="fa-solid fa-link"
+            />
+            <TextareaField
+              name="description"
+              placeholder="Description"
+              type="text"
+              icon="fa-solid fa-pen-nib"
+              required
             />
             <Button
               text="Valider la proposition"

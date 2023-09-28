@@ -21,44 +21,48 @@ function InputDatesPicker({
   return (
     <>
       {/* Start Date Input */}
-      <div className="field">
-        <label className="field-label visually-hidden" htmlFor="date_start">
-          Date de début
-        </label>
-        <div className="field-container">
-          <i className="fa-solid fa-calendar" />
+      <div className="field-date">
+        <div className="field-date-container">
           <DatePicker
-            className="field-input"
+            className="field-date-input"
             selected={startDate}
             onChange={onStartDateChange}
             selectsStart
             startDate={startDate}
             endDate={endDate}
-            placeholderText="Date de début (jj/mm/aaaa)"
+            placeholderText=" "
             dateFormat="dd/MM/yyyy"
             locale="fr" // Set french locale
           />
+          <label className="field-date-label" htmlFor="date_start">
+            Date de début
+          </label>
+          <div>
+            <i className="field-date-icon fa-solid fa-calendar" />
+          </div>
         </div>
       </div>
       {/* End Date Input */}
-      <div className="field">
-        <label className="field-label visually-hidden" htmlFor="date_start">
-          Date de fin
-        </label>
-        <div className="field-container">
-          <i className="fa-solid fa-calendar" />
+      <div className="field-date">
+        <div className="field-date-container">
           <DatePicker
-            className="field-input"
+            className="field-date-input"
             selected={endDate}
             onChange={onEndDateChange}
             selectsEnd
             startDate={startDate}
             endDate={endDate}
             minDate={startDate}
-            placeholderText="Date de fin (jj/mm/aaaa)"
+            placeholderText=" "
             dateFormat="dd/MM/yyyy"
             locale="fr" // Set french locale
           />
+          <div>
+            <i className="field-date-icon fa-solid fa-calendar" />
+          </div>
+          <label className="field-date-label" htmlFor="date_start">
+            Date de fin
+          </label>
         </div>
       </div>
     </>

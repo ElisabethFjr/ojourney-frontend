@@ -66,24 +66,28 @@ function SignUpForm() {
         placeholder="Nom"
         type="text"
         icon="fa-solid fa-user"
+        required
       />
       <InputField
         name="firstname"
         placeholder="Prénom"
         type="text"
         icon="fa-solid fa-user"
+        required
       />
       <InputField
         name="email"
         placeholder="Email"
         type="email"
         icon="fa-solid fa-at"
+        required
       />
       <InputField
         name="password"
         placeholder="Mot de passe"
         type="password"
         icon="fa-solid fa-lock"
+        required
         autocomplete="off"
       />
       <InputField
@@ -91,6 +95,7 @@ function SignUpForm() {
         placeholder="Mot de passe (confirmation)"
         type="password"
         icon="fa-solid fa-lock"
+        required
         autocomplete="off"
       />
       <Button

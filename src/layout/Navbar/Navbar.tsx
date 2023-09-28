@@ -22,22 +22,18 @@ function Navbar() {
       <ul className="header-navbar-list">
         {isConnected ? (
           <>
-            <li>
-              <NavLink to="/my-trips" className="header-navbar-list-link">
-                Mes voyages
-              </NavLink>
+            <li className="header-navbar-list-link">
+              <NavLink to="/my-trips">Mes voyages</NavLink>
             </li>
-            <li>
-              <NavLink to="/new-trip" className="header-navbar-list-link">
-                Nouveau voyage
-              </NavLink>
+            <li className="header-navbar-list-link">
+              <NavLink to="/new-trip">Nouveau voyage</NavLink>
             </li>
-            <li>
+            <li className="header-navbar-list-link">
               <NavLink to="/profil" className="header-navbar-list-link">
                 Profil
               </NavLink>
             </li>
-            <li>
+            <li className="header-navbar-list-link">
               <NavLink
                 to="/"
                 className="header-navbar-list-link signin-signup"
@@ -48,7 +44,7 @@ function Navbar() {
             </li>
           </>
         ) : (
-          <li>
+          <li className="header-navbar-list-link">
             <NavLink
               to="/signin-signup"
               className="header-navbar-list-link signin-signup"

@@ -41,7 +41,7 @@ function InputFieldImage({ handleFile }: InputFieldImageProps) {
       />
       <Button
         text="Ajouter une image"
-        customClass="outline button-style--width"
+        customClass="outline"
         type="button"
         onClick={handleClick}
         icon="fa-regular fa-image"

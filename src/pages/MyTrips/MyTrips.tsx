@@ -57,7 +57,7 @@ function MyTrips() {
 
   // Create an Array of TripCard component with all trips data
   const allTrips = tripsData.map((trip) => (
-    <li key={trip.id}>
+    <li className="trips-list-item" key={trip.id}>
       <TripCard
         srcTripImage={trip.url_image}
         altImage="O'Jouney"
@@ -98,7 +98,7 @@ function MyTrips() {
       ) : (
         // Display Trips
         <section className="trips-container">
-          <ul>{allTrips}</ul>
+          <ul className="trips-list">{allTrips}</ul>
         </section>
       )}
     </Main>
