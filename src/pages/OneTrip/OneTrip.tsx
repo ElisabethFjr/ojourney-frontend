@@ -10,6 +10,7 @@ import Button from '../../components/Button/Button';
 
 import { Trip, Member, Proposition } from '../../@types';
 
+
 import './OneTrip.scss';
 
 function OneTrip() {

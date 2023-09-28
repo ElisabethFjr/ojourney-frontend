@@ -17,6 +17,7 @@ import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
 import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
+import EditTrip from '../../pages/EditTrip/EditTrip';
 
 import './App.scss';
 
@@ -47,6 +48,7 @@ function App() {
         <Route path="/signin-signup" element={<SignInUp />} />
         <Route path="/profil" element={<Profil />} />
         <Route path="/new-trip" element={<NewTrip />} />
+        <Route path="/edit-trip" element={<EditTrip />} />
         <Route path="/my-trips" element={<MyTrips />} />
         <Route path="/my-trip/:id" element={<OneTrip />} />
         <Route path="/new-proposition/:id" element={<NewProposition />} />
