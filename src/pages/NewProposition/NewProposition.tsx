@@ -24,7 +24,9 @@ function NewProposition() {
       .post(`/trips/${id}/links`, objData, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${localStorage.getItem('token').replace(/"|_/g, '')}`,
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
         },
       })
       .then(() => {

@@ -26,9 +26,9 @@ function OneTrip() {
       .get(`/trips/${id}`, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${localStorage
-            .getItem('token')
-            .replace(/"|_/g, '')}`,
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
         },
       })
       .then((response) => {
@@ -38,6 +38,7 @@ function OneTrip() {
       .catch((error) => {
         console.error(error);
       });
+
     await axiosInstance.get(`/trips/${id}/members`).then((response) => {
       setMembers(response.data);
     });
