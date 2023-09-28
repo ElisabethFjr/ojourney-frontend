@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './ModalChangePassword.scss'
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
@@ -41,12 +42,16 @@ function ChangePassword() {
                 customClass="outline-dark"
                 onClick={handleClose}
               />
+
+<Link to="/new-password">
     <Button
+  
                 text="Confirmer"
                 type="button"
                 customClass="outline-dark"
                 onClick={handleClick}
               />
+              </Link>
               </div>
 
         </div>
