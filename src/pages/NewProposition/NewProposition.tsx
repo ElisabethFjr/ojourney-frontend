@@ -5,9 +5,9 @@ import axiosInstance from '../../utils/axios';
 import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
+import TextareaField from '../../components/TextareaField/TextareaField';
 
 import './NewProposition.scss';
-import TextareaField from '../../components/TextareaField/TextareaField';
 
 function NewProposition() {
   const navigate = useNavigate();
