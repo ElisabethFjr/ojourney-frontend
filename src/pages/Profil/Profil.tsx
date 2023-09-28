@@ -8,7 +8,7 @@ import Main from '../../layout/Main/Main';
 
 import './Profil.scss';
 import Button from '../../components/Button/Button';
-import ChangePassword from '../../components/ModalChangePassword/ModalChangePassword';
+//import ChangePassword from '../../components/ModalChangePassword/ModalChangePassword';
 
 function Profil() {
   const data = useAppSelector((state) => state.user.data);
@@ -53,7 +53,6 @@ function Profil() {
 
   return (
     <Main>
-      <ChangePassword />
       <h1 className="main-title">Profil</h1>
 
       <section className="profil-card">

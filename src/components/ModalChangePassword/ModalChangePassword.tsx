@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './ModalChangePassword.scss'
 import Button from '../Button/Button';
+import InputField from '../InputField/InputField';
 
 
 function ChangePassword() {
@@ -20,31 +21,33 @@ function ChangePassword() {
     {isOpen && (
       <section className="modal-password-background">
         <div className="modal-password-container">
-          <i className="modal-icon-delete fa-solid fa-envelope-circle-check" />
+          <i className="modal-icon-delete fa-solid fa-lock" />
           <h1 className="modal-password-title">
             Rénitialisation de votre mot de passe
           </h1>
           <p className="modal-password-text">
           Afin de confirmer votre identité, merci de renseigner votre mot de passe.
           </p>
-
-          <button
-            type="button"
-            className="modal-password-close-btn"
-            onClick={handleClose}
-          >
-            Annuler
-            <i className="modal-delete-close-btn-icon fa-solid fa-xmark" />
-          </button>
-
-          <button
-              type="button"
-              className="modal-password-delete-btn"
-              onClick={handleClick}
-            >
-              Confirmation
-              <i className="modal-password-close-btn-icon fa-solid fa-xmark" />
-            </button>
+          <InputField
+        name="password"
+        placeholder="Mot de passe"
+        type="password"
+        icon="fa-solid fa-lock"
+      />
+          <div className="modal-password-button-container">
+          <Button
+                text="Annuler"
+                type="button"
+                customClass="outline-dark"
+                onClick={handleClose}
+              />
+    <Button
+                text="Confirmer"
+                type="button"
+                customClass="outline-dark"
+                onClick={handleClick}
+              />
+              </div>
 
         </div>
       </section>
