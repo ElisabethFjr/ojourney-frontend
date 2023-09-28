@@ -21,6 +21,14 @@ import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
 import './App.scss';
 
 function App() {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -33,6 +41,7 @@ function App() {
   if (loading) {
     return <Loading />;
   }
+
   return (
     <div className="app-container">
       <Header />
