@@ -2,9 +2,9 @@ import Main from '../../layout/Main/Main';
 
 import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
+import Button from '../../components/Button/Button';
 
 import './NewProposition.scss';
-import Button from '../../components/Button/Button';
 
 function NewProposition() {
   return (

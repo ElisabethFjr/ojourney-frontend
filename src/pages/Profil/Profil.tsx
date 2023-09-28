@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
+// import { PDFDownloadLink } from '@react-pdf/renderer';
+// import Document from './Document.js'
 
 import Main from '../../layout/Main/Main';
 
@@ -15,8 +17,10 @@ function Profil() {
   //   console.log(data);
   // };
 
-  // Envoyer nouveau consents au backend /!\
-  // const handleClickChangeConsents = async (event: FormEvent<HTMLFormElement>) => {
+  // // Envoyer nouveau consents au backend /!\
+  // const handleClickChangeConsents = async (
+  //   event: FormEvent<HTMLFormElement>
+  // ) => {
   //   event.preventDefault();
   //   const formData = new FormData(form);
   //   const formSent = Object.fromEntries(formData);
@@ -28,13 +32,18 @@ function Profil() {
   //   }
   // };
 
-  // Envoyer le password au backend /!\
-  // const handleClickDeleteAccount = async (event: FormEvent<HTMLFormElement>) => {
+  // // Envoyer le password au backend /!\
+  // const handleClickDeleteAccount = async (
+  //   event: FormEvent<HTMLFormElement>
+  // ) => {
   //   event.preventDefault();
   //   const formData = new FormData(form);
   //   const formSent = Object.fromEntries(formData);
   //   try {
-  //     const response = await axiosInstance.delete(`/users/${data.id}`, formSent);
+  //     const response = await axiosInstance.delete(
+  //       `/users/${data.id}`,
+  //       formSent
+  //     );
   //     console.log(response.data);
   //   } catch (err) {
   //     console.log(err);
@@ -52,7 +61,7 @@ function Profil() {
         </p>
         <p>Email : {data.email}</p>
         <p>Mot de passe : {data.password}</p>
-        {/* <p>Projet voyage(s) en cours : {data.trips.lenght}</p> */}
+        <p>Projet voyage(s) en cours : {data.trips.length}</p>
         <div className="profil-card-btn-container">
           <Link to="/edit-profil">
             <Button
@@ -63,7 +72,7 @@ function Profil() {
           </Link>
         </div>
       </section>
-
+      {/* Installer react-pdf */}
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Vos données</h2>
         <p>
@@ -76,6 +85,11 @@ function Profil() {
             customClass="color"
             type="button"
           />
+          {/* <PDFDownloadLink document={<PdfFile data={data}/>} fileName="informations.pdf">
+            {({ blob, url, loading, error }) =>
+                loading ? 'Loading document...' : 'Télécharger vos données'
+            }
+          </PDFDownloadLink> */}
         </div>
       </section>
 

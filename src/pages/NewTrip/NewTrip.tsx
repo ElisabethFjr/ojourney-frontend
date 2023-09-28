@@ -15,10 +15,10 @@ import './NewTrip.scss';
 
 function NewTrip() {
   // States variables declaration
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date());
+  const [startDate, setStartDate] = useState<Date>(new Date()); // Trip start date
+  const [endDate, setEndDate] = useState<Date>(new Date()); // Trip end date
 
-  // Function to change Dates format
+  // Function to change Dates format to YYYY-MM-DD
   const changeDateFormat = (date: Date) => {
     const year = date.toLocaleString('default', { year: 'numeric' });
     const month = date.toLocaleString('default', { month: '2-digit' });
@@ -42,30 +42,33 @@ function NewTrip() {
   const handleFile = (file: File) => {
     console.log('Fichier sélectionné :', file);
   };
+
+  // Event handler for the newTrip form submit
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Change dates format
     formData.append('date_start', changeDateFormat(startDate));
     formData.append('date_end', changeDateFormat(endDate));
-    const formSent = Object.fromEntries(formData);
+
+    // Send newTrip form data (JSON) to the server with Axios
+    const objData = Object.fromEntries(formData);
     console.log('----- Contenu de FormData -----');
     formData.forEach((value, key) => {
       console.log(`${key}:`, value);
     });
-
-    try {
-      // L'URL doit être adaptée à votre API
-      await axiosInstance
-        .post('/trips', formSent, {
-          headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        })
-        .then((response) => console.log('Server Response:', response.data));
-    } catch (error) {
-      console.error("Erreur lors de l'ajout du voyage:", error);
-      // Gérer l'erreur (affichez un message d'erreur à l'utilisateur, par exemple)
-    }
+    await axiosInstance
+      .post('/trips', objData, {
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      })
+      .then((response) =>
+        console.log('Création de voyage réussie:', response.data)
+      )
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -97,7 +100,7 @@ function NewTrip() {
             />
             {/* Image File Selection Input */}
             <InputFieldImage handleFile={handleFile} />
-            {/* Form Submit Button */}
+            {/* Submit Button */}
             <Button
               text="Créer le voyage"
               type="submit"

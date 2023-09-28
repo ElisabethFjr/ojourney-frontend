@@ -14,18 +14,20 @@ function SignInForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // Get states from Redux
+  // Get states from Redux store
   const errorMessage = useAppSelector((state) => state.user.errorMessage);
   const isConnected = useAppSelector((state) => state.user.isConnected);
 
-  // Handle SignIn form submit
+  // Event handler SignIn form submit
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
+    // Dispatch the login action with form data
     await dispatch(login(formData));
   };
 
+  // Navigate do /my-trips if connexion succeed
   useEffect(() => {
     if (isConnected) {
       navigate('/my-trips');
@@ -35,6 +37,7 @@ function SignInForm() {
   return (
     <div className="form-content">
       <form className="form-element" onSubmit={handleSubmit}>
+        {/* If ErroMessage, display the error */}
         {errorMessage && (
           <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
         )}

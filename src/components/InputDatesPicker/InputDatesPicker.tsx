@@ -36,7 +36,7 @@ function InputDatesPicker({
             endDate={endDate}
             placeholderText="Date de début (jj/mm/aaaa)"
             dateFormat="dd/MM/yyyy"
-            locale="fr" // set french locale
+            locale="fr" // Set french locale
           />
         </div>
       </div>
@@ -57,7 +57,7 @@ function InputDatesPicker({
             minDate={startDate}
             placeholderText="Date de fin (jj/mm/aaaa)"
             dateFormat="dd/MM/yyyy"
-            locale="fr" // set french locale
+            locale="fr" // Set french locale
           />
         </div>
       </div>

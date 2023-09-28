@@ -33,7 +33,7 @@ function SignUpForm() {
     // Remove the 'confirmation' field from the data to be sent
     formData.delete('confirmation');
 
-    // Send registration form data (JSON) to the server using Axios
+    // Send registration form data (JSON) to the server with Axios
     const jsonData = Object.fromEntries(formData.entries());
     await axiosInstance
       .post('/signUp', jsonData, {
