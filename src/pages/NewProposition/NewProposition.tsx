@@ -60,7 +60,6 @@ function NewProposition() {
             <TextareaField
               name="description"
               placeholder="Description"
-              type="text"
               icon="fa-solid fa-pen-nib"
               required
             />
