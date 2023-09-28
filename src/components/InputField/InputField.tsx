@@ -3,14 +3,21 @@ import DOMPurify from 'dompurify';
 
 import './InputField.scss';
 
-interface InputFieldProps {
+export interface InputFieldProps {
   name: string;
   placeholder: string;
   type: string;
   icon: string;
+  required?: boolean;
 }
 
-function InputField({ name, icon, placeholder, type }: InputFieldProps) {
+function InputField({
+  name,
+  icon,
+  placeholder,
+  type,
+  required,
+}: InputFieldProps) {
   const [value, setValue] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,9 +27,6 @@ function InputField({ name, icon, placeholder, type }: InputFieldProps) {
 
   return (
     <div className="field">
-      <label className="field-label visually-hidden" htmlFor={name}>
-        {placeholder}
-      </label>
       <div className="field-container">
         <i className={icon} />
         <input
@@ -30,10 +34,13 @@ function InputField({ name, icon, placeholder, type }: InputFieldProps) {
           value={value}
           onChange={handleChange}
           name={name}
-          placeholder={placeholder}
+          required={required}
           id={name}
           type={type}
         />
+        <label className="field-label" htmlFor={name}>
+          {placeholder}
+        </label>
       </div>
     </div>
   );
