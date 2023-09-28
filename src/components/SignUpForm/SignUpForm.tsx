@@ -84,12 +84,14 @@ function SignUpForm() {
         placeholder="Mot de passe"
         type="password"
         icon="fa-solid fa-lock"
+        autocomplete="off"
       />
       <InputField
         name="confirmation"
         placeholder="Mot de passe (confirmation)"
         type="password"
         icon="fa-solid fa-lock"
+        autocomplete="off"
       />
       <Button
         text="S'inscrire"

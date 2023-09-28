@@ -22,7 +22,12 @@ function NewProposition() {
     console.log(objData);
     await axiosInstance
       .post(`/trips/${id}/links`, objData, {
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
       })
       .then(() => {
         navigate(`/my-trip/${id}`);

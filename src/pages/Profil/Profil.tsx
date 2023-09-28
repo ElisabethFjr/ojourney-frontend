@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
+
 //import { PDFDownloadLink } from '@react-pdf/renderer';
 //import Document from './Document.js'
+
+
 
 import Main from '../../layout/Main/Main';
 
@@ -62,7 +65,7 @@ function Profil() {
         </p>
         <p>Email : {data.email}</p>
         <p>Mot de passe : {data.password}</p>
-        <p>Projet voyage(s) en cours : {data.trips.length}</p>
+        {/* <p>Projet voyage(s) en cours : {data.trips.length}</p> */}
         <div className="profil-card-btn-container">
           <Link to="/edit-profil">
             <Button
@@ -86,11 +89,6 @@ function Profil() {
             customClass="color"
             type="button"
           />
-          {/* <PDFDownloadLink document={<PdfFile data={data}/>} fileName="informations.pdf">
-            {({ blob, url, loading, error }) =>
-                loading ? 'Loading document...' : 'Télécharger vos données'
-            }
-          </PDFDownloadLink> */}
         </div>
       </section>
 

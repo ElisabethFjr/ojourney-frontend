@@ -59,8 +59,13 @@ function EditTrip() {
     try {
       // L'URL doit être adaptée à votre API
       await axiosInstance
-        .post('/trips', formSent, {
-          headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        .patch('/trips', formSent, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${
+              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+            }`,
+          },
         })
         .then((response) => console.log('Server Response:', response.data));
     } catch (error) {

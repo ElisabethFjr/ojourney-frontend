@@ -9,6 +9,7 @@ export interface InputFieldProps {
   type: string;
   icon: string;
   required?: boolean;
+  autocomplete?: string;
 }
 
 function InputField({
@@ -17,6 +18,7 @@ function InputField({
   placeholder,
   type,
   required,
+  autocomplete,
 }: InputFieldProps) {
   const [value, setValue] = useState('');
 
@@ -27,20 +29,22 @@ function InputField({
 
   return (
     <div className="field">
-      <div className="field-container">
+      <input
+        className="field-input"
+        value={value}
+        onChange={handleChange}
+        name={name}
+        required={required}
+        autoComplete={autocomplete}
+        id={name}
+        type={type}
+        placeholder=" "
+      />
+      <label className="field-label" htmlFor={name}>
+        {placeholder}
+      </label>
+      <div className="field-icon">
         <i className={icon} />
-        <input
-          className="field-input"
-          value={value}
-          onChange={handleChange}
-          name={name}
-          required={required}
-          id={name}
-          type={type}
-        />
-        <label className="field-label" htmlFor={name}>
-          {placeholder}
-        </label>
       </div>
     </div>
   );

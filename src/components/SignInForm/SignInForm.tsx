@@ -52,6 +52,7 @@ function SignInForm() {
           placeholder="Password"
           type="password"
           icon="fa-solid fa-lock"
+          autocomplete="off"
         />
         <Button
           text="Se Connecter"

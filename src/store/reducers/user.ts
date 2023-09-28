@@ -62,7 +62,7 @@ export const login = createAsyncThunk(
       // Set JWT token in axios headers
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       // For security do not store the token in redux
-      // localStorage.setItem('token', JSON.stringify(data.token));
+      localStorage.setItem('token', JSON.stringify(data.token));
       delete data.token;
 
       return data;

@@ -8,7 +8,6 @@ import Main from '../../layout/Main/Main';
 
 import TripCard from '../../components/TripCard/TripCard';
 import Button from '../../components/Button/Button';
-import ModalDeleteConfirmation from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
 
 import travel from '../../assets/images/travel.png';
 
@@ -23,10 +22,21 @@ function MyTrips() {
   // Get states from Redux store
   const data = useAppSelector((state) => state.user.data);
 
+  // let authTokens = localStorage.getItem("token")
+  // ? JSON.parse(localStorage.getItem("token"))
+  // : null;
+
   // Function to fetch all trips data from the server with awiosInstance
   const fetchData = async () => {
     await axiosInstance
-      .get('/trips')
+      .get('/trips', {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      })
       .then((response) => {
         console.log(response);
         setTripsData(response.data);
@@ -40,8 +50,8 @@ function MyTrips() {
   useEffect(() => {
     try {
       fetchData();
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   }, []);
 
@@ -61,10 +71,6 @@ function MyTrips() {
 
   return (
     <Main>
-      {/* <ModalDeleteConfirmation
-        title="Confirmation suppression"
-        text="Êtes-vous sûr de vouloir supprimer ce voyage ?"
-      /> */}
       <h1 className="main-title">Mes Voyages</h1>
 
       {/* Conditional rendering based on the tripsData's length */}
