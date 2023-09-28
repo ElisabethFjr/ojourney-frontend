@@ -6,10 +6,11 @@ import './NewPassword.scss';
 function NewPassword () {
 
   return (
-    <div className="main-newpassword"> 
+    <div className="new-password-main"> 
 
-    <h1 className="title">Nouveau mot de passe</h1>
-    
+    <h1 className="new-password-title">Nouveau mot de passe</h1>
+
+    <div className="new-password-input-container">
     <InputField
     name="password"
     placeholder="Mot de passe"
@@ -22,10 +23,11 @@ function NewPassword () {
   placeholder="Mot de passe (confirmation)"
   type="password"
   icon="fa-solid fa-lock"
-
 />
 
-<div className="new-password-button-container">
+</div>
+
+<div className="new-password-btn-container">
 <Button
       text="Annuler"
       type="button"
