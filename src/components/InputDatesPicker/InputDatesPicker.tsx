@@ -30,9 +30,9 @@ function InputDatesPicker({
             selectsStart
             startDate={startDate}
             endDate={endDate}
-            placeholderText=" "
+            placeholderText="Date de début (jj/mm/aaaa)"
             dateFormat="dd/MM/yyyy"
-            locale="fr" // Set french locale
+            locale="fr" // set french locale
           />
           <label className="field-date-label" htmlFor="date_start">
             Date de début
@@ -53,9 +53,9 @@ function InputDatesPicker({
             startDate={startDate}
             endDate={endDate}
             minDate={startDate}
-            placeholderText=" "
+            placeholderText="Date de fin (jj/mm/aaaa)"
             dateFormat="dd/MM/yyyy"
-            locale="fr" // Set french locale
+            locale="fr" // set french locale
           />
           <div>
             <i className="field-date-icon fa-solid fa-calendar" />
