@@ -93,7 +93,7 @@ function SignUpForm() {
       />
       <Button
         text="S'inscrire"
-        customClass="color button--width"
+        customClass="color button-style--width"
         type="submit"
       />
     </form>

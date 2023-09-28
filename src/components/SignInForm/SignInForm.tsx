@@ -55,7 +55,7 @@ function SignInForm() {
         />
         <Button
           text="Se Connecter"
-          customClass="color button--width"
+          customClass="color button-style--width"
           type="submit"
         />
       </form>

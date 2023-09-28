@@ -102,7 +102,7 @@ function NewTrip() {
             <Button
               text="Créer le voyage"
               type="submit"
-              customClass="color button--width"
+              customClass="color button-style--width"
             />
           </form>
         </FormContainer>

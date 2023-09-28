@@ -59,7 +59,7 @@ function NewProposition() {
             />
             <Button
               text="Valider la proposition"
-              customClass="color button--width"
+              customClass="color button-style--width"
               type="submit"
             />
           </form>
