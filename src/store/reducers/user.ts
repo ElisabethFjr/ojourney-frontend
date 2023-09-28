@@ -51,6 +51,7 @@ export const login = createAsyncThunk(
       // Set JWT token in axios headers
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       // For security do not store the token in redux
+      localStorage.setItem('token', JSON.stringify(data.token));
       delete data.token;
 
       return data;
@@ -87,6 +88,7 @@ const userReducer = createReducer(initialState, (builder) => {
       };
       state.isConnected = true;
       state.errorMessage = null;
+      // localStorage.setItem('token', action.payload.token); // Store the token in localStorage
       console.log('Promise succeed');
     })
     // Logout
@@ -94,6 +96,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.data = initialState.data; // Reset user data to initial state
       state.isConnected = false;
       delete axiosInstance.defaults.headers.common.Authorization; // Delete the JWT from instance Axios Instance headers
+      localStorage.removeItem('token'); // Store the token in localStorage
     });
 });
 
