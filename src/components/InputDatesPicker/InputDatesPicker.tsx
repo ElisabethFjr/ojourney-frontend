@@ -21,10 +21,14 @@ function InputDatesPicker({
   return (
     <>
       {/* Start Date Input */}
-      <div className="field-date">
-        <div className="field-date-container">
+      <div className="field">
+        <label className="field-label visually-hidden" htmlFor="date_start">
+          Date de début
+        </label>
+        <div className="field-container">
+          <i className="fa-solid fa-calendar" />
           <DatePicker
-            className="field-date-input"
+            className="field-input"
             selected={startDate}
             onChange={onStartDateChange}
             selectsStart
@@ -32,21 +36,19 @@ function InputDatesPicker({
             endDate={endDate}
             placeholderText="Date de début (jj/mm/aaaa)"
             dateFormat="dd/MM/yyyy"
-            locale="fr" // set french locale
+            locale="fr" // Set french locale
           />
-          <label className="field-date-label" htmlFor="date_start">
-            Date de début
-          </label>
-          <div>
-            <i className="field-date-icon fa-solid fa-calendar" />
-          </div>
         </div>
       </div>
       {/* End Date Input */}
-      <div className="field-date">
-        <div className="field-date-container">
+      <div className="field">
+        <label className="field-label visually-hidden" htmlFor="date_start">
+          Date de fin
+        </label>
+        <div className="field-container">
+          <i className="fa-solid fa-calendar" />
           <DatePicker
-            className="field-date-input"
+            className="field-input"
             selected={endDate}
             onChange={onEndDateChange}
             selectsEnd
@@ -55,14 +57,8 @@ function InputDatesPicker({
             minDate={startDate}
             placeholderText="Date de fin (jj/mm/aaaa)"
             dateFormat="dd/MM/yyyy"
-            locale="fr" // set french locale
+            locale="fr" // Set french locale
           />
-          <div>
-            <i className="field-date-icon fa-solid fa-calendar" />
-          </div>
-          <label className="field-date-label" htmlFor="date_start">
-            Date de fin
-          </label>
         </div>
       </div>
     </>
