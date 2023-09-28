@@ -3,19 +3,20 @@
 .header-navbar {
   font-weight: 400;
   font-size: v.$font-size;
-
   &-list {
     display: flex;
     align-items: flex-end;
-    justify-content: flex-end;
-    gap: 4rem;
+    justify-content: start;
+    gap: 3rem;
     list-style: none;
+    width: none;
   }
 
   &-list-link {
     text-decoration: none;
     color: v.$color-text;
     font-weight: 700;
+    width: none;
 
     &:hover {
       color: v.$color-primary;

@@ -9,9 +9,8 @@ import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';
 import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker';
 
-import 'react-datepicker/dist/react-datepicker.css';
-
 import './EditTrip.scss';
+
 import Button from '../../components/Button/Button';
 
 function EditTrip() {

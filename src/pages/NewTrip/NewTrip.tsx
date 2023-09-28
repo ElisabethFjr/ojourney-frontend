@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
@@ -21,11 +22,15 @@ function NewTrip() {
   const [endDate, setEndDate] = useState<Date>(new Date()); // Trip end date
 
   // Function to change Dates format to YYYY-MM-DD
+  // const changeDateFormat = (date: Date) => {
+  //   const year = date.toLocaleString('default', { year: 'numeric' });
+  //   const month = date.toLocaleString('default', { month: '2-digit' });
+  //   const day = date.toLocaleString('default', { day: '2-digit' });
+  //   return `${year}-${month}-${day}`;
+  // };
+
   const changeDateFormat = (date: Date) => {
-    const year = date.toLocaleString('default', { year: 'numeric' });
-    const month = date.toLocaleString('default', { month: '2-digit' });
-    const day = date.toLocaleString('default', { day: '2-digit' });
-    return `${year}-${month}-${day}`;
+    return format(date, 'yyyy-MM-dd');
   };
 
   // Event handler for start date change
@@ -67,6 +72,8 @@ function NewTrip() {
       })
       .then(() => {
         // created = true;
+        console.log('Fetch');
+
         navigate(`/my-trips`);
       })
       .catch((error) => {
