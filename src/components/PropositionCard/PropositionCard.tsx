@@ -20,7 +20,7 @@ function PropositionCard({
   url,
 }: PropositionCardProps) {
   return (
-    <Link to="/createLink" className="proposition-card">
+    <Link to={url} className="proposition-card-url-detail">
       <img
         className="proposition-card-image"
         src={previewImageUrl}
@@ -39,10 +39,8 @@ function PropositionCard({
           <i className="fa-solid fa-location-dot" />
           <p className="proposition-card-localisation-name">{localisation}</p>
         </div>
-        <Link to={url} className="proposition-card-url-detail">
-          <i className="fa-solid fa-square-arrow-up-right" />
-          Voir détail
-        </Link>
+        <i className="fa-solid fa-square-arrow-up-right" />
+        Voir détail en cliquant sur la proposition.
       </div>
     </Link>
   );

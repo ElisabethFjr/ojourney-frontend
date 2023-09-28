@@ -5,40 +5,46 @@ import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
 
-import PropositionCard from '../../components/PropositionCard/PropositionCard';
+// import PropositionCard from '../../components/PropositionCard/PropositionCard';
 import Button from '../../components/Button/Button';
 
-import { Trip, Member, Proposition } from '../../@types';
-
+import { Trip, Member } from '../../@types';
 
 import './OneTrip.scss';
 
 function OneTrip() {
-  const [tripData, setTripData] = useState<Trip[]>([]);
+  const [trip, setTrip] = useState<Trip>(Object);
   const [members, setMembers] = useState<Member[]>([]);
-  const [propositions, setPropositions] = useState<Proposition[]>([]);
+  // const [propositions, setPropositions] = useState<Proposition[]>([]);
 
-  const data = useAppSelector((state) => state.user.data);
+  // const dataUser = useAppSelector((state) => state.user.data);
 
   const { id } = useParams();
-  const token = localStorage.getItem('token').replace(/"|_/g, '');
 
   const fetchData = async () => {
     await axiosInstance
-      .get(`/trips/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+      .get(`/trips/${id}`, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      })
       .then((response) => {
         console.log(response);
-        setTripData(response.data);
+        setTrip(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
+
     await axiosInstance.get(`/trips/${id}/members`).then((response) => {
       setMembers(response.data);
     });
-    await axiosInstance.get(`/trips/${id}/links`).then((response) => {
-      setPropositions(response.data);
-    });
+    // await axiosInstance.get(`/trips/${id}/links`).then((response) => {
+    //   setPropositions(response.data);
+    // });
   };
 
   const allMembers = members.map((member) => (
@@ -47,18 +53,18 @@ function OneTrip() {
     </li>
   ));
 
-  const allLinks = propositions.map((proposition) => (
-    <li key={proposition.id}>
-      <PropositionCard
-        previewImageUrl="https://www.raftbanff.com/Portals/0/EasyDNNNews/44/1000600p702EDNmainHydra--Georgia-Russell-9996-2.jpg"
-        altImage="Rafting au Canada"
-        title={proposition.description}
-        authorName="Blablabla"
-        localisation={proposition.localisation}
-        url={proposition.url}
-      />
-    </li>
-  ));
+  // const allLinks = propositions.map((proposition) => (
+  //   <li key={proposition.id}>
+  //     <PropositionCard
+  //       previewImageUrl="https://www.raftbanff.com/Portals/0/EasyDNNNews/44/1000600p702EDNmainHydra--Georgia-Russell-9996-2.jpg"
+  //       altImage="Rafting au Canada"
+  //       title={proposition.description}
+  //       authorName="Blablabla"
+  //       localisation={proposition.localisation}
+  //       url={proposition.url}
+  //     />
+  //   </li>
+  // ));
 
   useEffect(() => {
     try {
@@ -73,26 +79,24 @@ function OneTrip() {
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"
-          src={tripData.url_image}
+          src={trip.url_image}
           alt="plane"
         />
         <div className="one-trip-overview-container">
-          <h1 className="one-trip-overview-title">{tripData.localisation}</h1>
+          <h1 className="one-trip-overview-title">{trip.localisation}</h1>
           <div className="one-trip-overview-date">
             <i className="fa-solid fa-calendar" />
             <p className="one-trip-overview-date-name">
-              {tripData.date_start} - {tripData.date_end}
+              {trip.date_start} - {trip.date_end}
             </p>
           </div>
           <div className="one-trip-overview-localisation">
             <i className="fa-solid fa-location-dot" />
             <p className="one-trip-overview-localisation-name">
-              {tripData.localisation}
+              {trip.localisation}
             </p>
           </div>
-          <p className="one-trip-overview-description">
-            {tripData.description}
-          </p>
+          <p className="one-trip-overview-description">{trip.description}</p>
           <div className="one-trip-overview-buttons">
             <Button
               text="Editer"
@@ -139,11 +143,11 @@ function OneTrip() {
             />
           </Link>
         </div>
-        {propositions.length === 0 ? (
+        {/* {propositions.length === 0 ? (
           <p>Aucune proposition n&paos;a été ajoutée pour le moment !</p>
         ) : (
           <ul>{allLinks}</ul>
-        )}
+        )} */}
       </section>
     </Main>
   );

@@ -1,7 +1,7 @@
 export interface Trip {
   id: number;
-  date_start: Date;
-  date_end: Date;
+  date_start: string;
+  date_end: string;
   localisation: string;
   description: string;
   url_image: string;
