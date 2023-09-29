@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
-import Button from '../../components/Button/Button';
+import { useAppSelector } from '../../hooks/redux';
 
+import Button from '../../components/Button/Button';
 
 import './Home.scss';
 
 function Home() {
+  const isConnected = useAppSelector((state) => state.user.isConnected);
+
   return (
     <main className="home">
       <div className="home-container">
@@ -18,7 +21,10 @@ function Home() {
             aventures inoubliables. Connectez-vous ou créez un compte pour
             commencer.
           </p>
-          <Link to="/signin-signup" className="home-link">
+          <Link
+            to={isConnected ? '/new-trip' : '/signin-signup'}
+            className="home-link"
+          >
             <Button
               type="button"
               text="Commencer à planifier"

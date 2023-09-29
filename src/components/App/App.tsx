@@ -48,51 +48,28 @@ function App() {
     <div className="app-container">
       <Header />
       <Routes>
+        {/* Public Routes (visitor) */}
         <Route path="/" element={<Home />} />
         <Route path="/signin-signup" element={<SignInUp />} />
-
-        <Route path="/profil" element={<Profil />} />
-        <Route path="/new-trip" element={<NewTrip />} />
-        <Route path="/edit-trip" element={<EditTrip />} />
-        <Route path="/my-trips" element={<MyTrips />} />
-        <Route path="/my-trip/:id" element={<OneTrip />} />
-        <Route path="/new-proposition/:id" element={<NewProposition />} />
-        <Route
-          path="/edit-proposition/:idTrip/:idLink"
-          element={<EditProposition />}
-        />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
-        <Route path="/confirm-account" element={<ConfirmAccount />} />
-        <Route path="/new-password" element={<NewPassword />} />
-
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/terms" element={<Terms />} />
-
         <Route path="*" element={<Error />} />
+
+        {/* Private Routes (user connected) */}
+        <Route
+          path="/confirm-account"
+          element={
+            <PrivateRoute>
+              <ConfirmAccount />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/profil"
           element={
             <PrivateRoute>
               <Profil />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/new-trip"
-          element={
-            <PrivateRoute>
-              <NewTrip />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/edit-trip"
-          element={
-            <PrivateRoute>
-              <EditTrip />
             </PrivateRoute>
           }
         />
@@ -105,10 +82,26 @@ function App() {
           }
         />
         <Route
+          path="/new-trip"
+          element={
+            <PrivateRoute>
+              <NewTrip />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/my-trip/:id"
           element={
             <PrivateRoute>
               <OneTrip />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit-trip/:id"
+          element={
+            <PrivateRoute>
+              <EditTrip />
             </PrivateRoute>
           }
         />
@@ -121,10 +114,10 @@ function App() {
           }
         />
         <Route
-          path="/confirm-account"
+          path="/edit-proposition/:idTrip/:idLink"
           element={
             <PrivateRoute>
-              <ConfirmAccount />
+              <EditProposition />
             </PrivateRoute>
           }
         />
