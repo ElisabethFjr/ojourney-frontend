@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../utils/axios';
-
 import './PropositionCard.scss';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 
@@ -27,7 +26,9 @@ function PropositionCard({
   id_trip,
 }: PropositionCardProps) {
   const [propositionData, setPropositionData] = useState<object>({});
-  const [linkPreviewData, setLinkPreviewData] = useState<object>({});
+  const [linkPreviewData, setLinkPreviewData] = useState<{
+    [key: string]: string;
+  }>({});
   const navigate = useNavigate();
   useEffect(() => {
     axiosInstance
@@ -42,9 +43,9 @@ function PropositionCard({
       .then((response) => {
         setPropositionData(response.data);
         axiosInstance
-          .post(
-            `https://api.linkpreview.net/?key=d827803af0058a20cdc17da9532d8adc&q=${url}`
-          )
+          .get(`https://get-link-preview.herokuapp.com/?url=${url}`, {
+            headers: { 'Access-Control-Allow-Origin': '*' },
+          })
           .then((responseAPI) => {
             setLinkPreviewData(responseAPI.data);
           })
@@ -94,12 +95,14 @@ function PropositionCard({
       <Link to={url} className="proposition-card-url-detail">
         <img
           className="proposition-card-image"
-          src={previewImageUrl}
+          src={linkPreviewData.image}
           alt={altImage}
         />
         <div className="proposition-card-container">
           <div className="proposition-card-header">
-            <h3 className="proposition-card-header-title">{title}</h3>
+            <h3 className="proposition-card-header-title">
+              {linkPreviewData.title}
+            </h3>
           </div>
           <p className="proposition-card-author">Creé par {authorName}</p>
           <div className="proposition-card-localisation">
