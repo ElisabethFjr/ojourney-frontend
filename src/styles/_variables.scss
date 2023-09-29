@@ -2,7 +2,7 @@
 $color-loadding: #209cee;
 $color-primary: #ff7d5c;
 $color-primary-lightest: lighten($color-primary, 20%);
-$color-primary-lightest2: lighten($color-primary, 28%);
+$color-primary-lightest2: lighten($color-primary, 25%);
 $color-primary-darkest: darken($color-primary, 8%);
 $color-red: #91232e;
 $color-red-middle: #f5c6cb;
@@ -11,6 +11,7 @@ $color-accent: #1b3856;
 $color-text: #12273c;
 $color-grey: #b9bcbe;
 $color-grey-lightest: lighten($color-grey, 17%);
+$color-grey-lightest2: lighten($color-grey, 22%);
 $color-grey-middle-lighten: lighten($color-grey, 13%);
 $color-grey-darkest: darken($color-grey, 18%);
 $color-bg: lighten($color-grey, 24%);

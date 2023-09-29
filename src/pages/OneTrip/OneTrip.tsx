@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { isValid, parseISO } from 'date-fns';
+import format from 'date-fns/format';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
 
@@ -7,6 +9,7 @@ import Main from '../../layout/Main/Main';
 
 import PropositionCard from '../../components/PropositionCard/PropositionCard';
 import Button from '../../components/Button/Button';
+import MemberMenu from '../../components/MemberMenu/MemberMenu';
 
 import { Trip, Member, Proposition } from '../../@types';
 
@@ -14,8 +17,21 @@ import './OneTrip.scss';
 
 function OneTrip() {
   const [trip, setTrip] = useState<Trip>(Object);
-  const [members, setMembers] = useState<Member[]>([]);
   const [propositions, setPropositions] = useState<Proposition[]>([]);
+  const [members, setMembers] = useState<Member[]>([]);
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+
+  // Event handler : on a click on a member, it opens a pop-up menu
+  const toggleMenuMember = () => {
+    setIsOpenMenu(!isOpenMenu);
+  };
+  const handleCloseMenu = () => {
+    setIsOpenMenu(!isOpenMenu);
+  };
+
+  // const handleCloseMenu = () => {
+  //   setIsOpenMenu(!isOpenMenu);
+  // };
 
   const dataUser = useAppSelector((state) => state.user.data);
 
@@ -70,26 +86,24 @@ function OneTrip() {
       });
   };
 
+  // Display all members on a button element with the member firstname
   const allMembers = members.map((member) => (
-    <li key={member.id}>
-      <i className="fa-solid fa-user one-trip-members-icon" />
+    <li className="one-trip-members-item" key={member.id}>
+      <button
+        className={`one-trip-members-btn ${
+          isOpenMenu ? 'one-trip-members-btn--isActive' : ''
+        }`}
+        type="button"
+        onClick={toggleMenuMember}
+      >
+        <i className="one-trip-members-icon fa-solid fa-user" />
+        <p className="one-trip-membres-name">
+          {dataUser.firstname ? dataUser.firstname : 'Membre Nom'}
+        </p>
+        {isOpenMenu && <MemberMenu />}
+      </button>
     </li>
   ));
-
-  // const allLinks = propositions.forEach((proposition) => (
-  //   <li key={proposition.id}>
-  //     <PropositionCard
-  //       previewImageUrl="https://www.raftbanff.com/Portals/0/EasyDNNNews/44/1000600p702EDNmainHydra--Georgia-Russell-9996-2.jpg"
-  //       altImage="Rafting au Canada"
-  //       title={proposition.description}
-  //       authorName="Blablabla"
-  //       localisation={proposition.localisation}
-  //       url={proposition.url}
-  //       id_trip={proposition.trip_id}
-  //       id_link={proposition.id}
-  //     />
-  //   </li>
-  // ));
 
   useEffect(() => {
     try {
@@ -113,7 +127,14 @@ function OneTrip() {
           <div className="one-trip-overview-date">
             <i className="fa-solid fa-calendar" />
             <p className="one-trip-overview-date-name">
-              {trip.date_start} - {trip.date_end}
+              {/* Change displayed date format to d MMM - d MMM YYYY */}
+              {isValid(parseISO(trip.date_start)) &&
+              isValid(parseISO(trip.date_end))
+                ? `${format(parseISO(trip.date_start), 'd MMM')} - ${format(
+                    parseISO(trip.date_end),
+                    'd MMM yyyy'
+                  )}`
+                : 'Dates invalides'}
             </p>
           </div>
           <div className="one-trip-overview-localisation">
@@ -128,13 +149,13 @@ function OneTrip() {
               text="Editer"
               icon="fa-solid fa-pen"
               type="button"
-              customClass="outline"
+              customClass="outline-dark"
             />
             <Button
               text="Supprimer"
               icon="fa-solid fa-trash"
               type="button"
-              customClass="outline"
+              customClass="outline-dark"
             />
           </div>
         </div>
@@ -148,7 +169,7 @@ function OneTrip() {
           customClass="color"
         />
         {members.length === 0 ? (
-          <p> Aucun member pour le moment </p>
+          <p> Aucun membres pour le moment </p>
         ) : (
           <ul>{allMembers}</ul>
         )}
