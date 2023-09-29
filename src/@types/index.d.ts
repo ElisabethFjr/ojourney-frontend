@@ -20,4 +20,5 @@ export interface Proposition {
   description: string;
   url: string;
   localisation: string;
+  trip_id: number;
 }
