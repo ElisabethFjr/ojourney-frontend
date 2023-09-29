@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
+import ModalContainer from '../ModalContainer/ModalContainer';
 
 import './ModalConfimPassword.scss';
 
@@ -19,8 +20,7 @@ function ModaleConfirmPassword() {
   return (
     <div>
       {isOpen && (
-        <section className="modal-password-background">
-          <div className="modal-password-container">
+          <ModalContainer>
             <i className="modal-password-icon fa-solid fa-lock" />
             <h1 className="modal-password-title">Confirmation de mot passe</h1>
             <p className="modal-password-text">
@@ -49,8 +49,7 @@ function ModaleConfirmPassword() {
             >
               <i className="modal-password-close-btn-icon fa-solid fa-xmark" />
             </button>
-          </div>
-        </section>
+          </ModalContainer>
       )}
     </div>
   );
