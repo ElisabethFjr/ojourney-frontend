@@ -2,7 +2,7 @@ import Main from '../../layout/Main/Main';
 
 import './Contact.scss';
 
-import ChangePassword from '../../components/ModalChangePassword/ModalChangePassword';
+import ChangePassword from '../../components/ModalConfirmPassword/ModalConfirmPassword';
 
 function Contact() {
   return (
