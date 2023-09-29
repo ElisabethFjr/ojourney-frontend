@@ -5,6 +5,7 @@ export interface Trip {
   localisation: string;
   description: string;
   url_image: string;
+  alt_image: string;
 }
 
 export interface Member {
