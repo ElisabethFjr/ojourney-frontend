@@ -7,6 +7,7 @@ export interface TextareaFieldProps {
   icon: string;
   required?: boolean;
   autocomplete?: string;
+  maxlength?: number;
 }
 
 function TextareaField({
@@ -15,6 +16,7 @@ function TextareaField({
   icon,
   required,
   autocomplete,
+  maxlength,
 }: TextareaFieldProps) {
   const [value, setValue] = useState('');
 
@@ -34,6 +36,7 @@ function TextareaField({
           autoComplete={autocomplete}
           id={name}
           placeholder=" "
+          maxLength={maxlength}
         />
         <label className="field-textarea-label" htmlFor={name}>
           {placeholder}

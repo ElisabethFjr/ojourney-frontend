@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import './ModalDeleteConfirmation.scss';
+
 import Button from '../Button/Button';
+
+import './ModalDeleteConfirmation.scss';
 
 interface ModalDeleteConfirmProps {
   title: string;
@@ -27,7 +29,6 @@ function ModalDeleteConfirm({ title, text }: ModalDeleteConfirmProps) {
             <h1 className="modal-delete-title">{title}</h1>
             <p className="modal-delete-text">{text}</p>
             <div className="modal-delete-button-container">
-              
               <Button
                 text="Annuler"
                 type="button"
@@ -41,6 +42,13 @@ function ModalDeleteConfirm({ title, text }: ModalDeleteConfirmProps) {
                 onClick={handleDelete}
               />
             </div>
+            <button
+              type="button"
+              className="modal-delete-close-btn"
+              onClick={handleClose}
+            >
+              <i className="modal-delete-close-btn-icon fa-solid fa-xmark" />
+            </button>
           </div>
         </section>
       )}

@@ -28,7 +28,7 @@ function EditTrip() {
 
   // Event handler for start date change
   const handleStartDateChange = (date: Date) => {
-    console.log(date);
+
     setStartDate(date);
   };
 
