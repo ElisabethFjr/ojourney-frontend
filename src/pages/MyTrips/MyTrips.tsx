@@ -17,10 +17,10 @@ import './MyTrips.scss';
 
 function MyTrips() {
   // Declaration state variables
-  const [tripsData, setTripsData] = useState<Trip[]>([]); // User trips data
+  const [trips, setTrips] = useState<Trip[]>([]); // User trips data
 
-  // Get states from Redux store
-  const data = useAppSelector((state) => state.user.data);
+  // Fetch states from Redux store
+  const userData = useAppSelector((state) => state.user.data); // User data
 
   // Function to fetch all trips data from the server with awiosInstance
   const fetchData = async () => {
@@ -34,7 +34,7 @@ function MyTrips() {
         },
       })
       .then((response) => {
-        setTripsData(response.data);
+        setTrips(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -50,13 +50,13 @@ function MyTrips() {
     }
   }, []);
 
-  // Create an Array of TripCard component with all trips data
-  const allTrips = tripsData.map((trip) => (
+  // Display a list of all trips from the trips array fetch to the API
+  const allTrips = trips.map((trip) => (
     <li className="trips-list-item" key={trip.id}>
       <TripCard
         srcTripImage={`https://luciebaroiller-server.eddi.cloud:8080/images/${trip.url_image}`}
         altImage={trip.alt_image}
-        authorName={`${data.firstname} ${data.lastname}`}
+        authorName={`${userData.firstname} ${userData.lastname}`}
         description={trip.description}
         localisation={trip.localisation}
         linkHref={`/my-trip/${trip.id}`}
@@ -68,8 +68,8 @@ function MyTrips() {
     <Main>
       <h1 className="main-title">Mes Voyages</h1>
 
-      {/* Conditional rendering based on the tripsData's length */}
-      {tripsData.length === 0 ? (
+      {/* Conditional rendering based on the trips's length */}
+      {trips.length === 0 ? (
         // Display No Trips
         <section className="no-trip-container">
           <img
