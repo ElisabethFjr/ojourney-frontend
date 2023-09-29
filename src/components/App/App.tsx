@@ -21,7 +21,7 @@ import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
 import EditTrip from '../../pages/EditTrip/EditTrip';
 import NewPassword from '../../pages/NewPassword/NewPassword';
 
-import EditProposition from '../../pages/EditProposition/EditProposition';
+import EditProposition from '../../pages/EditProposition/editProposition';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 import './App.scss';
@@ -67,7 +67,6 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/confirm-account" element={<ConfirmAccount />} />
         <Route path="/new-password" element={<NewPassword />} />
-
 
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

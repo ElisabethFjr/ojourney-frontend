@@ -10,7 +10,7 @@ function ModaleConfirmPassword() {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
-    setIsOpen(false);
+    setIsOpen(!isOpen);
   };
 
   const handleSubmit = () => {
@@ -20,36 +20,36 @@ function ModaleConfirmPassword() {
   return (
     <div>
       {isOpen && (
-          <ModalContainer>
-            <i className="modal-password-icon fa-solid fa-lock" />
-            <h1 className="modal-password-title">Confirmation de mot passe</h1>
-            <p className="modal-password-text">
-              Pour confirmer votre identité et procéder à la suppression de
-              votre compte, veuillez renseigner votre mot de passe.
-            </p>
-            <form className="modal-password-form" onSubmit={handleSubmit}>
-              <InputField
-                name="password"
-                placeholder="Mot de passe"
-                type="password"
-                icon="fa-solid fa-lock"
-              />
-            </form>
-
-            <Button
-              text="Confirmer"
-              type="submit"
-              customClass="color button-style--width"
+        <ModalContainer handleClose={handleClose}>
+          <i className="modal-password-icon fa-solid fa-lock" />
+          <h1 className="modal-password-title">Confirmation de mot passe</h1>
+          <p className="modal-password-text">
+            Pour confirmer votre identité et procéder à la suppression de votre
+            compte, veuillez renseigner votre mot de passe.
+          </p>
+          <form className="modal-password-form" onSubmit={handleSubmit}>
+            <InputField
+              name="password"
+              placeholder="Mot de passe"
+              type="password"
+              icon="fa-solid fa-lock"
             />
+          </form>
 
-            <button
-              type="button"
-              className="modal-password-close-btn"
-              onClick={handleClose}
-            >
-              <i className="modal-password-close-btn-icon fa-solid fa-xmark" />
-            </button>
-          </ModalContainer>
+          <Button
+            text="Confirmer"
+            type="submit"
+            customClass="color button-style--width"
+          />
+
+          <button
+            type="button"
+            className="modal-password-close-btn"
+            onClick={handleClose}
+          >
+            <i className="modal-password-close-btn-icon fa-solid fa-xmark" />
+          </button>
+        </ModalContainer>
       )}
     </div>
   );
