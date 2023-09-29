@@ -60,7 +60,7 @@ function MyTrips() {
     <li className="trips-list-item" key={trip.id}>
       <TripCard
         srcTripImage={trip.url_image}
-        altImage="O'Jouney"
+        altImage="O'Journey"
         authorName={`${data.firstname} ${data.lastname}`}
         description={trip.description}
         localisation={trip.localisation}

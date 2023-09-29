@@ -12,7 +12,6 @@ import TextareaField from '../../components/TextareaField/TextareaField';
 import Button from '../../components/Button/Button';
 import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker';
 
-import 'react-datepicker/dist/react-datepicker.css';
 import './NewTrip.scss';
 
 function NewTrip() {
