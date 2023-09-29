@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './ModalConfirmMessage.scss';
+import ModalContainer from './../ModalContainer/ModalContainer'
 
 function ModalConfirmMessage() {
   const [isOpen, setIsOpen] = useState(true);
@@ -12,6 +13,7 @@ function ModalConfirmMessage() {
     <div>
       {isOpen && (
         <section className="modal-confirm-background">
+          <ModalContainer>
           <div className="modal-confirm-container">
             <i className="modal-confirm-icon fa-solid fa-envelope-circle-check" />
             <h1 className="modal-confirm-title">
@@ -29,6 +31,7 @@ function ModalConfirmMessage() {
               <i className="modal-confirm-close-btn-icon fa-solid fa-xmark" />
             </button>
           </div>
+          </ModalContainer>
         </section>
       )}
     </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import Button from '../Button/Button';
+import ModalContainer from './../ModalContainer/ModalContainer'
 
 import './ModalDeleteConfirmation.scss';
 
@@ -23,8 +24,7 @@ function ModalDeleteConfirm({ title, text }: ModalDeleteConfirmProps) {
   return (
     <div>
       {isOpen && (
-        <section className="modal-delete-background">
-          <div className="modal-delete-container">
+          <ModalContainer> 
             <i className="modal-delete-icon fa-solid fa-triangle-exclamation" />
             <h1 className="modal-delete-title">{title}</h1>
             <p className="modal-delete-text">{text}</p>
@@ -49,8 +49,7 @@ function ModalDeleteConfirm({ title, text }: ModalDeleteConfirmProps) {
             >
               <i className="modal-delete-close-btn-icon fa-solid fa-xmark" />
             </button>
-          </div>
-        </section>
+          </ModalContainer>
       )}
     </div>
   );

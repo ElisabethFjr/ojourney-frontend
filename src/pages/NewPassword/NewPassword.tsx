@@ -21,7 +21,7 @@ function NewPassword() {
           </h2>
           <InputField
             name="password"
-            placeholder="Nouveau Mot de passe"
+            placeholder="Nouveau mot de passe"
             type="password"
             icon="fa-solid fa-lock"
           />

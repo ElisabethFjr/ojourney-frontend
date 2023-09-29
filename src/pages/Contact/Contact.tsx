@@ -1,5 +1,6 @@
 import Main from '../../layout/Main/Main';
 
+
 import './Contact.scss';
 
 function Contact() {
