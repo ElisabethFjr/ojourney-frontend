@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../utils/axios';
 
@@ -12,6 +12,8 @@ interface PropositionCardProps {
   authorName: string;
   localisation: string;
   url: string;
+  id_link: number;
+  id_trip: number | null;
 }
 
 function PropositionCard({
@@ -21,14 +23,32 @@ function PropositionCard({
   authorName,
   localisation,
   url,
+  id_link,
+  id_trip,
 }: PropositionCardProps) {
-  const [propositionData, setPropositionData] = useState<any>(null);
-
+  const [propositionData, setPropositionData] = useState<object>({});
+  const [linkPreviewData, setLinkPreviewData] = useState<object>({});
+  const navigate = useNavigate();
   useEffect(() => {
     axiosInstance
-      .get('/trips/:id/links/:link_id')
+      .get(`/trips/${id_trip}/links/${id_link}`, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      })
       .then((response) => {
         setPropositionData(response.data);
+        axiosInstance
+          .post(
+            `https://api.linkpreview.net/?key=d827803af0058a20cdc17da9532d8adc&q=${url}`
+          )
+          .then((responseAPI) => {
+            setLinkPreviewData(responseAPI.data);
+          })
+          .catch((err) => {});
       })
       .catch((error) => {
         console.error(
@@ -39,16 +59,23 @@ function PropositionCard({
   }, []);
 
   const handleClickEdit = () => {
-    console.log('Au clic sur le bouton, afficher la page EditProposition');
+    navigate(`/edit-proposition/${id_trip}/${id_link}`);
+    // Effectuez la requête DELETE ici
   };
 
-  const handleClickDelete = () => {
+  const handleClickDelete = async () => {
     // Effectuez la requête DELETE ici
-    axiosInstance
-      .delete('/trips/:id/links/:link_id')
+    await axiosInstance
+      .delete(`/trips/${id_trip}/links/${id_link}`, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      })
       .then(() => {
-        console.log('La proposition a été supprimée avec succès.');
-        // Vous pouvez ajouter ici une logique pour mettre à jour l'interface utilisateur, par exemple, supprimer la carte de proposition.
+        navigate(`/my-trip/${id_trip}`);
       })
       .catch((error) => {
         console.error(
@@ -59,32 +86,31 @@ function PropositionCard({
   };
 
   return (
-    <Link to={url} className="proposition-card-url-detail">
-      <img
-        className="proposition-card-image"
-        src={previewImageUrl}
-        alt={altImage}
-      />
-      <div className="proposition-card-container">
-        <div className="proposition-card-header">
-          <h3 className="proposition-card-header-title">{title}</h3>
-          <div className="proposition-card-header-icon">
-            <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
-            <ButtonIcon
-              icon="fa-solid fa-trash"
-              handleClick={handleClickDelete}
-            />
-          </div>
-        </div>
-        <p className="proposition-card-author">Creé par {authorName}</p>
-        <div className="proposition-card-localisation">
-          <i className="fa-solid fa-location-dot" />
-          <p className="proposition-card-localisation-name">{localisation}</p>
-        </div>
-        <i className="fa-solid fa-square-arrow-up-right" />
-        Voir détail en cliquant sur la proposition.
+    <div className="proposition-container">
+      <div className="proposition-card-header-icon">
+        <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
+        <ButtonIcon icon="fa-solid fa-trash" handleClick={handleClickDelete} />
       </div>
-    </Link>
+      <Link to={url} className="proposition-card-url-detail">
+        <img
+          className="proposition-card-image"
+          src={previewImageUrl}
+          alt={altImage}
+        />
+        <div className="proposition-card-container">
+          <div className="proposition-card-header">
+            <h3 className="proposition-card-header-title">{title}</h3>
+          </div>
+          <p className="proposition-card-author">Creé par {authorName}</p>
+          <div className="proposition-card-localisation">
+            <i className="fa-solid fa-location-dot" />
+            <p className="proposition-card-localisation-name">{localisation}</p>
+          </div>
+          <i className="fa-solid fa-square-arrow-up-right" />
+          Voir détail en cliquant sur la proposition.
+        </div>
+      </Link>
+    </div>
   );
 }
 
