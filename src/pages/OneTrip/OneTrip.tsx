@@ -6,6 +6,7 @@ import axiosInstance from '../../utils/axios';
 import Main from '../../layout/Main/Main';
 
 // import PropositionCard from '../../components/PropositionCard/PropositionCard';
+import InviteMember from '../../components/ModalInviteMember/ModalInviteMember';
 import Button from '../../components/Button/Button';
 
 import { Trip, Member } from '../../@types';
@@ -115,12 +116,16 @@ function OneTrip() {
       </section>
 
       <section className="one-trip-members">
+        
+      
         <Button
+          onClick={InviteMember}
           text="Ajouter"
           icon="fa-solid fa-user-plus"
           type="button"
           customClass="color"
         />
+      
         {members.length === 0 ? (
           <p> Aucun member pour le moment </p>
         ) : (
