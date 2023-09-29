@@ -38,7 +38,6 @@ function MyTrips() {
         },
       })
       .then((response) => {
-        console.log(response);
         setTripsData(response.data);
       })
       .catch((error) => {
