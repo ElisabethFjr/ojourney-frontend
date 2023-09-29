@@ -2,16 +2,15 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
 
-//import { PDFDownloadLink } from '@react-pdf/renderer';
-//import Document from './Document.js'
-
-
+// import { PDFDownloadLink } from '@react-pdf/renderer';
+// import Document from './Document.js'
 
 import Main from '../../layout/Main/Main';
 
-import './Profil.scss';
 import Button from '../../components/Button/Button';
-//import ChangePassword from '../../components/ModalChangePassword/ModalChangePassword';
+// import ChangePassword from '../../components/ModalChangePassword/ModalChangePassword';
+
+import './Profil.scss';
 
 function Profil() {
   const data = useAppSelector((state) => state.user.data);

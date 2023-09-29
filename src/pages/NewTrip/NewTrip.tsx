@@ -59,6 +59,7 @@ function NewTrip() {
 
     // Send newTrip form data (JSON) to the server with Axios
     const objData = Object.fromEntries(formData);
+    console.log(objData);
 
     await axiosInstance
       .post('/trips', objData, {
