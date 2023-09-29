@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axiosInstance from '../../utils/axios';
 
 import './PropositionCard.scss';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
@@ -20,12 +22,40 @@ function PropositionCard({
   localisation,
   url,
 }: PropositionCardProps) {
+  const [propositionData, setPropositionData] = useState<any>(null);
+
+  useEffect(() => {
+    axiosInstance
+      .get('/trips/:id/links/:link_id')
+      .then((response) => {
+        setPropositionData(response.data);
+      })
+      .catch((error) => {
+        console.error(
+          'Une erreur est survenue lors de la récupération des données :',
+          error
+        );
+      });
+  }, []);
+
   const handleClickEdit = () => {
     console.log('Au clic sur le bouton, afficher la page EditProposition');
   };
 
   const handleClickDelete = () => {
-    console.log('Au clic sur le bouton, afficher la modale ConfirmDelete');
+    // Effectuez la requête DELETE ici
+    axiosInstance
+      .delete('/trips/:id/links/:link_id')
+      .then(() => {
+        console.log('La proposition a été supprimée avec succès.');
+        // Vous pouvez ajouter ici une logique pour mettre à jour l'interface utilisateur, par exemple, supprimer la carte de proposition.
+      })
+      .catch((error) => {
+        console.error(
+          'Une erreur est survenue lors de la suppression de la proposition :',
+          error
+        );
+      });
   };
 
   return (
