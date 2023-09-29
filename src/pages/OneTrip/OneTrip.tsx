@@ -79,8 +79,8 @@ function OneTrip() {
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"
-          src={trip.url_image}
-          alt="plane"
+          src={`https://luciebaroiller-server.eddi.cloud:8080/images/${trip.url_image}`}
+          alt={trip.alt_image}
         />
         <div className="one-trip-overview-container">
           <h1 className="one-trip-overview-title">{trip.localisation}</h1>

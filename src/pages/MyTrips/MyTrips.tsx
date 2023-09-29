@@ -59,8 +59,8 @@ function MyTrips() {
   const allTrips = tripsData.map((trip) => (
     <li className="trips-list-item" key={trip.id}>
       <TripCard
-        srcTripImage={trip.url_image}
-        altImage="O'Journey"
+        srcTripImage={`https://luciebaroiller-server.eddi.cloud:8080/images/${trip.url_image}`}
+        altImage={trip.alt_image}
         authorName={`${data.firstname} ${data.lastname}`}
         description={trip.description}
         localisation={trip.localisation}
