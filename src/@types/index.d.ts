@@ -20,4 +20,11 @@ export interface Proposition {
   description: string;
   url: string;
   localisation: string;
+  trip_id: number;
+}
+
+export interface Link {
+  title: string;
+  url: string;
+  image: string;
 }

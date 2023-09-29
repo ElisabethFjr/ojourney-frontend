@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import Button from '../Button/Button';
+import ModalContainer from '../ModalContainer/ModalContainer';
 
 import './ModalDeleteConfirmation.scss';
 
@@ -13,7 +14,7 @@ function ModalDeleteConfirm({ title, text }: ModalDeleteConfirmProps) {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
-    setIsOpen(false);
+    setIsOpen(!isOpen);
   };
 
   const handleDelete = () => {
@@ -23,34 +24,25 @@ function ModalDeleteConfirm({ title, text }: ModalDeleteConfirmProps) {
   return (
     <div>
       {isOpen && (
-        <section className="modal-delete-background">
-          <div className="modal-delete-container">
-            <i className="modal-delete-icon fa-solid fa-triangle-exclamation" />
-            <h1 className="modal-delete-title">{title}</h1>
-            <p className="modal-delete-text">{text}</p>
-            <div className="modal-delete-button-container">
-              <Button
-                text="Annuler"
-                type="button"
-                customClass="outline-dark"
-                onClick={handleClose}
-              />
-              <Button
-                text="Supprimer"
-                type="button"
-                customClass="danger"
-                onClick={handleDelete}
-              />
-            </div>
-            <button
+        <ModalContainer handleClose={handleClose}>
+          <i className="modal-delete-icon fa-solid fa-triangle-exclamation" />
+          <h1 className="modal-delete-title">{title}</h1>
+          <p className="modal-delete-text">{text}</p>
+          <div className="modal-delete-button-container">
+            <Button
+              text="Annuler"
               type="button"
-              className="modal-delete-close-btn"
+              customClass="outline-dark"
               onClick={handleClose}
-            >
-              <i className="modal-delete-close-btn-icon fa-solid fa-xmark" />
-            </button>
+            />
+            <Button
+              text="Supprimer"
+              type="button"
+              customClass="danger"
+              onClick={handleDelete}
+            />
           </div>
-        </section>
+        </ModalContainer>
       )}
     </div>
   );
