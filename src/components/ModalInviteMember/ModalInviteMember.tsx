@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './ModalChangePassword.scss';
+import './ModalInviteMember.scss';
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 
-function ChangePassword() {
+function InviteMember()  {
+
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
@@ -18,23 +19,26 @@ function ChangePassword() {
   return (
     <div>
       {isOpen && (
-        <section className="modal-password-background">
-          <div className="modal-password-container">
-            <i className="modal-icon-delete fa-solid fa-lock" />
-            <h1 className="modal-password-title">
-              Rénitialisation de votre mot de passe
+        <section className="modal-invite-member-background">
+          <div className="modal-invite-member-container">
+            <i className="modal-icon-email fa-solid fa-envelope-circle-check" />
+            <h1 className="modal-invite-member-title">
+              Invitation d'un membre
             </h1>
-            <p className="modal-password-text">
-              Afin de confirmer votre identité, merci de renseigner votre mot de
-              passe.
+            <p className="modal-invite-member-text">
+              Veuillez renseigner l'adresse mail du nouveau membre.
             </p>
+
+            <form>
             <InputField
-              name="password"
-              placeholder="Mot de passe"
-              type="password"
-              icon="fa-solid fa-lock"
+              name="email"
+              placeholder="e-mail"
+              type="email"
+              icon="fa-solid fa-envelope-circle-check"
             />
-            <div className="modal-password-button-container">
+
+</form>
+            <div className="modal-invite-member-button-container">
               <Button
                 text="Annuler"
                 type="button"
@@ -42,14 +46,13 @@ function ChangePassword() {
                 onClick={handleClose}
               />
 
-              <Link to="/new-password">
                 <Button
                   text="Confirmer"
                   type="button"
                   customClass="outline-dark"
                   onClick={handleClick}
                 />
-              </Link>
+              
             </div>
           </div>
         </section>
@@ -58,4 +61,8 @@ function ChangePassword() {
   );
 }
 
-export default ChangePassword;
+export default InviteMember;
+
+
+
+

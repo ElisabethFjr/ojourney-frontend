@@ -50,18 +50,21 @@ function NewProposition() {
               placeholder="Localisation"
               type="text"
               icon="fa-solid fa-location-dot"
+              maxlength={50}
             />
             <InputField
               name="url"
               placeholder="Adresse URL"
               type="url"
               icon="fa-solid fa-link"
+              required
             />
             <TextareaField
               name="description"
               placeholder="Description"
               icon="fa-solid fa-pen-nib"
               required
+              maxlength={200}
             />
             <Button
               text="Valider la proposition"
