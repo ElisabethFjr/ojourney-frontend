@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import format from 'date-fns/format';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
 
@@ -11,6 +12,7 @@ import Button from '../../components/Button/Button';
 import { Trip, Member } from '../../@types';
 
 import './OneTrip.scss';
+import { isValid, parseISO } from 'date-fns';
 
 function OneTrip() {
   const [trip, setTrip] = useState<Trip>(Object);
@@ -32,7 +34,7 @@ function OneTrip() {
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setTrip(response.data);
       })
       .catch((error) => {
@@ -87,7 +89,14 @@ function OneTrip() {
           <div className="one-trip-overview-date">
             <i className="fa-solid fa-calendar" />
             <p className="one-trip-overview-date-name">
-              {trip.date_start} - {trip.date_end}
+              {/* Change displayed date format to d MMM - d MMM YYYY */}
+              {isValid(parseISO(trip.date_start)) &&
+              isValid(parseISO(trip.date_end))
+                ? `${format(parseISO(trip.date_start), 'd MMM')} - ${format(
+                    parseISO(trip.date_end),
+                    'd MMM yyyy'
+                  )}`
+                : 'Dates invalides'}
             </p>
           </div>
           <div className="one-trip-overview-localisation">
