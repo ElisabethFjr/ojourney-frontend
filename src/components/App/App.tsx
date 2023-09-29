@@ -57,7 +57,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/confirm-account" element={<ConfirmAccount />} />
-        <Route path="/new-password" element={<NewPassword/>} />
+        <Route path="/new-password" element={<NewPassword />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
