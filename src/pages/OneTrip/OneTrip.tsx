@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { isValid, parseISO } from 'date-fns';
 import format from 'date-fns/format';
@@ -9,6 +9,7 @@ import Main from '../../layout/Main/Main';
 
 // import PropositionCard from '../../components/PropositionCard/PropositionCard';
 import Button from '../../components/Button/Button';
+import MemberMenu from '../../components/MemberMenu/MemberMenu';
 
 import { Trip, Member } from '../../@types';
 
@@ -17,7 +18,20 @@ import './OneTrip.scss';
 function OneTrip() {
   const [trip, setTrip] = useState<Trip>(Object);
   const [members, setMembers] = useState<Member[]>([]);
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   // const [propositions, setPropositions] = useState<Proposition[]>([]);
+
+  // Event handler : on a click on a member, it opens a pop-up menu
+  const toggleMenuMember = () => {
+    setIsOpenMenu(!isOpenMenu);
+  };
+  const handleCloseMenu = () => {
+    setIsOpenMenu(!isOpenMenu);
+  };
+
+  // const handleCloseMenu = () => {
+  //   setIsOpenMenu(!isOpenMenu);
+  // };
 
   const dataUser = useAppSelector((state) => state.user.data);
 
@@ -49,12 +63,22 @@ function OneTrip() {
     // });
   };
 
+  // Display all members on a button element with the member firstname
   const allMembers = members.map((member) => (
     <li className="one-trip-members-item" key={member.id}>
-      <i className="one-trip-members-icon fa-solid fa-user" />
-      <p className="one-trip-membres-name">
-        {dataUser.firstname ? dataUser.firstname : 'Membre Nom'}
-      </p>
+      <button
+        className={`one-trip-members-btn ${
+          isOpenMenu ? 'one-trip-members-btn--isActive' : ''
+        }`}
+        type="button"
+        onClick={toggleMenuMember}
+      >
+        <i className="one-trip-members-icon fa-solid fa-user" />
+        <p className="one-trip-membres-name">
+          {dataUser.firstname ? dataUser.firstname : 'Membre Nom'}
+        </p>
+        {isOpenMenu && <MemberMenu />}
+      </button>
     </li>
   ));
 

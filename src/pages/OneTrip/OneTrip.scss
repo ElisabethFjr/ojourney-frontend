@@ -50,7 +50,9 @@
     padding: 1.5rem 0;
     border-bottom: 1px solid v.$color-grey-middle-lighten;
 
-    &-item {
+    &-btn {
+      cursor: pointer;
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -60,6 +62,10 @@
       border-radius: v.$border-radius;
       padding: calc(0.6rem - 1px);
       color: v.$color-accent;
+
+      &--isActive {
+        border: 1px solid v.$color-text;
+      }
 
       &:hover {
         border: 1px solid v.$color-text;
