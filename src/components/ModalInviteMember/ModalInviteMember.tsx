@@ -21,7 +21,7 @@ function InviteMember()  {
       {isOpen && (
         <section className="modal-invite-member-background">
           <div className="modal-invite-member-container">
-            <i className="modal-icon-delete fa-solid fa-lock" />
+            <i className="modal-icon-email fa-solid fa-envelope-circle-check" />
             <h1 className="modal-invite-member-title">
               Invitation d'un membre
             </h1>
@@ -32,9 +32,9 @@ function InviteMember()  {
             <form>
             <InputField
               name="email"
-              placeholder="Mot de passe"
+              placeholder="e-mail"
               type="email"
-              icon="fa-solid fa-lock"
+              icon="fa-solid fa-envelope-circle-check"
             />
 
 </form>

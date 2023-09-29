@@ -2,7 +2,7 @@ import Main from '../../layout/Main/Main';
 
 import './Contact.scss';
 
-import ChangePassword from '../../components/ModalInviteMember/ModalInviteMember';
+import InviteMember from '../../components/ModalInviteMember/ModalInviteMember';
 
 function Contact() {
   return (
