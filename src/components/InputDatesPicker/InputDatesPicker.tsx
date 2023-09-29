@@ -37,6 +37,7 @@ function InputDatesPicker({
             placeholderText="Date de début (jj/mm/aaaa)"
             dateFormat="dd/MM/yyyy"
             locale="fr" // Set french locale
+            required
           />
         </div>
       </div>
@@ -58,6 +59,7 @@ function InputDatesPicker({
             placeholderText="Date de fin (jj/mm/aaaa)"
             dateFormat="dd/MM/yyyy"
             locale="fr" // Set french locale
+            required
           />
         </div>
       </div>

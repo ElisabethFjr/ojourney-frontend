@@ -22,10 +22,6 @@ function MyTrips() {
   // Get states from Redux store
   const data = useAppSelector((state) => state.user.data);
 
-  // let authTokens = localStorage.getItem("token")
-  // ? JSON.parse(localStorage.getItem("token"))
-  // : null;
-
   // Function to fetch all trips data from the server with awiosInstance
   const fetchData = async () => {
     await axiosInstance
@@ -38,7 +34,6 @@ function MyTrips() {
         },
       })
       .then((response) => {
-        console.log(response);
         setTripsData(response.data);
       })
       .catch((error) => {

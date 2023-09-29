@@ -10,6 +10,7 @@ export interface InputFieldProps {
   icon: string;
   required?: boolean;
   autocomplete?: string;
+  maxlength?: number;
 }
 
 function InputField({
@@ -19,6 +20,7 @@ function InputField({
   type,
   required,
   autocomplete,
+  maxlength,
 }: InputFieldProps) {
   const [value, setValue] = useState('');
 
@@ -39,6 +41,7 @@ function InputField({
         id={name}
         type={type}
         placeholder=" "
+        maxLength={maxlength}
       />
       <label className="field-label" htmlFor={name}>
         {placeholder}

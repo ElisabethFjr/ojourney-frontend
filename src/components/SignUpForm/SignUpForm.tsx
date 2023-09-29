@@ -3,7 +3,7 @@ import axiosInstance from '../../utils/axios';
 
 import InputField from '../InputField/InputField';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import ConfirmModal from '../ModalConfirmMessage/ModalConfirmMessage';
 import Button from '../Button/Button';
 
 import './SignUpForm.scss';

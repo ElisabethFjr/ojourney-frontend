@@ -59,6 +59,7 @@ function NewTrip() {
 
     // Send newTrip form data (JSON) to the server with Axios
     const objData = Object.fromEntries(formData);
+    console.log(objData);
 
     await axiosInstance
       .post('/trips', objData, {
@@ -93,6 +94,8 @@ function NewTrip() {
               placeholder="Destination"
               type="text"
               icon="fa-solid fa-location-dot"
+              maxlength={50}
+              required
             />
             {/* Dates Picker Inputs (Start - End) */}
             <InputDatesPicker
@@ -106,6 +109,7 @@ function NewTrip() {
               name="description"
               placeholder="Description du voyage (facultatif)"
               icon="fa-solid fa-pen-nib"
+              maxlength={200}
             />
             {/* Image File Selection Input */}
             <InputFieldImage handleFile={handleFile} />
