@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { isValid, parseISO } from 'date-fns';
 import format from 'date-fns/format';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
@@ -12,14 +13,13 @@ import Button from '../../components/Button/Button';
 import { Trip, Member } from '../../@types';
 
 import './OneTrip.scss';
-import { isValid, parseISO } from 'date-fns';
 
 function OneTrip() {
   const [trip, setTrip] = useState<Trip>(Object);
   const [members, setMembers] = useState<Member[]>([]);
   // const [propositions, setPropositions] = useState<Proposition[]>([]);
 
-  // const dataUser = useAppSelector((state) => state.user.data);
+  const dataUser = useAppSelector((state) => state.user.data);
 
   const { id } = useParams();
 
@@ -50,8 +50,11 @@ function OneTrip() {
   };
 
   const allMembers = members.map((member) => (
-    <li key={member.id}>
-      <i className="fa-solid fa-user one-trip-members-icon" />
+    <li className="one-trip-members-item" key={member.id}>
+      <i className="one-trip-members-icon fa-solid fa-user" />
+      <p className="one-trip-membres-name">
+        {dataUser.firstname ? dataUser.firstname : 'Membre Nom'}
+      </p>
     </li>
   ));
 
@@ -111,13 +114,13 @@ function OneTrip() {
               text="Editer"
               icon="fa-solid fa-pen"
               type="button"
-              customClass="outline"
+              customClass="outline-dark"
             />
             <Button
               text="Supprimer"
               icon="fa-solid fa-trash"
               type="button"
-              customClass="outline"
+              customClass="outline-dark"
             />
           </div>
         </div>
@@ -131,7 +134,7 @@ function OneTrip() {
           customClass="color"
         />
         {members.length === 0 ? (
-          <p> Aucun member pour le moment </p>
+          <p> Aucun membres pour le moment </p>
         ) : (
           <ul>{allMembers}</ul>
         )}

@@ -44,17 +44,26 @@
   &-members {
     display: flex;
     justify-content: start;
-    align-items: start;
+    align-items: center;
     gap: 1rem;
     width: 100%;
     padding: 1.5rem 0;
     border-bottom: 1px solid v.$color-grey-middle-lighten;
 
-    &-icon {
-      padding: 0.7rem;
-      border: 2px solid v.$color-primary;
-      border-radius: 100%;
-      font-size: 1.2rem;
+    &-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+      background-color: v.$color-primary-lightest2;
+      border: 1px solid v.$color-primary-lightest2;
+      border-radius: v.$border-radius;
+      padding: calc(0.6rem - 1px);
+      color: v.$color-accent;
+
+      &:hover {
+        border: 1px solid v.$color-text;
+      }
     }
   }
 
