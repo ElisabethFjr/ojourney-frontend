@@ -5,23 +5,23 @@ import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
 
-// import PropositionCard from '../../components/PropositionCard/PropositionCard';
+import PropositionCard from '../../components/PropositionCard/PropositionCard';
 import Button from '../../components/Button/Button';
 
-import { Trip, Member } from '../../@types';
+import { Trip, Member, Proposition } from '../../@types';
 
 import './OneTrip.scss';
 
 function OneTrip() {
   const [trip, setTrip] = useState<Trip>(Object);
   const [members, setMembers] = useState<Member[]>([]);
-  // const [propositions, setPropositions] = useState<Proposition[]>([]);
+  const [propositions, setPropositions] = useState<Proposition[]>([]);
 
-  // const dataUser = useAppSelector((state) => state.user.data);
+  const dataUser = useAppSelector((state) => state.user.data);
 
   const { id } = useParams();
 
-  const fetchData = async () => {
+  const fetchDataTrip = async () => {
     await axiosInstance
       .get(`/trips/${id}`, {
         headers: {
@@ -32,19 +32,42 @@ function OneTrip() {
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setTrip(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
 
-    await axiosInstance.get(`/trips/${id}/members`).then((response) => {
-      setMembers(response.data);
-    });
-    // await axiosInstance.get(`/trips/${id}/links`).then((response) => {
-    //   setPropositions(response.data);
-    // });
+    await axiosInstance
+      .get(`/trips/${id}/members`, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      })
+      .then((response) => {
+        setMembers(response.data);
+      });
+  };
+  const fetchDataLink = async () => {
+    await axiosInstance
+      .get(`/trips/${id}/links`, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      })
+      .then((response) => {
+        setPropositions(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const allMembers = members.map((member) => (
@@ -53,7 +76,7 @@ function OneTrip() {
     </li>
   ));
 
-  // const allLinks = propositions.map((proposition) => (
+  // const allLinks = propositions.forEach((proposition) => (
   //   <li key={proposition.id}>
   //     <PropositionCard
   //       previewImageUrl="https://www.raftbanff.com/Portals/0/EasyDNNNews/44/1000600p702EDNmainHydra--Georgia-Russell-9996-2.jpg"
@@ -62,13 +85,16 @@ function OneTrip() {
   //       authorName="Blablabla"
   //       localisation={proposition.localisation}
   //       url={proposition.url}
+  //       id_trip={proposition.trip_id}
+  //       id_link={proposition.id}
   //     />
   //   </li>
   // ));
 
   useEffect(() => {
     try {
-      fetchData();
+      fetchDataTrip();
+      fetchDataLink();
     } catch (error) {
       console.log(error);
     }
@@ -143,11 +169,26 @@ function OneTrip() {
             />
           </Link>
         </div>
-        {/* {propositions.length === 0 ? (
+        {propositions.length === 0 ? (
           <p>Aucune proposition n&paos;a été ajoutée pour le moment !</p>
         ) : (
-          <ul>{allLinks}</ul>
-        )} */}
+          <ul>
+            {propositions.map((proposition) => (
+              <li key={proposition.id}>
+                <PropositionCard
+                  previewImageUrl="https://www.raftbanff.com/Portals/0/EasyDNNNews/44/1000600p702EDNmainHydra--Georgia-Russell-9996-2.jpg"
+                  altImage="Rafting au Canada"
+                  title={proposition.description}
+                  authorName="Blablabla"
+                  localisation={proposition.localisation}
+                  url={proposition.url}
+                  id_trip={proposition.trip_id}
+                  id_link={proposition.id}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </Main>
   );
