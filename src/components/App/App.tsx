@@ -11,7 +11,7 @@ import SignInUp from '../../pages/SignInUp/SignInUp';
 import Profil from '../../pages/Profil/Profil';
 import NewTrip from '../../pages/NewTrip/NewTrip';
 import MyTrips from '../../pages/MyTrips/MyTrips';
-import OneTrip from '../../pages/OneTrip/OneTrip';
+import MyTrip from '../../pages/MyTrip/MyTrip';
 import NewProposition from '../../pages/NewProposition/NewProposition';
 import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
@@ -93,7 +93,7 @@ function App() {
           path="/my-trip/:id"
           element={
             <PrivateRoute>
-              <OneTrip />
+              <MyTrip />
             </PrivateRoute>
           }
         />

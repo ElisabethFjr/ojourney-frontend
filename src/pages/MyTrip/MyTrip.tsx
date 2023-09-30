@@ -13,9 +13,9 @@ import MemberMenu from '../../components/MemberMenu/MemberMenu';
 
 import { Trip, Member, Proposition } from '../../@types';
 
-import './OneTrip.scss';
+import './MyTrip.scss';
 
-function OneTrip() {
+function MyTrip() {
   // Declaration state variables
   const [trip, setTrip] = useState<Trip>(Object);
   const [propositions, setPropositions] = useState<Proposition[]>([]);
@@ -37,13 +37,11 @@ function OneTrip() {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
     const handleCloseMenu = (event: MouseEvent) => {
-      // Check if button not null, click event not inside the button, menu is not open
-      if (
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target as Node) &&
-        !isOpenMenu
-      ) {
-        setIsOpenMenu(!isOpenMenu); // Toggle the menu state
+      // Check if button not null and menu is open
+      if (buttonRef.current && isOpenMenu) {
+        if (!buttonRef.current.contains(event.target as Node)) {
+          setIsOpenMenu(false); // Close the menu
+        }
       }
     };
     // Add a mouse click event listener to the document when the menu is open
@@ -132,9 +130,7 @@ function OneTrip() {
     <li className="one-trip-members-item" key={member.id}>
       <button
         ref={buttonRef}
-        className={`one-trip-members-btn ${
-          isOpenMenu ? 'one-trip-members-btn--isActive' : ''
-        }`}
+        className={`one-trip-members-btn ${isOpenMenu ? 'active' : ''}`}
         type="button"
         onClick={toggleMenuMember}
       >
@@ -142,7 +138,7 @@ function OneTrip() {
         <p className="one-trip-membres-name">
           {dataUser.firstname ? dataUser.firstname : 'Membre Nom'}
         </p>
-        {isOpenMenu && <MemberMenu />}
+        {isOpenMenu && <MemberMenu customClass="active" />}
       </button>
     </li>
   ));
@@ -249,4 +245,4 @@ function OneTrip() {
   );
 }
 
-export default OneTrip;
+export default MyTrip;

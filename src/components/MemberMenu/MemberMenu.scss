@@ -16,6 +16,10 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   color: v.$color-text;
   font-size: 0.9rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+
   &-btn {
     cursor: pointer;
     width: 100%;
@@ -23,9 +27,15 @@
     border: none;
     background-color: v.$color-white;
     color: v.$color-text;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
       background-color: v.$color-grey-lightest2;
     }
+  }
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
   }
 }
