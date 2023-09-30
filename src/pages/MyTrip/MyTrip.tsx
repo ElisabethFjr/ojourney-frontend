@@ -34,12 +34,12 @@ function MyTrip() {
 
   // Event handler to close the member menu when clicked outside
   // Ref the toggle MemberMenu button
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const divRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const handleCloseMenu = (event: MouseEvent) => {
       // Check if button not null and menu is open
-      if (buttonRef.current && isOpenMenu) {
-        if (!buttonRef.current.contains(event.target as Node)) {
+      if (divRef.current && isOpenMenu) {
+        if (!divRef.current.contains(event.target as Node)) {
           setIsOpenMenu(false); // Close the menu
         }
       }
@@ -128,18 +128,26 @@ function MyTrip() {
   // Display a list of all members into a button element from the members array fetch to the API
   const allMembers = members.map((member) => (
     <li className="one-trip-members-item" key={member.id}>
-      <button
-        ref={buttonRef}
+      <div
+        key={member.id}
         className={`one-trip-members-btn ${isOpenMenu ? 'active' : ''}`}
-        type="button"
+        ref={divRef}
         onClick={toggleMenuMember}
+        onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+          if (event.key === 'Enter') {
+            toggleMenuMember();
+          }
+        }}
+        role="button"
+        aria-label="Click on the member to open member menu"
+        tabIndex={0}
       >
         <i className="one-trip-members-icon fa-solid fa-user" />
         <p className="one-trip-membres-name">
           {dataUser.firstname ? dataUser.firstname : 'Membre Nom'}
         </p>
         {isOpenMenu && <MemberMenu customClass="active" />}
-      </button>
+      </div>
     </li>
   ));
 
@@ -213,7 +221,7 @@ function MyTrip() {
           type="button"
           customClass="color"
         />
-        {members.length === 0 ? (
+        {members && members.length === 0 ? (
           <p> Aucun membres pour le moment </p>
         ) : (
           <ul>{allMembers}</ul>
@@ -235,7 +243,7 @@ function MyTrip() {
             />
           </Link>
         </div>
-        {propositions.length === 0 ? (
+        {propositions && propositions.length === 0 ? (
           <p>Aucune proposition n&paos;a été ajoutée pour le moment !</p>
         ) : (
           <ul>{allPropositions}</ul>

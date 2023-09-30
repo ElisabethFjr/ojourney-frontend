@@ -69,7 +69,7 @@ function MyTrips() {
       <h1 className="main-title">Mes Voyages</h1>
 
       {/* Conditional rendering based on the trips's length */}
-      {trips.length === 0 ? (
+      {trips && trips.length === 0 ? (
         // Display No Trips
         <section className="no-trip-container">
           <img
