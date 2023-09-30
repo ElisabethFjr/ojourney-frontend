@@ -15,9 +15,7 @@ function ConfirmAccount() {
   useEffect(() => {
     async function confirmEmail() {
       await axiosInstance
-        .get(`/confirm?confirm=${token}`, {
-          withCredentials: true,
-        })
+        .get(`/confirm?confirm=${token}`)
         .then((response) => {
           setIsConfirmed(true);
         })
