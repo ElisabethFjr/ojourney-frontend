@@ -12,7 +12,7 @@ function EditPassword() {
         <form className="edit-password-form">
           <InputField
             name="password"
-            placeholder="Mot de passe"
+            placeholder="Ancien - Mot de passe"
             type="password"
             icon="fa-solid fa-lock"
             required

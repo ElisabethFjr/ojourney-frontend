@@ -57,6 +57,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="*" element={<Error />} />
+        <Route path="/user/:idUser" element={<EditProposition />} />
 
         {/* Private Routes (user connected) */}
         <Route
