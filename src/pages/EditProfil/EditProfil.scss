@@ -1,12 +1,28 @@
-.edit-profil-container {
-  display: flex;
-  flex-direction: column;
-  max-width: 700px;
-  width: 90%;
-  margin-top: 3rem;
-}
-.edit-profil-form {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
+@use '../../styles/variables' as v;
+
+.edit-profil {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    width: 90%;
+    margin-top: 3rem;
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 3rem v.$gutter 1rem v.$gutter;
+    background-color: v.$color-white;
+    border-radius: v.$border-radius;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  &-item {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+  }
 }
