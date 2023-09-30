@@ -37,8 +37,8 @@ function MyTrips() {
         .then((response) => {
           setTrips(response.data);
         })
-        .catch(() => {
-          fetchDataTrips();
+        .catch((err) => {
+          console.log(err);
         });
     };
     fetchDataTrips();
