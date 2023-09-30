@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-import Loading from './Loading';
+import Loading from './Loading/Loading';
 
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
