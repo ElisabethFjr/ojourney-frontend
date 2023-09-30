@@ -84,7 +84,6 @@ function MyTrip() {
       await axiosInstance
         .get(`/trips/${id}/members`, {
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
             Authorization: `Bearer ${
               localStorage.getItem('token')?.replace(/"|_/g, '') || ''
             }`,
@@ -147,10 +146,10 @@ function MyTrip() {
   const allPropositions = propositions.map((proposition) => (
     <li key={proposition.id}>
       <PropositionCard
-        previewImageUrl="https://www.raftbanff.com/Portals/0/EasyDNNNews/44/1000600p702EDNmainHydra--Georgia-Russell-9996-2.jpg"
-        altImage="Rafting au Canada"
-        title={proposition.description}
-        authorName="Blablabla"
+        srcImage={proposition.image}
+        altImage={proposition.alt_image}
+        title={proposition.title}
+        authorName={`${dataUser.firstname} ${dataUser.lastname}`}
         localisation={proposition.localisation}
         url={proposition.url}
         id_trip={proposition.trip_id}

@@ -18,7 +18,6 @@ import './MyTrips.scss';
 function MyTrips() {
   // Declaration state variables
   const [trips, setTrips] = useState<Trip[]>([]); // User trips data
-
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data); // User data
 
@@ -29,6 +28,7 @@ function MyTrips() {
       await axiosInstance
         .get('/trips', {
           headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
             Authorization: `Bearer ${
               localStorage.getItem('token')?.replace(/"|_/g, '') || ''
             }`,
@@ -37,8 +37,8 @@ function MyTrips() {
         .then((response) => {
           setTrips(response.data);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          fetchDataTrips();
         });
     };
     fetchDataTrips();

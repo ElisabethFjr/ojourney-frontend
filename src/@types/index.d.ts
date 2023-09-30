@@ -21,6 +21,9 @@ export interface Proposition {
   url: string;
   localisation: string;
   trip_id: number;
+  title: string;
+  image: string;
+  alt_image: string;
 }
 
 export interface Link {
