@@ -60,7 +60,7 @@ function EditTrip() {
       await axiosInstance
         .patch('/trips', formSent, {
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${
               localStorage.getItem('token')?.replace(/"|_/g, '') || ''
             }`,

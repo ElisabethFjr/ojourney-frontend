@@ -1,11 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../utils/axios';
 import './PropositionCard.scss';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 
 interface PropositionCardProps {
-  previewImageUrl: string;
+  srcImage: string;
   altImage: string;
   title: string;
   authorName: string;
@@ -16,7 +15,7 @@ interface PropositionCardProps {
 }
 
 function PropositionCard({
-  previewImageUrl,
+  srcImage,
   altImage,
   title,
   authorName,
@@ -25,39 +24,7 @@ function PropositionCard({
   id_link,
   id_trip,
 }: PropositionCardProps) {
-  const [propositionData, setPropositionData] = useState<object>({});
-  const [linkPreviewData, setLinkPreviewData] = useState<{
-    [key: string]: string;
-  }>({});
   const navigate = useNavigate();
-  useEffect(() => {
-    axiosInstance
-      .get(`/trips/${id_trip}/links/${id_link}`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      })
-      .then((response) => {
-        setPropositionData(response.data);
-        axiosInstance
-          .get(`https://get-link-preview.herokuapp.com/?url=${url}`, {
-            headers: { 'Access-Control-Allow-Origin': '*' },
-          })
-          .then((responseAPI) => {
-            setLinkPreviewData(responseAPI.data);
-          })
-          .catch((err) => {});
-      })
-      .catch((error) => {
-        console.error(
-          'Une erreur est survenue lors de la récupération des données :',
-          error
-        );
-      });
-  }, []);
 
   const handleClickEdit = () => {
     navigate(`/edit-proposition/${id_trip}/${id_link}`);
@@ -95,13 +62,13 @@ function PropositionCard({
       <Link to={url} className="proposition-card-url-detail">
         <img
           className="proposition-card-image"
-          src={linkPreviewData.image}
+          src={srcImage}
           alt={altImage}
         />
         <div className="proposition-card-container">
           <div className="proposition-card-header">
             <h3 className="proposition-card-header-title">
-              {linkPreviewData.title}
+              {title}
             </h3>
           </div>
           <p className="proposition-card-author">Creé par {authorName}</p>

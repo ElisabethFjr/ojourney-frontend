@@ -17,7 +17,13 @@ function ConfirmAccount() {
   useEffect(() => {
     async function confirmEmail() {
       await axiosInstance
-        .get(`/confirm?confirm=${token}`)
+        .get(`/confirm?confirm=${token}`, {
+          headers: {
+            Authorization: `Bearer ${
+              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+            }`,
+          },
+        })
         .then((response) => {
           setIsConfirmed(true);
         })
