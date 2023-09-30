@@ -63,7 +63,7 @@
       padding: calc(0.6rem - 1px);
       color: v.$color-accent;
 
-      &--isActive {
+      &.active {
         border: 1px solid v.$color-text;
       }
 

@@ -1,8 +1,12 @@
 import './MemberMenu.scss';
 
-function MemberMenu() {
+interface MemberMenuProps {
+  customClass: string;
+}
+
+function MemberMenu({ customClass }: MemberMenuProps) {
   return (
-    <div className="member-menu">
+    <div className={`member-menu ${customClass}`}>
       <button className="member-menu-btn" type="button">
         Voir les infos
       </button>

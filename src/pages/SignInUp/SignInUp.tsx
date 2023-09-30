@@ -26,22 +26,14 @@ function SignInUp() {
           <div className="sign-form-header">
             <button
               onClick={toggleForm}
-              className={
-                signIn
-                  ? 'sign-form-toggle-button button--active'
-                  : 'sign-form-toggle-button'
-              }
+              className={`sign-form-toggle-button ${signIn ? 'active' : ''}`}
               type="button"
             >
               Connexion
             </button>
             <button
               onClick={toggleForm}
-              className={
-                !signIn
-                  ? 'sign-form-toggle-button button--active'
-                  : 'sign-form-toggle-button'
-              }
+              className={`sign-form-toggle-button ${!signIn ? 'active' : ''}`}
               type="button"
             >
               Inscription

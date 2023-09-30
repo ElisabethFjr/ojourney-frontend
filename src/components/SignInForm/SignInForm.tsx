@@ -14,7 +14,7 @@ function SignInForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // Get states from Redux store
+  // Fetch states from Redux store
   const errorMessage = useAppSelector((state) => state.user.errorMessage);
   const isConnected = useAppSelector((state) => state.user.isConnected);
 
@@ -27,7 +27,7 @@ function SignInForm() {
     await dispatch(login(formData));
   };
 
-  // Navigate do /my-trips if connexion succeed
+  // Navigate to /my-trips if connexion succeed
   useEffect(() => {
     if (isConnected) {
       navigate('/my-trips');
