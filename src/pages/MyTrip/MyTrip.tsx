@@ -66,11 +66,7 @@ function MyTrip() {
     const fetchDataTrip = async () => {
       await axiosInstance
         .get(`/trips/${id}`, {
-          headers: {
-            Authorization: `Bearer ${
-              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-            }`,
-          },
+          withCredentials: true,
         })
         .then((response) => {
           // Set the trip state with the trip data received from the API
@@ -93,11 +89,7 @@ function MyTrip() {
     const fetchDataMember = async () => {
       await axiosInstance
         .get(`/trips/${id}/members`, {
-          headers: {
-            Authorization: `Bearer ${
-              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-            }`,
-          },
+          withCredentials: true,
         })
         .then((response) => {
           setMembers(response.data);
@@ -113,12 +105,7 @@ function MyTrip() {
     const fetchDataLink = async () => {
       await axiosInstance
         .get(`/trips/${id}/links`, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: `Bearer ${
-              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-            }`,
-          },
+          withCredentials: true,
         })
         .then((response) => {
           setPropositions(response.data);

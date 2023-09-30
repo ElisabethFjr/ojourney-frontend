@@ -22,12 +22,7 @@ function EditProposition() {
 
     await axiosInstance
       .patch(`/trips/${idTrip}/links/${idLink}`, formSent, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
+        withCredentials: true,
       })
       .then(() => {
         navigate(`/my-trip/${idTrip}`);

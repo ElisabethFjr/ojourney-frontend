@@ -27,12 +27,7 @@ function MyTrips() {
     const fetchDataTrips = async () => {
       await axiosInstance
         .get('/trips', {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: `Bearer ${
-              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-            }`,
-          },
+          withCredentials: true,
         })
         .then((response) => {
           setTrips(response.data);

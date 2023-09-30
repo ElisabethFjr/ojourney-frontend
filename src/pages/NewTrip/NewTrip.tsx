@@ -56,10 +56,8 @@ function NewTrip() {
       .post('/trips', objData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
         },
+        withCredentials: true,
       })
       .then((response) => {
         // created = true;
