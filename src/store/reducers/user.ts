@@ -67,7 +67,6 @@ export const login = createAsyncThunk(
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       // For security do not store the token in redux
       localStorage.setItem('token', JSON.stringify(data.token));
-      console.log('Token', data.token);
 
       delete data.token; // For security, delete token from the store
 
