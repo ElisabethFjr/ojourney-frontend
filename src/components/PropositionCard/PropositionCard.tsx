@@ -60,16 +60,10 @@ function PropositionCard({
         <ButtonIcon icon="fa-solid fa-trash" handleClick={handleClickDelete} />
       </div>
       <Link to={url} className="proposition-card-url-detail">
-        <img
-          className="proposition-card-image"
-          src={srcImage}
-          alt={altImage}
-        />
+        <img className="proposition-card-image" src={srcImage} alt={altImage} />
         <div className="proposition-card-container">
           <div className="proposition-card-header">
-            <h3 className="proposition-card-header-title">
-              {title}
-            </h3>
+            <h3 className="proposition-card-header-title">{title}</h3>
           </div>
           <p className="proposition-card-author">Creé par {authorName}</p>
           <div className="proposition-card-localisation">
