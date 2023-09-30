@@ -60,10 +60,15 @@ function Profil() {
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Vos informations</h2>
         <p>
-          Nom prénom : {data.firstname} {data.lastname}
+          Nom : <span className="profil-card-text">{data.lastname}</span>
         </p>
-        <p>Email : {data.email}</p>
-        <p>Mot de passe : {data.password}</p>
+        <p>
+          Prénom : <span className="profil-card-text">{data.firstname}</span>
+        </p>
+        <p>
+          Email : <span className="profil-card-text">{data.email}</span>
+        </p>
+
         {/* <p>Projet voyage(s) en cours : {data.trips.length}</p> */}
         <div className="profil-card-btn-container">
           <Link to="/edit-profil">
@@ -75,6 +80,24 @@ function Profil() {
           </Link>
         </div>
       </section>
+      {/* Installer react-pdf */}
+      <section className="profil-card">
+        <h2 className="profil-card-subtitle">Mot de passe</h2>
+        <p>
+          Mot de passe :
+          <span className="profil-card-text"> ************* </span>
+        </p>
+        <div className="profil-card-btn-container">
+          <Link to="/edit-password">
+            <Button
+              text="Changer le mot de passe"
+              customClass="color"
+              type="button"
+            />
+          </Link>
+        </div>
+      </section>
+
       {/* Installer react-pdf */}
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Vos données</h2>
@@ -98,10 +121,15 @@ function Profil() {
           <ul>
             <li>
               Usage commercial :{' '}
-              {data.consent_commercial ? 'Accepté' : 'Refusé'}
+              <span className="profil-card-text">
+                {data.consent_commercial ? 'Accepté' : 'Refusé'}{' '}
+              </span>
             </li>
             <li>
-              Newsletter : {data.consent_newsletter ? 'Accepté' : 'Refusé'}
+              Newsletter :{' '}
+              <span className="profil-card-text">
+                {data.consent_newsletter ? 'Accepté' : 'Refusé'}
+              </span>
             </li>
           </ul>
         </div>

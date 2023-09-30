@@ -20,8 +20,10 @@ import Error from '../../pages/Error/Error';
 import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
 import EditTrip from '../../pages/EditTrip/EditTrip';
 import NewPassword from '../../pages/NewPassword/NewPassword';
-import EditProposition from '../../pages/editProposition/editProposition';
+import EditProposition from '../../pages/EditProposition/EditProposition';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import EditProfil from '../../pages/EditProfil/EditProfil';
+import EditPassword from '../../pages/EditPassword/EditPassword';
 
 import './App.scss';
 
@@ -70,6 +72,22 @@ function App() {
           element={
             <PrivateRoute>
               <Profil />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit-profil"
+          element={
+            <PrivateRoute>
+              <EditProfil />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit-password"
+          element={
+            <PrivateRoute>
+              <EditPassword />
             </PrivateRoute>
           }
         />
