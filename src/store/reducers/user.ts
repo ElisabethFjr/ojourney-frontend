@@ -58,12 +58,18 @@ export const login = createAsyncThunk(
       // Convert formData
       const objData = Object.fromEntries(formData);
       // POST user data to login endpoint
-      const { data } = await axiosInstance.post('/signIn', objData);
+      const { data } = await axiosInstance.post('/signIn', objData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
       // Set JWT token in axios headers
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       // For security do not store the token in redux
       localStorage.setItem('token', JSON.stringify(data.token));
-      delete data.token;
+      console.log('Token', data.token);
+
+      delete data.token; // For security, delete token from the store
 
       return data;
     } catch (error) {
@@ -89,7 +95,6 @@ const userReducer = createReducer(initialState, (builder) => {
     // Login promise rejected
     .addCase(login.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
-      console.log('Promise rejected');
     })
     // Login promise success
     .addCase(login.fulfilled, (state, action) => {
@@ -99,8 +104,6 @@ const userReducer = createReducer(initialState, (builder) => {
       };
       state.isConnected = true;
       state.errorMessage = null;
-      // localStorage.setItem('token', action.payload.token); // Store the token in localStorage
-      console.log('Promise succeed');
     })
     // Logout
     .addCase(logout, (state) => {

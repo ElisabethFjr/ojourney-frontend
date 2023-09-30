@@ -34,7 +34,7 @@ function EditProposition() {
       })
       .catch((error) => {
         console.error(
-          'Une erreur est survenue lors de la suppression de la proposition :',
+          'Une erreur est survenue lors de la suppression de la proposition.',
           error
         );
       });

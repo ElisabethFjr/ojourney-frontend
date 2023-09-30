@@ -59,7 +59,6 @@ function NewTrip() {
 
     // Send newTrip form data (JSON) to the server with Axios
     const objData = Object.fromEntries(formData);
-    console.log(objData);
 
     await axiosInstance
       .post('/trips', objData, {
@@ -70,14 +69,17 @@ function NewTrip() {
           }`,
         },
       })
-      .then(() => {
+      .then((response) => {
         // created = true;
-        console.log('Fetch');
+        console.log(response.data);
 
         navigate(`/my-trips`);
       })
       .catch((error) => {
-        console.error(error);
+        console.error(
+          "Une erreur est survenue lors de la création d'un voyage.",
+          error
+        );
       });
   };
 

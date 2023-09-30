@@ -9,11 +9,11 @@
   border-radius: v.$border-radius;
   font-size: v.$font-size;
   font-weight: 700;
+  transition: all 0.3s ease;
   cursor: pointer;
 
   // COLOR BUTTON
   &--color {
-    transition: all 0.3s ease;
     background-color: v.$color-primary;
     border: none;
     color: v.$color-white;
@@ -63,7 +63,7 @@
     color: v.$color-text;
 
     &:hover {
-      background-color: v.$color-grey-lightest;
+      background-color: v.$color-accent-lightest;
     }
   }
 

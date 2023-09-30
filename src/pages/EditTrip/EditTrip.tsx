@@ -28,13 +28,11 @@ function EditTrip() {
 
   // Event handler for start date change
   const handleStartDateChange = (date: Date) => {
-
     setStartDate(date);
   };
 
   // Event handler for end date change
   const handleEndDateChange = (date: Date) => {
-    console.log(date);
     setEndDate(date);
   };
 
@@ -50,7 +48,6 @@ function EditTrip() {
     formData.append('date_start', changeDateFormat(startDate));
     formData.append('date_end', changeDateFormat(endDate));
     const formSent = Object.fromEntries(formData);
-    console.log('----- Contenu de FormData -----');
     formData.forEach((value, key) => {
       console.log(`${key}:`, value);
     });
@@ -68,7 +65,10 @@ function EditTrip() {
         })
         .then((response) => console.log('Server Response:', response.data));
     } catch (error) {
-      console.error("Erreur lors de l'édition du voyage:", error);
+      console.error(
+        "Une erreur est survenue lors de l'édition du voyage.",
+        error
+      );
       // Gérer l'erreur (affichez un message d'erreur à l'utilisateur, par exemple)
     }
   };

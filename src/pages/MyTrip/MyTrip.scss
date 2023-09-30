@@ -62,6 +62,7 @@
       border-radius: v.$border-radius;
       padding: calc(0.6rem - 1px);
       color: v.$color-accent;
+      transition: all 0.3s ease;
 
       &.active {
         border: 1px solid v.$color-text;

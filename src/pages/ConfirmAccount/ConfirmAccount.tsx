@@ -29,7 +29,10 @@ function ConfirmAccount() {
         })
         .catch((error) => {
           setIsConfirmed(false);
-          console.error(error);
+          console.error(
+            "Une erreur est survenue lors de la confirmation d'email.",
+            error
+          );
         });
     }
     confirmEmail();

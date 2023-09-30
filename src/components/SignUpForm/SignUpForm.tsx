@@ -41,12 +41,11 @@ function SignUpForm() {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       })
-      .then((data) => {
-        console.log('Inscription réussie', data);
+      .then(() => {
         setShowModalConfirm(true);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Une erreur est survenue lors de l'inscription.", error);
         if (error.response) {
           setErrorMessage(error.response.data.error);
         } else {

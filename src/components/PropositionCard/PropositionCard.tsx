@@ -47,19 +47,19 @@ function PropositionCard({
       })
       .catch((error) => {
         console.error(
-          'Une erreur est survenue lors de la suppression de la proposition :',
+          'Une erreur est survenue lors de la suppression de la proposition.',
           error
         );
       });
   };
 
   return (
-    <div className="proposition-container">
-      <div className="proposition-card-header-icon">
+    <div className="proposition-card-container">
+      <div className="proposition-card-icons">
         <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
         <ButtonIcon icon="fa-solid fa-trash" handleClick={handleClickDelete} />
       </div>
-      <Link to={url} className="proposition-card-url-detail">
+      <Link to={url} className="proposition-card">
         <img className="proposition-card-image" src={srcImage} alt={altImage} />
         <div className="proposition-card-container">
           <div className="proposition-card-header">
@@ -70,8 +70,10 @@ function PropositionCard({
             <i className="fa-solid fa-location-dot" />
             <p className="proposition-card-localisation-name">{localisation}</p>
           </div>
-          <i className="fa-solid fa-square-arrow-up-right" />
-          Voir détail en cliquant sur la proposition.
+          <div className="proposition-card-url">
+            <i className="fa-solid fa-square-arrow-up-right" />
+            <p className="proposition-card-url-detail">Voir détail</p>
+          </div>
         </div>
       </Link>
     </div>

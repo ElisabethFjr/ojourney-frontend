@@ -76,7 +76,10 @@ function MyTrip() {
           setTrip(response.data);
         })
         .catch((error) => {
-          console.error(error);
+          console.error(
+            'Une erreur est survenue lors de la récupération du voyage.',
+            error
+          );
         });
     };
     // Function to fetch trips's members data from the server with awiosInstance
@@ -91,6 +94,12 @@ function MyTrip() {
         })
         .then((response) => {
           setMembers(response.data);
+        })
+        .catch((error) => {
+          console.error(
+            'Un erreur est survenue lors de la recupération des membres du voyage',
+            error
+          );
         });
     };
     // Function to fetch trips's links data from the server with awiosInstance
@@ -108,7 +117,10 @@ function MyTrip() {
           setPropositions(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          console.error(
+            'Un erreur est survenue lors de la recupération des liens du voyage',
+            error
+          );
         });
     };
     fetchDataTrip();

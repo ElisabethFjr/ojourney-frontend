@@ -17,6 +17,7 @@
     color: v.$color-text;
     font-weight: 700;
     width: none;
+    transition: all 0.3s ease;
 
     &:hover {
       color: v.$color-primary;

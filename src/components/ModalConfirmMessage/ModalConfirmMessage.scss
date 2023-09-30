@@ -56,6 +56,7 @@
     &-icon {
       font-size: 1.5rem;
       color: v.$color-grey-darkest;
+      transition: all 0.3s ease;
 
       &:hover {
         color: v.$color-text;

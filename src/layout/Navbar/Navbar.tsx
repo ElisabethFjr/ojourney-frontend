@@ -10,7 +10,7 @@ function Navbar() {
 
   // Get state from Redux
   const isConnected = useAppSelector((state) => state.user.isConnected);
-  console.log('Est connecté !', isConnected);
+  console.log('Etat : est connecté', isConnected);
 
   // Handle Logout
   const handleLogout = () => {
