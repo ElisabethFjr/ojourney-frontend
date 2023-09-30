@@ -58,12 +58,9 @@ export const login = createAsyncThunk(
       // Convert formData
       const objData = Object.fromEntries(formData);
       // POST user data to login endpoint
-      const { data } = await axiosInstance.post('/signIn', objData);
-      // Set JWT token in axios headers
-      axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-      // For security do not store the token in redux
-      localStorage.setItem('token', JSON.stringify(data.token));
-      delete data.token;
+      const { data } = await axiosInstance.post('/signIn', objData, {
+        withCredentials: true,
+      });
 
       return data;
     } catch (error) {
@@ -106,8 +103,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(logout, (state) => {
       state.data = initialState.data; // Reset user data to initial state
       state.isConnected = false;
-      delete axiosInstance.defaults.headers.common.Authorization; // Delete the JWT from instance Axios Instance headers
-      localStorage.removeItem('token'); // Store the token in localStorage
+      // FAIRE UN APPEL VERS LE BACKEND POUR SUPPRIMER LE COOKIE
     });
 });
 

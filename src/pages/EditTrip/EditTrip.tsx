@@ -1,4 +1,5 @@
 import { useState, FormEvent } from 'react';
+import { useParams } from 'react-router-dom';
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
@@ -17,7 +18,7 @@ function EditTrip() {
   // States variables declaration
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
-
+  const { id } = useParams();
   // Function to change Dates format
   const changeDateFormat = (date: Date) => {
     const year = date.toLocaleString('default', { year: 'numeric' });
@@ -58,13 +59,11 @@ function EditTrip() {
     try {
       // L'URL doit être adaptée à votre API
       await axiosInstance
-        .patch('/trips', formSent, {
+        .patch(`/trips/${id}`, formSent, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${
-              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-            }`,
           },
+          withCredentials: true,
         })
         .then((response) => console.log('Server Response:', response.data));
     } catch (error) {
