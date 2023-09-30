@@ -25,7 +25,7 @@ function MyTrips() {
   // Fetch trips data when component mounts
   useEffect(() => {
     // Function to fetch all trips data from the server with awiosInstance
-    const fetchData = async () => {
+    const fetchDataTrips = async () => {
       await axiosInstance
         .get('/trips', {
           headers: {
@@ -42,7 +42,7 @@ function MyTrips() {
           console.error(error);
         });
     };
-    fetchData();
+    fetchDataTrips();
   }, []);
 
   // Display a list of all trips from the trips array fetch to the API
