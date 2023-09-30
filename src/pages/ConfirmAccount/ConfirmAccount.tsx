@@ -9,20 +9,14 @@ import './ConfirmAccount.scss';
 
 function ConfirmAccount() {
   const [isConfirmed, setIsConfirmed] = useState(false);
-  // const { token } = useParams();
-  // const token = new URLSearchParams(document.location.search);
-  // const tokenValue = token.get('token');
+
   const token = document.location.hash.split('?')[1];
 
   useEffect(() => {
     async function confirmEmail() {
       await axiosInstance
         .get(`/confirm?confirm=${token}`, {
-          headers: {
-            Authorization: `Bearer ${
-              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-            }`,
-          },
+          withCredentials: true,
         })
         .then((response) => {
           setIsConfirmed(true);
