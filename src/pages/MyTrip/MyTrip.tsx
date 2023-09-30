@@ -59,71 +59,64 @@ function MyTrip() {
   // Get the trip id from route parameters
   const { id } = useParams();
 
-  // Function to fetch one trip data from the server with awiosInstance
-  const fetchDataTrip = async () => {
-    await axiosInstance
-      .get(`/trips/${id}`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        setTrip(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  // Function to fetch trips's members data from the server with awiosInstance
-  const fetchDataMember = async () => {
-    await axiosInstance
-      .get(`/trips/${id}/members`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      })
-      .then((response) => {
-        setMembers(response.data);
-      });
-  };
-
-  // Function to fetch trips's links data from the server with awiosInstance
-  const fetchDataLink = async () => {
-    await axiosInstance
-      .get(`/trips/${id}/links`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      })
-      .then((response) => {
-        setPropositions(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   // Fetch data on component mount
   useEffect(() => {
-    try {
-      fetchDataTrip();
-      fetchDataMember();
-      fetchDataLink();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    // Function to fetch one trip data from the server with awiosInstance
+    const fetchDataTrip = async () => {
+      await axiosInstance
+        .get(`/trips/${id}`, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${
+              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+            }`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          setTrip(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    // Function to fetch trips's members data from the server with awiosInstance
+    const fetchDataMember = async () => {
+      await axiosInstance
+        .get(`/trips/${id}/members`, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${
+              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+            }`,
+          },
+        })
+        .then((response) => {
+          setMembers(response.data);
+        });
+    };
+    // Function to fetch trips's links data from the server with awiosInstance
+    const fetchDataLink = async () => {
+      await axiosInstance
+        .get(`/trips/${id}/links`, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${
+              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+            }`,
+          },
+        })
+        .then((response) => {
+          setPropositions(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    fetchDataTrip();
+    fetchDataMember();
+    fetchDataLink();
+  }, [id]);
 
   // Display a list of all members into a button element from the members array fetch to the API
   const allMembers = members.map((member) => (
