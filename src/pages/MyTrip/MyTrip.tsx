@@ -20,6 +20,7 @@ function MyTrip() {
   const [trip, setTrip] = useState<Trip>(Object);
   const [propositions, setPropositions] = useState<Proposition[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
+  const [isCreator, setIsCreator] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
 
   // Fetch states from Redux store
@@ -61,18 +62,27 @@ function MyTrip() {
 
   // Fetch data on component mount
   useEffect(() => {
-    // Function to fetch one trip data from the server with awiosInstance
+    // Function to fetch one trip data from the API
     const fetchDataTrip = async () => {
       await axiosInstance
         .get(`/trips/${id}`, {
           withCredentials: true,
         })
         .then((response) => {
-          console.log(response.data);
+          // Set the trip state with the trip data received from the API
           setTrip(response.data);
+          // If user is the creator of the trip, set isCreator on true
+          if (dataUser.id === trip.user_id) {
+            console.log('User id', dataUser.id);
+            console.log('User_id trip', trip.user_id);
+            setIsCreator(true);
+          }
         })
         .catch((error) => {
-          console.error(error);
+          console.error(
+            'Une erreur est survenue lors de la récupération du voyage.',
+            error
+          );
         });
     };
     // Function to fetch trips's members data from the server with awiosInstance
@@ -83,6 +93,12 @@ function MyTrip() {
         })
         .then((response) => {
           setMembers(response.data);
+        })
+        .catch((error) => {
+          console.error(
+            'Un erreur est survenue lors de la recupération des membres du voyage',
+            error
+          );
         });
     };
     // Function to fetch trips's links data from the server with awiosInstance
@@ -95,13 +111,16 @@ function MyTrip() {
           setPropositions(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          console.error(
+            'Un erreur est survenue lors de la recupération des liens du voyage',
+            error
+          );
         });
     };
     fetchDataTrip();
     fetchDataMember();
     fetchDataLink();
-  }, [id]);
+  }, [id, dataUser, trip]);
 
   // Display a list of all members into a button element from the members array fetch to the API
   const allMembers = members.map((member) => (
@@ -124,7 +143,9 @@ function MyTrip() {
         <p className="one-trip-membres-name">
           {dataUser.firstname ? dataUser.firstname : 'Membre Nom'}
         </p>
-        {isOpenMenu && <MemberMenu customClass="active" />}
+        {isOpenMenu && (
+          <MemberMenu customClass="active" isCreator={isCreator} />
+        )}
       </div>
     </li>
   ));
@@ -175,30 +196,34 @@ function MyTrip() {
             </p>
           </div>
           <p className="one-trip-overview-description">{trip.description}</p>
-          <div className="one-trip-overview-buttons">
-            <Button
-              text="Editer"
-              icon="fa-solid fa-pen"
-              type="button"
-              customClass="outline-dark"
-            />
-            <Button
-              text="Supprimer"
-              icon="fa-solid fa-trash"
-              type="button"
-              customClass="outline-dark"
-            />
-          </div>
+          {isCreator && (
+            <div className="one-trip-overview-buttons">
+              <Button
+                text="Editer"
+                icon="fa-solid fa-pen"
+                type="button"
+                customClass="outline-dark"
+              />
+              <Button
+                text="Supprimer"
+                icon="fa-solid fa-trash"
+                type="button"
+                customClass="outline-dark"
+              />
+            </div>
+          )}
         </div>
       </section>
 
       <section className="one-trip-members">
-        <Button
-          text="Ajouter"
-          icon="fa-solid fa-user-plus"
-          type="button"
-          customClass="color"
-        />
+        {isCreator && (
+          <Button
+            text="Ajouter"
+            icon="fa-solid fa-user-plus"
+            type="button"
+            customClass="color"
+          />
+        )}
         {members && members.length === 0 ? (
           <p> Aucun membres pour le moment </p>
         ) : (

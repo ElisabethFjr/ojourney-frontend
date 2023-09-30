@@ -6,6 +6,7 @@ export interface Trip {
   description: string;
   url_image: string;
   alt_image: string;
+  user_id: number;
 }
 
 export interface Member {

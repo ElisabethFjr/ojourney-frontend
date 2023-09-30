@@ -1,19 +1,17 @@
 @use '../../styles/_variables' as v;
 
 .proposition-card {
-  &-url-detail {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    width: 100%;
-    height: 200px;
-    margin: 2rem auto;
-    background-color: v.$color-white;
-    border-radius: v.$border-radius;
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
-    color: v.$color-text;
-  }
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 200px;
+  margin: 2rem auto;
+  background-color: v.$color-white;
+  border-radius: v.$border-radius;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+  color: v.$color-text;
 
   &-image {
     width: 40%;
@@ -24,12 +22,14 @@
   }
 
   &-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: start;
     height: 100%;
     width: 100%;
     padding: 1rem;
+    margin-right: 5rem;
   }
 
   &-header {
@@ -51,26 +51,26 @@
   }
 
   &-localisation,
-  &-url-detail {
+  &-url {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
     padding-bottom: 0.5rem;
   }
-}
-.proposition-container {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-.proposition-card-header-icon {
-  position: absolute;
-  top: 40px;
-  right: 10px;
-  display: flex;
-  align-items: end;
-  justify-content: end;
-  gap: 1rem;
-  z-index: 9;
+
+  &-url-detail {
+    text-decoration: underline;
+  }
+
+  &-icons {
+    position: absolute;
+    top: 56px;
+    right: 26px;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    gap: 0.6rem;
+    z-index: 9;
+  }
 }

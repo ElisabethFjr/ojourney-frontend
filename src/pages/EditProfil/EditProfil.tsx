@@ -9,7 +9,6 @@ import './EditProfil.scss';
 
 function EditProposition() {
   const { idUser } = useParams();
-  console.log('idUser:', idUser);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -18,7 +17,6 @@ function EditProposition() {
     const formData = new FormData(form);
 
     const formSent = Object.fromEntries(formData);
-    console.log(formSent);
 
     await axiosInstance
       .patch(`/users/${idUser}`, formSent, {
@@ -29,7 +27,7 @@ function EditProposition() {
       })
       .catch((error) => {
         console.error(
-          "Une erreur est survenue lors de l'édition de la proposition :",
+          "Une erreur est survenue lors de l'édition de la proposition.",
           error
         );
       });

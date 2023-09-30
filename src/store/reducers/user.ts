@@ -86,7 +86,6 @@ const userReducer = createReducer(initialState, (builder) => {
     // Login promise rejected
     .addCase(login.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
-      console.log('Promise rejected');
     })
     // Login promise success
     .addCase(login.fulfilled, (state, action) => {
@@ -96,8 +95,6 @@ const userReducer = createReducer(initialState, (builder) => {
       };
       state.isConnected = true;
       state.errorMessage = null;
-      // localStorage.setItem('token', action.payload.token); // Store the token in localStorage
-      console.log('Promise succeed');
     })
     // Logout
     .addCase(logout, (state) => {

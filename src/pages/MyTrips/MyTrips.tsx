@@ -32,8 +32,11 @@ function MyTrips() {
         .then((response) => {
           setTrips(response.data);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.error(
+            'Une erreur est survenue lors de la recupération des voyages.',
+            error
+          );
         });
     };
     fetchDataTrips();

@@ -20,14 +20,6 @@ function NewTrip() {
   const [startDate, setStartDate] = useState<Date>(new Date()); // Trip start date
   const [endDate, setEndDate] = useState<Date>(new Date()); // Trip end date
 
-  // Function to change Dates format to YYYY-MM-DD
-  // const changeDateFormat = (date: Date) => {
-  //   const year = date.toLocaleString('default', { year: 'numeric' });
-  //   const month = date.toLocaleString('default', { month: '2-digit' });
-  //   const day = date.toLocaleString('default', { day: '2-digit' });
-  //   return `${year}-${month}-${day}`;
-  // };
-
   const changeDateFormat = (date: Date) => {
     return format(date, 'yyyy-MM-dd');
   };
@@ -59,7 +51,6 @@ function NewTrip() {
 
     // Send newTrip form data (JSON) to the server with Axios
     const objData = Object.fromEntries(formData);
-    console.log(objData);
 
     await axiosInstance
       .post('/trips', objData, {
@@ -68,14 +59,17 @@ function NewTrip() {
         },
         withCredentials: true,
       })
-      .then(() => {
+      .then((response) => {
         // created = true;
-        console.log('Fetch');
+        console.log(response.data);
 
         navigate(`/my-trips`);
       })
       .catch((error) => {
-        console.error(error);
+        console.error(
+          "Une erreur est survenue lors de la création d'un voyage.",
+          error
+        );
       });
   };
 

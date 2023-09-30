@@ -20,7 +20,7 @@ function NewProposition() {
 
     // Send newTrip form data (JSON) to the server with Axios
     const objData = Object.fromEntries(formData);
-    console.log(objData);
+
     await axiosInstance
       .post(`/trips/${id}/links`, objData, {
         withCredentials: true,
@@ -29,7 +29,10 @@ function NewProposition() {
         navigate(`/my-trip/${id}`);
       })
       .catch((error) => {
-        console.error(error);
+        console.error(
+          "Une erreur est survenue lors de la création d'une proposition.",
+          error
+        );
       });
   };
 
