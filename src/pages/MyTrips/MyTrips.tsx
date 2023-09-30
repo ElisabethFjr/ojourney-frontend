@@ -22,32 +22,27 @@ function MyTrips() {
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data); // User data
 
-  // Function to fetch all trips data from the server with awiosInstance
-  const fetchData = async () => {
-    await axiosInstance
-      .get('/trips', {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      })
-      .then((response) => {
-        setTrips(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   // Fetch trips data when component mounts
   useEffect(() => {
-    try {
-      fetchData();
-    } catch (error) {
-      console.log(error);
-    }
+    // Function to fetch all trips data from the server with awiosInstance
+    const fetchDataTrips = async () => {
+      await axiosInstance
+        .get('/trips', {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${
+              localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+            }`,
+          },
+        })
+        .then((response) => {
+          setTrips(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    fetchDataTrips();
   }, []);
 
   // Display a list of all trips from the trips array fetch to the API
