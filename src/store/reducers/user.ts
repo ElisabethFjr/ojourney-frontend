@@ -28,6 +28,7 @@ interface UserState {
   isConnected: boolean;
   errorMessage: string | null;
   flashMessage: string | null;
+  env: string | null;
 }
 
 // User Reducer initial states
@@ -45,6 +46,7 @@ export const initialState: UserState = {
   isConnected: false,
   errorMessage: null,
   flashMessage: null,
+  env: null,
 };
 
 // Create Logout action
@@ -54,14 +56,28 @@ export const logout = createAction('user/logout');
 export const login = createAsyncThunk(
   'user/login',
   async (formData: FormData) => {
+    const env = null;
+    let axiosOptions = {};
+    if (env === 'dev') {
+      axiosOptions = {};
+    } else {
+      axiosOptions = {
+        withCredentials: true,
+      };
+    }
     try {
       // Convert formData
       const objData = Object.fromEntries(formData);
       // POST user data to login endpoint
-      const { data } = await axiosInstance.post('/signIn', objData, {
-        withCredentials: true,
-      });
-
+      const { data } = await axiosInstance.post(
+        '/signIn',
+        objData,
+        axiosOptions
+      );
+      if (env === 'dev') {
+        localStorage.setItem('token', data.token);
+        delete data.token;
+      }
       return data;
     } catch (error) {
       // Check if the error is an Axios error Type and has a response
@@ -100,6 +116,9 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(logout, (state) => {
       state.data = initialState.data; // Reset user data to initial state
       state.isConnected = false;
+      if (localStorage.getItem('token') !== undefined) {
+        localStorage.removeItem('token');
+      }
       // FAIRE UN APPEL VERS LE BACKEND POUR SUPPRIMER LE COOKIE
     });
 });

@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
@@ -19,6 +20,25 @@ function EditTrip() {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
   const { id } = useParams();
+  const env = useAppSelector((state) => state.user.env);
+  let axiosOptions = {};
+  if (env === 'dev') {
+    axiosOptions = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${
+          localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+        }`,
+      },
+    };
+  } else {
+    axiosOptions = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      withCredentials: true,
+    };
+  }
   // Function to change Dates format
   const changeDateFormat = (date: Date) => {
     const year = date.toLocaleString('default', { year: 'numeric' });
@@ -56,12 +76,7 @@ function EditTrip() {
     try {
       // L'URL doit être adaptée à votre API
       await axiosInstance
-        .patch(`/trips/${id}`, formSent, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          withCredentials: true,
-        })
+        .patch(`/trips/${id}`, formSent, axiosOptions)
         .then((response) => console.log('Server Response:', response.data));
     } catch (error) {
       console.error(

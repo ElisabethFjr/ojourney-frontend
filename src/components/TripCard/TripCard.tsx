@@ -34,7 +34,12 @@ function TripCard({
 
   return (
     <Link to={linkHref} className="trip-card">
-      <img className="trip-card-image" src={srcTripImage} alt={altImage} />
+      <img
+        className="trip-card-image"
+        src={srcTripImage}
+        alt={altImage}
+        crossOrigin="anonymous"
+      />
       <div className="trip-card-container">
         <div className="trip-card-header">
           <h3 className="trip-card-header-title">{localisation}</h3>

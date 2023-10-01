@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
@@ -12,7 +13,21 @@ function EditProposition() {
   const { idLink } = useParams();
   const { idTrip } = useParams();
   const navigate = useNavigate();
-
+  const env = useAppSelector((state) => state.user.env);
+  let axiosOptions = {};
+  if (env === 'dev') {
+    axiosOptions = {
+      headers: {
+        Authorization: `Bearer ${
+          localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+        }`,
+      },
+    };
+  } else {
+    axiosOptions = {
+      withCredentials: true,
+    };
+  }
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -21,9 +36,7 @@ function EditProposition() {
     const formSent = Object.fromEntries(formData);
 
     await axiosInstance
-      .patch(`/trips/${idTrip}/links/${idLink}`, formSent, {
-        withCredentials: true,
-      })
+      .patch(`/trips/${idTrip}/links/${idLink}`, formSent, axiosOptions)
       .then(() => {
         navigate(`/my-trip/${idTrip}`);
       })
