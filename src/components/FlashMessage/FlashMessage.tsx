@@ -1,18 +1,27 @@
 import './FlashMessage.scss';
 
-export interface Flash {
-  type: 'success' | 'error';
-  children: React.ReactNode;
-  duration?: number; // optionnel
-}
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function FlashMessage({ type, duration, children }: Flash) {
+function FlashMessage() {
+  const notify = () =>
+    toast.success(' Wow so easy!', {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+
   return (
-    <div
-      className={`flash flash--${type}`}
-      style={{ animationDuration: `${duration ?? 3000}ms` }}
-    >
-      {children}
+    <div>
+      <button type="button" onClick={notify}>
+        Notify!
+      </button>
+      <ToastContainer />
     </div>
   );
 }
