@@ -181,6 +181,7 @@ function MyTrip() {
           className="one-trip-overview-image"
           src={`https://luciebaroiller-server.eddi.cloud:8080/images/${trip.url_image}`}
           alt={trip.alt_image}
+          crossOrigin="anonymous"
         />
         <div className="one-trip-overview-container">
           <h1 className="one-trip-overview-title">{trip.localisation}</h1>
