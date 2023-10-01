@@ -22,17 +22,16 @@ function MyTrip() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isCreator, setIsCreator] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User data
-
+  
   // EVENTS HANDLERS
-
+  
   // Event handler: toggles the member popup menu on member click
   const toggleMenuMember = () => {
     setIsOpenMenu(!isOpenMenu);
   };
-
+  
   // Event handler to close the member menu when clicked outside
   // Ref the toggle MemberMenu button
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -56,18 +55,31 @@ function MyTrip() {
       document.removeEventListener('mousedown', handleCloseMenu);
     };
   }, [isOpenMenu]); // Depends on the isOpenMenu state
-
+  
   // Get the trip id from route parameters
   const { id } = useParams();
-
+  
   // Fetch data on component mount
+  const env = useAppSelector((state) => state.user.env);
   useEffect(() => {
     // Function to fetch one trip data from the API
+    let axiosOptions = {};
+    if (env === 'dev') {
+      axiosOptions = {
+        headers: {
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      };
+    } else {
+      axiosOptions = {
+        withCredentials: true,
+      };
+    }
     const fetchDataTrip = async () => {
       await axiosInstance
-        .get(`/trips/${id}`, {
-          withCredentials: true,
-        })
+        .get(`/trips/${id}`, axiosOptions)
         .then((response) => {
           // Set the trip state with the trip data received from the API
           setTrip(response.data);
@@ -88,9 +100,7 @@ function MyTrip() {
     // Function to fetch trips's members data from the server with awiosInstance
     const fetchDataMember = async () => {
       await axiosInstance
-        .get(`/trips/${id}/members`, {
-          withCredentials: true,
-        })
+        .get(`/trips/${id}/members`, axiosOptions)
         .then((response) => {
           setMembers(response.data);
         })
@@ -104,9 +114,7 @@ function MyTrip() {
     // Function to fetch trips's links data from the server with awiosInstance
     const fetchDataLink = async () => {
       await axiosInstance
-        .get(`/trips/${id}/links`, {
-          withCredentials: true,
-        })
+        .get(`/trips/${id}/links`, axiosOptions)
         .then((response) => {
           setPropositions(response.data);
         })
@@ -120,7 +128,7 @@ function MyTrip() {
     fetchDataTrip();
     fetchDataMember();
     fetchDataLink();
-  }, [id, dataUser, trip]);
+  }, [id, dataUser.id, trip.user_id, env]);
 
   // Display a list of all members into a button element from the members array fetch to the API
   const allMembers = members.map((member) => (

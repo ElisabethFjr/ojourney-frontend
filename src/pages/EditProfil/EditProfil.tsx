@@ -1,5 +1,6 @@
 import { FormEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
@@ -10,7 +11,21 @@ import './EditProfil.scss';
 function EditProposition() {
   const { idUser } = useParams();
   const navigate = useNavigate();
-
+  const env = useAppSelector((state) => state.user.env);
+  let axiosOptions = {};
+  if (env === 'dev') {
+    axiosOptions = {
+      headers: {
+        Authorization: `Bearer ${
+          localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+        }`,
+      },
+    };
+  } else {
+    axiosOptions = {
+      withCredentials: true,
+    };
+  }
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -19,9 +34,7 @@ function EditProposition() {
     const formSent = Object.fromEntries(formData);
 
     await axiosInstance
-      .patch(`/users/${idUser}`, formSent, {
-        withCredentials: true,
-      })
+      .patch(`/users/${idUser}`, formSent, axiosOptions)
       .then(() => {
         navigate(`/profil`);
       })

@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
+import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
@@ -19,7 +20,25 @@ function NewTrip() {
 
   const [startDate, setStartDate] = useState<Date>(new Date()); // Trip start date
   const [endDate, setEndDate] = useState<Date>(new Date()); // Trip end date
-
+  const env = useAppSelector((state) => state.user.env);
+  let axiosOptions = {};
+  if (env === 'dev') {
+    axiosOptions = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${
+          localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+        }`,
+      },
+    };
+  } else {
+    axiosOptions = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      withCredentials: true,
+    };
+  }
   const changeDateFormat = (date: Date) => {
     return format(date, 'yyyy-MM-dd');
   };
@@ -53,12 +72,7 @@ function NewTrip() {
     const objData = Object.fromEntries(formData);
 
     await axiosInstance
-      .post('/trips', objData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      })
+      .post('/trips', objData, axiosOptions)
       .then((response) => {
         // created = true;
         console.log(response.data);

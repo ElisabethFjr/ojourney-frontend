@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { FormEvent } from 'react';
+import { useAppSelector } from '../../hooks/redux';
 import Main from '../../layout/Main/Main';
 import axiosInstance from '../../utils/axios';
 import FormContainer from '../../components/FormContainer/FormContainer';
@@ -12,7 +13,21 @@ import './NewProposition.scss';
 function NewProposition() {
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const env = useAppSelector((state) => state.user.env);
+  let axiosOptions = {};
+  if (env === 'dev') {
+    axiosOptions = {
+      headers: {
+        Authorization: `Bearer ${
+          localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+        }`,
+      },
+    };
+  } else {
+    axiosOptions = {
+      withCredentials: true,
+    };
+  }
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -22,9 +37,7 @@ function NewProposition() {
     const objData = Object.fromEntries(formData);
 
     await axiosInstance
-      .post(`/trips/${id}/links`, objData, {
-        withCredentials: true,
-      })
+      .post(`/trips/${id}/links`, objData, axiosOptions)
       .then(() => {
         navigate(`/my-trip/${id}`);
       })
