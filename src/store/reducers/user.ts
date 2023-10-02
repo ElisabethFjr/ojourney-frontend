@@ -75,6 +75,7 @@ export const login = createAsyncThunk(
         axiosOptions
       );
       if (env === 'dev') {
+        console.log(data);
         localStorage.setItem('token', data.token);
         delete data.token;
       }

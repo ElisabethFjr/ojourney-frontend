@@ -10,7 +10,9 @@ import Main from '../../layout/Main/Main';
 import PropositionCard from '../../components/PropositionCard/PropositionCard';
 import Button from '../../components/Button/Button';
 import MemberMenu from '../../components/MemberMenu/MemberMenu';
+import ModalInviteMember from '../../components/ModalInviteMember/ModalInviteMember';
 import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
+
 
 import { Trip, Member, Proposition } from '../../@types';
 
@@ -23,18 +25,30 @@ function MyTrip() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isCreator, setIsCreator] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+
+  const [showModalInviteMember, setShowModalInviteMember] =
+    useState<boolean>(false);
+
   const [showModal, setShowModal] = useState<boolean>(false);
 
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User data
-  
+
+  // Get the trip id from route parameters
+  const { id } = useParams();
+
   // EVENTS HANDLERS
-  
+
+  // Event handler to open the add member modal on the button click
+  const handleClickAddMember = () => {
+    setShowModalInviteMember(!showModalInviteMember);
+  };
+
   // Event handler: toggles the member popup menu on member click
   const toggleMenuMember = () => {
     setIsOpenMenu(!isOpenMenu);
   };
-  
+
   // Event handler to close the member menu when clicked outside
   // Ref the toggle MemberMenu button
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -58,6 +72,8 @@ function MyTrip() {
       document.removeEventListener('mousedown', handleCloseMenu);
     };
   }, [isOpenMenu]); // Depends on the isOpenMenu state
+
+
   
   // Event handler to open the modal DeleteConfirmation if click on delete a trip 
   const handleClickDelete = () => {
@@ -67,6 +83,7 @@ function MyTrip() {
   // Get the trip id from route parameters
   const { id } = useParams();
   
+
   // Fetch data on component mount
   const env = useAppSelector((state) => state.user.env);
   useEffect(() => {
@@ -182,6 +199,7 @@ function MyTrip() {
 
   return (
     <Main>
+      {showModalInviteMember && <ModalInviteMember id={Number(id)} />}
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"
@@ -240,6 +258,7 @@ function MyTrip() {
             icon="fa-solid fa-user-plus"
             type="button"
             customClass="color"
+            onClick={handleClickAddMember}
           />
         )}
         {members && members.length === 0 ? (

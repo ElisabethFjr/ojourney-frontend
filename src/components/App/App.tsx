@@ -1,5 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useAppSelector } from '../../hooks/redux';
 
 import Loading from './Loading/Loading';
 
@@ -10,6 +11,7 @@ import Home from '../../pages/Home/Home';
 import SignInUp from '../../pages/SignInUp/SignInUp';
 import Profil from '../../pages/Profil/Profil';
 import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
+import ConfirmInvite from '../../pages/ConfirmInvite/ConfirmInvite';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import MyTrips from '../../pages/MyTrips/MyTrips';
 import MyTrip from '../../pages/MyTrip/MyTrip';
@@ -24,12 +26,15 @@ import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
+import FlashMessage from '../FlashMessage/FlashMessage';
 import './App.scss';
 
 function App() {
   const location = useLocation();
 
   const [loading, setLoading] = useState(true);
+
+  const flashMessage = useAppSelector((state) => state.flashMessage);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,8 +60,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
-        <Route path="*" element={<Error />} />
         <Route path="/confirm-account" element={<ConfirmAccount />} />
+        <Route path="/confirm-invite" element={<ConfirmInvite />} />
+        <Route path="*" element={<Error />} />
 
         {/* Private Routes (user connected) */}
         <Route
@@ -141,6 +147,7 @@ function App() {
         />
       </Routes>
       <Footer />
+      {flashMessage.message && <FlashMessage />}
     </div>
   );
 }
