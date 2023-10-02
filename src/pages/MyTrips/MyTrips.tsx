@@ -18,9 +18,11 @@ import './MyTrips.scss';
 function MyTrips() {
   // Declaration state variables
   const [trips, setTrips] = useState<Trip[]>([]); // User trips data
+
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data); // User data
   const env = useAppSelector((state) => state.user.env);
+
   // Fetch trips data when component mounts
   useEffect(() => {
     // Function to fetch all trips data from the server with awiosInstance
@@ -58,6 +60,7 @@ function MyTrips() {
   const allTrips = trips.map((trip) => (
     <li className="trips-list-item" key={trip.id}>
       <TripCard
+        id={trip.id}
         srcTripImage={`https://luciebaroiller-server.eddi.cloud:8080/images/${trip.url_image}`}
         altImage={trip.alt_image}
         authorName={`${userData.firstname} ${userData.lastname}`}
@@ -100,6 +103,7 @@ function MyTrips() {
           <ul className="trips-list">{allTrips}</ul>
         </section>
       )}
+      
     </Main>
   );
 }

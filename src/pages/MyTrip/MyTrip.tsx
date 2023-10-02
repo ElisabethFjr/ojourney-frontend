@@ -11,6 +11,8 @@ import PropositionCard from '../../components/PropositionCard/PropositionCard';
 import Button from '../../components/Button/Button';
 import MemberMenu from '../../components/MemberMenu/MemberMenu';
 import ModalInviteMember from '../../components/ModalInviteMember/ModalInviteMember';
+import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
+
 
 import { Trip, Member, Proposition } from '../../@types';
 
@@ -23,8 +25,11 @@ function MyTrip() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isCreator, setIsCreator] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+
   const [showModalInviteMember, setShowModalInviteMember] =
     useState<boolean>(false);
+
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User data
@@ -67,6 +72,17 @@ function MyTrip() {
       document.removeEventListener('mousedown', handleCloseMenu);
     };
   }, [isOpenMenu]); // Depends on the isOpenMenu state
+
+
+  
+  // Event handler to open the modal DeleteConfirmation if click on delete a trip 
+  const handleClickDelete = () => {
+    setShowModal(!showModal);
+  }
+
+  // Get the trip id from route parameters
+  const { id } = useParams();
+  
 
   // Fetch data on component mount
   const env = useAppSelector((state) => state.user.env);
@@ -215,17 +231,20 @@ function MyTrip() {
           <p className="one-trip-overview-description">{trip.description}</p>
           {isCreator && (
             <div className="one-trip-overview-buttons">
-              <Button
-                text="Editer"
-                icon="fa-solid fa-pen"
-                type="button"
-                customClass="outline-dark"
-              />
+              <Link to={`/edit-trip/:${id}`} >
+                <Button
+                  text="Editer"
+                  icon="fa-solid fa-pen"
+                  type="button"
+                  customClass="outline-dark"
+                />
+              </Link>
               <Button
                 text="Supprimer"
                 icon="fa-solid fa-trash"
                 type="button"
                 customClass="outline-dark"
+                onClick={handleClickDelete}
               />
             </div>
           )}
@@ -270,6 +289,8 @@ function MyTrip() {
           <ul>{allPropositions}</ul>
         )}
       </section>
+      {showModal && (<ModalDeleteConfirm endpoint={`/trips/${id}`} urlNavigate='/my-trips' title="Confirmation supression" text="Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?"/>)}
+
     </Main>
   );
 }
