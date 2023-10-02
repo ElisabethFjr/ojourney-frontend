@@ -46,7 +46,7 @@ export const initialState: UserState = {
   isConnected: false,
   errorMessage: null,
   flashMessage: null,
-  env: 'dev',
+  env: null,
 };
 
 // Create Logout action
@@ -56,7 +56,7 @@ export const logout = createAction('user/logout');
 export const login = createAsyncThunk(
   'user/login',
   async (formData: FormData) => {
-    const env = 'dev';
+    const env = null;
     let axiosOptions = {};
     if (env === 'dev') {
       axiosOptions = {};
