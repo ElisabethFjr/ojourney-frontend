@@ -8,14 +8,15 @@ import ModalContainer from '../ModalContainer/ModalContainer';
 
 import './ModalDeleteConfirmation.scss';
 
-interface ModalDeleteConfirmProps {
+export interface ModalDeleteConfirmProps {
   title: string;
   text: string;
   endpoint: string;
   urlNavigate: string;
+  handleUpdate?: () => void;
 }
 
-function ModalDeleteConfirm({ title, text, endpoint, urlNavigate }: ModalDeleteConfirmProps) {
+function ModalDeleteConfirm({ title, text, endpoint, urlNavigate, handleUpdate }: ModalDeleteConfirmProps) {
   // Initialize Hooks
   const navigate = useNavigate();
   
@@ -49,6 +50,7 @@ function ModalDeleteConfirm({ title, text, endpoint, urlNavigate }: ModalDeleteC
           console.log("Le voyage a bien été supprimé")
           handleClose();
           navigate(urlNavigate);
+          handleUpdate={handleUpdate};
           })
         .catch((error) => {
           console.error(

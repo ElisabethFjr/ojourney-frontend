@@ -93,8 +93,6 @@ function MyTrip() {
           setTrip(response.data);
           // If user is the creator of the trip, set isCreator on true
           if (dataUser.id === trip.user_id) {
-            console.log('User id', dataUser.id);
-            console.log('User_id trip', trip.user_id);
             setIsCreator(true);
           }
         })
@@ -273,6 +271,7 @@ function MyTrip() {
         )}
       </section>
       {showModal && (<ModalDeleteConfirm endpoint={`/trips/${id}`} urlNavigate='/my-trips' title="Confirmation supression" text="Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?"/>)}
+
     </Main>
   );
 }
