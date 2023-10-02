@@ -10,6 +10,7 @@ import Home from '../../pages/Home/Home';
 import SignInUp from '../../pages/SignInUp/SignInUp';
 import Profil from '../../pages/Profil/Profil';
 import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
+import ConfirmInvite from '../../pages/ConfirmInvite/ConfirmInvite';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import MyTrips from '../../pages/MyTrips/MyTrips';
 import MyTrip from '../../pages/MyTrip/MyTrip';
@@ -55,8 +56,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
-        <Route path="*" element={<Error />} />
         <Route path="/confirm-account" element={<ConfirmAccount />} />
+        <Route path="/confirm-invite" element={<ConfirmInvite />} />
+        <Route path="*" element={<Error />} />
 
         {/* Private Routes (user connected) */}
         <Route
