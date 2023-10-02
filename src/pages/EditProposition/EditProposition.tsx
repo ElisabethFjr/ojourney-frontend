@@ -71,7 +71,6 @@ function EditProposition() {
               name="description"
               placeholder="Description"
               icon="fa-solid fa-pen-nib"
-              required
             />
             <Button
               text="Modifier la proposition"
