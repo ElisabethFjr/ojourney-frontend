@@ -6,7 +6,7 @@ import ModalContainer from '../ModalContainer/ModalContainer';
 
 import './ModalInviteMember.scss';
 
-function InviteMember() {
+function ModalInviteMember() {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const handleClose = () => {
@@ -58,4 +58,4 @@ function InviteMember() {
   );
 }
 
-export default InviteMember;
+export default ModalInviteMember;

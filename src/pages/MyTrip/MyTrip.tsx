@@ -10,6 +10,7 @@ import Main from '../../layout/Main/Main';
 import PropositionCard from '../../components/PropositionCard/PropositionCard';
 import Button from '../../components/Button/Button';
 import MemberMenu from '../../components/MemberMenu/MemberMenu';
+import ModalInviteMember from '../../components/ModalInviteMember/ModalInviteMember';
 
 import { Trip, Member, Proposition } from '../../@types';
 
@@ -22,11 +23,17 @@ function MyTrip() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isCreator, setIsCreator] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [showModalInviteMember, setshowModalInviteMember] = useState<boolean>(false);
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User data
   
   // EVENTS HANDLERS
   
+  // Event handler to open the add member modal on the button click
+  const handleClickAddMember = () => {
+    setshowModalInviteMember(true);
+  }
+
   // Event handler: toggles the member popup menu on member click
   const toggleMenuMember = () => {
     setIsOpenMenu(!isOpenMenu);
@@ -176,6 +183,7 @@ function MyTrip() {
 
   return (
     <Main>
+      {showModalInviteMember && <ModalInviteMember />}
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"
@@ -231,6 +239,7 @@ function MyTrip() {
             icon="fa-solid fa-user-plus"
             type="button"
             customClass="color"
+            onClick={handleClickAddMember}
           />
         )}
         {members && members.length === 0 ? (
