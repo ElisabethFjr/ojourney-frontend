@@ -56,6 +56,14 @@ function MyTrips() {
     fetchDataTrips();
   }, [env]);
 
+  // Function to update trips array after deleting a trip
+  const updatedTrips = (deletedTripId: number) => {
+    // Create a new trips array by removing the trip with the deleted id
+    const newTrips = trips.filter((trip) => trip.id !== deletedTripId);
+    // Update the trips state with the new array
+    setTrips(newTrips);
+  };
+
   // Display a list of all trips from the trips array fetch to the API
   const allTrips = trips.map((trip) => (
     <li className="trips-list-item" key={trip.id}>
@@ -67,6 +75,7 @@ function MyTrips() {
         description={trip.description}
         localisation={trip.localisation}
         linkHref={`/my-trip/${trip.id}`}
+        handleUpdateData={updatedTrips}
       />
     </li>
   ));
@@ -100,10 +109,19 @@ function MyTrips() {
       ) : (
         // Display Trips
         <section className="trips-container">
+          <div className="trips-btn">
+            <Link to="/new-trip">
+              <Button
+                text="Nouveau voyage"
+                icon="fa-solid fa-plus"
+                type="button"
+                customClass="color"
+              />
+            </Link>
+          </div>
           <ul className="trips-list">{allTrips}</ul>
         </section>
       )}
-      
     </Main>
   );
 }
