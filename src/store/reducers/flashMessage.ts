@@ -3,13 +3,13 @@ import { createAction, createReducer } from '@reduxjs/toolkit';
 interface ShowFlashMessageState {
   message: string | null;
   isSuccess: boolean | null;
-  isVisible: false,
+  isVisible: boolean,
 }
 
 export const initialState: ShowFlashMessageState = {
   message: null,
   isSuccess: true,
-  isVisible: true,
+  isVisible: false,
 };
 
 export const showFlashMessage = createAction<{ message: string; isSuccess: boolean }>('flashMessage/show');
