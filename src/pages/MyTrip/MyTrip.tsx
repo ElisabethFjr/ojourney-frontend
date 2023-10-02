@@ -23,16 +23,20 @@ function MyTrip() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isCreator, setIsCreator] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-  const [showModalInviteMember, setshowModalInviteMember] = useState<boolean>(false);
+  const [showModalInviteMember, setShowModalInviteMember] = useState<boolean>(false);
+
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User data
+  
+    // Get the trip id from route parameters
+    const { id } = useParams();
   
   // EVENTS HANDLERS
   
   // Event handler to open the add member modal on the button click
   const handleClickAddMember = () => {
-    setshowModalInviteMember(true);
-  }
+    setShowModalInviteMember(!showModalInviteMember);
+  };
 
   // Event handler: toggles the member popup menu on member click
   const toggleMenuMember = () => {
@@ -63,9 +67,6 @@ function MyTrip() {
     };
   }, [isOpenMenu]); // Depends on the isOpenMenu state
   
-  // Get the trip id from route parameters
-  const { id } = useParams();
-  
   // Fetch data on component mount
   const env = useAppSelector((state) => state.user.env);
   useEffect(() => {
@@ -92,8 +93,6 @@ function MyTrip() {
           setTrip(response.data);
           // If user is the creator of the trip, set isCreator on true
           if (dataUser.id === trip.user_id) {
-            console.log('User id', dataUser.id);
-            console.log('User_id trip', trip.user_id);
             setIsCreator(true);
           }
         })
@@ -183,7 +182,7 @@ function MyTrip() {
 
   return (
     <Main>
-      {showModalInviteMember && <ModalInviteMember />}
+      {showModalInviteMember && <ModalInviteMember id={id} />}
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"

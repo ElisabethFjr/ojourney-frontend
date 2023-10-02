@@ -2,12 +2,13 @@ import './ModalContainer.scss';
 
 interface ModalContainerProps {
   handleClose: () => void;
+  customClass: string;
   children: React.ReactNode;
 }
 
-function ModalContainer({ handleClose, children }: ModalContainerProps) {
+function ModalContainer({ handleClose, customClass, children }: ModalContainerProps) {
   return (
-    <div className="modal-background">
+    <div className={`modal-background ${customClass}`}>
       <div className="modal-container">
         {children}
         <button
