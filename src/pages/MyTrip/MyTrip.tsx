@@ -23,16 +23,17 @@ function MyTrip() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isCreator, setIsCreator] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-  const [showModalInviteMember, setShowModalInviteMember] = useState<boolean>(false);
+  const [showModalInviteMember, setShowModalInviteMember] =
+    useState<boolean>(false);
 
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User data
-  
-    // Get the trip id from route parameters
-    const { id } = useParams();
-  
+
+  // Get the trip id from route parameters
+  const { id } = useParams();
+
   // EVENTS HANDLERS
-  
+
   // Event handler to open the add member modal on the button click
   const handleClickAddMember = () => {
     setShowModalInviteMember(!showModalInviteMember);
@@ -42,7 +43,7 @@ function MyTrip() {
   const toggleMenuMember = () => {
     setIsOpenMenu(!isOpenMenu);
   };
-  
+
   // Event handler to close the member menu when clicked outside
   // Ref the toggle MemberMenu button
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -66,7 +67,7 @@ function MyTrip() {
       document.removeEventListener('mousedown', handleCloseMenu);
     };
   }, [isOpenMenu]); // Depends on the isOpenMenu state
-  
+
   // Fetch data on component mount
   const env = useAppSelector((state) => state.user.env);
   useEffect(() => {
@@ -182,7 +183,7 @@ function MyTrip() {
 
   return (
     <Main>
-      {showModalInviteMember && <ModalInviteMember id={id} />}
+      {showModalInviteMember && <ModalInviteMember id={Number(id)} />}
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"
