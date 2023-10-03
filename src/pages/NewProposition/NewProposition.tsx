@@ -74,7 +74,6 @@ function NewProposition() {
               name="description"
               placeholder="Description"
               icon="fa-solid fa-pen-nib"
-              required
               maxlength={200}
             />
             <Button

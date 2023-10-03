@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
 
@@ -13,22 +13,37 @@ export interface ModalDeleteConfirmProps {
   text: string;
   endpoint: string;
   urlNavigate: string;
-  handleUpdate?: () => void;
+  dataType: string;
+  dataId: number;
+  handleUpdateData?: (deletedDataId: number, dataType: string) => void;
 }
 
-function ModalDeleteConfirm({ title, text, endpoint, urlNavigate, handleUpdate }: ModalDeleteConfirmProps) {
+function ModalDeleteConfirm({
+  title,
+  text,
+  endpoint,
+  urlNavigate,
+  dataType,
+  dataId,
+  handleUpdateData,
+}: ModalDeleteConfirmProps) {
   // Initialize Hooks
   const navigate = useNavigate();
-  
+
+  // Declaration state variables
   const [isOpen, setIsOpen] = useState(true);
 
+  // Fetch states from Redux store
   const env = useAppSelector((state) => state.user.env);
 
+  // Event handler to close the modal
   const handleClose = () => {
     setIsOpen(!isOpen);
   };
 
+  // Event handler to delete an element
   const handleDelete = async () => {
+    // Define axios Options (cookie or token)
     let axiosOptions = {};
     if (env === 'dev') {
       axiosOptions = {
@@ -43,23 +58,24 @@ function ModalDeleteConfirm({ title, text, endpoint, urlNavigate, handleUpdate }
         withCredentials: true,
       };
     }
-
-      await axiosInstance
-        .delete(endpoint, axiosOptions)
-        .then((response) => {
-          console.log("Le voyage a bien été supprimé")
-          handleClose();
-          navigate(urlNavigate);
-          handleUpdate={handleUpdate};
-          })
-        .catch((error) => {
-          console.error(
-            'Une erreur est survenue lors de la suppression du voyage.',
-            error
-          );
-        });
-
-    };
+    // Event handler to open
+    await axiosInstance
+      .delete(endpoint, axiosOptions)
+      .then(() => {
+        // If needed, pass the deleted data ID and data type to the parent component for data update
+        if (handleUpdateData) {
+          handleUpdateData(dataId, dataType);
+        }
+        handleClose();
+        navigate(urlNavigate);
+      })
+      .catch((error) => {
+        console.error(
+          `Une erreur est survenue lors de la suppression du ${dataType}.`,
+          error
+        );
+      });
+  };
 
   return (
     <div>

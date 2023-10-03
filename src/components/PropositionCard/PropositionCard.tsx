@@ -61,7 +61,7 @@ function PropositionCard({
       </div>
       <Link to={url} className="proposition-card">
         <img className="proposition-card-image" src={srcImage} alt={altImage} />
-        <div className="proposition-card-container">
+        <div className="proposition-card-infos">
           <div className="proposition-card-header">
             <h3 className="proposition-card-header-title">{title}</h3>
           </div>

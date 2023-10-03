@@ -13,7 +13,6 @@ import MemberMenu from '../../components/MemberMenu/MemberMenu';
 import ModalInviteMember from '../../components/ModalInviteMember/ModalInviteMember';
 import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
 
-
 import { Trip, Member, Proposition } from '../../@types';
 
 import './MyTrip.scss';
@@ -25,11 +24,10 @@ function MyTrip() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isCreator, setIsCreator] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-
   const [showModalInviteMember, setShowModalInviteMember] =
     useState<boolean>(false);
-
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
+    useState<boolean>(false);
 
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User data
@@ -37,7 +35,7 @@ function MyTrip() {
   // Get the trip id from route parameters
   const { id } = useParams();
 
-  // EVENTS HANDLERS
+  /// EVENTS HANDLERS MEMBER ///
 
   // Event handler to open the add member modal on the button click
   const handleClickAddMember = () => {
@@ -73,16 +71,14 @@ function MyTrip() {
     };
   }, [isOpenMenu]); // Depends on the isOpenMenu state
 
+  /// EVENTS HANDLERS TRIPS ///
 
-  
-  // Event handler to open the modal DeleteConfirmation if click on delete a trip 
+  // Event handler to open the modal DeleteConfirmation if click on delete a trip
   const handleClickDelete = () => {
-    setShowModal(!showModal);
-  }
+    setShowModalDeleteConfirm(!showModalDeleteConfirm);
+  };
 
-  // Get the trip id from route parameters
-  const { id } = useParams();
-  
+  /// FETCH DATA ///
 
   // Fetch data on component mount
   const env = useAppSelector((state) => state.user.env);
@@ -231,7 +227,7 @@ function MyTrip() {
           <p className="one-trip-overview-description">{trip.description}</p>
           {isCreator && (
             <div className="one-trip-overview-buttons">
-              <Link to={`/edit-trip/:${id}`} >
+              <Link to={`/edit-trip/:${id}`}>
                 <Button
                   text="Editer"
                   icon="fa-solid fa-pen"
@@ -289,8 +285,16 @@ function MyTrip() {
           <ul>{allPropositions}</ul>
         )}
       </section>
-      {showModal && (<ModalDeleteConfirm endpoint={`/trips/${id}`} urlNavigate='/my-trips' title="Confirmation supression" text="Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?"/>)}
-
+      {showModalDeleteConfirm && (
+        <ModalDeleteConfirm
+          endpoint={`/trips/${id}`}
+          urlNavigate="/my-trips"
+          title="Confirmation supression"
+          text="Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?"
+          dataType="trips"
+          dataId={Number(id)}
+        />
+      )}
     </Main>
   );
 }
