@@ -6,9 +6,10 @@ import './InputFieldImage.scss';
 
 interface InputFieldImageProps {
   handleFile: (file: File) => void;
+  text: string;
 }
 
-function InputFieldImage({ handleFile }: InputFieldImageProps) {
+function InputFieldImage({ handleFile, text }: InputFieldImageProps) {
   const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
@@ -42,7 +43,7 @@ function InputFieldImage({ handleFile }: InputFieldImageProps) {
         ref={hiddenFileInput}
       />
       <Button
-        text="Ajouter une image"
+        text={text}
         customClass="outline button-style--width"
         type="button"
         onClick={handleClick}

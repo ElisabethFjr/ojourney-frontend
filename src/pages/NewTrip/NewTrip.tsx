@@ -16,29 +16,17 @@ import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker
 import './NewTrip.scss';
 
 function NewTrip() {
+  // Initialize Hooks
   const navigate = useNavigate();
 
+  // Declaration state variables
   const [startDate, setStartDate] = useState<Date>(new Date()); // Trip start date
   const [endDate, setEndDate] = useState<Date>(new Date()); // Trip end date
+
+  // Fetch states from Redux store
   const env = useAppSelector((state) => state.user.env);
-  let axiosOptions = {};
-  if (env === 'dev') {
-    axiosOptions = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${
-          localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-        }`,
-      },
-    };
-  } else {
-    axiosOptions = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      withCredentials: true,
-    };
-  }
+
+  // Function to format dates before sending them to the server
   const changeDateFormat = (date: Date) => {
     return format(date, 'yyyy-MM-dd');
   };
@@ -53,30 +41,49 @@ function NewTrip() {
     setEndDate(date);
   };
 
-  // Event handler for the image file selection
+  // Event handler for selecting an image file
   const handleFile = (file: File) => {
     console.log('Fichier sélectionné :', file);
   };
 
-  // Event handler for the newTrip form submit
+  // Event handler for the newTrip form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Change dates format
+    // Format dates start and end
     formData.append('date_start', changeDateFormat(startDate));
     formData.append('date_end', changeDateFormat(endDate));
 
-    // Send newTrip form data (JSON) to the server with Axios
+    // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
 
+    // Axios options: If in development mode (using token) or production mode (using cookies)
+    let axiosOptions = {};
+    if (env === 'dev') {
+      axiosOptions = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      };
+    } else {
+      axiosOptions = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true,
+      };
+    }
+
+    // Send a POST request to create a new trip
     await axiosInstance
       .post('/trips', objData, axiosOptions)
       .then((response) => {
-        // created = true;
         console.log(response.data);
-
         navigate(`/my-trips`);
       })
       .catch((error) => {
@@ -109,7 +116,6 @@ function NewTrip() {
               endDate={endDate}
               onStartDateChange={handleStartDateChange}
               onEndDateChange={handleEndDateChange}
-              customClass="visually-hidden"
             />
             {/* Description Textarea */}
             <TextareaField
@@ -119,7 +125,7 @@ function NewTrip() {
               maxlength={200}
             />
             {/* Image File Selection Input */}
-            <InputFieldImage handleFile={handleFile} />
+            <InputFieldImage handleFile={handleFile} text="Ajouter une image" />
             {/* Submit Button */}
             <Button
               text="Créer le voyage"

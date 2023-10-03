@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { format } from 'date-fns';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
 
@@ -15,22 +16,22 @@ import Button from '../../components/Button/Button';
 import './EditTrip.scss';
 
 function EditTrip() {
+  // Initialize Hooks
+  const navigate = useNavigate();
+
   // States variables declaration
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
 
-  // Get the trip id from url
-  const { id } = useParams();
-
   // Fetch states from Redux store
   const env = useAppSelector((state) => state.user.env);
 
-  // Function to change Dates format
+  // Get the trip id from url
+  const { id } = useParams();
+
+  // Function to format dates before sending them to the server
   const changeDateFormat = (date: Date) => {
-    const year = date.toLocaleString('default', { year: 'numeric' });
-    const month = date.toLocaleString('default', { month: '2-digit' });
-    const day = date.toLocaleString('default', { day: '2-digit' });
-    return `${year}-${month}-${day}`;
+    return format(date, 'yyyy-MM-dd');
   };
 
   // Event handler for start date change
@@ -43,7 +44,7 @@ function EditTrip() {
     setEndDate(date);
   };
 
-  // Event handler for the image file selection
+  // Event handler for the newTrip form submission
   const handleFile = (file: File) => {
     console.log('Fichier sélectionné :', file);
   };
@@ -54,11 +55,15 @@ function EditTrip() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Format dates start and end
     formData.append('date_start', changeDateFormat(startDate));
     formData.append('date_end', changeDateFormat(endDate));
-    const formSent = Object.fromEntries(formData);
 
-    // Axios options if local (token) or not (cookie)
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    console.log(objData);
+
+    // Axios options: If in development mode (using token) or production mode (using cookies)
     let axiosOptions = {};
     if (env === 'dev') {
       axiosOptions = {
@@ -78,10 +83,13 @@ function EditTrip() {
       };
     }
 
-    // Send the form data and update data with axios
+    // Send a PATCH request to update the trip data
     await axiosInstance
-      .patch(`/trips/${id}`, formSent, axiosOptions)
-      .then((response) => console.log('Server Response:', response.data))
+      .patch(`/trips/${Number(id)}`, objData, axiosOptions)
+      .then((response) => {
+        console.log(response.data);
+        navigate(`/my-trip/${Number(id)}`);
+      })
       .catch((error) => {
         console.error(
           "Une erreur est survenue lors de l'édition du voyage.",
@@ -120,10 +128,13 @@ function EditTrip() {
               icon="fa-solid fa-pen-nib"
             />
             {/* Image File Selection Input */}
-            <InputFieldImage handleFile={handleFile} />
+            <InputFieldImage
+              handleFile={handleFile}
+              text={"Modifier l'image"}
+            />
             {/* Form Submit Button */}
             <Button
-              text="Editer le voyage"
+              text="Modifire le voyage"
               type="submit"
               customClass="color button-style--width"
             />
