@@ -12,23 +12,15 @@ function EditPassword() {
         <form className="edit-password-form">
           <InputField
             name="password"
-            placeholder="Ancien - Mot de passe"
-            type="password"
-            icon="fa-solid fa-lock"
-            required
-            autocomplete="off"
-          />
-          <InputField
-            name="password"
-            placeholder="Nouveau - Mot de passe"
+            placeholder="Nouveau Mot de passe"
             type="NewPassword"
             icon="fa-solid fa-lock"
             required
             autocomplete="off"
           />
           <InputField
-            name="password"
-            placeholder="Nouveau - Mot de passe"
+            name="confirmation"
+            placeholder="Confirmation Mot de passe"
             type="NewPasswordConfirmation"
             icon="fa-solid fa-lock"
             required

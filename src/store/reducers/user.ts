@@ -79,6 +79,7 @@ export const login = createAsyncThunk(
         objData,
         axiosOptions
       );
+      console.log('reconnu:', data);
       if (env === 'dev') {
         console.log(data);
         localStorage.setItem('token', data.token);
