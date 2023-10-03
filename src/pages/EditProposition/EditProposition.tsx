@@ -1,19 +1,30 @@
-import { FormEvent } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+// Import React Router
 import { useParams, useNavigate } from 'react-router-dom';
+// Import Package react-toastify
 import { toast } from 'react-toastify';
+// Import Package DOMPufiry
+import DOMPurify from 'dompurify';
+// Import Curstom Redux Hook
 import { useAppSelector } from '../../hooks/redux';
+// Import AxiosInstance
 import axiosInstance from '../../utils/axios';
 
+// Imports Layout & Components
 import Main from '../../layout/Main/Main';
-
 import FormContainer from '../../components/FormContainer/FormContainer';
-import InputFieldEdit from '../../components/InputFieldEdit/InputFieldEdit';
-import TextareaFieldEdit from '../../components/TextareaFieldEdit/TextareaFieldEdit';
 import Button from '../../components/Button/Button';
+
+import './EditProposition.scss';
 
 function EditProposition() {
   // Inilialize Hooks
   const navigate = useNavigate();
+
+  // States variables declaration
+  const [url, setUrl] = useState('Url par défault');
+  const [localisation, setLocalisation] = useState('Localisation par défault');
+  const [description, setDescription] = useState('Description par défault');
 
   // Fetch states from Redux store
   const env = useAppSelector((state) => state.user.env);
@@ -21,6 +32,16 @@ function EditProposition() {
   // Get the trip id and the proposition id from url
   const { idLink } = useParams();
   const { idTrip } = useParams();
+
+  // Event handler input and textarea changes
+  const handleInputChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    setValue: (value: string) => void
+  ) => {
+    const { value } = event.target;
+    const sanitizedValue = DOMPurify.sanitize(value);
+    setValue(sanitizedValue);
+  };
 
   // Event handler for the EditProposition form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -86,26 +107,70 @@ function EditProposition() {
         <FormContainer>
           <form onSubmit={handleSubmit}>
             <h2 className="new-proposition-form-title">Ma Proposition</h2>
-            <InputFieldEdit
-              name="url"
-              label="Adresse URL"
-              placeholder="Changer l'adresse URL"
-              type="url"
-              icon="fa-solid fa-link"
-            />
-            <InputFieldEdit
-              name="localisation"
-              label="Localisation"
-              placeholder="Changer la localisation"
-              type="text"
-              icon="fa-solid fa-location-dot"
-            />
-            <TextareaFieldEdit
-              name="description"
-              label="Descritpion"
-              placeholder="Changer la description"
-              icon="fa-solid fa-pen-nib"
-            />
+
+            {/* Url Input */}
+            <div className="field-edit">
+              <label className="field-edit-label" htmlFor="url">
+                Adresse URL
+              </label>
+              <input
+                className="field-edit-input"
+                value={url}
+                onChange={(event) => handleInputChange(event, setUrl)}
+                name="url"
+                placeholder="Modifier l'adresse URL"
+                autoComplete="autocomplete"
+                id="url"
+                type="url"
+                maxLength={100}
+              />
+              <div className="field-edit-icon">
+                <i className="fa-solid fa-link" />
+              </div>
+            </div>
+
+            {/* Localisation Input */}
+            <div className="field-edit">
+              <label className="field-edit-label" htmlFor="localisation">
+                Localisation
+              </label>
+              <input
+                className="field-edit-input"
+                value={localisation}
+                onChange={(event) => handleInputChange(event, setLocalisation)}
+                name="localisation"
+                placeholder="Modifier la localisation"
+                autoComplete="autocomplete"
+                id="localisation"
+                type="text"
+                maxLength={100}
+              />
+              <div className="field-edit-icon">
+                <i className="fa-solid fa-location-dot" />
+              </div>
+            </div>
+
+            {/* Description Textarea */}
+            <div className="field-edit">
+              <label className="field-edit-label" htmlFor="description">
+                Description
+              </label>
+              <textarea
+                className="field-edit-textarea"
+                value={description}
+                onChange={(event) => handleInputChange(event, setDescription)}
+                name="description"
+                placeholder="Modifier la description"
+                autoComplete="autocomplete"
+                id="description"
+                maxLength={200}
+              />
+              <div className="field-edit-textarea-icon">
+                <i className="fa-solid fa-pen-nib" />
+              </div>
+            </div>
+
+            {/* Form Submit Button */}
             <Button
               text="Modifier la proposition"
               customClass="color button-style--width"

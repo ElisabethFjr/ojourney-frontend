@@ -6,9 +6,10 @@ import axiosInstance from '../../utils/axios';
 import Main from '../../layout/Main/Main';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
+
 import './EditProfil.scss';
 
-function EditProposition() {
+function EditProfil() {
   const { idUser } = useParams();
   const navigate = useNavigate();
   const env = useAppSelector((state) => state.user.env);
@@ -99,4 +100,4 @@ function EditProposition() {
   );
 }
 
-export default EditProposition;
+export default EditProfil;

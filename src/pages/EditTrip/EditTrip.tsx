@@ -1,34 +1,55 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
+// Import React Router
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+// Import Package DOMPufiry
+import DOMPurify from 'dompurify';
+// Imports Packages react-datepicker and date-fns
+import DatePicker, { registerLocale } from 'react-datepicker';
+import fr from 'date-fns/locale/fr';
 import { format } from 'date-fns';
+// Import Package react-toastify
+import { toast } from 'react-toastify';
+// Import Curstom Redux Hook
 import { useAppSelector } from '../../hooks/redux';
+// Import AxiosInstance
 import axiosInstance from '../../utils/axios';
 
+// Imports Layout & Components
 import Main from '../../layout/Main/Main';
-
 import FormContainer from '../../components/FormContainer/FormContainer';
-import InputFieldEdit from '../../components/InputFieldEdit/InputFieldEdit';
-import TextareaFieldEdit from '../../components/TextareaFieldEdit/TextareaFieldEdit';
-import InputDatesPickerEdit from '../../components/InputDatesPickerEdit/InputDatesPickerEdit';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import Button from '../../components/Button/Button';
 
 import './EditTrip.scss';
 
 function EditTrip() {
+  // Set Locale to fr
+  registerLocale('fr', fr);
+
   // Initialize Hooks
   const navigate = useNavigate();
 
   // States variables declaration
+  const [localisation, setLocalisation] = useState('Localisation par défault');
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
+  const [description, setDescription] = useState('Description par défault');
 
   // Fetch states from Redux store
   const env = useAppSelector((state) => state.user.env);
 
   // Get the trip id from url
   const { id } = useParams();
+
+  // Event handler input and textarea changes
+  const handleInputChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    setValue: (value: string) => void
+  ) => {
+    const { value } = event.target;
+    const sanitizedValue = DOMPurify.sanitize(value);
+    setValue(sanitizedValue);
+  };
 
   // Function to format dates before sending them to the server
   const changeDateFormat = (date: Date) => {
@@ -59,9 +80,9 @@ function EditTrip() {
     // Format dates start and end
     formData.append('date_start', changeDateFormat(startDate));
     formData.append('date_end', changeDateFormat(endDate));
-
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
+    console.log(objData);
 
     // Axios options: If in development mode (using token) or production mode (using cookies)
     let axiosOptions = {};
@@ -123,36 +144,100 @@ function EditTrip() {
         <FormContainer>
           <form onSubmit={handleSubmit}>
             <h2 className="edit-trip-form-title">Mon Voyage</h2>
+
             {/* Localisation Input */}
-            <InputFieldEdit
-              name="localisation"
-              placeholder="Modifier la localisation"
-              label="Localisation"
-              type="text"
-              icon="fa-solid fa-location-dot"
-            />
-            {/* Dates Picker Inputs (Start - End) */}
-            <InputDatesPickerEdit
-              startDate={startDate}
-              endDate={endDate}
-              onStartDateChange={handleStartDateChange}
-              onEndDateChange={handleEndDateChange}
-            />
+            <div className="field-edit">
+              <label className="field-edit-label" htmlFor="localisation">
+                Localisation
+              </label>
+              <input
+                className="field-edit-input"
+                value={localisation}
+                onChange={(event) => handleInputChange(event, setLocalisation)}
+                name="localisation"
+                placeholder="Modifier la localisation"
+                autoComplete="autocomplete"
+                id="localisation"
+                type="text"
+                maxLength={100}
+              />
+              <div className="field-edit-icon">
+                <i className="fa-solid fa-location-dot" />
+              </div>
+            </div>
+
+            {/* Start Date Input */}
+            <div className="field-date-edit">
+              <label className="field-date-edit-label" htmlFor="date_start">
+                Date de début
+              </label>
+              <div className="field-date-container">
+                <i className="field-date-edit-icon fa-solid fa-calendar" />
+                <DatePicker
+                  className="field-date-input"
+                  selected={startDate}
+                  onChange={handleStartDateChange}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                  placeholderText="Date de début (jj/mm/aaaa)"
+                  dateFormat="dd/MM/yyyy"
+                  locale="fr" // Set french locale
+                />
+              </div>
+            </div>
+
+            {/* End Date Input */}
+            <div className="field-date-edit">
+              <label className="field-date-edit-label" htmlFor="date_start">
+                Date de fin
+              </label>
+              <div className="field-date-container">
+                <i className="field-date-edit-icon fa-solid fa-calendar" />
+                <DatePicker
+                  className="field-date-input"
+                  selected={endDate}
+                  onChange={handleEndDateChange}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={startDate}
+                  placeholderText="Date de fin (jj/mm/aaaa)"
+                  dateFormat="dd/MM/yyyy"
+                  locale="fr" // Set french locale
+                />
+              </div>
+            </div>
+
             {/* Description Textarea */}
-            <TextareaFieldEdit
-              name="description"
-              placeholder="Modifier la description"
-              label="Description"
-              icon="fa-solid fa-pen-nib"
-            />
+            <div className="field-edit">
+              <label className="field-edit-label" htmlFor="description">
+                Description
+              </label>
+              <textarea
+                className="field-edit-textarea"
+                value={description}
+                onChange={(event) => handleInputChange(event, setDescription)}
+                name="description"
+                placeholder="Modifier la description"
+                autoComplete="autocomplete"
+                id="description"
+                maxLength={200}
+              />
+              <div className="field-edit-textarea-icon">
+                <i className="fa-solid fa-pen-nib" />
+              </div>
+            </div>
+
             {/* Image File Selection Input */}
             <InputFieldImage
               handleFile={handleFile}
               text={"Modifier l'image"}
             />
+
             {/* Form Submit Button */}
             <Button
-              text="Modifire le voyage"
+              text="Modifier le voyage"
               type="submit"
               customClass="color button-style--width"
             />

@@ -1,0 +1,67 @@
+@use '../../styles/variables' as v;
+
+// Input Field
+.field-edit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+
+  &-label {
+    font-weight: 700;
+  }
+
+  &-icon {
+    position: absolute;
+    left: 1rem;
+    top: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: v.$color-accent;
+  }
+
+  &-input {
+    width: 100%;
+    padding: 0.6rem;
+    padding-left: 3.5rem;
+    outline: 0;
+    background-color: v.$color-white;
+    border: 1px solid v.$color-grey-lightest;
+    border-radius: v.$border-radius;
+    color: v.$color-text;
+    font-weight: 300;
+    &:hover,
+    &:focus {
+      border: 1px solid v.$color-accent;
+    }
+    &::placeholder {
+      color: v.$color-grey;
+      font-weight: 400;
+    }
+  }
+
+  &-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 0.6rem;
+    padding-left: 3.5rem;
+    outline: 0;
+    background-color: v.$color-white;
+    border: 1px solid v.$color-grey-lightest;
+    border-radius: v.$border-radius;
+    color: v.$color-text;
+    font-weight: 300;
+    resize: none;
+    &:hover,
+    &:focus {
+      border: 1px solid v.$color-accent;
+    }
+    &::placeholder {
+      color: v.$color-grey;
+      font-weight: 400;
+    }
+  }
+}

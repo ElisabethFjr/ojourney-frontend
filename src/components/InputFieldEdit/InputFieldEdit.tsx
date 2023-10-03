@@ -12,6 +12,7 @@ export interface InputFieldProps {
   required?: boolean;
   autocomplete?: string;
   maxlength?: number;
+  value: string;
 }
 
 function InputFieldEdit({
@@ -23,12 +24,18 @@ function InputFieldEdit({
   required,
   autocomplete,
   maxlength,
+  value,
 }: InputFieldProps) {
-  const [value, setValue] = useState('');
-
+  const [sanitizedValue, setSanitizedValue] = useState('');
+  const isValueChange = () => {
+    if (sanitizedValue.length === 0) {
+      return true;
+    }
+    return false;
+  };
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const sanitizedValue = DOMPurify.sanitize(event.target.value);
-    setValue(sanitizedValue);
+    const sanitizer = DOMPurify.sanitize(event.target.value);
+    setSanitizedValue(sanitizer);
   };
 
   return (
@@ -38,7 +45,7 @@ function InputFieldEdit({
       </label>
       <input
         className="field-edit-input"
-        value={value}
+        value={!isValueChange ? value : sanitizedValue}
         onChange={handleChange}
         name={name}
         placeholder={placeholder}
