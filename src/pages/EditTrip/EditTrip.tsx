@@ -19,6 +19,7 @@ import Main from '../../layout/Main/Main';
 import FormContainer from '../../components/FormContainer/FormContainer';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import Button from '../../components/Button/Button';
+import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 import './EditTrip.scss';
 
@@ -142,6 +143,13 @@ function EditTrip() {
       <h1 className="main-title">Modifier un voyage</h1>
       <section className="edit-trip-container">
         <FormContainer>
+          <div className="edit-trip-back-btn">
+            <ButtonIcon
+              icon="fa-solid fa-arrow-left"
+              handleClick={() => navigate(-1)}
+              customClass="border"
+            />
+          </div>
           <form onSubmit={handleSubmit}>
             <h2 className="edit-trip-form-title">Mon Voyage</h2>
 

@@ -14,6 +14,7 @@ import axiosInstance from '../../utils/axios';
 import Main from '../../layout/Main/Main';
 import FormContainer from '../../components/FormContainer/FormContainer';
 import Button from '../../components/Button/Button';
+import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 import './EditProposition.scss';
 
@@ -103,10 +104,17 @@ function EditProposition() {
   return (
     <Main>
       <h1 className="main-title">Modifier une proposition</h1>
-      <section className="new-proposition-container">
+      <section className="edit-proposition-container">
         <FormContainer>
+          <div className="edit-proposition-back-btn">
+            <ButtonIcon
+              icon="fa-solid fa-arrow-left"
+              handleClick={() => navigate(-1)}
+              customClass="border"
+            />
+          </div>
           <form onSubmit={handleSubmit}>
-            <h2 className="new-proposition-form-title">Ma Proposition</h2>
+            <h2 className="edit-proposition-form-title">Ma Proposition</h2>
 
             {/* Url Input */}
             <div className="field-edit">

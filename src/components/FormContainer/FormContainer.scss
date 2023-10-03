@@ -1,6 +1,7 @@
 @use '../../styles/variables' as v;
 
 .form-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   max-width: 500px;
