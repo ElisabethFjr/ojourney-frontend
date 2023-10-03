@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useAppSelector } from '../../hooks/redux';
+import { ToastContainer } from 'react-toastify';
 
 import Loading from './Loading/Loading';
 
@@ -26,15 +26,13 @@ import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
-import FlashMessage from '../FlashMessage/FlashMessage';
+
 import './App.scss';
 
 function App() {
   const location = useLocation();
 
   const [loading, setLoading] = useState(true);
-
-  const flashMessage = useAppSelector((state) => state.flashMessage);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -147,7 +145,18 @@ function App() {
         />
       </Routes>
       <Footer />
-      {flashMessage.message && <FlashMessage />}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

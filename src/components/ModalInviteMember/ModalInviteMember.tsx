@@ -1,15 +1,13 @@
 import { useState, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import axiosInstance from '../../utils/axios';
-import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks/redux';
-
-import { showFlashMessage, resetFlashMessage } from '../../store/reducers/flashMessage';
 
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 import ModalContainer from '../ModalContainer/ModalContainer';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './ModalInviteMember.scss';
 
 interface ModalInviteMemberProps {
@@ -17,15 +15,11 @@ interface ModalInviteMemberProps {
 }
 
 function ModalInviteMember({ id }: ModalInviteMemberProps) {
-  // Initialize Hooks
-  const dispatch = useDispatch();
-
   // Declaration state variables
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   // Fetch states from Redux store
   const env = useAppSelector((state) => state.user.env);
-  const flashMessage = useAppSelector((state) => state.flashMessage);
 
   // Event handler on the invite member submit form
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -54,18 +48,38 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
     await axiosInstance
       .post(`/trips/${id}/invite`, jsonData, axiosOptions)
       .then((response) => {
-        console.log(jsonData);
         console.log("L'email a bien été envoyé", response.data);
-        dispatch(showFlashMessage({ isSuccess: true, message: "L'email a bien été envoyé"}));
+        toast.success("L'invitation a bien été envoyée !", {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+        setIsOpen(!isOpen);
       })
       .catch((error) => {
         console.error(
           "Une erreur est survenue lors la récupération de l'email.",
           error
         );
-      })
-      .finally(() => {
-        setIsOpen(!isOpen);
+        toast.error(
+          "L'invitation n'a pas pu être envoyée." ||
+            error.response.data.message,
+          {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          }
+        );
       });
   };
 

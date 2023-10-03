@@ -27,7 +27,6 @@ interface UserState {
   };
   isConnected: boolean;
   errorMessage: string | null;
-  flashMessage: string | null;
   env: string | null;
 }
 
@@ -45,7 +44,6 @@ export const initialState: UserState = {
   },
   isConnected: false,
   errorMessage: null,
-  flashMessage: null,
   env: null,
 };
 
