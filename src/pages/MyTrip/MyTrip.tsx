@@ -171,7 +171,11 @@ function MyTrip() {
           {dataUser.firstname ? dataUser.firstname : 'Membre Nom'}
         </p>
         {isOpenMenu && (
-          <MemberMenu customClass="active" isCreator={isCreator} />
+          <MemberMenu
+            customClass="active"
+            isCreator={isCreator}
+            isCurrentUser={dataUser.id === member.id}
+          />
         )}
       </div>
     </li>
