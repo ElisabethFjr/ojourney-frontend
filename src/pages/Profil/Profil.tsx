@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
@@ -9,11 +10,21 @@ import Main from '../../layout/Main/Main';
 
 import Button from '../../components/Button/Button';
 // import ChangePassword from '../../components/ModalChangePassword/ModalChangePassword';
+import ModaleConfirmPassword from '../../components/ModalConfirmPassword/ModalConfirmPassword';
+import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
+
 
 import './Profil.scss';
 
 function Profil() {
   const data = useAppSelector((state) => state.user.data);
+
+  const [showModalConfirmPassword, setShowModalConfirmPassword] =
+  useState<boolean>(false);
+
+  const handleClickDeleteAccount = () => {
+    setShowModalConfirmPassword(!showModalConfirmPassword);
+  };
 
   // const handleClickOnGetData = (event: FormEvent<HTMLFormElement>) => {
   //   event.preventDefault();
@@ -155,8 +166,9 @@ function Profil() {
             text="Supprimer le compte"
             customClass="danger"
             type="button"
-            // onClick={handleClickDeleteAccount}
-          />
+            onClick={handleClickDeleteAccount}
+/>
+{showModalConfirmPassword && <ModaleConfirmPassword />}
         </div>
       </section>
     </Main>
