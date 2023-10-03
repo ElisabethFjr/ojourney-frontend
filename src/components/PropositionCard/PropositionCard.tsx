@@ -9,6 +9,7 @@ interface PropositionCardProps {
   title: string;
   authorName: string;
   localisation: string;
+  description: string;
   url: string;
   id_link: number;
   id_trip: number | null;
@@ -20,6 +21,7 @@ function PropositionCard({
   title,
   authorName,
   localisation,
+  description,
   url,
   id_link,
   id_trip,
@@ -69,6 +71,10 @@ function PropositionCard({
           <div className="proposition-card-localisation">
             <i className="fa-solid fa-location-dot" />
             <p className="proposition-card-localisation-name">{localisation}</p>
+          </div>
+          <div className="proposition-card-description">
+            <i className="fa-solid fa-pen-nib" />
+            <p className="proposition-card-description-text">{description}</p>
           </div>
           <div className="proposition-card-url">
             <i className="fa-solid fa-square-arrow-up-right" />

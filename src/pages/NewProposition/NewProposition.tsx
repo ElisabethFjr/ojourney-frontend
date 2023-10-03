@@ -57,18 +57,18 @@ function NewProposition() {
           <form onSubmit={handleSubmit}>
             <h2 className="new-proposition-form-title">Proposition</h2>
             <InputField
-              name="localisation"
-              placeholder="Localisation"
-              type="text"
-              icon="fa-solid fa-location-dot"
-              maxlength={50}
-            />
-            <InputField
               name="url"
               placeholder="Adresse URL"
               type="url"
               icon="fa-solid fa-link"
               required
+            />
+            <InputField
+              name="localisation"
+              placeholder="Localisation"
+              type="text"
+              icon="fa-solid fa-location-dot"
+              maxlength={50}
             />
             <TextareaField
               name="description"
