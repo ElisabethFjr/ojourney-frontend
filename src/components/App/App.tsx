@@ -28,6 +28,7 @@ import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
 
 import './App.scss';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const location = useLocation();

@@ -28,7 +28,7 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
     const formData = new FormData(form);
     const jsonData = Object.fromEntries(formData.entries());
 
-    // Axios options if local (token) or not (cookie)
+    // Axios options: If in development mode (using token) or production mode (using cookies)
     let axiosOptions = {};
     if (env === 'dev') {
       axiosOptions = {

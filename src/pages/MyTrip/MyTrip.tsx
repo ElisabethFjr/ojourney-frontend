@@ -232,7 +232,7 @@ function MyTrip() {
           <p className="one-trip-overview-description">{trip.description}</p>
           {isCreator && (
             <div className="one-trip-overview-buttons">
-              <Link to={`/edit-trip/:${id}`}>
+              <Link to={`/edit-trip/${id}`}>
                 <Button
                   text="Editer"
                   icon="fa-solid fa-pen"
