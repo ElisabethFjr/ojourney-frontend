@@ -47,6 +47,13 @@ export const initialState: UserState = {
   env: null,
 };
 
+// Create action update user data
+export const updateUserData = createAction<{
+  firstname?: string | null;
+  lastname?: string | null;
+  email?: string | null;
+}>('user/updateUserData');
+
 // Create Logout action
 export const logout = createAction('user/logout');
 
@@ -94,6 +101,17 @@ export const login = createAsyncThunk(
 // Create User Reducer
 const userReducer = createReducer(initialState, (builder) => {
   builder
+    // Update user data => addCase()
+    .addCase(updateUserData, (state, action) => {
+      const { firstname, lastname, email } = action.payload;
+
+      state.data = {
+        ...state.data,
+        firstname: firstname !== undefined ? firstname : state.data.firstname,
+        lastname: lastname !== undefined ? lastname : state.data.lastname,
+        email: email !== undefined ? email : state.data.email,
+      };
+    })
     // Login promise pending
     .addCase(login.pending, (state) => {
       state.errorMessage = null;
