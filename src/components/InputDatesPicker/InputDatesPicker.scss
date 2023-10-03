@@ -207,10 +207,18 @@
       color: v.$color-white;
     }
 
-    &--range-start,
-    &--range-end,
-    &--selecting-range-end,
-    &--selecting-range-start {
+    &--keyboard {
+      border-radius: v.$border-radius;
+      background-color: transparent;
+      color: v.$color-text;
+    }
+
+    &--range-start {
+      border-radius: v.$border-radius;
+      background-color: v.$color-primary;
+      color: v.$color-white;
+    }
+    &--range-end {
       border-radius: v.$border-radius;
       background-color: v.$color-primary;
       color: v.$color-white;
