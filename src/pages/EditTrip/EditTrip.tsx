@@ -6,39 +6,25 @@ import axiosInstance from '../../utils/axios';
 import Main from '../../layout/Main/Main';
 
 import FormContainer from '../../components/FormContainer/FormContainer';
-import InputField from '../../components/InputField/InputField';
+import InputFieldEdit from '../../components/InputFieldEdit/InputFieldEdit';
+import TextareaFieldEdit from '../../components/TextareaFieldEdit/TextareaFieldEdit';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
-import TextareaField from '../../components/TextareaField/TextareaField';
 import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker';
+import Button from '../../components/Button/Button';
 
 import './EditTrip.scss';
-
-import Button from '../../components/Button/Button';
 
 function EditTrip() {
   // States variables declaration
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
+
+  // Get the trip id from url
   const { id } = useParams();
+
+  // Fetch states from Redux store
   const env = useAppSelector((state) => state.user.env);
-  let axiosOptions = {};
-  if (env === 'dev') {
-    axiosOptions = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${
-          localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-        }`,
-      },
-    };
-  } else {
-    axiosOptions = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      withCredentials: true,
-    };
-  }
+
   // Function to change Dates format
   const changeDateFormat = (date: Date) => {
     const year = date.toLocaleString('default', { year: 'numeric' });
@@ -61,6 +47,8 @@ function EditTrip() {
   const handleFile = (file: File) => {
     console.log('Fichier sélectionné :', file);
   };
+
+  // Event handler on the EditTrip submit form
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -69,22 +57,37 @@ function EditTrip() {
     formData.append('date_start', changeDateFormat(startDate));
     formData.append('date_end', changeDateFormat(endDate));
     const formSent = Object.fromEntries(formData);
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
 
-    try {
-      // L'URL doit être adaptée à votre API
-      await axiosInstance
-        .patch(`/trips/${id}`, formSent, axiosOptions)
-        .then((response) => console.log('Server Response:', response.data));
-    } catch (error) {
-      console.error(
-        "Une erreur est survenue lors de l'édition du voyage.",
-        error
-      );
-      // Gérer l'erreur (affichez un message d'erreur à l'utilisateur, par exemple)
+    // Axios options if local (token) or not (cookie)
+    let axiosOptions = {};
+    if (env === 'dev') {
+      axiosOptions = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      };
+    } else {
+      axiosOptions = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true,
+      };
     }
+
+    // Send the form data and update data with axios
+    await axiosInstance
+      .patch(`/trips/${id}`, formSent, axiosOptions)
+      .then((response) => console.log('Server Response:', response.data))
+      .catch((error) => {
+        console.error(
+          "Une erreur est survenue lors de l'édition du voyage.",
+          error
+        );
+      });
   };
 
   return (
@@ -95,9 +98,10 @@ function EditTrip() {
           <form onSubmit={handleSubmit}>
             <h2 className="edit-trip-form-title">Editer votre voyage</h2>
             {/* Localisation Input */}
-            <InputField
+            <InputFieldEdit
               name="localisation"
-              placeholder="Destination"
+              placeholder="Localisation"
+              label="Modifier la localisation"
               type="text"
               icon="fa-solid fa-location-dot"
             />
@@ -109,9 +113,10 @@ function EditTrip() {
               onEndDateChange={handleEndDateChange}
             />
             {/* Description Textarea */}
-            <TextareaField
+            <TextareaFieldEdit
               name="description"
-              placeholder="Description du voyage (facultatif)"
+              placeholder="Description"
+              label="Modifier la description"
               icon="fa-solid fa-pen-nib"
             />
             {/* Image File Selection Input */}
