@@ -186,6 +186,7 @@ function MyTrip() {
         title={proposition.title}
         authorName={`${dataUser.firstname} ${dataUser.lastname}`}
         localisation={proposition.localisation}
+        description={proposition.description}
         url={proposition.url}
         id_trip={proposition.trip_id}
         id_link={proposition.id}
