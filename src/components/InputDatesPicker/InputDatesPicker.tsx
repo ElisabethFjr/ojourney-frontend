@@ -3,11 +3,12 @@ import fr from 'date-fns/locale/fr';
 
 import './InputDatesPicker.scss';
 
-interface InputDatesPickerProps {
+export interface InputDatesPickerProps {
   startDate: Date | null;
   endDate: Date | null;
   onStartDateChange: (date: Date) => void;
   onEndDateChange: (date: Date) => void;
+  isEditPage?: boolean;
 }
 
 function InputDatesPicker({
@@ -15,14 +16,18 @@ function InputDatesPicker({
   endDate,
   onStartDateChange,
   onEndDateChange,
+  isEditPage = false,
 }: InputDatesPickerProps) {
   registerLocale('fr', fr);
 
   return (
     <>
       {/* Start Date Input */}
-      <div className="field-date">
-        <label className="field-date-label" htmlFor="date_start">
+      <div className={`field-date ${isEditPage ? 'field-date--edit' : ''}`}>
+        <label
+          className={`field-date-label ${isEditPage ? ' ' : 'visually-hidden'}`}
+          htmlFor="date_start"
+        >
           Date de début
         </label>
         <div className="field-date-container">
@@ -42,8 +47,11 @@ function InputDatesPicker({
         </div>
       </div>
       {/* End Date Input */}
-      <div className="field-date">
-        <label className="field-date-label" htmlFor="date_start">
+      <div className={`field-date ${isEditPage ? 'field-date--edit' : ''}`}>
+        <label
+          className={`field-date-label ${isEditPage ? ' ' : 'visually-hidden'}`}
+          htmlFor="date_start"
+        >
           Date de fin
         </label>
         <div className="field-date-container">

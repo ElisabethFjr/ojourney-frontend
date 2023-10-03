@@ -100,8 +100,8 @@ function EditTrip() {
             {/* Localisation Input */}
             <InputFieldEdit
               name="localisation"
-              placeholder="Localisation"
-              label="Modifier la localisation"
+              placeholder="Modifier la localisation"
+              label="Localisation"
               type="text"
               icon="fa-solid fa-location-dot"
             />
@@ -111,12 +111,13 @@ function EditTrip() {
               endDate={endDate}
               onStartDateChange={handleStartDateChange}
               onEndDateChange={handleEndDateChange}
+              isEditPage
             />
             {/* Description Textarea */}
             <TextareaFieldEdit
               name="description"
-              placeholder="Description"
-              label="Modifier la description"
+              placeholder="Modifier la description"
+              label="Description"
               icon="fa-solid fa-pen-nib"
             />
             {/* Image File Selection Input */}

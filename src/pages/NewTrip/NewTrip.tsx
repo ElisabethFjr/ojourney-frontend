@@ -109,6 +109,7 @@ function NewTrip() {
               endDate={endDate}
               onStartDateChange={handleStartDateChange}
               onEndDateChange={handleEndDateChange}
+              customClass="visually-hidden"
             />
             {/* Description Textarea */}
             <TextareaField

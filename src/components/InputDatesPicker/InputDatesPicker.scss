@@ -5,6 +5,17 @@
   margin-bottom: 2rem;
   width: 100%;
 
+  &.visually-hidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+  }
+
   &-icon {
     position: absolute;
     left: 1rem;
@@ -32,25 +43,35 @@
     }
   }
 
-  &-label {
-    position: absolute;
-    left: 3.2rem;
-    top: -0.4rem;
-    color: transparent;
-    font-weight: 400;
-    pointer-events: none;
-    transform: translateY(1rem);
-    transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .field-date-input:focus ~ .field-date-label,
-  .field-date-input:not(:placeholder-shown).field-date-input:not(:focus)
+  &-input:focus ~ &-label,
+  &-input:not(:placeholder-shown).field-date-input:not(:focus)
     ~ .field-date-label {
     left: 1.8rem;
     transform: translateY(-40%) scale(0.9);
     background-color: v.$color-white;
     padding: 0 0.4em;
     color: v.$color-accent;
+  }
+
+  // Special Edit Pages
+  &--edit {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .field-date-label {
+      font-weight: 700;
+    }
+
+    .field-date-icon {
+      position: absolute;
+      left: 1rem;
+      top: 3em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: v.$color-accent;
+    }
   }
 }
 
