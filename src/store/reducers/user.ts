@@ -44,15 +44,8 @@ export const initialState: UserState = {
   },
   isConnected: false,
   errorMessage: null,
-  env: null,
+  env: 'dev',
 };
-
-// Create action update user data
-export const updateUserData = createAction<{
-  firstname?: string | null;
-  lastname?: string | null;
-  email?: string | null;
-}>('user/updateUserData');
 
 // Create Logout action
 export const logout = createAction('user/logout');
@@ -61,7 +54,7 @@ export const logout = createAction('user/logout');
 export const login = createAsyncThunk(
   'user/login',
   async (formData: FormData) => {
-    const env = null;
+    const env = 'dev';
     let axiosOptions = {};
     if (env === 'dev') {
       axiosOptions = {};
@@ -71,17 +64,15 @@ export const login = createAsyncThunk(
       };
     }
     try {
-      // Convert formData
+      // Convert formData to an JSON object
       const objData = Object.fromEntries(formData);
-      // POST user data to login endpoint
+      // Send a POST request to login user
       const { data } = await axiosInstance.post(
         '/signIn',
         objData,
         axiosOptions
       );
-      console.log('reconnu:', data);
       if (env === 'dev') {
-        console.log(data);
         localStorage.setItem('token', data.token);
         delete data.token;
       }
@@ -99,29 +90,47 @@ export const login = createAsyncThunk(
   }
 );
 
+// Create action update user data
+export const updateUserData = createAsyncThunk(
+  'user/updateUserData',
+  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+    const env = 'dev';
+    let axiosOptions = {};
+    if (env === 'dev') {
+      axiosOptions = {
+        headers: {
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      };
+    } else {
+      axiosOptions = {
+        withCredentials: true,
+      };
+    }
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    // Send a POST request to update user data
+    const { data } = await axiosInstance.patch(
+      `/users/${id}`,
+      objData,
+      axiosOptions
+    );
+    return data;
+  }
+);
+
 // Create User Reducer
 const userReducer = createReducer(initialState, (builder) => {
   builder
-    // Update user data => addCase()
-    .addCase(updateUserData, (state, action) => {
-      const { firstname, lastname, email } = action.payload;
-
-      state.data = {
-        ...state.data,
-        firstname: firstname !== undefined ? firstname : state.data.firstname,
-        lastname: lastname !== undefined ? lastname : state.data.lastname,
-        email: email !== undefined ? email : state.data.email,
-      };
-    })
-    // Login promise pending
+    // Login
     .addCase(login.pending, (state) => {
       state.errorMessage = null;
     })
-    // Login promise rejected
     .addCase(login.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
-    // Login promise success
     .addCase(login.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
@@ -138,6 +147,17 @@ const userReducer = createReducer(initialState, (builder) => {
         localStorage.removeItem('token');
       }
       // FAIRE UN APPEL VERS LE BACKEND POUR SUPPRIMER LE COOKIE
+    })
+    // Update user data
+    .addCase(updateUserData.rejected, (state, action) => {
+      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+    })
+    .addCase(updateUserData.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      state.errorMessage = null;
     });
 });
 

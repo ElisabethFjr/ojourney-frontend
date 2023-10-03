@@ -1,12 +1,14 @@
+// Imports React
 import { ChangeEvent, FormEvent, useState } from 'react';
-// Import React Router
 import { useParams, useNavigate } from 'react-router-dom';
-// Import Package react-toastify
+
+// Imports Modules
 import { toast } from 'react-toastify';
-// Import Package DOMPufiry
 import DOMPurify from 'dompurify';
+
 // Import Curstom Redux Hook
 import { useAppSelector } from '../../hooks/redux';
+
 // Import AxiosInstance
 import axiosInstance from '../../utils/axios';
 
@@ -73,31 +75,11 @@ function EditProposition() {
       .patch(`/trips/${idTrip}/links/${idLink}`, objData, axiosOptions)
       .then(() => {
         navigate(`/my-trip/${idTrip}`); // Navigate to the trip
-        toast.success('La proposition a bien été modifiée !', {
-          // Display a toast message success
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        toast.success('La proposition a bien été modifiée !');
       })
       .catch((error) => {
         console.error(error);
-        toast.error('Une erreur est survenue, veuillez réessayer plus tard.', {
-          // Display a toast message error
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
       });
   };
 

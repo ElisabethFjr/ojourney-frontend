@@ -1,16 +1,17 @@
+// Imports React
 import { useState, FormEvent, ChangeEvent } from 'react';
-// Import React Router
 import { useNavigate, useParams } from 'react-router-dom';
-// Import Package DOMPufiry
+
+// Import Modules
 import DOMPurify from 'dompurify';
-// Imports Packages react-datepicker and date-fns
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { format } from 'date-fns';
-// Import Package react-toastify
 import { toast } from 'react-toastify';
-// Import Curstom Redux Hook
+
+// Imports Redux
 import { useAppSelector } from '../../hooks/redux';
+
 // Import AxiosInstance
 import axiosInstance from '../../utils/axios';
 
@@ -110,31 +111,11 @@ function EditTrip() {
       .patch(`/trips/${id}`, objData, axiosOptions)
       .then(() => {
         navigate(`/my-trip/${id}`); // Navigate to the trip
-        toast.success('Le voyage a bien été modifié !', {
-          // Display a toast message success
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        toast.success('Le voyage a bien été modifié !');
       })
       .catch((error) => {
         console.error(error);
-        toast.error('Une erreur est survenue, veuillez réessayer plus tard.', {
-          // Display a toast message error
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
       });
   };
 
