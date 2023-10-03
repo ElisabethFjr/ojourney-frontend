@@ -82,8 +82,7 @@ function NewTrip() {
     // Send a POST request to create a new trip
     await axiosInstance
       .post('/trips', objData, axiosOptions)
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
         navigate(`/my-trips`);
       })
       .catch((error) => {

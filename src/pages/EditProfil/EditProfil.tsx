@@ -8,12 +8,14 @@ import axiosInstance from '../../utils/axios';
 import Main from '../../layout/Main/Main';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
+
 import './EditProfil.scss';
 
 function EditProfil() {
-  // Initialize Hooks
+ // Initialize Hooks
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   // Get user data and environment from Redux store
   const userData = useAppSelector((state) => state.user.data);
   const env = useAppSelector((state) => state.user.env);
@@ -65,16 +67,14 @@ function EditProfil() {
         "Une erreur est survenue lors de l'édition de la proposition.",
         error
       );
-      // Handle the error, e.g., display an error message to the user
     }
   };
-  // Return your component's JSX her
+
   return (
     <Main>
       <h1 className="main-title">Modifier votre information</h1>
       <div className="edit-profil-container">
         <form className="edit-profil-form" onSubmit={handleSubmit}>
-          {/* Edit profile form fields go here */}
           <InputField
             name="lastname"
             placeholder={`${userData.lastname}`}
