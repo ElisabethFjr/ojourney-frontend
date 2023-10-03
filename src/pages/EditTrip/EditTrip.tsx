@@ -8,8 +8,8 @@ import Main from '../../layout/Main/Main';
 import FormContainer from '../../components/FormContainer/FormContainer';
 import InputFieldEdit from '../../components/InputFieldEdit/InputFieldEdit';
 import TextareaFieldEdit from '../../components/TextareaFieldEdit/TextareaFieldEdit';
+import InputDatesPickerEdit from '../../components/InputDatesPickerEdit/InputDatesPickerEdit';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
-import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker';
 import Button from '../../components/Button/Button';
 
 import './EditTrip.scss';
@@ -106,12 +106,11 @@ function EditTrip() {
               icon="fa-solid fa-location-dot"
             />
             {/* Dates Picker Inputs (Start - End) */}
-            <InputDatesPicker
+            <InputDatesPickerEdit
               startDate={startDate}
               endDate={endDate}
               onStartDateChange={handleStartDateChange}
               onEndDateChange={handleEndDateChange}
-              isEditPage
             />
             {/* Description Textarea */}
             <TextareaFieldEdit

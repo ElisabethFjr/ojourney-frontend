@@ -1,16 +1,16 @@
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 
-import './InputDatesPicker.scss';
+import './InputDatesPickerEdit.scss';
 
-interface InputDatesPickerProps {
+export interface InputDatesPickerProps {
   startDate: Date | null;
   endDate: Date | null;
   onStartDateChange: (date: Date) => void;
   onEndDateChange: (date: Date) => void;
 }
 
-function InputDatesPicker({
+function InputDatesPickerEdit({
   startDate,
   endDate,
   onStartDateChange,
@@ -21,12 +21,12 @@ function InputDatesPicker({
   return (
     <>
       {/* Start Date Input */}
-      <div className="field-date">
-        <label className="field-date-label" htmlFor="date_start">
+      <div className="field-date-edit">
+        <label className="field-date-edit-label" htmlFor="date_start">
           Date de début
         </label>
         <div className="field-date-container">
-          <i className="field-date-icon fa-solid fa-calendar" />
+          <i className="field-date-edit-icon fa-solid fa-calendar" />
           <DatePicker
             className="field-date-input"
             selected={startDate}
@@ -42,12 +42,12 @@ function InputDatesPicker({
         </div>
       </div>
       {/* End Date Input */}
-      <div className="field-date">
-        <label className="field-date-label" htmlFor="date_start">
+      <div className="field-date-edit">
+        <label className="field-date-edit-label" htmlFor="date_start">
           Date de fin
         </label>
         <div className="field-date-container">
-          <i className="field-date-icon fa-solid fa-calendar" />
+          <i className="field-date-edit-icon fa-solid fa-calendar" />
           <DatePicker
             className="field-date-input"
             selected={endDate}
@@ -67,4 +67,4 @@ function InputDatesPicker({
   );
 }
 
-export default InputDatesPicker;
+export default InputDatesPickerEdit;
