@@ -44,10 +44,16 @@ function EditProfil() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    // Dispatch the updated user data to Redux store
-    dispatch(updateUserData({ formData, id: userData.id }));
-    navigate('/profil');
-    toast.success('Les informations ont bien été mises à jour !');
+    // Dispatch the updated user data to Redux store if success or send a toast error
+    try {
+      await dispatch(updateUserData({ formData, id: userData.id }));
+      navigate('/profil');
+      toast.success('Les informations ont bien été mises à jour !');
+    } catch (error) {
+      toast.error(
+        'Échec de la mise à jour des informations, veuillez réessayer plus tard.'
+      );
+    }
   };
 
   return (
