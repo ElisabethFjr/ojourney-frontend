@@ -1,6 +1,9 @@
+// Import necessary modules and components
 import { FormEvent } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { updateUserData } from '../../store/reducers/user';
+
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
@@ -9,9 +12,14 @@ import Button from '../../components/Button/Button';
 import './EditProfil.scss';
 
 function EditProposition() {
-  const { idUser } = useParams();
+  // Initialize Hooks
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  // Get user data and environment from Redux store
+  const userData = useAppSelector((state) => state.user.data);
   const env = useAppSelector((state) => state.user.env);
+
+  // Configure axiosOptions based on the environment
   let axiosOptions = {};
   if (env === 'dev') {
     axiosOptions = {
@@ -26,16 +34,24 @@ function EditProposition() {
       withCredentials: true,
     };
   }
+  // Handle form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    const formSent = Object.fromEntries(formData);
-
+    // Create an object with updated user data from form inputs
+    const updatedUserData = {
+      firstname: formData.get('firstname') as string | null,
+      lastname: formData.get('lastname') as string | null,
+      email: formData.get('email') as string | null,
+    };
+    // Send a patch request to update user data
     await axiosInstance
-      .patch(`/users/${idUser}`, formSent, axiosOptions)
+      .patch(`/users/${userData.id}`, updatedUserData, axiosOptions)
       .then(() => {
+        // Dispatch the updated user data to Redux store
+        dispatch(updateUserData(updatedUserData));
         navigate(`/profil`);
       })
       .catch((error) => {
@@ -57,7 +73,6 @@ function EditProposition() {
               placeholder="Nom"
               type="text"
               icon="fa-solid fa-user"
-              required
             />
             <Button
               text="Modifier le nom"
@@ -71,7 +86,6 @@ function EditProposition() {
               placeholder="Prénom"
               type="text"
               icon="fa-solid fa-user"
-              required
             />
             <Button
               text="Modifier prénom"
@@ -85,7 +99,6 @@ function EditProposition() {
               placeholder="Email"
               type="email"
               icon="fa-solid fa-at"
-              required
             />
             <Button
               text="Modifier email"
