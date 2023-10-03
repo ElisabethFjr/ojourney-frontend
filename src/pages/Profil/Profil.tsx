@@ -15,44 +15,6 @@ import './Profil.scss';
 function Profil() {
   const data = useAppSelector((state) => state.user.data);
 
-  // const handleClickOnGetData = (event: FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   console.log(data);
-  // };
-
-  // // Envoyer nouveau consents au backend /!\
-  // const handleClickChangeConsents = async (
-  //   event: FormEvent<HTMLFormElement>
-  // ) => {
-  //   event.preventDefault();
-  //   const formData = new FormData(form);
-  //   const formSent = Object.fromEntries(formData);
-  //   try {
-  //     const response = await axiosInstance.patch(`/users/${data.id}`, formSent);
-  //     console.log(response.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // // Envoyer le password au backend /!\
-  // const handleClickDeleteAccount = async (
-  //   event: FormEvent<HTMLFormElement>
-  // ) => {
-  //   event.preventDefault();
-  //   const formData = new FormData(form);
-  //   const formSent = Object.fromEntries(formData);
-  //   try {
-  //     const response = await axiosInstance.delete(
-  //       `/users/${data.id}`,
-  //       formSent
-  //     );
-  //     console.log(response.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   return (
     <Main>
       <h1 className="main-title">Profil</h1>
@@ -71,7 +33,7 @@ function Profil() {
 
         {/* <p>Projet voyage(s) en cours : {data.trips.length}</p> */}
         <div className="profil-card-btn-container">
-          <Link to="/edit-profil">
+          <Link to="/edit-profil/">
             <Button
               text="Modifier les informations"
               customClass="color"
@@ -164,3 +126,41 @@ function Profil() {
 }
 
 export default Profil;
+
+// const handleClickOnGetData = (event: FormEvent<HTMLFormElement>) => {
+//   event.preventDefault();
+//   console.log(data);
+// };
+
+// // Envoyer nouveau consents au backend /!\
+// const handleClickChangeConsents = async (
+//   event: FormEvent<HTMLFormElement>
+// ) => {
+//   event.preventDefault();
+//   const formData = new FormData(form);
+//   const formSent = Object.fromEntries(formData);
+//   try {
+//     const response = await axiosInstance.patch(`/users/${data.id}`, formSent);
+//     console.log(response.data);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// // Envoyer le password au backend /!\
+// const handleClickDeleteAccount = async (
+//   event: FormEvent<HTMLFormElement>
+// ) => {
+//   event.preventDefault();
+//   const formData = new FormData(form);
+//   const formSent = Object.fromEntries(formData);
+//   try {
+//     const response = await axiosInstance.delete(
+//       `/users/${data.id}`,
+//       formSent
+//     );
+//     console.log(response.data);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };

@@ -11,7 +11,10 @@ import Button from '../../components/Button/Button';
 
 function EditProposition() {
   const { idLink } = useParams();
+  console.log('idLink:', idLink);
   const { idTrip } = useParams();
+  console.log('idTrip:', idTrip);
+
   const navigate = useNavigate();
   const env = useAppSelector((state) => state.user.env);
   let axiosOptions = {};
