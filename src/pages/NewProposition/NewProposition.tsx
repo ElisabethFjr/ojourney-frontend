@@ -1,8 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { FormEvent } from 'react';
 import { useAppSelector } from '../../hooks/redux';
-import Main from '../../layout/Main/Main';
 import axiosInstance from '../../utils/axios';
+
+import Main from '../../layout/Main/Main';
+
 import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
@@ -11,31 +13,41 @@ import TextareaField from '../../components/TextareaField/TextareaField';
 import './NewProposition.scss';
 
 function NewProposition() {
+  // Initialize Hooks
   const navigate = useNavigate();
+
+  // Get the trip id from url
   const { id } = useParams();
+
+  // Fetch states from Redux store
   const env = useAppSelector((state) => state.user.env);
-  let axiosOptions = {};
-  if (env === 'dev') {
-    axiosOptions = {
-      headers: {
-        Authorization: `Bearer ${
-          localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-        }`,
-      },
-    };
-  } else {
-    axiosOptions = {
-      withCredentials: true,
-    };
-  }
+
+  // Event handler for the newProposition form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Send newTrip form data (JSON) to the server with Axios
+    // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
 
+    // Axios options: If in development mode (using token) or production mode (using cookies)
+    let axiosOptions = {};
+    if (env === 'dev') {
+      axiosOptions = {
+        headers: {
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      };
+    } else {
+      axiosOptions = {
+        withCredentials: true,
+      };
+    }
+
+    // Send a POST request to create a new proposition
     await axiosInstance
       .post(`/trips/${id}/links`, objData, axiosOptions)
       .then(() => {

@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
@@ -44,12 +45,12 @@ function EditTrip() {
     setEndDate(date);
   };
 
-  // Event handler for the newTrip form submission
+  // Event handler for the selected file image
   const handleFile = (file: File) => {
     console.log('Fichier sélectionné :', file);
   };
 
-  // Event handler on the EditTrip submit form
+  // Event handler for the newTrip form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -61,7 +62,6 @@ function EditTrip() {
 
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
-    console.log(objData);
 
     // Axios options: If in development mode (using token) or production mode (using cookies)
     let axiosOptions = {};
@@ -85,26 +85,44 @@ function EditTrip() {
 
     // Send a PATCH request to update the trip data
     await axiosInstance
-      .patch(`/trips/${Number(id)}`, objData, axiosOptions)
-      .then((response) => {
-        console.log(response.data);
-        navigate(`/my-trip/${Number(id)}`);
+      .patch(`/trips/${id}`, objData, axiosOptions)
+      .then(() => {
+        navigate(`/my-trip/${id}`); // Navigate to the trip
+        toast.success('Le voyage a bien été modifié !', {
+          // Display a toast message success
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
       })
       .catch((error) => {
-        console.error(
-          "Une erreur est survenue lors de l'édition du voyage.",
-          error
-        );
+        console.error(error);
+        toast.error('Une erreur est survenue, veuillez réessayer plus tard.', {
+          // Display a toast message error
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
       });
   };
 
   return (
     <Main>
-      <h1 className="main-title">Edition d&apos;un nouveau voyage</h1>
+      <h1 className="main-title">Modifier un voyage</h1>
       <section className="edit-trip-container">
         <FormContainer>
           <form onSubmit={handleSubmit}>
-            <h2 className="edit-trip-form-title">Editer votre voyage</h2>
+            <h2 className="edit-trip-form-title">Mon Voyage</h2>
             {/* Localisation Input */}
             <InputFieldEdit
               name="localisation"
