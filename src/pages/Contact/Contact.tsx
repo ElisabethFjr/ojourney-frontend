@@ -33,7 +33,6 @@ function Contact() {
 <TextareaField
               name="message"
               placeholder="Votre message"
-              type="text"
               icon="fa-solid fa-pen-nib"
               maxlength={200}
            />
