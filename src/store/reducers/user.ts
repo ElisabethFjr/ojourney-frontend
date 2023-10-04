@@ -44,8 +44,12 @@ export const initialState: UserState = {
   },
   isConnected: false,
   errorMessage: null,
-  env: 'dev',
+  env: null,
 };
+
+// Variables axiosOptions (dev/prod => token/cookies)
+const env = null;
+let axiosOptions = {};
 
 // Create Logout action
 export const logout = createAction('user/logout');
@@ -54,8 +58,6 @@ export const logout = createAction('user/logout');
 export const login = createAsyncThunk(
   'user/login',
   async (formData: FormData) => {
-    const env = 'dev';
-    let axiosOptions = {};
     if (env === 'dev') {
       axiosOptions = {};
     } else {
@@ -94,8 +96,6 @@ export const login = createAsyncThunk(
 export const updateUserData = createAsyncThunk(
   'user/updateUserData',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
-    const env = 'dev';
-    let axiosOptions = {};
     if (env === 'dev') {
       axiosOptions = {
         headers: {
