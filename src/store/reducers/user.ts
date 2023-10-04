@@ -11,7 +11,7 @@ import {
 import axiosInstance from '../../utils/axios';
 
 // Import types
-import { Trip } from '../../@types';
+import { Proposition, Trip } from '../../@types';
 
 // Type user states
 interface UserState {
@@ -22,12 +22,13 @@ interface UserState {
     email: string | null;
     password: string | null;
     trips: Trip[] | null;
+    links: Proposition[] | null;
     consent_newsletter: boolean | false;
     consent_commercial: boolean | false;
   };
   isConnected: boolean;
+  checkedPassword: boolean;
   toastSuccess: boolean;
-  checkedPassword: boolean,
   errorMessage: string | null;
   env: string | null;
 }
@@ -41,12 +42,14 @@ export const initialState: UserState = {
     email: null,
     password: null,
     trips: null,
+    links: null,
     consent_commercial: false,
     consent_newsletter: false,
   },
   isConnected: false,
   toastSuccess: false,
   checkedPassword: false,
+  toastSuccess: false,
   errorMessage: null,
   env: null,
 };
@@ -67,9 +70,6 @@ if (env === 'dev') {
     withCredentials: true,
   };
 }
-
-// Create Logout action
-export const logout = createAction('user/logout');
 
 // Create async Login action
 export const login = createAsyncThunk(
@@ -102,18 +102,34 @@ export const login = createAsyncThunk(
   }
 );
 
+// Create Logout action
+export const logout = createAction('user/logout');
+
+// Create Logout action
+// export const logout = createAsyncThunk('user/logout', async () => {
+//   await axiosInstance.get('/logout');
+// });
 
 // Create action to ckeck user password
 export const checkUserPassword = createAsyncThunk(
   'user/checkUserPassword',
   async ({ passwordData, id }: { passwordData: string; id: number | null }) => {
-
     // Send a DELETE request to delete user account
-    const {data } = await axiosInstance.post(`/users/${id}`,
-    passwordData,
-    axiosOptions
+    const { data } = await axiosInstance.post(
+      `/users/${id}`,
+      passwordData,
+      axiosOptions
     );
     return data;
+  }
+);
+
+// Create action delete user account
+export const deleteUserAccount = createAsyncThunk(
+  'user/deleteAccount',
+  async ({ id }: { id: number | null }) => {
+    // Send a DELETE request to delete user account
+    await axiosInstance.delete(`/users/${id}`, axiosOptions);
   }
 );
 
@@ -160,18 +176,6 @@ export const updatePassword = createAsyncThunk(
   }
 );
 
-// Create action delete user account 
-export const deleteUserAccount = createAsyncThunk(
-  'user/deleteAccount',
-  async ({ id }: { id: number | null }) => {
-   
-    // Send a DELETE request to delete user account
-    await axiosInstance.delete(`/users/${id}`,
-     axiosOptions
-    );
-  }
-);
-
 // Create User Reducer
 const userReducer = createReducer(initialState, (builder) => {
   builder
@@ -199,19 +203,19 @@ const userReducer = createReducer(initialState, (builder) => {
       }
       // FAIRE UN APPEL VERS LE BACKEND POUR SUPPRIMER LE COOKIE
     })
-
     // Check User Password
     .addCase(checkUserPassword.fulfilled, (state) => {
       state.checkedPassword = true;
     })
     .addCase(checkUserPassword.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
-      state.checkedPassword = false; 
+      state.checkedPassword = false;
     })
     // Delete User Account
     .addCase(deleteUserAccount.fulfilled, (state) => {
       state.data = initialState.data; // Reset user data to initial state
-      state.isConnected = false; 
+      state.toastSuccess = true;
+      state.isConnected = false;
       state.errorMessage = null;
     })
     .addCase(deleteUserAccount.rejected, (state, action) => {
@@ -226,6 +230,7 @@ const userReducer = createReducer(initialState, (builder) => {
         ...state.data,
         ...action.payload,
       };
+      state.toastSuccess = true;
       state.errorMessage = null;
     })
     // Update Password
