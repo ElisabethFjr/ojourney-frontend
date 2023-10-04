@@ -1,6 +1,7 @@
 @use '../../styles/variables' as v;
 
-.modal-container {
+.modal {
+  &-container {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -16,7 +17,7 @@
     color: v.$color-text;
   }
 
-  .modal-background {
+  &-background {
     position: fixed;
     top: 0;
     left: 0;
@@ -29,16 +30,23 @@
     z-index: 1000;
   }
 
-.modal-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0,5rem;
-  position: absolute;
-  margin: 1rem;
-  top: 0;
-  right: 0;
-  border:none;
-  background: none;
+  &-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    
 
+    &-icon {
+      font-size: 1.5rem;
+      color: v.$color-grey-darkest;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: v.$color-text;
+      }
+    }
+  }
 }

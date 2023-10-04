@@ -91,7 +91,7 @@ function Profil() {
           </Link>
         </div>
       </section>
-      {/* Installer react-pdf */}
+
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Mot de passe</h2>
         <p>
@@ -167,10 +167,10 @@ function Profil() {
             customClass="danger"
             type="button"
             onClick={handleClickDeleteAccount}
-/>
-{showModalConfirmPassword && <ModaleConfirmPassword />}
+          />
         </div>
       </section>
+      {showModalConfirmPassword && <ModaleConfirmPassword />}
     </Main>
   );
 }
