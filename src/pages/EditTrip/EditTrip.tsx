@@ -84,7 +84,6 @@ function EditTrip() {
     formData.append('date_end', changeDateFormat(endDate));
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
-    console.log(objData);
 
     // Axios options: If in development mode (using token) or production mode (using cookies)
     let axiosOptions = {};
