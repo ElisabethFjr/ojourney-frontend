@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Slide } from 'react-toastify';
 
 import Loading from './Loading/Loading';
 
@@ -147,15 +147,16 @@ function App() {
       </Routes>
       <Footer />
       <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
         newestOnTop={false}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        transition={Slide}
         theme="light"
       />
     </div>

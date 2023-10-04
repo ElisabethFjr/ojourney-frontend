@@ -1,49 +1,59 @@
-import { FormEvent } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
-import axiosInstance from '../../utils/axios';
+// Imports React
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+// Imports modules
+import DOMPurify from 'dompurify';
+import { toast } from 'react-toastify';
+
+// Imports Redux
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { updateUserData } from '../../store/reducers/user';
+
+// Imports Components
 import Main from '../../layout/Main/Main';
-import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
+
 import './EditProfil.scss';
 
-function EditProposition() {
-  const { idUser } = useParams();
+function EditProfil() {
+  // Initialize Hooks
   const navigate = useNavigate();
-  const env = useAppSelector((state) => state.user.env);
-  let axiosOptions = {};
-  if (env === 'dev') {
-    axiosOptions = {
-      headers: {
-        Authorization: `Bearer ${
-          localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-        }`,
-      },
-    };
-  } else {
-    axiosOptions = {
-      withCredentials: true,
-    };
-  }
+  const dispatch = useAppDispatch();
+
+  // Get user data and environment from Redux store
+  const userData = useAppSelector((state) => state.user.data);
+
+  // States variables declaration
+  const [lastname, setLastname] = useState(userData.lastname || '');
+  const [firstname, setFirstname] = useState(userData.firstname || '');
+  const [email, setEmail] = useState(userData.email || '');
+
+  // Event handler input and textarea changes
+  const handleInputChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    setValue: (value: string) => void
+  ) => {
+    const { value } = event.target;
+    const sanitizedValue = DOMPurify.sanitize(value);
+    setValue(sanitizedValue);
+  };
+
+  // Handle form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-
-    const formSent = Object.fromEntries(formData);
-
-    await axiosInstance
-      .patch(`/users/${idUser}`, formSent, axiosOptions)
-      .then(() => {
-        navigate(`/profil`);
-      })
-      .catch((error) => {
-        console.error(
-          "Une erreur est survenue lors de l'édition de la proposition.",
-          error
-        );
-      });
+    // Dispatch the updated user data to Redux store if success or send a toast error
+    try {
+      await dispatch(updateUserData({ formData, id: userData.id }));
+      navigate('/profil');
+      toast.success('Les informations ont bien été mises à jour !');
+    } catch (error) {
+      toast.error(
+        'Échec de la mise à jour des informations, veuillez réessayer plus tard.'
+      );
+    }
   };
 
   return (
@@ -51,52 +61,77 @@ function EditProposition() {
       <h1 className="main-title">Modifier votre information</h1>
       <div className="edit-profil-container">
         <form className="edit-profil-form" onSubmit={handleSubmit}>
-          <div className="edit-profil-item">
-            <InputField
+          {/* Lastname Input */}
+          <div className="field-edit">
+            <label className="field-edit-label" htmlFor="lastname">
+              Nom
+            </label>
+            <input
+              className="field-edit-input"
+              value={lastname}
+              onChange={(event) => handleInputChange(event, setLastname)}
               name="lastname"
-              placeholder="Nom"
+              placeholder="Modifier le Nom"
+              autoComplete="autocomplete"
+              id="lastname"
               type="text"
-              icon="fa-solid fa-user"
-              required
+              maxLength={100}
             />
-            <Button
-              text="Modifier le nom"
-              customClass="color button-style--width button-style--height"
-              type="submit"
-            />
+            <div className="field-edit-icon">
+              <i className="fa-solid fa-user" />
+            </div>
           </div>
-          <div className="edit-profil-item">
-            <InputField
+
+          {/* Firstname Input */}
+          <div className="field-edit">
+            <label className="field-edit-label" htmlFor="firstname">
+              Prénom
+            </label>
+            <input
+              className="field-edit-input"
+              value={firstname}
+              onChange={(event) => handleInputChange(event, setFirstname)}
               name="firstname"
-              placeholder="Prénom"
+              placeholder="Modifier le Prénom"
+              autoComplete="autocomplete"
+              id="firstname"
               type="text"
-              icon="fa-solid fa-user"
-              required
+              maxLength={100}
             />
-            <Button
-              text="Modifier prénom"
-              customClass="color button-style--width button-style--height"
-              type="submit"
-            />
+            <div className="field-edit-icon">
+              <i className="fa-solid fa-user" />
+            </div>
           </div>
-          <div className="edit-profil-item">
-            <InputField
+
+          {/* Email Input */}
+          <div className="field-edit">
+            <label className="field-edit-label" htmlFor="email">
+              Email
+            </label>
+            <input
+              className="field-edit-input"
+              value={email}
+              onChange={(event) => handleInputChange(event, setEmail)}
               name="email"
-              placeholder="Email"
-              type="email"
-              icon="fa-solid fa-at"
-              required
+              placeholder="Modifier l'Email"
+              autoComplete="autocomplete"
+              id="email"
+              type="text"
+              maxLength={100}
             />
-            <Button
-              text="Modifier email"
-              customClass="color button-style--width button-style--height"
-              type="submit"
-            />
+            <div className="field-edit-icon">
+              <i className="fa-solid fa-at" />
+            </div>
           </div>
+          <Button
+            text="Modifier"
+            customClass="color button-style--width"
+            type="submit"
+          />
         </form>
       </div>
     </Main>
   );
 }
 
-export default EditProposition;
+export default EditProfil;

@@ -1,13 +1,18 @@
 import './ButtonIcon.scss';
 
-interface ButtonIconProps {
+export interface ButtonIconProps {
   icon: string;
   handleClick: () => void;
+  customClass?: string;
 }
 
-function ButtonIcon({ icon, handleClick }: ButtonIconProps) {
+function ButtonIcon({ icon, handleClick, customClass }: ButtonIconProps) {
   return (
-    <button className="button-icon" type="button" onClick={handleClick}>
+    <button
+      className={`button-icon button-icon--${customClass || ''}`}
+      type="button"
+      onClick={handleClick}
+    >
       <i className={`button-icon--i ${icon}`} />
     </button>
   );

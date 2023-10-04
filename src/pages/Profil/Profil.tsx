@@ -19,6 +19,7 @@ import './Profil.scss';
 function Profil() {
   const data = useAppSelector((state) => state.user.data);
 
+
   const [showModalConfirmPassword, setShowModalConfirmPassword] =
   useState<boolean>(false);
 
@@ -82,7 +83,7 @@ function Profil() {
 
         {/* <p>Projet voyage(s) en cours : {data.trips.length}</p> */}
         <div className="profil-card-btn-container">
-          <Link to="/edit-profil">
+          <Link to="/edit-profil/">
             <Button
               text="Modifier les informations"
               customClass="color"

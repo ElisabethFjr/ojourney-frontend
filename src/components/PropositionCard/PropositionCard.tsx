@@ -61,7 +61,7 @@ function PropositionCard({
         <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
         <ButtonIcon icon="fa-solid fa-trash" handleClick={handleClickDelete} />
       </div>
-      <Link to={url} className="proposition-card">
+      <Link to={url} target="_blank" className="proposition-card">
         <img className="proposition-card-image" src={srcImage} alt={altImage} />
         <div className="proposition-card-infos">
           <div className="proposition-card-header">

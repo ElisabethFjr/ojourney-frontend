@@ -66,7 +66,6 @@ if (env === 'dev') {
   };
 }
 
-
 // Create Logout action
 export const logout = createAction('user/logout');
 
@@ -75,16 +74,15 @@ export const login = createAsyncThunk(
   'user/login',
   async (formData: FormData) => {
     try {
-      // Convert formData
+      // Convert formData to an JSON object
       const objData = Object.fromEntries(formData);
-      // POST user data to login endpoint
+      // Send a POST request to login user
       const { data } = await axiosInstance.post(
         '/signIn',
         objData,
         axiosOptions
       );
       if (env === 'dev') {
-        console.log(data);
         localStorage.setItem('token', data.token);
         delete data.token;
       }
@@ -102,15 +100,32 @@ export const login = createAsyncThunk(
   }
 );
 
+
 // Create action to ckeck user password
 export const checkUserPassword = createAsyncThunk(
   'user/deleteAccount',
   async ({ passwordData, id }: { passwordData: string; id: number | null }) => {
-   
+
     // Send a DELETE request to delete user account
-    const {data } = await axiosInstance.post(`/users/${id}`,
+    const {data } = await axiosInstance.post(/users/${id},
     passwordData,
     axiosOptions
+    );
+    return data;
+  }
+);
+
+// Create action update user data
+export const updateUserData = createAsyncThunk(
+  'user/updateUserData',
+  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    // Send a POST request to update user data
+    const { data } = await axiosInstance.patch(
+      `/users/${id}`,
+      objData,
+      axiosOptions
     );
     return data;
   }
@@ -131,15 +146,13 @@ export const deleteUserAccount = createAsyncThunk(
 // Create User Reducer
 const userReducer = createReducer(initialState, (builder) => {
   builder
-    // Login promise pending
+    // Login
     .addCase(login.pending, (state) => {
       state.errorMessage = null;
     })
-    // Login promise rejected
     .addCase(login.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
-    // Login promise success
     .addCase(login.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
@@ -157,6 +170,7 @@ const userReducer = createReducer(initialState, (builder) => {
       }
       // FAIRE UN APPEL VERS LE BACKEND POUR SUPPRIMER LE COOKIE
     })
+
     // Check User Password
     .addCase(checkUserPassword.fulfilled, (state) => {
       state.checkedPassword = true;
@@ -173,6 +187,18 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(deleteUserAccount.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+
+    // Update user data
+    .addCase(updateUserData.rejected, (state, action) => {
+      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+    })
+    .addCase(updateUserData.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      state.errorMessage = null;
+
     });
 });
 
