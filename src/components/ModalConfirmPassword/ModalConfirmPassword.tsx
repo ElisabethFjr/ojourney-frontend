@@ -1,6 +1,8 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { checkUserPassword, deleteUserAccount } from '../../store/reducers/user';
 import axiosInstance from '../../utils/axios';
 
 import Button from '../Button/Button';
@@ -21,6 +23,7 @@ function ModaleConfirmPassword() {
   // Fetch states from Redux store
   const env = useAppSelector((state) => state.user.env);
   const userData = useAppSelector((state) => state.user.data);
+  const checkedPassword = useAppSelector((state) => state.user.checkedPassword);
 
   // Event handler on the close modal button
   const handleClose = () => {
@@ -32,12 +35,28 @@ function ModaleConfirmPassword() {
   // Event handler for the Confirm Password form submission
   const handleSubmit = async (event:FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.currentTarget;
+    const form  = event.currentTarget;
     const formData = new FormData(form);
-
-    // Dispatch the  user action to Redux store
-    // navigate('/', { replace: true });
-    // toast.succes("Votre compte a été supprimé avec succès !");
+    const passwordData = formData.get('password') as string;
+  
+    try {
+      // Check the user's password by dispatch redux action
+      const checkPasswordResponse = await dispatch(
+        checkUserPassword({ passwordData, id: userData.id })
+      );
+      // If checkedPassword is true (promise checkUserPassword fulfilled), delete the account by dispatch redux action
+      if (checkedPassword) {
+        await dispatch(deleteUserAccount({ id: userData.id }));
+        navigate('/', { replace: true });
+        toast.success('Le compte a bien été supprimé !');
+      } else {
+        toast.error('Mot de passe incorrect. Veuillez réessayer.');
+      }
+    } catch (error) {
+      toast.error(
+        'Échec lors de la suppression du compte, veuillez réessayer plus tard.'
+      );
+    }
   }
 
   return (
