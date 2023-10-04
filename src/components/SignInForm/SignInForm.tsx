@@ -61,14 +61,16 @@ function SignInForm() {
           customClass="color button-style--width"
           type="submit"
         />
+        <div className="button-forgot-password">
                       <Link to={`/forgot-password`}>
                 <Button
                   text="Mot de passe oublié ?"
                   icon="fa-solid fa-pen"
                   type="button"
-                  customClass="outline-dark"
+                  customClass="height"
                 />
               </Link>
+              </div>
       </form>
     </div>
   );

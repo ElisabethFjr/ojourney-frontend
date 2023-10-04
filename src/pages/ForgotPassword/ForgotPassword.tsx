@@ -1,4 +1,5 @@
 import InputField from '../../components/InputField/InputField';
+import Button from '../../components/Button/Button';
 
 import './ForgotPassword.scss';
 
@@ -18,8 +19,13 @@ function ForgotPassword () {
               type="email"
               icon="fa-solid fa-at"
             />
+          <Button
+            text="Confirmer"
+            type="submit"
+            customClass="color button-style--width"
+          />
+          
   </form>
-
   </section>
   )
 
