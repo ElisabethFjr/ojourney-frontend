@@ -1,10 +1,14 @@
+// Import hooks from React.
 import { ChangeEvent, FormEvent, useState } from 'react';
+// Import navigation.
 import { useNavigate } from 'react-router-dom';
 
 import DOMPurify from 'dompurify';
 import { toast } from 'react-toastify';
 
+// Import custom Redux hooks.
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+// Import action.
 import { updatePassword } from '../../store/reducers/user';
 
 import Main from '../../layout/Main/Main';
@@ -14,17 +18,22 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './EditPassword.scss';
 
 function EditPassword() {
+  // Initialize the navigation hook.
   const navigate = useNavigate();
+  // Initialize the dispatch function for Redux actions.
   const dispatch = useAppDispatch();
 
+  // Get user data from the Redux store.
   const userData = useAppSelector((state) => state.user.data);
+  // Get a flag indicating the success
   const toastSuccess = useAppSelector((state) => state.user.toastSuccess);
 
   // Declaration state variables
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State to display an error message
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Function to handle input changes with sanitization.
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement>,
     setValue: (value: string) => void
@@ -34,6 +43,7 @@ function EditPassword() {
     setValue(sanitizedValue);
   };
 
+  // Function to handle form submission.
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -43,7 +53,7 @@ function EditPassword() {
     const newPassword = formData.get('password') as string;
     const confirmPassword = formData.get('confirmation') as string;
 
-    // Check match password and confirmation, if not, display an error message// Check match password and confirmation, if not, display an error message
+    // Check if the password and confirmation match
     if (newPassword !== confirmPassword) {
       setErrorMessage("La confirmation de mot de passe n'est pas valide.");
       return;
