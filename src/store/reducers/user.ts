@@ -49,7 +49,6 @@ export const initialState: UserState = {
   isConnected: false,
   toastSuccess: false,
   checkedPassword: false,
-  toastSuccess: false,
   errorMessage: null,
   env: null,
 };
