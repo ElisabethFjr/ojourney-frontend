@@ -26,6 +26,7 @@ interface UserState {
     consent_commercial: boolean | false;
   };
   isConnected: boolean;
+  checkedPassword: boolean,
   errorMessage: string | null;
   env: string | null;
 }
@@ -43,13 +44,27 @@ export const initialState: UserState = {
     consent_newsletter: false,
   },
   isConnected: false,
+  checkedPassword: false,
   errorMessage: null,
-  env: null,
+  env: 'dev',
 };
 
 // Variables axiosOptions (dev/prod => token/cookies)
-const env = null;
+const env = 'dev';
 let axiosOptions = {};
+if (env === 'dev') {
+  axiosOptions = {
+    headers: {
+      Authorization: `Bearer ${
+        localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+      }`,
+    },
+  };
+} else {
+  axiosOptions = {
+    withCredentials: true,
+  };
+}
 
 // Create Logout action
 export const logout = createAction('user/logout');
@@ -58,13 +73,6 @@ export const logout = createAction('user/logout');
 export const login = createAsyncThunk(
   'user/login',
   async (formData: FormData) => {
-    if (env === 'dev') {
-      axiosOptions = {};
-    } else {
-      axiosOptions = {
-        withCredentials: true,
-      };
-    }
     try {
       // Convert formData to an JSON object
       const objData = Object.fromEntries(formData);
@@ -92,23 +100,25 @@ export const login = createAsyncThunk(
   }
 );
 
+
+// Create action to ckeck user password
+export const checkUserPassword = createAsyncThunk(
+  'user/deleteAccount',
+  async ({ passwordData, id }: { passwordData: string; id: number | null }) => {
+
+    // Send a DELETE request to delete user account
+    const {data } = await axiosInstance.post(/users/${id},
+    passwordData,
+    axiosOptions
+    );
+    return data;
+  }
+);
+
 // Create action update user data
 export const updateUserData = createAsyncThunk(
   'user/updateUserData',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        withCredentials: true,
-      };
-    }
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a POST request to update user data
@@ -118,6 +128,18 @@ export const updateUserData = createAsyncThunk(
       axiosOptions
     );
     return data;
+  }
+);
+
+// Create action delete user account 
+export const deleteUserAccount = createAsyncThunk(
+  'user/deleteAccount',
+  async ({ id }: { id: number | null }) => {
+   
+    // Send a DELETE request to delete user account
+    await axiosInstance.delete(`/users/${id}`,
+     axiosOptions
+    );
   }
 );
 
@@ -148,6 +170,24 @@ const userReducer = createReducer(initialState, (builder) => {
       }
       // FAIRE UN APPEL VERS LE BACKEND POUR SUPPRIMER LE COOKIE
     })
+
+    // Check User Password
+    .addCase(checkUserPassword.fulfilled, (state) => {
+      state.checkedPassword = true;
+    })
+    .addCase(checkUserPassword.rejected, (state, action) => {
+      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+      state.checkedPassword = false; 
+    })
+    // Delete User Account
+    .addCase(deleteUserAccount.fulfilled, (state) => {
+      state.data = initialState.data; // Reset user data to initial state
+      state.isConnected = false; 
+      state.errorMessage = null;
+    })
+    .addCase(deleteUserAccount.rejected, (state, action) => {
+      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+
     // Update user data
     .addCase(updateUserData.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
@@ -158,6 +198,7 @@ const userReducer = createReducer(initialState, (builder) => {
         ...action.payload,
       };
       state.errorMessage = null;
+
     });
 });
 

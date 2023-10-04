@@ -44,42 +44,20 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
       };
     }
 
-    // Send email (JSON) to the server
+    // Send a POST request to invite a member with his email
     await axiosInstance
       .post(`/trips/${id}/invite`, jsonData, axiosOptions)
-      .then((response) => {
-        console.log("L'email a bien été envoyé", response.data);
-        toast.success("L'invitation a bien été envoyée !", {
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+      .then(() => {
         setIsOpen(!isOpen);
+        toast.success("L'invitation a bien été envoyée !");
       })
       .catch((error) => {
         console.error(
           "Une erreur est survenue lors la récupération de l'email.",
           error
         );
-        toast.error(
-          "L'invitation n'a pas pu être envoyée." ||
-            error.response.data.message,
-          {
-            position: 'top-center',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          }
-        );
+        toast.error("L'invitation n'a pas pu être envoyée." ||
+            error.response.data.message);
       });
   };
 
