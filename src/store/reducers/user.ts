@@ -46,11 +46,11 @@ export const initialState: UserState = {
   isConnected: false,
   checkedPassword: false,
   errorMessage: null,
-  env: null,
+  env:'dev',
 };
 
 // Variables axiosOptions (dev/prod => token/cookies)
-const env = null;
+const env = 'dev';
 let axiosOptions = {};
 if (env === 'dev') {
   axiosOptions = {
@@ -103,7 +103,7 @@ export const login = createAsyncThunk(
 
 // Create action to ckeck user password
 export const checkUserPassword = createAsyncThunk(
-  'user/deleteAccount',
+  'user/checkUserPassword',
   async ({ passwordData, id }: { passwordData: string; id: number | null }) => {
 
     // Send a DELETE request to delete user account
