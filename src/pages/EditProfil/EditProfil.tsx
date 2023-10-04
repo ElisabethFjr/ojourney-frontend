@@ -44,7 +44,6 @@ function EditProfil() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    // Dispatch the updated user data to Redux store if success or send a toast error
     try {
       await dispatch(updateUserData({ formData, id: userData.id }));
       navigate('/profil');

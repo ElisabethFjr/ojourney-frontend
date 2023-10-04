@@ -26,6 +26,7 @@ interface UserState {
     consent_commercial: boolean | false;
   };
   isConnected: boolean;
+  toastSuccess: boolean;
   errorMessage: string | null;
   env: string | null;
 }
@@ -43,6 +44,7 @@ export const initialState: UserState = {
     consent_newsletter: false,
   },
   isConnected: false,
+  toastSuccess: false,
   errorMessage: null,
   env: null,
 };
@@ -120,6 +122,33 @@ export const updateUserData = createAsyncThunk(
     return data;
   }
 );
+export const updatePassword = createAsyncThunk(
+  'user/updatePassword',
+  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+    if (env === 'dev') {
+      axiosOptions = {
+        headers: {
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      };
+    } else {
+      axiosOptions = {
+        withCredentials: true,
+      };
+    }
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    // Send a POST request to update user data
+    const { data } = await axiosInstance.patch(
+      `/users/${id}`,
+      objData,
+      axiosOptions
+    );
+    return data;
+  }
+);
 
 // Create User Reducer
 const userReducer = createReducer(initialState, (builder) => {
@@ -158,6 +187,14 @@ const userReducer = createReducer(initialState, (builder) => {
         ...action.payload,
       };
       state.errorMessage = null;
+    })
+    // Update Password
+    .addCase(updatePassword.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      state.toastSuccess = true;
     });
 });
 
