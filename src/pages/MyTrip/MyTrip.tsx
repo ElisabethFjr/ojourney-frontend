@@ -9,9 +9,10 @@ import Main from '../../layout/Main/Main';
 
 import PropositionCard from '../../components/PropositionCard/PropositionCard';
 import Button from '../../components/Button/Button';
-import MemberMenu from '../../components/MemberMenu/MemberMenu';
+
 import ModalInviteMember from '../../components/ModalInviteMember/ModalInviteMember';
 import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
+import OneMember from '../../components/OneMember/OneMember';
 
 import { Trip, Member, Proposition } from '../../@types';
 
@@ -24,6 +25,7 @@ function MyTrip() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isCreator, setIsCreator] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [openMemberId, setOpenMemberId] = useState<number | null>(null);
   const [showModalInviteMember, setShowModalInviteMember] =
     useState<boolean>(false);
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
@@ -40,11 +42,6 @@ function MyTrip() {
   // Event handler to open the add member modal on the button click
   const handleClickAddMember = () => {
     setShowModalInviteMember(!showModalInviteMember);
-  };
-
-  // Event handler: toggles the member popup menu on member click
-  const toggleMenuMember = () => {
-    setIsOpenMenu(!isOpenMenu);
   };
 
   // Event handler to close the member menu when clicked outside
@@ -149,36 +146,26 @@ function MyTrip() {
     fetchDataLink();
   }, [id, dataUser.id, trip.user_id, env]);
 
+  // Function to update trips array after deleting a trip
+  const updatedProposition = (deletedPropositionId: number) => {
+    // Create a new trips array by removing the trip with the deleted id
+    const newPropositions = propositions.filter(
+      (proposition) => proposition.id !== deletedPropositionId
+    );
+    // Update the trips state with the new array
+    setPropositions(newPropositions);
+  };
+
   // Display a list of all members into a button element from the members array fetch to the API
   const allMembers = members.map((member) => (
-    <li className="one-trip-members-item" key={member.id}>
-      <div
-        key={member.id}
-        className={`one-trip-members-btn ${isOpenMenu ? 'active' : ''}`}
-        ref={divRef}
-        onClick={toggleMenuMember}
-        onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
-          if (event.key === 'Enter') {
-            toggleMenuMember();
-          }
-        }}
-        role="button"
-        aria-label="Click on the member to open member menu"
-        tabIndex={0}
-      >
-        <i className="one-trip-members-icon fa-solid fa-user" />
-        <p className="one-trip-membres-name">
-          {dataUser.firstname ? dataUser.firstname : 'Membre Nom'}
-        </p>
-        {isOpenMenu && (
-          <MemberMenu
-            customClass="active"
-            isCreator={isCreator}
-            isCurrentUser={dataUser.id === member.id}
-          />
-        )}
-      </div>
-    </li>
+    <OneMember
+      key={member.id}
+      member={member}
+      isCreator={isCreator} // Assurez-vous de passer ces propriétés en tant qu'arguments
+      dataUser={dataUser} // Assurez-vous de passer ces propriétés en tant qu'arguments
+      openMemberId={openMemberId}
+      setOpenMemberId={setOpenMemberId}
+    />
   ));
 
   // Display a list of all propositions from the propositions array fetch to the API
@@ -194,6 +181,7 @@ function MyTrip() {
         url={proposition.url}
         id_trip={proposition.trip_id}
         id_link={proposition.id}
+        handleUpdateData={updatedProposition}
       />
     </li>
   ));
@@ -265,7 +253,7 @@ function MyTrip() {
         {members && members.length === 0 ? (
           <p> Aucun membres pour le moment </p>
         ) : (
-          <ul>{allMembers}</ul>
+          <ul className="one-trip-members-list">{allMembers}</ul>
         )}
       </section>
 

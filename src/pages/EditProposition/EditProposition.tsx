@@ -25,9 +25,9 @@ function EditProposition() {
   const navigate = useNavigate();
 
   // States variables declaration
-  const [url, setUrl] = useState('Url par défault');
-  const [localisation, setLocalisation] = useState('Localisation par défault');
-  const [description, setDescription] = useState('Description par défault');
+  const [url, setUrl] = useState('');
+  const [localisation, setLocalisation] = useState('');
+  const [description, setDescription] = useState('');
 
   // Fetch states from Redux store
   const env = useAppSelector((state) => state.user.env);

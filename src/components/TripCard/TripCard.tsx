@@ -28,7 +28,7 @@ function TripCard({
   handleUpdateData,
 }: TripCardProps) {
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
-    useState<boolean>(false); // Display of the Delete Confirm Modal
+    useState<boolean>(false);
 
   // Event handler to open the modal DeleteConfirmation if click on delete a trip
   const handleClickDelete = () => {

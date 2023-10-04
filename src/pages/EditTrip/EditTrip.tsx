@@ -32,10 +32,10 @@ function EditTrip() {
   const navigate = useNavigate();
 
   // States variables declaration
-  const [localisation, setLocalisation] = useState('Localisation par défault');
+  const [localisation, setLocalisation] = useState('');
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
-  const [description, setDescription] = useState('Description par défault');
+  const [description, setDescription] = useState('');
 
   // Fetch states from Redux store
   const env = useAppSelector((state) => state.user.env);
