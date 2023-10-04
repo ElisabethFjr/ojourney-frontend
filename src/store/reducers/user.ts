@@ -26,6 +26,7 @@ interface UserState {
     consent_commercial: boolean | false;
   };
   isConnected: boolean;
+  toastSuccess: boolean;
   checkedPassword: boolean,
   errorMessage: string | null;
   env: string | null;
@@ -44,6 +45,7 @@ export const initialState: UserState = {
     consent_newsletter: false,
   },
   isConnected: false,
+  toastSuccess: false,
   checkedPassword: false,
   errorMessage: null,
   env: null,
@@ -103,7 +105,7 @@ export const login = createAsyncThunk(
 
 // Create action to ckeck user password
 export const checkUserPassword = createAsyncThunk(
-  'user/deleteAccount',
+  'user/checkUserPassword',
   async ({ passwordData, id }: { passwordData: string; id: number | null }) => {
 
     // Send a DELETE request to delete user account
@@ -119,6 +121,33 @@ export const checkUserPassword = createAsyncThunk(
 export const updateUserData = createAsyncThunk(
   'user/updateUserData',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    // Send a POST request to update user data
+    const { data } = await axiosInstance.patch(
+      `/users/${id}`,
+      objData,
+      axiosOptions
+    );
+    return data;
+  }
+);
+export const updatePassword = createAsyncThunk(
+  'user/updatePassword',
+  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+    if (env === 'dev') {
+      axiosOptions = {
+        headers: {
+          Authorization: `Bearer ${
+            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+          }`,
+        },
+      };
+    } else {
+      axiosOptions = {
+        withCredentials: true,
+      };
+    }
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a POST request to update user data
@@ -198,7 +227,14 @@ const userReducer = createReducer(initialState, (builder) => {
         ...action.payload,
       };
       state.errorMessage = null;
-
+    })
+    // Update Password
+    .addCase(updatePassword.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      state.toastSuccess = true;
     });
 });
 

@@ -204,7 +204,7 @@ function MyTrip() {
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"
-          src={`https://luciebaroiller-server.eddi.cloud:8080/images/${trip.url_image}`}
+          src={trip.url_image}
           alt={trip.alt_image}
           crossOrigin="anonymous"
         />
