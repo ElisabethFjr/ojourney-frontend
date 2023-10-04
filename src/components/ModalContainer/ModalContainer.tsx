@@ -12,10 +12,10 @@ function ModalContainer({ handleClose, children }: ModalContainerProps) {
         {children}
         <button
           type="button"
-          className="modal-confirm-close-btn"
+          className="modal-close-btn"
           onClick={handleClose}
         >
-          <i className="modal-confirm-close-btn-icon fa-solid fa-xmark" />
+          <i className="modal-close-btn-icon fa-solid fa-xmark" />
         </button>
       </div>
     </div>

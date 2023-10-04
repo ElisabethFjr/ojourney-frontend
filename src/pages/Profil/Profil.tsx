@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
@@ -9,11 +10,60 @@ import Main from '../../layout/Main/Main';
 
 import Button from '../../components/Button/Button';
 // import ChangePassword from '../../components/ModalChangePassword/ModalChangePassword';
+import ModaleConfirmPassword from '../../components/ModalConfirmPassword/ModalConfirmPassword';
+import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
+
 
 import './Profil.scss';
 
 function Profil() {
   const data = useAppSelector((state) => state.user.data);
+
+
+  const [showModalConfirmPassword, setShowModalConfirmPassword] =
+  useState<boolean>(false);
+
+  const handleClickDeleteAccount = () => {
+    setShowModalConfirmPassword(!showModalConfirmPassword);
+  };
+
+  // const handleClickOnGetData = (event: FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   console.log(data);
+  // };
+
+  // // Envoyer nouveau consents au backend /!\
+  // const handleClickChangeConsents = async (
+  //   event: FormEvent<HTMLFormElement>
+  // ) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(form);
+  //   const formSent = Object.fromEntries(formData);
+  //   try {
+  //     const response = await axiosInstance.patch(`/users/${data.id}`, formSent);
+  //     console.log(response.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // // Envoyer le password au backend /!\
+  // const handleClickDeleteAccount = async (
+  //   event: FormEvent<HTMLFormElement>
+  // ) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(form);
+  //   const formSent = Object.fromEntries(formData);
+  //   try {
+  //     const response = await axiosInstance.delete(
+  //       `/users/${data.id}`,
+  //       formSent
+  //     );
+  //     console.log(response.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <Main>
@@ -42,7 +92,7 @@ function Profil() {
           </Link>
         </div>
       </section>
-      {/* Installer react-pdf */}
+
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Mot de passe</h2>
         <p>
@@ -117,50 +167,13 @@ function Profil() {
             text="Supprimer le compte"
             customClass="danger"
             type="button"
-            // onClick={handleClickDeleteAccount}
+            onClick={handleClickDeleteAccount}
           />
         </div>
       </section>
+      {showModalConfirmPassword && <ModaleConfirmPassword />}
     </Main>
   );
 }
 
 export default Profil;
-
-// const handleClickOnGetData = (event: FormEvent<HTMLFormElement>) => {
-//   event.preventDefault();
-//   console.log(data);
-// };
-
-// // Envoyer nouveau consents au backend /!\
-// const handleClickChangeConsents = async (
-//   event: FormEvent<HTMLFormElement>
-// ) => {
-//   event.preventDefault();
-//   const formData = new FormData(form);
-//   const formSent = Object.fromEntries(formData);
-//   try {
-//     const response = await axiosInstance.patch(`/users/${data.id}`, formSent);
-//     console.log(response.data);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// // Envoyer le password au backend /!\
-// const handleClickDeleteAccount = async (
-//   event: FormEvent<HTMLFormElement>
-// ) => {
-//   event.preventDefault();
-//   const formData = new FormData(form);
-//   const formSent = Object.fromEntries(formData);
-//   try {
-//     const response = await axiosInstance.delete(
-//       `/users/${data.id}`,
-//       formSent
-//     );
-//     console.log(response.data);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
