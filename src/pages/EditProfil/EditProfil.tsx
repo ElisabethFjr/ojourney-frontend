@@ -23,6 +23,7 @@ function EditProfil() {
 
   // Get user data and environment from Redux store
   const userData = useAppSelector((state) => state.user.data);
+  const toastSuccess = useAppSelector((state) => state.user.toastSuccess);
 
   // States variables declaration
   const [lastname, setLastname] = useState(userData.lastname || '');
@@ -44,12 +45,12 @@ function EditProfil() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    // Dispatch the updated user data to Redux store if success or send a toast error
-    try {
-      await dispatch(updateUserData({ formData, id: userData.id }));
+    // Dispatch the updated user data to Redux store
+    dispatch(updateUserData({ formData, id: userData.id }));
+    if (toastSuccess) {
       navigate('/profil');
       toast.success('Les informations ont bien été mises à jour !');
-    } catch (error) {
+    } else {
       toast.error(
         'Échec de la mise à jour des informations, veuillez réessayer plus tard.'
       );
