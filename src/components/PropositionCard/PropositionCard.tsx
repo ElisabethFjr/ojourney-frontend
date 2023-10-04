@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
 import './PropositionCard.scss';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
@@ -26,24 +27,31 @@ function PropositionCard({
   id_link,
   id_trip,
 }: PropositionCardProps) {
+  const env = useAppSelector((state) => state.user.env);
+  // Function to fetch one trip data from the API
+  let axiosOptions = {};
+  if (env === 'dev') {
+    axiosOptions = {
+      headers: {
+        Authorization: `Bearer ${
+          localStorage.getItem('token')?.replace(/"|_/g, '') || ''
+        }`,
+      },
+    };
+  } else {
+    axiosOptions = {
+      withCredentials: true,
+    };
+  }
   const navigate = useNavigate();
 
   const handleClickEdit = () => {
     navigate(`/edit-proposition/${id_trip}/${id_link}`);
-    // Effectuez la requête DELETE ici
   };
 
   const handleClickDelete = async () => {
-    // Effectuez la requête DELETE ici
     await axiosInstance
-      .delete(`/trips/${id_trip}/links/${id_link}`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      })
+      .delete(`/trips/${id_trip}/links/${id_link}`, axiosOptions)
       .then(() => {
         navigate(`/my-trip/${id_trip}`);
       })

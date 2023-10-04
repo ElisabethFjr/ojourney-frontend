@@ -50,11 +50,18 @@ export const initialState: UserState = {
   toastSuccess: false,
   checkedPassword: false,
   errorMessage: null,
-  env: null,
+  env: 'dev',
 };
 
+// interface TripState {
+//   trips: Trip[] | null;
+// }
+// export const tripInitialState: TripState = {
+//   trips: null,
+// };
+
 // Variables axiosOptions (dev/prod => token/cookies)
-const env = null;
+const env = 'dev';
 let axiosOptions = {};
 if (env === 'dev') {
   axiosOptions = {
@@ -87,6 +94,7 @@ export const login = createAsyncThunk(
         localStorage.setItem('token', data.token);
         delete data.token;
       }
+      // tripInitialState.trips = data.trips;
       return data;
     } catch (error) {
       // Check if the error is an Axios error Type and has a response
