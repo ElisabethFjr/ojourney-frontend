@@ -22,6 +22,7 @@ import EditTrip from '../../pages/EditTrip/EditTrip';
 import EditProposition from '../../pages/EditProposition/EditProposition';
 import EditProfil from '../../pages/EditProfil/EditProfil';
 import EditPassword from '../../pages/EditPassword/EditPassword';
+import ForgotPassword from'../../pages/ForgotPassword/ForgotPassword';
 import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
@@ -62,7 +63,9 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/confirm-account" element={<ConfirmAccount />} />
         <Route path="/confirm-invite" element={<ConfirmInvite />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<Error />} />
+        
 
         {/* Private Routes (user connected) */}
         <Route
