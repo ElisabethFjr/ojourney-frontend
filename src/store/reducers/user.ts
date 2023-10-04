@@ -46,11 +46,11 @@ export const initialState: UserState = {
   isConnected: false,
   checkedPassword: false,
   errorMessage: null,
-  env: 'dev',
+  env: null,
 };
 
 // Variables axiosOptions (dev/prod => token/cookies)
-const env = 'dev';
+const env = null;
 let axiosOptions = {};
 if (env === 'dev') {
   axiosOptions = {
@@ -107,7 +107,7 @@ export const checkUserPassword = createAsyncThunk(
   async ({ passwordData, id }: { passwordData: string; id: number | null }) => {
 
     // Send a DELETE request to delete user account
-    const {data } = await axiosInstance.post(/users/${id},
+    const {data } = await axiosInstance.post(`/users/${id}`,
     passwordData,
     axiosOptions
     );
@@ -187,7 +187,7 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(deleteUserAccount.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
-
+    })
     // Update user data
     .addCase(updateUserData.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
