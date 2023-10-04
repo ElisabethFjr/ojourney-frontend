@@ -4,6 +4,7 @@ import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import TextareaField from '../../components/TextareaField/TextareaField';
+import sendmessage from '../../assets/images/sendmessage.png';
 
 
 import './Contact.scss';
@@ -12,6 +13,8 @@ function Contact() {
   return (
     <Main>
       <section className="contact-container">
+        <div className="contact-overview-page">
+      <img src={sendmessage} className="contact-image" alt="send-message" />
   <FormContainer>
     <form>
       <h1 className="contact-title">Nous contacter</h1>
@@ -44,6 +47,7 @@ function Contact() {
             />
 </form>
 </FormContainer>
+</div>
       </section>
     </Main>
   );
