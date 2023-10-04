@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
-import axiosInstance from '../../utils/axios';
-import './PropositionCard.scss';
+
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
+
+import './PropositionCard.scss';
 
 interface PropositionCardProps {
   srcImage: string;
@@ -79,10 +79,10 @@ function PropositionCard({
         <ModalDeleteConfirm
           endpoint={`/trips/${id_trip}/links/${id_link}`}
           urlNavigate={`/my-trip/${id_trip}`}
-          title="Confirmation supression"
+          title="Confirmation suppression"
           text="Êtes-vous sûr de vouloir supprimer définitivement cette proposition ?"
           dataType="propositions"
-          dataId={id_trip}
+          dataId={id_link}
           handleUpdateData={handleUpdateData}
         />
       )}

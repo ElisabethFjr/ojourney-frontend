@@ -59,7 +59,7 @@ function TripCard({
         <ModalDeleteConfirm
           endpoint={`/trips/${id}`}
           urlNavigate="/my-trips"
-          title="Confirmation supression"
+          title="Confirmation suppression"
           text="Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?"
           dataType="trips"
           dataId={id}

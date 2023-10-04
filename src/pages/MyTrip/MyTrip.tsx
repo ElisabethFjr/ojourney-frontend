@@ -146,13 +146,16 @@ function MyTrip() {
     fetchDataLink();
   }, [id, dataUser.id, trip.user_id, env]);
 
-  // Function to update trips array after deleting a trip
-  const updatedProposition = (deletedPropositionId: number) => {
-    // Create a new trips array by removing the trip with the deleted id
+  // Function to update propositions array after deleting a trip
+  const updatedPropositions = (deletedPropositionId: number) => {
+    // Create a new propositions array by removing the proposition with the deleted id
     const newPropositions = propositions.filter(
       (proposition) => proposition.id !== deletedPropositionId
     );
-    // Update the trips state with the new array
+    console.log(propositions);
+    console.log('Deleted Proposition ID:', deletedPropositionId);
+    // Update the propositions state with the new array
+    console.log('New Propositions:', newPropositions);
     setPropositions(newPropositions);
   };
 
@@ -161,8 +164,8 @@ function MyTrip() {
     <OneMember
       key={member.id}
       member={member}
-      isCreator={isCreator} // Assurez-vous de passer ces propriétés en tant qu'arguments
-      dataUser={dataUser} // Assurez-vous de passer ces propriétés en tant qu'arguments
+      isCreator={isCreator}
+      dataUser={dataUser}
       openMemberId={openMemberId}
       setOpenMemberId={setOpenMemberId}
     />
@@ -181,7 +184,7 @@ function MyTrip() {
         url={proposition.url}
         id_trip={proposition.trip_id}
         id_link={proposition.id}
-        handleUpdateData={updatedProposition}
+        handleUpdateData={updatedPropositions}
       />
     </li>
   ));
