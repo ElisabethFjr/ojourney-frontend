@@ -1,3 +1,5 @@
+import { FormEvent, useState } from 'react';
+
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 
@@ -5,6 +7,14 @@ import './ForgotPassword.scss';
 
 function ForgotPassword () {
 
+ // const 
+
+ // const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+   // event.preventDefault();
+
+ // }
+
+ //onSubmit={handleSubmit}>
   return (
     <section className="forgot-password-container">
 
@@ -29,6 +39,6 @@ function ForgotPassword () {
   </section>
   )
 
-}
+};
 
 export default ForgotPassword;
