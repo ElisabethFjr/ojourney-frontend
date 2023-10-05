@@ -64,9 +64,7 @@ export const login = createAsyncThunk(
       const { data } = await axiosInstance.post('/signIn', objData);
       if (env === 'dev') {
         axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-        delete data.token;
       }
-      // tripInitialState.trips = data.trips;
       return data;
     } catch (error) {
       // Check if the error is an Axios error Type and has a response
@@ -243,8 +241,6 @@ const userReducer = createReducer(initialState, (builder) => {
       state.toastSuccess = true;
       state.errorMessage = null;
     })
-
-
     // Update Consent
     .addCase(updateConsent.fulfilled, (state, action) => {
       state.data = {
