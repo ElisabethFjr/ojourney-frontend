@@ -1,3 +1,15 @@
+export interface User {
+  id: number | null;
+  firstname: string | null;
+  lastname: string | null;
+  email: string | null;
+  password: string | null;
+  trips: Trip[] | null;
+  links: Proposition[] | null;
+  consent_newsletter: boolean;
+  consent_commercial: boolean;
+}
+
 export interface Trip {
   id: number;
   date_start: string;

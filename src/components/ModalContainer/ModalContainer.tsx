@@ -10,11 +10,7 @@ function ModalContainer({ handleClose, children }: ModalContainerProps) {
     <div className="modal-background">
       <div className="modal-container">
         {children}
-        <button
-          type="button"
-          className="modal-close-btn"
-          onClick={handleClose}
-        >
+        <button type="button" className="modal-close-btn" onClick={handleClose}>
           <i className="modal-close-btn-icon fa-solid fa-xmark" />
         </button>
       </div>

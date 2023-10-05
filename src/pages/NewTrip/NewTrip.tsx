@@ -1,8 +1,10 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
+
+import { fetchUserInfos } from '../../store/reducers/user';
 
 import Main from '../../layout/Main/Main';
 
@@ -12,20 +14,22 @@ import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';
 import Button from '../../components/Button/Button';
 import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './NewTrip.scss';
 
 function NewTrip() {
   // Initialize Hooks
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   // Declaration state variables
   const [startDate, setStartDate] = useState<Date>(new Date()); // Trip start date
   const [endDate, setEndDate] = useState<Date>(new Date()); // Trip end date
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Fetch states from Redux store
-  const env = useAppSelector((state) => state.user.env);
-
+  const userData = useAppSelector((state) => state.user.data);
   // Function to format dates before sending them to the server
   const changeDateFormat = (date: Date) => {
     return format(date, 'yyyy-MM-dd');
@@ -60,36 +64,35 @@ function NewTrip() {
     const objData = Object.fromEntries(formData);
 
     // Axios options: If in development mode (using token) or production mode (using cookies)
-    let axiosOptions = {};
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      };
-    }
+    // let axiosOptions = {};
+    // if (env === 'dev') {
+    //   axiosOptions = {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   };
+    // } else {
+    //   axiosOptions = {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //     withCredentials: true,
+    //   };
+    // }
 
     // Send a POST request to create a new trip
     await axiosInstance
-      .post('/trips', objData, axiosOptions)
+      .post('/trips', objData)
       .then(() => {
+        dispatch(fetchUserInfos(userData.id));
         navigate(`/my-trips`);
       })
       .catch((error) => {
-        console.error(
-          "Une erreur est survenue lors de la création d'un voyage.",
-          error
-        );
+        if (error.response) {
+          setErrorMessage(error.response.data.error);
+        }
+        console.error(error);
       });
   };
 
@@ -100,6 +103,10 @@ function NewTrip() {
         <FormContainer>
           <form onSubmit={handleSubmit}>
             <h2 className="new-trip-form-title">Nouveau voyage</h2>
+            {/* Error Message */}
+            {errorMessage && (
+              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+            )}
             {/* Localisation Input */}
             <InputField
               name="localisation"

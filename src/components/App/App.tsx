@@ -64,6 +64,7 @@ function App() {
         <Route path="/confirm-invite" element={<ConfirmInvite />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />}/>
+        <Route path="/invite" element={<ConfirmInvite />} />
         <Route path="*" element={<Error />} />
 
         {/* Private Routes (user connected) */}

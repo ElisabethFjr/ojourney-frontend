@@ -9,9 +9,10 @@ import Main from '../../layout/Main/Main';
 
 import PropositionCard from '../../components/PropositionCard/PropositionCard';
 import Button from '../../components/Button/Button';
-import MemberMenu from '../../components/MemberMenu/MemberMenu';
+
 import ModalInviteMember from '../../components/ModalInviteMember/ModalInviteMember';
 import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
+import OneMember from '../../components/OneMember/OneMember';
 
 import { Trip, Member, Proposition } from '../../@types';
 
@@ -24,6 +25,7 @@ function MyTrip() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isCreator, setIsCreator] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [openMemberId, setOpenMemberId] = useState<number | null>(null);
   const [showModalInviteMember, setShowModalInviteMember] =
     useState<boolean>(false);
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
@@ -40,11 +42,6 @@ function MyTrip() {
   // Event handler to open the add member modal on the button click
   const handleClickAddMember = () => {
     setShowModalInviteMember(!showModalInviteMember);
-  };
-
-  // Event handler: toggles the member popup menu on member click
-  const toggleMenuMember = () => {
-    setIsOpenMenu(!isOpenMenu);
   };
 
   // Event handler to close the member menu when clicked outside
@@ -80,27 +77,23 @@ function MyTrip() {
 
   /// FETCH DATA ///
 
-  // Fetch data on component mount
-  const env = useAppSelector((state) => state.user.env);
   useEffect(() => {
     // Function to fetch one trip data from the API
-    let axiosOptions = {};
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        withCredentials: true,
-      };
-    }
+    // let axiosOptions = {};
+    // if (env === 'dev') {
+    //   axiosOptions = {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   };
+    // } else {
+    //   axiosOptions = {
+    //     withCredentials: true,
+    //   };
+    // }
     const fetchDataTrip = async () => {
       await axiosInstance
-        .get(`/trips/${id}`, axiosOptions)
+        .get(`/trips/${id}`)
         .then((response) => {
           // Set the trip state with the trip data received from the API
           setTrip(response.data);
@@ -119,7 +112,7 @@ function MyTrip() {
     // Function to fetch trips's members data from the server with awiosInstance
     const fetchDataMember = async () => {
       await axiosInstance
-        .get(`/trips/${id}/members`, axiosOptions)
+        .get(`/trips/${id}/members`)
         .then((response) => {
           setMembers(response.data);
         })
@@ -133,7 +126,7 @@ function MyTrip() {
     // Function to fetch trips's links data from the server with awiosInstance
     const fetchDataLink = async () => {
       await axiosInstance
-        .get(`/trips/${id}/links`, axiosOptions)
+        .get(`/trips/${id}/links`)
         .then((response) => {
           setPropositions(response.data);
         })
@@ -147,38 +140,31 @@ function MyTrip() {
     fetchDataTrip();
     fetchDataMember();
     fetchDataLink();
-  }, [id, dataUser.id, trip.user_id, env]);
+  }, [id, dataUser.id, trip.user_id]);
+
+  // Function to update propositions array after deleting a trip
+  const updatedPropositions = (deletedPropositionId: number) => {
+    // Create a new propositions array by removing the proposition with the deleted id
+    const newPropositions = propositions.filter(
+      (proposition) => proposition.id !== deletedPropositionId
+    );
+    console.log(propositions);
+    console.log('Deleted Proposition ID:', deletedPropositionId);
+    // Update the propositions state with the new array
+    console.log('New Propositions:', newPropositions);
+    setPropositions(newPropositions);
+  };
 
   // Display a list of all members into a button element from the members array fetch to the API
   const allMembers = members.map((member) => (
-    <li className="one-trip-members-item" key={member.id}>
-      <div
-        key={member.id}
-        className={`one-trip-members-btn ${isOpenMenu ? 'active' : ''}`}
-        ref={divRef}
-        onClick={toggleMenuMember}
-        onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
-          if (event.key === 'Enter') {
-            toggleMenuMember();
-          }
-        }}
-        role="button"
-        aria-label="Click on the member to open member menu"
-        tabIndex={0}
-      >
-        <i className="one-trip-members-icon fa-solid fa-user" />
-        <p className="one-trip-membres-name">
-          {dataUser.firstname ? dataUser.firstname : 'Membre Nom'}
-        </p>
-        {isOpenMenu && (
-          <MemberMenu
-            customClass="active"
-            isCreator={isCreator}
-            isCurrentUser={dataUser.id === member.id}
-          />
-        )}
-      </div>
-    </li>
+    <OneMember
+      key={member.id}
+      member={member}
+      isCreator={isCreator}
+      dataUser={dataUser}
+      openMemberId={openMemberId}
+      setOpenMemberId={setOpenMemberId}
+    />
   ));
 
   // Display a list of all propositions from the propositions array fetch to the API
@@ -194,6 +180,7 @@ function MyTrip() {
         url={proposition.url}
         id_trip={proposition.trip_id}
         id_link={proposition.id}
+        handleUpdateData={updatedPropositions}
       />
     </li>
   ));
@@ -265,7 +252,7 @@ function MyTrip() {
         {members && members.length === 0 ? (
           <p> Aucun membres pour le moment </p>
         ) : (
-          <ul>{allMembers}</ul>
+          <ul className="one-trip-members-list">{allMembers}</ul>
         )}
       </section>
 
@@ -290,7 +277,7 @@ function MyTrip() {
           <ul>{allPropositions}</ul>
         )}
       </section>
-      {showModalDeleteConfirm && (
+      {/* {showModalDeleteConfirm && (
         <ModalDeleteConfirm
           endpoint={`/trips/${id}`}
           urlNavigate="/my-trips"
@@ -299,7 +286,7 @@ function MyTrip() {
           dataType="trips"
           dataId={Number(id)}
         />
-      )}
+      )} */}
     </Main>
   );
 }

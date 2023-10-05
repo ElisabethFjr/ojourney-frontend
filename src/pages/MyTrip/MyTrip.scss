@@ -41,39 +41,6 @@
     }
   }
 
-  &-members {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid v.$color-grey-middle-lighten;
-
-    &-btn {
-      cursor: pointer;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.8rem;
-      background-color: v.$color-primary-lightest2;
-      border: 1px solid v.$color-primary-lightest2;
-      border-radius: v.$border-radius;
-      padding: calc(0.6rem - 1px);
-      color: v.$color-accent;
-      transition: all 0.3s ease;
-
-      &.active {
-        border: 1px solid v.$color-text;
-      }
-
-      &:hover {
-        border: 1px solid v.$color-text;
-      }
-    }
-  }
-
   &-propositions {
     width: 100%;
     &-title {

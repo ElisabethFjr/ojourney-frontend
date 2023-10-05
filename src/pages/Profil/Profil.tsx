@@ -1,74 +1,60 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
-import axiosInstance from '../../utils/axios';
-
-// import { PDFDownloadLink } from '@react-pdf/renderer';
-// import Document from './Document.js'
+import { useState, ChangeEvent } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
+import { updateConsent } from '../../store/reducers/user';
 
 import Main from '../../layout/Main/Main';
 
 import Button from '../../components/Button/Button';
 // import ChangePassword from '../../components/ModalChangePassword/ModalChangePassword';
 import ModaleConfirmPassword from '../../components/ModalConfirmPassword/ModalConfirmPassword';
-import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
-
 
 import './Profil.scss';
 
 function Profil() {
   const data = useAppSelector((state) => state.user.data);
+  const userData = useAppSelector((state) => state.user.data);
 
+  const dispatch = useAppDispatch();
 
+  // *********************************** MODAL
   const [showModalConfirmPassword, setShowModalConfirmPassword] =
-  useState<boolean>(false);
-
+    useState<boolean>(false);
   const handleClickDeleteAccount = () => {
     setShowModalConfirmPassword(!showModalConfirmPassword);
   };
+  // *********************************** USESTATE
+  const [usageCommercial, setUsageCommercial] = useState<boolean>(false);
+  const [newsletter, setNewsletter] = useState<boolean>(false);
+  // *********************************** COMMERCIAL
+  const handleUsageCommercialChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = event.target;
+    setUsageCommercial(value === 'true');
+    if (userData && userData.id) {
+      dispatch(updateConsent({ formData: value, id: userData.id }));
+      console.log('Usage Commercial:', value);
+    } else {
+      console.error('userData or userData.id is undefined');
+    }
+  };
 
-  // const handleClickOnGetData = (event: FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   console.log(data);
-  // };
-
-  // // Envoyer nouveau consents au backend /!\
-  // const handleClickChangeConsents = async (
-  //   event: FormEvent<HTMLFormElement>
-  // ) => {
-  //   event.preventDefault();
-  //   const formData = new FormData(form);
-  //   const formSent = Object.fromEntries(formData);
-  //   try {
-  //     const response = await axiosInstance.patch(`/users/${data.id}`, formSent);
-  //     console.log(response.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // // Envoyer le password au backend /!\
-  // const handleClickDeleteAccount = async (
-  //   event: FormEvent<HTMLFormElement>
-  // ) => {
-  //   event.preventDefault();
-  //   const formData = new FormData(form);
-  //   const formSent = Object.fromEntries(formData);
-  //   try {
-  //     const response = await axiosInstance.delete(
-  //       `/users/${data.id}`,
-  //       formSent
-  //     );
-  //     console.log(response.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
+  // *********************************** NEWSLETTER
+  const handleNewsletterChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setNewsletter(value === 'true');
+    if (userData && userData.id) {
+      dispatch(updateConsent({ formData: value, id: userData.id }));
+      console.log('Usage newsletter:', value);
+    } else {
+      console.error('userData or userData.id is undefined');
+    }
+  };
+  // ***********************************
   return (
     <Main>
       <h1 className="main-title">Profil</h1>
-
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Vos informations</h2>
         <p>
@@ -92,7 +78,6 @@ function Profil() {
           </Link>
         </div>
       </section>
-
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Mot de passe</h2>
         <p>
@@ -109,7 +94,6 @@ function Profil() {
           </Link>
         </div>
       </section>
-
       {/* Installer react-pdf */}
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Vos données</h2>
@@ -125,36 +109,61 @@ function Profil() {
           />
         </div>
       </section>
-
+      {/* *********************** */}
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Traitement de vos données</h2>
+
         <div>
-          Vos choix pour le traitement de vos données sont les suivants :
-          <ul>
-            <li>
-              Usage commercial :{' '}
-              <span className="profil-card-text">
-                {data.consent_commercial ? 'Accepté' : 'Refusé'}{' '}
-              </span>
-            </li>
-            <li>
-              Newsletter :{' '}
-              <span className="profil-card-text">
-                {data.consent_newsletter ? 'Accepté' : 'Refusé'}
-              </span>
-            </li>
-          </ul>
-        </div>
-        <div className="profil-card-btn-container">
-          <Button
-            text="Modifier mes consentements"
-            customClass="color"
-            type="button"
-            // onClick={handleClickChangeConsents}
-          />
+          Vos choix pour le traitement de vos données sont les suivants:
+          <form>
+            <ul>
+              <li>
+                Usage commercial :{' '}
+                <label>
+                  <input
+                    type="radio"
+                    value="true"
+                    checked={usageCommercial === true}
+                    onChange={handleUsageCommercialChange} // Utilisez le gestionnaire d'événements pour le changement
+                  />
+                  True
+                </label>{' '}
+                <label>
+                  <input
+                    type="radio"
+                    value="false"
+                    checked={usageCommercial === false}
+                    onChange={handleUsageCommercialChange}
+                  />
+                  False
+                </label>
+              </li>
+              <li>
+                Newsletter :{' '}
+                <label>
+                  <input
+                    type="radio"
+                    value="true"
+                    checked={newsletter === true}
+                    onChange={handleNewsletterChange}
+                  />
+                  True
+                </label>{' '}
+                <label>
+                  <input
+                    type="radio"
+                    value="false"
+                    checked={newsletter === false}
+                    onChange={handleNewsletterChange}
+                  />
+                  False
+                </label>
+              </li>
+            </ul>
+          </form>
         </div>
       </section>
-
+      {/* *********************** */}
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Droits à l&apos;oubli</h2>
         <p>
@@ -177,3 +186,41 @@ function Profil() {
 }
 
 export default Profil;
+
+// const handleClickOnGetData = (event: FormEvent<HTMLFormElement>) => {
+//   event.preventDefault();
+//   console.log(data);
+// };
+
+// // Envoyer nouveau consents au backend /!\
+// const handleClickChangeConsents = async (
+//   event: FormEvent<HTMLFormElement>
+// ) => {
+//   event.preventDefault();
+//   const formData = new FormData(form);
+//   const formSent = Object.fromEntries(formData);
+//   try {
+//     const response = await axiosInstance.patch(`/users/${data.id}`, formSent);
+//     console.log(response.data);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// // Envoyer le password au backend /!\
+// const handleClickDeleteAccount = async (
+//   event: FormEvent<HTMLFormElement>
+// ) => {
+//   event.preventDefault();
+//   const formData = new FormData(form);
+//   const formSent = Object.fromEntries(formData);
+//   try {
+//     const response = await axiosInstance.delete(
+//       `/users/${data.id}`,
+//       formSent
+//     );
+//     console.log(response.data);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
