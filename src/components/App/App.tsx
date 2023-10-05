@@ -2,11 +2,10 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ToastContainer, Slide } from 'react-toastify';
 
-
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
 
-import Loading from '../../components/Loading/Loading';
+import Loading from '../Loading/Loading';
 import Home from '../../pages/Home/Home';
 import SignInUp from '../../pages/SignInUp/SignInUp';
 import Profil from '../../pages/Profil/Profil';
@@ -21,7 +20,7 @@ import EditTrip from '../../pages/EditTrip/EditTrip';
 import EditProposition from '../../pages/EditProposition/EditProposition';
 import EditProfil from '../../pages/EditProfil/EditProfil';
 import EditPassword from '../../pages/EditPassword/EditPassword';
-import ForgotPassword from'../../pages/ForgotPassword/ForgotPassword';
+import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
@@ -63,7 +62,7 @@ function App() {
         <Route path="/confirm-account" element={<ConfirmAccount />} />
         <Route path="/confirm-invite" element={<ConfirmInvite />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />}/>
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/invite" element={<ConfirmInvite />} />
         <Route path="*" element={<Error />} />
 

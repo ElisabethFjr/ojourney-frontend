@@ -6,7 +6,6 @@ import Button from '../../components/Button/Button';
 import TextareaField from '../../components/TextareaField/TextareaField';
 import sendmessage from '../../assets/images/sendmessage.png';
 
-
 import './Contact.scss';
 
 function Contact() {
@@ -14,40 +13,40 @@ function Contact() {
     <Main>
       <section className="contact-container">
         <div className="contact-overview-page">
-      <img src={sendmessage} className="contact-image" alt="send-message" />
-  <FormContainer>
-    <form>
-      <h1 className="contact-title">Nous contacter</h1>
+          <img src={sendmessage} className="contact-image" alt="send-message" />
+          <FormContainer>
+            <form>
+              <h1 className="contact-title">Nous contacter</h1>
 
-      <InputField
-              name="name"
-              placeholder="Votre nom"
-              type="text"
-              icon="fa-solid fa-user"
-            />
+              <InputField
+                name="name"
+                placeholder="Votre nom"
+                type="text"
+                icon="fa-solid fa-user"
+              />
 
-<InputField
-              name="email"
-              placeholder="Votre e-mail"
-              type="email"
-              icon="fa-solid fa-at"
-            />
+              <InputField
+                name="email"
+                placeholder="Votre e-mail"
+                type="email"
+                icon="fa-solid fa-at"
+              />
 
-<TextareaField
-              name="message"
-              placeholder="Votre message"
-              icon="fa-solid fa-pen-nib"
-              maxlength={200}
-           />
+              <TextareaField
+                name="message"
+                placeholder="Votre message"
+                icon="fa-solid fa-pen-nib"
+                maxlength={200}
+              />
 
-<Button
-              text="Envoyer"
-              type="submit" 
-              customClass="color button-style--width"
-            />
-</form>
-</FormContainer>
-</div>
+              <Button
+                text="Envoyer"
+                type="submit"
+                customClass="color button-style--width"
+              />
+            </form>
+          </FormContainer>
+        </div>
       </section>
     </Main>
   );

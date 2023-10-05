@@ -80,12 +80,12 @@ export const login = createAsyncThunk(
 );
 
 // Create Logout action
-export const logout = createAction('user/logout');
+// export const logout = createAction('user/logout');
 
 // Create Logout action
-// export const logout = createAsyncThunk('user/logout', async () => {
-//   await axiosInstance.get('/logout');
-// });
+export const logout = createAsyncThunk('user/logout', async () => {
+  await axiosInstance.get('/logout');
+});
 
 // Create action to fetch user data
 export const fetchUserInfos = createAsyncThunk(
@@ -174,17 +174,12 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
     })
     // Logout
-    .addCase(logout, (state) => {
+    .addCase(logout.fulfilled, (state) => {
       state.data = initialState.data; // Reset user data to initial state
       state.isConnected = false;
-      if (localStorage.getItem('token') !== undefined) {
-        localStorage.removeItem('token');
-      }
-      // FAIRE UN APPEL VERS LE BACKEND POUR SUPPRIMER LE COOKIE
     })
     // Fetch User Data
     .addCase(fetchUserInfos.fulfilled, (state, action) => {
-      // state.token = action.payload;
       state.data = {
         ...state.data,
         ...action.payload,

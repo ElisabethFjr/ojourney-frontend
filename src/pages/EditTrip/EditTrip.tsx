@@ -82,24 +82,6 @@ function EditTrip() {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
 
-    // Axios options: If in development mode (using token) or production mode (using cookies)
-    // let axiosOptions = {};
-    // if (env === 'dev') {
-    //   axiosOptions = {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   };
-    // } else {
-    //   axiosOptions = {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //     withCredentials: true,
-    //   };
-    // }
-
     // Send a PATCH request to update the trip data
     await axiosInstance
       .patch(`/trips/${id}`, objData)

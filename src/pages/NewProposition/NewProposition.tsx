@@ -32,20 +32,6 @@ function NewProposition() {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
 
-    // Axios options: If in development mode (using token) or production mode (using cookies)
-    // let axiosOptions = {};
-    // if (env === 'dev') {
-    //   axiosOptions = {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   };
-    // } else {
-    //   axiosOptions = {
-    //     withCredentials: true,
-    //   };
-    // }
-
     // Send a POST request to create a new proposition
     await axiosInstance
       .post(`/trips/${id}/links`, objData)

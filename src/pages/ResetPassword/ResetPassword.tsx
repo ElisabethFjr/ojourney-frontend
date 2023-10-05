@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axiosInstance from '../../utils/axios';
@@ -9,13 +9,13 @@ import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 
 import './ResetPassword.scss';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 function ResetPassword() {
   // Initialize Hooks
   const navigate = useNavigate();
 
   // Declaration state variables
-  const [isConfirmed, setIsConfirmed] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const token = document.location.hash.split('?')[1];
@@ -24,7 +24,7 @@ function ResetPassword() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    
+
     // Extract password and confirmation from formData
     const newPassword = formData.get('password') as string;
     const confirmPassword = formData.get('confirmation') as string;
@@ -44,21 +44,21 @@ function ResetPassword() {
     console.log(jsonData);
 
     await axiosInstance
-    .patch(`/reset?reset=${token}`, jsonData, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
-    .then(() => {
-      console.log('Mot de passe reset !')
-      navigate('/signin-signup');
-      toast.success('Le mot de passe a été réinitialiser avec succès !');
-    })
-    .catch((error) => {
-      console.error(error);
-      toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
-    });
-    };
+      .patch(`/reset?reset=${token}`, jsonData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
+      .then(() => {
+        console.log('Mot de passe reset !');
+        navigate('/signin-signup');
+        toast.success('Le mot de passe a été réinitialiser avec succès !');
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
+      });
+  };
 
   return (
     <Main>
@@ -70,6 +70,9 @@ function ResetPassword() {
           <h2 className="new-proposition-form-title">
             Votre nouveau mot de passe
           </h2>
+          {errorMessage && (
+            <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+          )}
           <InputField
             name="password"
             placeholder="Nouveau mot de passe"
