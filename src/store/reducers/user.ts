@@ -243,6 +243,8 @@ const userReducer = createReducer(initialState, (builder) => {
       state.toastSuccess = true;
       state.errorMessage = null;
     })
+
+
     // Update Consent
     .addCase(updateConsent.fulfilled, (state, action) => {
       state.data = {
