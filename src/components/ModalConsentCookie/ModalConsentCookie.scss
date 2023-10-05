@@ -10,9 +10,10 @@
     text-align: center;
     gap: 1rem;
     width: 100%;
-    max-width: 1000px;
+    height: 40%;
     background-color: v.$color-white;
     padding: 2rem;
+    margin-bottom: 2rem;
     border-radius: v.$border-radius;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     z-index: 2000;
@@ -31,9 +32,8 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin: auto;
     width: 100%;
-    gap: 2rem;
+    gap: 4rem;
     padding-top: 0.5rem;
 
   }
