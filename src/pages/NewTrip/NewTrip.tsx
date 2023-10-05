@@ -30,7 +30,6 @@ function NewTrip() {
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
   // Function to format dates before sending them to the server
@@ -50,12 +49,11 @@ function NewTrip() {
 
   // Event handler for selecting an image file
   const handleFile = (fileUploaded: File | null) => {
-    console.log('Fichier sélectionné :', file);
-    setFile(fileUploaded);
-
-    const url = URL.createObjectURL(fileUploaded);
-    setImageUrl(url)
-    
+    if (fileUploaded !== null) {
+      setFile(fileUploaded);
+      const url = URL.createObjectURL(fileUploaded);
+      setImageUrl(url);
+    }
   };
 
   // Event handler for the newTrip form submission
@@ -70,24 +68,6 @@ function NewTrip() {
 
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
-
-    // Axios options: If in development mode (using token) or production mode (using cookies)
-    // let axiosOptions = {};
-    // if (env === 'dev') {
-    //   axiosOptions = {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   };
-    // } else {
-    //   axiosOptions = {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //     withCredentials: true,
-    //   };
-    // }
 
     // Send a POST request to create a new trip
     await axiosInstance
@@ -141,7 +121,7 @@ function NewTrip() {
             {/* Image File Selection Input */}
             <InputFieldImage handleFile={handleFile} text="Ajouter une image" />
             {file && imageUrl && (
-            <img className="new-trip-image" src={imageUrl} alt={file.name} />
+              <img className="new-trip-image" src={imageUrl} alt={file.name} />
             )}
             {/* Submit Button */}
             <Button
@@ -153,7 +133,7 @@ function NewTrip() {
         </FormContainer>
       </section>
     </Main>
-  )
+  );
 }
 
 export default NewTrip;

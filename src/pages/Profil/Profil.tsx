@@ -57,11 +57,15 @@ function Profil() {
     const form = event.currentTarget;
     console.log(form);
     const formData = new FormData(form);
-    formData.append('consent_commercial', commercialConsent);
+    // formData.append('consent_commercial', commercialConsent);
 
     if (userData && userData.id) {
       dispatch(updateConsent({ formData, id: userData.id }));
     }
+  };
+
+  const handleClickDeleteAccount = () => {
+    setShowModalConfirmPassword(!showModalConfirmPassword);
   };
 
   return (
