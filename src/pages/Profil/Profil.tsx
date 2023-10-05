@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useState, ChangeEvent } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
+import { useState, FormEvent } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { updateConsent } from '../../store/reducers/user';
-import PdfDisplay from '../../components/PdfDisplay/PdfDisplay';
 
 import Main from '../../layout/Main/Main';
 
+import PdfDisplay from '../../components/PdfDisplay/PdfDisplay';
 import Button from '../../components/Button/Button';
 // import ChangePassword from '../../components/ModalChangePassword/ModalChangePassword';
 import ModaleConfirmPassword from '../../components/ModalConfirmPassword/ModalConfirmPassword';
@@ -22,38 +22,47 @@ function Profil() {
   // *********************************** MODAL
   const [showModalConfirmPassword, setShowModalConfirmPassword] =
     useState<boolean>(false);
-  const handleClickDeleteAccount = () => {
-    setShowModalConfirmPassword(!showModalConfirmPassword);
-  };
+
+  // ********************************** Consent
+  const [commercialConsent, setCommercialConsent] = useState<boolean>(
+    userData.consent_commercial
+  );
+  const [newsletterConsent, setNewsletterConsent] = useState(
+    userData.consent_newsletter
+  );
+
   // *********************************** USESTATE
-  const [usageCommercial, setUsageCommercial] = useState<boolean>(false);
-  const [newsletter, setNewsletter] = useState<boolean>(false);
-  // *********************************** COMMERCIAL
-  const handleUsageCommercialChange = (
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    const { value } = event.target;
-    setUsageCommercial(value === 'true');
-    if (userData && userData.id) {
-      dispatch(updateConsent({ formData: value, id: userData.id }));
-      console.log('Usage Commercial:', value);
-    } else {
-      console.error('userData or userData.id is undefined');
-    }
+
+  // const handleUsageCommercialChange = (
+  //   event: ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   const { value } = event.target;
+  //   setCommercialConsent(value === 'true'); // Assuming 'value' is a string 'true' or 'false'
+  //   if (userData && userData.id) {
+  //     dispatch(updateConsent({ formData: value, id: userData.id }));
+  // };
+
+  const handleCommercialToggle = () => {
+    setCommercialConsent(!commercialConsent);
+    console.log('Commercials', commercialConsent);
   };
 
-  // *********************************** NEWSLETTER
-  const handleNewsletterChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setNewsletter(value === 'true');
+  const handleNewsletterToggle = () => {
+    setNewsletterConsent(!newsletterConsent);
+    console.log('Newsletter', newsletterConsent);
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    console.log(form);
+    const formData = new FormData(form);
+    formData.append('consent_commercial', commercialConsent);
+
     if (userData && userData.id) {
-      dispatch(updateConsent({ formData: value, id: userData.id }));
-      console.log('Usage newsletter:', value);
-    } else {
-      console.error('userData or userData.id is undefined');
+      dispatch(updateConsent({ formData, id: userData.id }));
     }
   };
-  // ***********************************
 
   return (
     <Main>
@@ -124,57 +133,59 @@ function Profil() {
       {/* *********************** */}
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Traitement de vos données</h2>
-
         <div>
           Vos choix pour le traitement de vos données sont les suivants:
-          <form>
-            <ul>
-              <li>
-                Usage commercial :{' '}
-                <label>
-                  <input
-                    type="radio"
-                    value="true"
-                    checked={usageCommercial === true}
-                    onChange={handleUsageCommercialChange} // Utilisez le gestionnaire d'événements pour le changement
-                  />
-                  True
-                </label>{' '}
-                <label>
-                  <input
-                    type="radio"
-                    value="false"
-                    checked={usageCommercial === false}
-                    onChange={handleUsageCommercialChange}
-                  />
-                  False
-                </label>
-              </li>
-              <li>
-                Newsletter :{' '}
-                <label>
-                  <input
-                    type="radio"
-                    value="true"
-                    checked={newsletter === true}
-                    onChange={handleNewsletterChange}
-                  />
-                  True
-                </label>{' '}
-                <label>
-                  <input
-                    type="radio"
-                    value="false"
-                    checked={newsletter === false}
-                    onChange={handleNewsletterChange}
-                  />
-                  False
-                </label>
-              </li>
-            </ul>
+          <form onSubmit={handleSubmit}>
+            {/* ************************** Commercial  */}
+            <div className="profil-card-toggle-container">
+              <p>Usage commercial :</p>
+              <input
+                className="profil-card-checkbox"
+                name="consent_commercial"
+                type="checkbox"
+                id="consentCommercial"
+                onChange={handleCommercialToggle}
+                checked={commercialConsent}
+              />
+              {commercialConsent ? 'Accepté' : 'Refusé'}
+              <label
+                className="profil-card-toggleSwitch"
+                htmlFor="consentCommercial"
+              >
+                <span className="profil-card-checkbox-slider" />
+              </label>
+            </div>
+
+            {/* ************************** NEWSLETTER   */}
+            <div className="profil-card-toggle-container">
+              <p>Usage newsletter :</p>
+              <input
+                className="profil-card-checkbox"
+                name="consent_newsletter"
+                type="checkbox"
+                id="consentNewsletter"
+                onChange={handleNewsletterToggle}
+                checked={newsletterConsent}
+              />
+              {newsletterConsent ? 'Accepté' : 'Refusé'}
+              <label
+                className="profil-card-toggleSwitch"
+                htmlFor="consentNewsletter"
+              >
+                <span className="profil-card-checkbox-slider" />
+              </label>
+            </div>
+            <div className="profil-card-btn-container">
+              <Button
+                text="Changer vos données"
+                customClass="color"
+                type="submit"
+              />
+            </div>
           </form>
         </div>
       </section>
+
       {/* *********************** */}
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Droits à l&apos;oubli</h2>
@@ -198,41 +209,3 @@ function Profil() {
 }
 
 export default Profil;
-
-// const handleClickOnGetData = (event: FormEvent<HTMLFormElement>) => {
-//   event.preventDefault();
-//   console.log(data);
-// };
-
-// // Envoyer nouveau consents au backend /!\
-// const handleClickChangeConsents = async (
-//   event: FormEvent<HTMLFormElement>
-// ) => {
-//   event.preventDefault();
-//   const formData = new FormData(form);
-//   const formSent = Object.fromEntries(formData);
-//   try {
-//     const response = await axiosInstance.patch(`/users/${data.id}`, formSent);
-//     console.log(response.data);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// // Envoyer le password au backend /!\
-// const handleClickDeleteAccount = async (
-//   event: FormEvent<HTMLFormElement>
-// ) => {
-//   event.preventDefault();
-//   const formData = new FormData(form);
-//   const formSent = Object.fromEntries(formData);
-//   try {
-//     const response = await axiosInstance.delete(
-//       `/users/${data.id}`,
-//       formSent
-//     );
-//     console.log(response.data);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };

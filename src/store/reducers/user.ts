@@ -51,6 +51,7 @@ export const initialState: UserState = {
   errorMessage: null,
   trip: null,
 };
+
 const env = null;
 
 export const login = createAsyncThunk(
@@ -149,7 +150,7 @@ export const deleteTrip = createAsyncThunk(
 
 export const updateConsent = createAsyncThunk(
   'user/updateConsent',
-  async ({ formData, id }: { formData: string; id: number }) => {
+  async ({ formData, id }: { formData: FormData; id: number | null }) => {
     const { data } = await axiosInstance.patch(`/users/${id}`, formData);
     return data;
   }
@@ -240,7 +241,6 @@ const userReducer = createReducer(initialState, (builder) => {
       state.toastSuccess = true;
       state.errorMessage = null;
     })
-
     // Update Consent
     .addCase(updateConsent.fulfilled, (state, action) => {
       state.data = {

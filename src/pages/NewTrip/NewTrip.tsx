@@ -27,6 +27,9 @@ function NewTrip() {
   const [startDate, setStartDate] = useState<Date>(new Date()); // Trip start date
   const [endDate, setEndDate] = useState<Date>(new Date()); // Trip end date
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
@@ -46,8 +49,13 @@ function NewTrip() {
   };
 
   // Event handler for selecting an image file
-  const handleFile = (file: File) => {
+  const handleFile = (fileUploaded: File | null) => {
     console.log('Fichier sélectionné :', file);
+    setFile(fileUploaded);
+
+    const url = URL.createObjectURL(fileUploaded);
+    setImageUrl(url)
+    
   };
 
   // Event handler for the newTrip form submission
@@ -132,6 +140,9 @@ function NewTrip() {
             />
             {/* Image File Selection Input */}
             <InputFieldImage handleFile={handleFile} text="Ajouter une image" />
+            {file && imageUrl && (
+            <img className="new-trip-image" src={imageUrl} alt={file.name} />
+            )}
             {/* Submit Button */}
             <Button
               text="Créer le voyage"
@@ -142,7 +153,7 @@ function NewTrip() {
         </FormContainer>
       </section>
     </Main>
-  );
+  )
 }
 
 export default NewTrip;
