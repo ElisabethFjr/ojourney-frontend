@@ -36,9 +36,11 @@ function ConfirmInvite() {
         {isConfirmed ? (
           <>
             <h1 className="main-title confirm-title">
-              Bienvenue sur O&apos;Journey. Vous avez bien été ajouté(e) à un
-              voyage !
+              Bienvenue sur O&apos;Journey !
             </h1>
+            <h2 className="confirm-subtitle">
+              Vous avez bien été ajouté(e) à un voyage !
+            </h2>
             <p className="confirm-text">
               Pour continuer, veuillez vous connecter ou vous inscrire en
               cliquant sur le bouton ci-dessous.

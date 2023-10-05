@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
 
@@ -9,6 +9,7 @@ import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import TextareaField from '../../components/TextareaField/TextareaField';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './NewProposition.scss';
 
@@ -19,8 +20,8 @@ function NewProposition() {
   // Get the trip id from url
   const { id } = useParams();
 
-  // Fetch states from Redux store
-  const env = useAppSelector((state) => state.user.env);
+  // Declaration state variables
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Event handler for the newProposition form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -32,32 +33,30 @@ function NewProposition() {
     const objData = Object.fromEntries(formData);
 
     // Axios options: If in development mode (using token) or production mode (using cookies)
-    let axiosOptions = {};
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        withCredentials: true,
-      };
-    }
+    // let axiosOptions = {};
+    // if (env === 'dev') {
+    //   axiosOptions = {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   };
+    // } else {
+    //   axiosOptions = {
+    //     withCredentials: true,
+    //   };
+    // }
 
     // Send a POST request to create a new proposition
     await axiosInstance
-      .post(`/trips/${id}/links`, objData, axiosOptions)
+      .post(`/trips/${id}/links`, objData)
       .then(() => {
         navigate(`/my-trip/${id}`);
       })
       .catch((error) => {
-        console.error(
-          "Une erreur est survenue lors de la création d'une proposition.",
-          error
-        );
+        if (error.response) {
+          setErrorMessage(error.response.data.error);
+        }
+        console.error(error);
       });
   };
 
@@ -68,6 +67,11 @@ function NewProposition() {
         <FormContainer>
           <form onSubmit={handleSubmit}>
             <h2 className="new-proposition-form-title">Proposition</h2>
+            {/* Error Message */}
+            {errorMessage && (
+              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+            )}
+            {/* URL Input */}
             <InputField
               name="url"
               placeholder="Adresse URL"
@@ -75,6 +79,7 @@ function NewProposition() {
               icon="fa-solid fa-link"
               required
             />
+            {/* Localisation Input */}
             <InputField
               name="localisation"
               placeholder="Localisation"
@@ -82,6 +87,7 @@ function NewProposition() {
               icon="fa-solid fa-location-dot"
               maxlength={50}
             />
+            {/* Description Textarea */}
             <TextareaField
               name="description"
               placeholder="Description"

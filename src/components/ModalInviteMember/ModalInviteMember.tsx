@@ -18,9 +18,6 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
   // Declaration state variables
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
-  // Fetch states from Redux store
-  const env = useAppSelector((state) => state.user.env);
-
   // Event handler on the invite member submit form
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,25 +25,9 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
     const formData = new FormData(form);
     const jsonData = Object.fromEntries(formData.entries());
 
-    // Axios options: If in development mode (using token) or production mode (using cookies)
-    let axiosOptions = {};
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        withCredentials: true,
-      };
-    }
-
     // Send a POST request to invite a member with his email
     await axiosInstance
-      .post(`/trips/${id}/invite`, jsonData, axiosOptions)
+      .post(`/trips/${id}/invite`, jsonData)
       .then(() => {
         setIsOpen(!isOpen);
         toast.success("L'invitation a bien été envoyée !");
@@ -70,17 +51,15 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
     <div>
       {isOpen && (
         <ModalContainer handleClose={handleClose}>
-          <i className="modal-icon-email fa-solid fa-envelope-circle-check" />
-          <h1 className="modal-invite-member-title">
-            Invitation d&apos;un membre
-          </h1>
+          <i className="modal-invite-member-icon fa-solid fa-envelope-circle-check" />
+          <h1 className="modal-invite-member-title">Inviter un membre</h1>
           <p className="modal-invite-member-text">
-            Veuillez renseigner l&apos;adresse mail du nouveau membre.
+            Veuillez renseigner l&apos;adresse email du membre à inviter.
           </p>
-          <form onSubmit={handleSubmit}>
+          <form className="modal-invite-member-input" onSubmit={handleSubmit}>
             <InputField
               name="email"
-              placeholder="e-mail"
+              placeholder="E-mail"
               type="email"
               icon="fa-solid fa-envelope-circle-check"
             />
@@ -91,12 +70,7 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
                 customClass="outline-dark"
                 onClick={handleClose}
               />
-
-              <Button
-                text="Confirmer"
-                type="submit"
-                customClass="outline-dark"
-              />
+              <Button text="Confirmer" type="submit" customClass="color" />
             </div>
           </form>
         </ModalContainer>
