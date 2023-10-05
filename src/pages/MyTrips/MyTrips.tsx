@@ -44,6 +44,7 @@ function MyTrips() {
       await axiosInstance
         .get('/trips', axiosOptions)
         .then((response) => {
+          console.log(response.data);
           setTrips(response.data);
         })
         .catch((error) => {
@@ -68,6 +69,7 @@ function MyTrips() {
   const allTrips = trips.map((trip) => (
     <li className="trips-list-item" key={trip.id}>
       <TripCard
+        key={trip.id}
         id={trip.id}
         srcTripImage={`https://luciebaroiller-server.eddi.cloud:8080/images/${trip.url_image}`}
         altImage={trip.alt_image}

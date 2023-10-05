@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axiosInstance from '../../utils/axios';
-import './PropositionCard.scss';
+
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
+import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
+
+import './PropositionCard.scss';
 
 interface PropositionCardProps {
   srcImage: string;
@@ -12,7 +15,8 @@ interface PropositionCardProps {
   description: string;
   url: string;
   id_link: number;
-  id_trip: number | null;
+  id_trip: number;
+  handleUpdateData: (deletedPropositionId: number, dataType: string) => void;
 }
 
 function PropositionCard({
@@ -25,34 +29,22 @@ function PropositionCard({
   url,
   id_link,
   id_trip,
+  handleUpdateData,
 }: PropositionCardProps) {
+  // Initialize Hook
   const navigate = useNavigate();
+
+  // Display of the Delete Confirm Modal
+  const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
+    useState<boolean>(false);
+
+  // Event handler to open the modal DeleteConfirmation if click on delete a trip
+  const handleClickDelete = () => {
+    setShowModalDeleteConfirm(!showModalDeleteConfirm);
+  };
 
   const handleClickEdit = () => {
     navigate(`/edit-proposition/${id_trip}/${id_link}`);
-    // Effectuez la requête DELETE ici
-  };
-
-  const handleClickDelete = async () => {
-    // Effectuez la requête DELETE ici
-    await axiosInstance
-      .delete(`/trips/${id_trip}/links/${id_link}`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      })
-      .then(() => {
-        navigate(`/my-trip/${id_trip}`);
-      })
-      .catch((error) => {
-        console.error(
-          'Une erreur est survenue lors de la suppression de la proposition.',
-          error
-        );
-      });
   };
 
   return (
@@ -68,13 +60,14 @@ function PropositionCard({
             <h3 className="proposition-card-header-title">{title}</h3>
           </div>
           <p className="proposition-card-author">Creé par {authorName}</p>
+          {description && (
+            <div className="proposition-card-description">
+              <p className="proposition-card-description-text">{description}</p>
+            </div>
+          )}
           <div className="proposition-card-localisation">
             <i className="fa-solid fa-location-dot" />
             <p className="proposition-card-localisation-name">{localisation}</p>
-          </div>
-          <div className="proposition-card-description">
-            <i className="fa-solid fa-pen-nib" />
-            <p className="proposition-card-description-text">{description}</p>
           </div>
           <div className="proposition-card-url">
             <i className="fa-solid fa-square-arrow-up-right" />
@@ -82,6 +75,17 @@ function PropositionCard({
           </div>
         </div>
       </Link>
+      {showModalDeleteConfirm && (
+        <ModalDeleteConfirm
+          endpoint={`/trips/${id_trip}/links/${id_link}`}
+          urlNavigate={`/my-trip/${id_trip}`}
+          title="Confirmation suppression"
+          text="Êtes-vous sûr de vouloir supprimer définitivement cette proposition ?"
+          dataType="propositions"
+          dataId={id_link}
+          handleUpdateData={handleUpdateData}
+        />
+      )}
     </div>
   );
 }

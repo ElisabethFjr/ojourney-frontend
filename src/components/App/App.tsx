@@ -27,7 +27,6 @@ import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
 
-
 import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -61,7 +60,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/confirm-account" element={<ConfirmAccount />} />
-        <Route path="/confirm-invite" element={<ConfirmInvite />} />
+        <Route path="/invite" element={<ConfirmInvite />} />
         <Route path="*" element={<Error />} />
 
         {/* Private Routes (user connected) */}

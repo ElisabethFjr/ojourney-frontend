@@ -6,7 +6,6 @@ import {
   checkUserPassword,
   deleteUserAccount,
 } from '../../store/reducers/user';
-import axiosInstance from '../../utils/axios';
 
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
@@ -21,11 +20,8 @@ function ModaleConfirmPassword() {
 
   // Declaration state variables
   const [isOpen, setIsOpen] = useState<boolean>(true);
-  const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
-    useState<boolean>(false);
 
   // Fetch states from Redux store
-  const env = useAppSelector((state) => state.user.env);
   const userData = useAppSelector((state) => state.user.data);
   const checkedPassword = useAppSelector((state) => state.user.checkedPassword);
 
@@ -33,8 +29,6 @@ function ModaleConfirmPassword() {
   const handleClose = () => {
     setIsOpen(!isOpen);
   };
-
-  //
 
   // Event handler for the Confirm Password form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {

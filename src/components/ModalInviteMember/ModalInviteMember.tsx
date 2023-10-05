@@ -70,17 +70,15 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
     <div>
       {isOpen && (
         <ModalContainer handleClose={handleClose}>
-          <i className="modal-icon-email fa-solid fa-envelope-circle-check" />
-          <h1 className="modal-invite-member-title">
-            Invitation d&apos;un membre
-          </h1>
+          <i className="modal-invite-member-icon fa-solid fa-envelope-circle-check" />
+          <h1 className="modal-invite-member-title">Inviter un membre</h1>
           <p className="modal-invite-member-text">
-            Veuillez renseigner l&apos;adresse mail du nouveau membre.
+            Veuillez renseigner l&apos;adresse email du membre à inviter.
           </p>
-          <form onSubmit={handleSubmit}>
+          <form className="modal-invite-member-input" onSubmit={handleSubmit}>
             <InputField
               name="email"
-              placeholder="e-mail"
+              placeholder="E-mail"
               type="email"
               icon="fa-solid fa-envelope-circle-check"
             />
@@ -91,12 +89,7 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
                 customClass="outline-dark"
                 onClick={handleClose}
               />
-
-              <Button
-                text="Confirmer"
-                type="submit"
-                customClass="outline-dark"
-              />
+              <Button text="Confirmer" type="submit" customClass="color" />
             </div>
           </form>
         </ModalContainer>
