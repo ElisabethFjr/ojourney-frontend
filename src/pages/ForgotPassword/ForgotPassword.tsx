@@ -22,11 +22,14 @@ function ForgotPassword () {
 
     const email = formData.get('email') as string;
 
+const jsonData = Object.fromEntries(formData.entries());
     await axiosInstance
-    .post('/forgot-password', formData )
+    .post('/forgot-password', jsonData)
+    
     
     .then(() => {
       setShowModalForgotPassword(true);
+
     })
     .catch((error) => {
       console.error("Une erreur est survenue lors de la rénitialisation de votre mot de passe.", error);
