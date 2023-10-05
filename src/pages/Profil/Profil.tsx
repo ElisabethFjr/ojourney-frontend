@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useState, ChangeEvent } from 'react';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { updateConsent } from '../../store/reducers/user';
+import PdfDisplay from '../../components/PdfDisplay/PdfDisplay';
 
 import Main from '../../layout/Main/Main';
 
@@ -52,6 +54,7 @@ function Profil() {
     }
   };
   // ***********************************
+
   return (
     <Main>
       <h1 className="main-title">Profil</h1>
@@ -94,7 +97,6 @@ function Profil() {
           </Link>
         </div>
       </section>
-      {/* Installer react-pdf */}
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Vos données</h2>
         <p>
@@ -102,11 +104,21 @@ function Profil() {
           recueillies par l&apos;application
         </p>
         <div className="profil-card-btn-container">
-          <Button
+          <PDFDownloadLink
+            document={<PdfDisplay data={userData} />}
+            fileName={`${userData.firstname}_${userData.lastname}.pdf`}
+          >
+            {({ blob, url, loading, error }) =>
+              loading ? 'Chargement...' : ' Téléchargez maintenant !'
+            }
+          </PDFDownloadLink>
+
+          {/* <Button
             text="Télécharger mes données"
             customClass="color"
             type="button"
-          />
+            onClick={generatePdf}
+          /> */}
         </div>
       </section>
       {/* *********************** */}

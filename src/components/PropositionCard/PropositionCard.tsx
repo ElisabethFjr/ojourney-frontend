@@ -77,7 +77,7 @@ function PropositionCard({
       </Link>
       {/* {showModalDeleteConfirm && (
         <ModalDeleteConfirm
-          endpoint={`/trips/${id_trip}/links/${id_link}`}
+        dispatchDeleteAction={dispatch()}
           urlNavigate={`/my-trip/${id_trip}`}
           title="Confirmation suppression"
           text="Êtes-vous sûr de vouloir supprimer définitivement cette proposition ?"
