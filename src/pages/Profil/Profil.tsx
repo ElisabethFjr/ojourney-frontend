@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState, ChangeEvent } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { updateConsent } from '../../store/reducers/user';
 
@@ -20,38 +20,34 @@ function Profil() {
   // *********************************** MODAL
   const [showModalConfirmPassword, setShowModalConfirmPassword] =
     useState<boolean>(false);
+
+  // ********************************** Consent
+  const [isCommercialAccepted, setIsCommercialAccepted] = useState<boolean>(
+    userData.consent_commercial || false
+  );
+  const [isNewsletterAccepted, setIsNewsletterAccepted] = useState(
+    userData.consent_newsletter || false
+  );
+
+  // *********************************** USESTATE
+
+  const handleToggleCommercial = () => {
+    setIsCommercialAccepted(!isCommercialAccepted);
+    console.log('handleToggleCommercial', handleToggleCommercial);
+  };
+
+  const handleToggleNewsletter = () => {
+    setIsNewsletterAccepted(!isNewsletterAccepted);
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   const handleClickDeleteAccount = () => {
     setShowModalConfirmPassword(!showModalConfirmPassword);
   };
-  // *********************************** USESTATE
-  const [usageCommercial, setUsageCommercial] = useState<boolean>(false);
-  const [newsletter, setNewsletter] = useState<boolean>(false);
-  // *********************************** COMMERCIAL
-  const handleUsageCommercialChange = (
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    const { value } = event.target;
-    setUsageCommercial(value === 'true');
-    if (userData && userData.id) {
-      dispatch(updateConsent({ formData: value, id: userData.id }));
-      console.log('Usage Commercial:', value);
-    } else {
-      console.error('userData or userData.id is undefined');
-    }
-  };
 
-  // *********************************** NEWSLETTER
-  const handleNewsletterChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setNewsletter(value === 'true');
-    if (userData && userData.id) {
-      dispatch(updateConsent({ formData: value, id: userData.id }));
-      console.log('Usage newsletter:', value);
-    } else {
-      console.error('userData or userData.id is undefined');
-    }
-  };
-  // ***********************************
   return (
     <Main>
       <h1 className="main-title">Profil</h1>
@@ -112,57 +108,56 @@ function Profil() {
       {/* *********************** */}
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Traitement de vos données</h2>
-
         <div>
           Vos choix pour le traitement de vos données sont les suivants:
-          <form>
-            <ul>
-              <li>
-                Usage commercial :{' '}
-                <label>
-                  <input
-                    type="radio"
-                    value="true"
-                    checked={usageCommercial === true}
-                    onChange={handleUsageCommercialChange} // Utilisez le gestionnaire d'événements pour le changement
-                  />
-                  True
-                </label>{' '}
-                <label>
-                  <input
-                    type="radio"
-                    value="false"
-                    checked={usageCommercial === false}
-                    onChange={handleUsageCommercialChange}
-                  />
-                  False
-                </label>
-              </li>
-              <li>
-                Newsletter :{' '}
-                <label>
-                  <input
-                    type="radio"
-                    value="true"
-                    checked={newsletter === true}
-                    onChange={handleNewsletterChange}
-                  />
-                  True
-                </label>{' '}
-                <label>
-                  <input
-                    type="radio"
-                    value="false"
-                    checked={newsletter === false}
-                    onChange={handleNewsletterChange}
-                  />
-                  False
-                </label>
-              </li>
-            </ul>
+          <form onSubmit={handleSubmit}>
+            {/* ************************** Commercial  */}
+            <p>Usage commercial : </p>
+            {/* ************************** Commercial  */}
+            <div className="profil-card-toggle-container">
+              <label htmlFor="consentCommercial" className="profil-card-label">
+                Usage commercial :
+              </label>
+              <div>
+                <input
+                  className="profil-card-toggle"
+                  name="consent_commercial"
+                  type="checkbox"
+                  id="consentCommercial"
+                  onChange={handleToggleCommercial}
+                  checked={isCommercialAccepted}
+                />
+                <label
+                  className="profil-card-toggleSwitch"
+                  htmlFor="consentCommercial"
+                ></label>
+              </div>
+            </div>
+
+            {/* ************************** NEWSLETTER   */}
+            <div className="profil-card-toggle-container">
+              <label htmlFor="consentNewsletter" className="profil-card-label">
+                Newsletter :
+              </label>
+              <div>
+                <input
+                  className="profil-card-toggle"
+                  name="consent_newsletter"
+                  type="checkbox"
+                  id="consentNewsletter"
+                  onChange={handleToggleNewsletter}
+                  checked={isNewsletterAccepted}
+                />
+                <label
+                  className="profil-card-toggleSwitch"
+                  htmlFor="consentNewsletter"
+                ></label>
+              </div>
+            </div>
           </form>
         </div>
       </section>
+
       {/* *********************** */}
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Droits à l&apos;oubli</h2>
@@ -186,41 +181,3 @@ function Profil() {
 }
 
 export default Profil;
-
-// const handleClickOnGetData = (event: FormEvent<HTMLFormElement>) => {
-//   event.preventDefault();
-//   console.log(data);
-// };
-
-// // Envoyer nouveau consents au backend /!\
-// const handleClickChangeConsents = async (
-//   event: FormEvent<HTMLFormElement>
-// ) => {
-//   event.preventDefault();
-//   const formData = new FormData(form);
-//   const formSent = Object.fromEntries(formData);
-//   try {
-//     const response = await axiosInstance.patch(`/users/${data.id}`, formSent);
-//     console.log(response.data);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// // Envoyer le password au backend /!\
-// const handleClickDeleteAccount = async (
-//   event: FormEvent<HTMLFormElement>
-// ) => {
-//   event.preventDefault();
-//   const formData = new FormData(form);
-//   const formSent = Object.fromEntries(formData);
-//   try {
-//     const response = await axiosInstance.delete(
-//       `/users/${data.id}`,
-//       formSent
-//     );
-//     console.log(response.data);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };

@@ -151,41 +151,9 @@ export const deleteTrip = createAsyncThunk(
 
 export const updateConsent = createAsyncThunk(
   'user/updateConsent',
-  async ({ formData, id }: { formData: string; id: number }) => {
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        withCredentials: true,
-      };
-    }
-
-    try {
-      const response = await axiosInstance.patch(
-        `/users/${id}`,
-        formData,
-        axiosOptions
-      );
-      if (response.status === 200) {
-        console.log('User consent updated successfully:', response.data);
-        return response.data;
-      } else {
-        console.error(
-          'Error updating user consent: Unexpected status code',
-          response.status
-        );
-        throw new Error('Unexpected status code');
-      }
-    } catch (error) {
-      console.error('Error updating user consent:', error);
-      throw error; // Rethrow the error to be handled by Redux Toolkit
-    }
+  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+    const { data } = await axiosInstance.patch(`/users/${id}`, formData);
+    return data;
   }
 );
 
@@ -273,14 +241,6 @@ const userReducer = createReducer(initialState, (builder) => {
       state.trip = null;
       state.toastSuccess = true;
       state.errorMessage = null;
-    })
-    // Update Password
-    .addCase(updatePassword.fulfilled, (state, action) => {
-      state.data = {
-        ...state.data,
-        ...action.payload,
-      };
-      state.toastSuccess = true;
     })
 
     // Update Consent
