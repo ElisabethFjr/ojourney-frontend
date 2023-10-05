@@ -1,75 +1,42 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
-import axiosInstance from '../../utils/axios';
+import { fetchUserInfos } from '../../store/reducers/user';
 
 import Main from '../../layout/Main/Main';
-
 import TripCard from '../../components/TripCard/TripCard';
 import Button from '../../components/Button/Button';
 
 import travel from '../../assets/images/travel.png';
 
-import { Trip } from '../../@types';
-
 import './MyTrips.scss';
 
 function MyTrips() {
-  // Declaration state variables
-  const [trips, setTrips] = useState<Trip[]>([]); // User trips data
+  // Initialize Hooks
+  const dispatch = useAppDispatch();
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data); // User data
-  const env = useAppSelector((state) => state.user.env);
+  const trips = useAppSelector((state) => state.user.data.trips); // User trips data
 
   // Fetch trips data when component mounts
   useEffect(() => {
-    // Function to fetch all trips data from the server with awiosInstance
-    let axiosOptions = {};
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        withCredentials: true,
-      };
-    }
-    const fetchDataTrips = async () => {
-      await axiosInstance
-        .get('/trips', axiosOptions)
-        .then((response) => {
-          console.log(response.data);
-          setTrips(response.data);
-        })
-        .catch((error) => {
-          console.error(
-            'Une erreur est survenue lors de la recupération des voyages.',
-            error
-          );
-        });
-    };
-    fetchDataTrips();
-  }, [env]);
+    dispatch(fetchUserInfos(userData.id));
+  }, [userData.id, dispatch]);
 
   // Function to update trips array after deleting a trip
-  const updatedTrips = (deletedTripId: number) => {
-    // Create a new trips array by removing the trip with the deleted id
-    const newTrips = trips.filter((trip) => trip.id !== deletedTripId);
-    // Update the trips state with the new array
-    setTrips(newTrips);
-  };
+  // const updatedTrips = (deletedTripId: number) => {
+  //   // Create a new trips array by removing the trip with the deleted id
+  //   const newTrips = trips.filter((trip) => trip.id !== deletedTripId);
+  //   // Update the trips state with the new array
+  //   setTrips(newTrips);
+  // };
 
   // Display a list of all trips from the trips array fetch to the API
-  const allTrips = trips.map((trip) => (
+  const allTrips = trips?.map((trip) => (
     <li className="trips-list-item" key={trip.id}>
       <TripCard
-        key={trip.id}
         id={trip.id}
         srcTripImage={`https://luciebaroiller-server.eddi.cloud:8080/images/${trip.url_image}`}
         altImage={trip.alt_image}
@@ -77,7 +44,7 @@ function MyTrips() {
         description={trip.description}
         localisation={trip.localisation}
         linkHref={`/my-trip/${trip.id}`}
-        handleUpdateData={updatedTrips}
+        // handleUpdateData={updatedTrips}
       />
     </li>
   ));

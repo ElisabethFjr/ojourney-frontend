@@ -14,7 +14,7 @@ export interface TripCardProps {
   description: string;
   localisation: string;
   linkHref: string;
-  handleUpdateData: (deletedTripId: number, dataType: string) => void;
+  // handleUpdateData: (deletedTripId: number, dataType: string) => void;
 }
 
 function TripCard({
@@ -25,8 +25,8 @@ function TripCard({
   description,
   localisation,
   linkHref,
-  handleUpdateData,
-}: TripCardProps) {
+}: // handleUpdateData,
+TripCardProps) {
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
 
@@ -63,7 +63,7 @@ function TripCard({
           text="Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?"
           dataType="trips"
           dataId={id}
-          handleUpdateData={handleUpdateData}
+          // handleUpdateData={handleUpdateData}
         />
       )}
     </div>

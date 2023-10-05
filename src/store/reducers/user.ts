@@ -26,6 +26,7 @@ interface UserState {
     consent_newsletter: boolean | false;
     consent_commercial: boolean | false;
   };
+  trip: Trip | null;
   isConnected: boolean;
   checkedPassword: boolean;
   toastSuccess: boolean;
@@ -50,18 +51,12 @@ export const initialState: UserState = {
   toastSuccess: false,
   checkedPassword: false,
   errorMessage: null,
-  env: null,
+  trip: null,
+  env: 'dev',
 };
 
-// interface TripState {
-//   trips: Trip[] | null;
-// }
-// export const tripInitialState: TripState = {
-//   trips: null,
-// };
-
 // Variables axiosOptions (dev/prod => token/cookies)
-const env = null;
+const env = 'dev';
 let axiosOptions = {};
 if (env === 'dev') {
   axiosOptions = {
@@ -117,6 +112,15 @@ export const logout = createAction('user/logout');
 //   await axiosInstance.get('/logout');
 // });
 
+// Create action to fetch user data
+export const fetchUserInfos = createAsyncThunk(
+  'user/getUserInfo',
+  async (id: number | null) => {
+    const { data } = await axiosInstance.get(`/users/${id}`, axiosOptions);
+    return data;
+  }
+);
+
 // Create action to ckeck user password
 export const checkUserPassword = createAsyncThunk(
   'user/checkUserPassword',
@@ -131,7 +135,7 @@ export const checkUserPassword = createAsyncThunk(
   }
 );
 
-// Create action delete user account
+// Create action to delete user account
 export const deleteUserAccount = createAsyncThunk(
   'user/deleteAccount',
   async ({ id }: { id: number | null }) => {
@@ -155,22 +159,11 @@ export const updateUserData = createAsyncThunk(
     return data;
   }
 );
+
+// Create action to update user password
 export const updatePassword = createAsyncThunk(
   'user/updatePassword',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        withCredentials: true,
-      };
-    }
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a POST request to update user data
@@ -210,25 +203,17 @@ const userReducer = createReducer(initialState, (builder) => {
       }
       // FAIRE UN APPEL VERS LE BACKEND POUR SUPPRIMER LE COOKIE
     })
-    // Check User Password
-    .addCase(checkUserPassword.fulfilled, (state) => {
-      state.checkedPassword = true;
+    // Fetch User Data
+    .addCase(fetchUserInfos.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
     })
-    .addCase(checkUserPassword.rejected, (state, action) => {
-      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
-      state.checkedPassword = false;
-    })
-    // Delete User Account
-    .addCase(deleteUserAccount.fulfilled, (state) => {
-      state.data = initialState.data; // Reset user data to initial state
-      state.toastSuccess = true;
-      state.isConnected = false;
-      state.errorMessage = null;
-    })
-    .addCase(deleteUserAccount.rejected, (state, action) => {
+    .addCase(fetchUserInfos.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
-    // Update user data
+    // Updat User Data
     .addCase(updateUserData.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
@@ -247,6 +232,24 @@ const userReducer = createReducer(initialState, (builder) => {
         ...action.payload,
       };
       state.toastSuccess = true;
+    })
+    // Check User Password
+    .addCase(checkUserPassword.fulfilled, (state) => {
+      state.checkedPassword = true;
+    })
+    .addCase(checkUserPassword.rejected, (state, action) => {
+      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+      state.checkedPassword = false;
+    })
+    // Delete User Account
+    .addCase(deleteUserAccount.fulfilled, (state) => {
+      state.data = initialState.data; // Reset user data to initial state
+      state.toastSuccess = true;
+      state.isConnected = false;
+      state.errorMessage = null;
+    })
+    .addCase(deleteUserAccount.rejected, (state, action) => {
+      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     });
 });
 
