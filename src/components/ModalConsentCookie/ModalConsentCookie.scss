@@ -1,0 +1,40 @@
+@use '../../styles/variables' as v;
+
+.modal-consent-cookie {
+  &-container {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 1000px;
+    background-color: v.$color-white;
+    padding: 2rem;
+    border-radius: v.$border-radius;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 2000;
+  }
+
+  &-title {
+    width: 100%;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid v.$color-grey-lightest;
+    text-align: center;
+  }
+
+  &-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    gap: 2rem;
+    padding-top: 0.5rem;
+
+  }
+}
