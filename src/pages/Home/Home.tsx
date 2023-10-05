@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 
 import Button from '../../components/Button/Button';
-import Loading from '../../components/Loading/Loading';
 
 import './Home.scss';
 
