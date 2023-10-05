@@ -50,11 +50,11 @@ export const initialState: UserState = {
   toastSuccess: false,
   checkedPassword: false,
   errorMessage: null,
-  env: 'dev',
+  env: null,
 };
 
 // Variables axiosOptions (dev/prod => token/cookies)
-const env = 'dev';
+const env = null;
 let axiosOptions = {};
 if (env === 'dev') {
   axiosOptions = {
