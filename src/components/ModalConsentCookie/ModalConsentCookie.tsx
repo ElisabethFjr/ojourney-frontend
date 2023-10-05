@@ -30,7 +30,7 @@ function ModalConsentCookie() {
                 type="button"
                 customClass="outline-dark"
               />
-              <Button text="Confirmer" 
+              <Button text="Tout accepter" 
               type="submit" 
               customClass="color" />
               <Button
