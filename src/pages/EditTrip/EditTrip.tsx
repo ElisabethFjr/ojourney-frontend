@@ -37,9 +37,6 @@ function EditTrip() {
   const [endDate, setEndDate] = useState<Date>(new Date());
   const [description, setDescription] = useState('');
 
-  // Fetch states from Redux store
-  const env = useAppSelector((state) => state.user.env);
-
   // Get the trip id from url
   const { id } = useParams();
 
@@ -86,28 +83,26 @@ function EditTrip() {
     const objData = Object.fromEntries(formData);
 
     // Axios options: If in development mode (using token) or production mode (using cookies)
-    let axiosOptions = {};
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      };
-    }
+    // let axiosOptions = {};
+    // if (env === 'dev') {
+    //   axiosOptions = {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   };
+    // } else {
+    //   axiosOptions = {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //     withCredentials: true,
+    //   };
+    // }
 
     // Send a PATCH request to update the trip data
     await axiosInstance
-      .patch(`/trips/${id}`, objData, axiosOptions)
+      .patch(`/trips/${id}`, objData)
       .then(() => {
         navigate(`/my-trip/${id}`); // Navigate to the trip
         toast.success('Le voyage a bien été modifié !');

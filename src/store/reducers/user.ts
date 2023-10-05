@@ -6,7 +6,6 @@ import {
   createAsyncThunk,
   createAction,
 } from '@reduxjs/toolkit';
-
 // Import axios
 import axiosInstance from '../../utils/axios';
 
@@ -31,7 +30,6 @@ interface UserState {
   checkedPassword: boolean;
   toastSuccess: boolean;
   errorMessage: string | null;
-  env: string | null;
 }
 
 // User Reducer initial states
@@ -52,27 +50,9 @@ export const initialState: UserState = {
   checkedPassword: false,
   errorMessage: null,
   trip: null,
-  env: 'dev',
 };
-
-// Variables axiosOptions (dev/prod => token/cookies)
 const env = 'dev';
-let axiosOptions = {};
-if (env === 'dev') {
-  axiosOptions = {
-    headers: {
-      Authorization: `Bearer ${
-        localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-      }`,
-    },
-  };
-} else {
-  axiosOptions = {
-    withCredentials: true,
-  };
-}
 
-// Create async Login action
 export const login = createAsyncThunk(
   'user/login',
   async (formData: FormData) => {
@@ -80,13 +60,11 @@ export const login = createAsyncThunk(
       // Convert formData to an JSON object
       const objData = Object.fromEntries(formData);
       // Send a POST request to login user
-      const { data } = await axiosInstance.post(
-        '/signIn',
-        objData,
-        axiosOptions
-      );
+      const { data } = await axiosInstance.post('/signIn', objData);
       if (env === 'dev') {
-        localStorage.setItem('token', data.token);
+        // A la connexion, j'ajoute le token directement dans mon instance axios
+        axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+        // le token est utilisé uniquement ICI, je le supprime de mes données data
         delete data.token;
       }
       // tripInitialState.trips = data.trips;
@@ -116,7 +94,7 @@ export const logout = createAction('user/logout');
 export const fetchUserInfos = createAsyncThunk(
   'user/getUserInfo',
   async (id: number | null) => {
-    const { data } = await axiosInstance.get(`/users/${id}`, axiosOptions);
+    const { data } = await axiosInstance.get(`/users/${id}`);
     return data;
   }
 );
@@ -126,11 +104,7 @@ export const checkUserPassword = createAsyncThunk(
   'user/checkUserPassword',
   async ({ passwordData, id }: { passwordData: string; id: number | null }) => {
     // Send a DELETE request to delete user account
-    const { data } = await axiosInstance.post(
-      `/users/${id}`,
-      passwordData,
-      axiosOptions
-    );
+    const { data } = await axiosInstance.post(`/users/${id}`, passwordData);
     return data;
   }
 );
@@ -140,7 +114,7 @@ export const deleteUserAccount = createAsyncThunk(
   'user/deleteAccount',
   async ({ id }: { id: number | null }) => {
     // Send a DELETE request to delete user account
-    await axiosInstance.delete(`/users/${id}`, axiosOptions);
+    await axiosInstance.delete(`/users/${id}`);
   }
 );
 
@@ -151,11 +125,7 @@ export const updateUserData = createAsyncThunk(
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a POST request to update user data
-    const { data } = await axiosInstance.patch(
-      `/users/${id}`,
-      objData,
-      axiosOptions
-    );
+    const { data } = await axiosInstance.patch(`/users/${id}`, objData);
     return data;
   }
 );
@@ -167,11 +137,16 @@ export const updatePassword = createAsyncThunk(
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a POST request to update user data
-    const { data } = await axiosInstance.patch(
-      `/users/${id}`,
-      objData,
-      axiosOptions
-    );
+    const { data } = await axiosInstance.patch(`/users/${id}`, objData);
+    return data;
+  }
+);
+
+// Create action to delete a trip
+export const deleteTrip = createAsyncThunk(
+  'trip/delete',
+  async (id: number | null) => {
+    const { data } = await axiosInstance.delete(`/trips/${id}`);
     return data;
   }
 );
@@ -205,6 +180,7 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     // Fetch User Data
     .addCase(fetchUserInfos.fulfilled, (state, action) => {
+      // state.token = action.payload;
       state.data = {
         ...state.data,
         ...action.payload,
@@ -250,6 +226,16 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(deleteUserAccount.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+    })
+    // Delete Trip
+    .addCase(deleteTrip.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      state.trip = null;
+      state.toastSuccess = true;
+      state.errorMessage = null;
     });
 });
 

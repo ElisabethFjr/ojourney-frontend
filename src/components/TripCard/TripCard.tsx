@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/redux';
+
+import { deleteTrip } from '../../store/reducers/user';
 
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
@@ -14,7 +17,6 @@ export interface TripCardProps {
   description: string;
   localisation: string;
   linkHref: string;
-  // handleUpdateData: (deletedTripId: number, dataType: string) => void;
 }
 
 function TripCard({
@@ -25,8 +27,13 @@ function TripCard({
   description,
   localisation,
   linkHref,
-}: // handleUpdateData,
-TripCardProps) {
+}: TripCardProps) {
+  // Initialize Hooks
+  const dispatch = useAppDispatch();
+
+  const tripId = Number(id);
+
+  // Declaration states variables
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
 
@@ -57,13 +64,10 @@ TripCardProps) {
       </Link>
       {showModalDeleteConfirm && (
         <ModalDeleteConfirm
-          endpoint={`/trips/${id}`}
+          dispatchDeleteAction={() => dispatch(deleteTrip(tripId))}
           urlNavigate="/my-trips"
           title="Confirmation suppression"
           text="Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?"
-          dataType="trips"
-          dataId={id}
-          // handleUpdateData={handleUpdateData}
         />
       )}
     </div>

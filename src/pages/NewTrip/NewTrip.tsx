@@ -1,8 +1,10 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import axiosInstance from '../../utils/axios';
+
+import { fetchUserInfos } from '../../store/reducers/user';
 
 import Main from '../../layout/Main/Main';
 
@@ -19,6 +21,7 @@ import './NewTrip.scss';
 function NewTrip() {
   // Initialize Hooks
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   // Declaration state variables
   const [startDate, setStartDate] = useState<Date>(new Date()); // Trip start date
@@ -26,8 +29,7 @@ function NewTrip() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Fetch states from Redux store
-  const env = useAppSelector((state) => state.user.env);
-
+  const userData = useAppSelector((state) => state.user.data);
   // Function to format dates before sending them to the server
   const changeDateFormat = (date: Date) => {
     return format(date, 'yyyy-MM-dd');
@@ -62,29 +64,28 @@ function NewTrip() {
     const objData = Object.fromEntries(formData);
 
     // Axios options: If in development mode (using token) or production mode (using cookies)
-    let axiosOptions = {};
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      };
-    }
+    // let axiosOptions = {};
+    // if (env === 'dev') {
+    //   axiosOptions = {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   };
+    // } else {
+    //   axiosOptions = {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //     withCredentials: true,
+    //   };
+    // }
 
     // Send a POST request to create a new trip
     await axiosInstance
-      .post('/trips', objData, axiosOptions)
+      .post('/trips', objData)
       .then(() => {
+        dispatch(fetchUserInfos(userData.id));
         navigate(`/my-trips`);
       })
       .catch((error) => {

@@ -75,7 +75,7 @@ function PropositionCard({
           </div>
         </div>
       </Link>
-      {showModalDeleteConfirm && (
+      {/* {showModalDeleteConfirm && (
         <ModalDeleteConfirm
           endpoint={`/trips/${id_trip}/links/${id_link}`}
           urlNavigate={`/my-trip/${id_trip}`}
@@ -85,7 +85,7 @@ function PropositionCard({
           dataId={id_link}
           handleUpdateData={handleUpdateData}
         />
-      )}
+      )} */}
     </div>
   );
 }

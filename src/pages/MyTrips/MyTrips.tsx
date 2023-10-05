@@ -1,8 +1,5 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-
-import { fetchUserInfos } from '../../store/reducers/user';
+import { useAppSelector } from '../../hooks/redux';
 
 import Main from '../../layout/Main/Main';
 import TripCard from '../../components/TripCard/TripCard';
@@ -13,30 +10,16 @@ import travel from '../../assets/images/travel.png';
 import './MyTrips.scss';
 
 function MyTrips() {
-  // Initialize Hooks
-  const dispatch = useAppDispatch();
-
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data); // User data
   const trips = useAppSelector((state) => state.user.data.trips); // User trips data
-
-  // Fetch trips data when component mounts
-  useEffect(() => {
-    dispatch(fetchUserInfos(userData.id));
-  }, [userData.id, dispatch]);
-
-  // Function to update trips array after deleting a trip
-  // const updatedTrips = (deletedTripId: number) => {
-  //   // Create a new trips array by removing the trip with the deleted id
-  //   const newTrips = trips.filter((trip) => trip.id !== deletedTripId);
-  //   // Update the trips state with the new array
-  //   setTrips(newTrips);
-  // };
+  console.log(trips);
 
   // Display a list of all trips from the trips array fetch to the API
   const allTrips = trips?.map((trip) => (
     <li className="trips-list-item" key={trip.id}>
       <TripCard
+        key={trip.id}
         id={trip.id}
         srcTripImage={`https://luciebaroiller-server.eddi.cloud:8080/images/${trip.url_image}`}
         altImage={trip.alt_image}

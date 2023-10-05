@@ -23,9 +23,6 @@ function NewProposition() {
   // Declaration state variables
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Fetch states from Redux store
-  const env = useAppSelector((state) => state.user.env);
-
   // Event handler for the newProposition form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,24 +33,22 @@ function NewProposition() {
     const objData = Object.fromEntries(formData);
 
     // Axios options: If in development mode (using token) or production mode (using cookies)
-    let axiosOptions = {};
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        withCredentials: true,
-      };
-    }
+    // let axiosOptions = {};
+    // if (env === 'dev') {
+    //   axiosOptions = {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   };
+    // } else {
+    //   axiosOptions = {
+    //     withCredentials: true,
+    //   };
+    // }
 
     // Send a POST request to create a new proposition
     await axiosInstance
-      .post(`/trips/${id}/links`, objData, axiosOptions)
+      .post(`/trips/${id}/links`, objData)
       .then(() => {
         navigate(`/my-trip/${id}`);
       })

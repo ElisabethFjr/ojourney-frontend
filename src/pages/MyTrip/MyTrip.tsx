@@ -77,27 +77,23 @@ function MyTrip() {
 
   /// FETCH DATA ///
 
-  // Fetch data on component mount
-  const env = useAppSelector((state) => state.user.env);
   useEffect(() => {
     // Function to fetch one trip data from the API
-    let axiosOptions = {};
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        withCredentials: true,
-      };
-    }
+    // let axiosOptions = {};
+    // if (env === 'dev') {
+    //   axiosOptions = {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   };
+    // } else {
+    //   axiosOptions = {
+    //     withCredentials: true,
+    //   };
+    // }
     const fetchDataTrip = async () => {
       await axiosInstance
-        .get(`/trips/${id}`, axiosOptions)
+        .get(`/trips/${id}`)
         .then((response) => {
           // Set the trip state with the trip data received from the API
           setTrip(response.data);
@@ -116,7 +112,7 @@ function MyTrip() {
     // Function to fetch trips's members data from the server with awiosInstance
     const fetchDataMember = async () => {
       await axiosInstance
-        .get(`/trips/${id}/members`, axiosOptions)
+        .get(`/trips/${id}/members`)
         .then((response) => {
           setMembers(response.data);
         })
@@ -130,7 +126,7 @@ function MyTrip() {
     // Function to fetch trips's links data from the server with awiosInstance
     const fetchDataLink = async () => {
       await axiosInstance
-        .get(`/trips/${id}/links`, axiosOptions)
+        .get(`/trips/${id}/links`)
         .then((response) => {
           setPropositions(response.data);
         })
@@ -144,7 +140,7 @@ function MyTrip() {
     fetchDataTrip();
     fetchDataMember();
     fetchDataLink();
-  }, [id, dataUser.id, trip.user_id, env]);
+  }, [id, dataUser.id, trip.user_id]);
 
   // Function to update propositions array after deleting a trip
   const updatedPropositions = (deletedPropositionId: number) => {
@@ -281,7 +277,7 @@ function MyTrip() {
           <ul>{allPropositions}</ul>
         )}
       </section>
-      {showModalDeleteConfirm && (
+      {/* {showModalDeleteConfirm && (
         <ModalDeleteConfirm
           endpoint={`/trips/${id}`}
           urlNavigate="/my-trips"
@@ -290,7 +286,7 @@ function MyTrip() {
           dataType="trips"
           dataId={Number(id)}
         />
-      )}
+      )} */}
     </Main>
   );
 }

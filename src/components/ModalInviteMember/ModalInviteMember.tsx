@@ -18,9 +18,6 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
   // Declaration state variables
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
-  // Fetch states from Redux store
-  const env = useAppSelector((state) => state.user.env);
-
   // Event handler on the invite member submit form
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,25 +25,9 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
     const formData = new FormData(form);
     const jsonData = Object.fromEntries(formData.entries());
 
-    // Axios options: If in development mode (using token) or production mode (using cookies)
-    let axiosOptions = {};
-    if (env === 'dev') {
-      axiosOptions = {
-        headers: {
-          Authorization: `Bearer ${
-            localStorage.getItem('token')?.replace(/"|_/g, '') || ''
-          }`,
-        },
-      };
-    } else {
-      axiosOptions = {
-        withCredentials: true,
-      };
-    }
-
     // Send a POST request to invite a member with his email
     await axiosInstance
-      .post(`/trips/${id}/invite`, jsonData, axiosOptions)
+      .post(`/trips/${id}/invite`, jsonData)
       .then(() => {
         setIsOpen(!isOpen);
         toast.success("L'invitation a bien été envoyée !");
