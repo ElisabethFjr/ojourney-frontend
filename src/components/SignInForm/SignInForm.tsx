@@ -1,5 +1,5 @@
 import { FormEvent, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login } from '../../store/reducers/user';
 
@@ -61,6 +61,16 @@ function SignInForm() {
           customClass="color button-style--width"
           type="submit"
         />
+        <div className="button-forgot-password">
+                      <Link to={`/forgot-password`}>
+                <Button
+                  text="Mot de passe oublié ?"
+                  icon="fa-solid fa-pen"
+                  type="button"
+                  customClass="height"
+                />
+              </Link>
+              </div>
       </form>
     </div>
   );

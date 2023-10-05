@@ -51,6 +51,7 @@ export const initialState: UserState = {
   errorMessage: null,
   trip: null,
 };
+
 const env = null;
 
 export const login = createAsyncThunk(
@@ -242,6 +243,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.toastSuccess = true;
       state.errorMessage = null;
     })
+
 
     // Update Consent
     .addCase(updateConsent.fulfilled, (state, action) => {
