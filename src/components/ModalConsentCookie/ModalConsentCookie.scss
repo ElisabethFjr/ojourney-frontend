@@ -2,7 +2,7 @@
 
 .modal-consent-cookie {
   &-container {
-    position: fixed;
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -16,7 +16,7 @@
     margin-bottom: 2rem;
     border-radius: v.$border-radius;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    //z-index: 2000;
+    
   }
 
   &-title {
@@ -34,7 +34,6 @@
     width: 100%;
     gap: 4rem;
     padding-top: 0.5rem;
-
   }
 
   &-paragraph {
