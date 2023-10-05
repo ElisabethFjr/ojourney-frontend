@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 
@@ -8,20 +7,7 @@ import Loading from '../../components/Loading/Loading';
 import './Home.scss';
 
 function Home() {
-  const [loading, setLoading] = useState(true);
-
   const isConnected = useAppSelector((state) => state.user.isConnected);
-
-  useEffect(() => {
-    // Simuler une attente (par exemple, un appel API) avec setTimeout
-    setTimeout(() => {
-      setLoading(false); // Stopper le chargement après 3 secondes
-    }, 2000);
-  }, []); // L'effet ne se déclenche qu'une fois (comme componentDidMount)
-
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <main className="home">

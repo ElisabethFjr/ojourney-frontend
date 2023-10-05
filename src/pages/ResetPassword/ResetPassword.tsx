@@ -21,7 +21,7 @@ function ResetPassword() {
   const token = document.location.hash.split('?')[1];
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault;
+    event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
     
@@ -51,7 +51,7 @@ function ResetPassword() {
     })
     .then(() => {
       console.log('Mot de passe reset !')
-      // navigate('/signin-signup');
+      navigate('/signin-signup');
       toast.success('Le mot de passe a été réinitialiser avec succès !');
     })
     .catch((error) => {
@@ -76,7 +76,6 @@ function ResetPassword() {
             type="password"
             icon="fa-solid fa-lock"
           />
-
           <InputField
             name="confirmation"
             placeholder="Mot de passe (confirmation)"

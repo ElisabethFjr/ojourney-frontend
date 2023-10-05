@@ -6,7 +6,7 @@ import { ToastContainer, Slide } from 'react-toastify';
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
 
-import Loading from './Loading/Loading';
+import Loading from '../../components/Loading/Loading';
 import Home from '../../pages/Home/Home';
 import SignInUp from '../../pages/SignInUp/SignInUp';
 import Profil from '../../pages/Profil/Profil';
@@ -28,7 +28,6 @@ import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 
-
 import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -42,11 +41,14 @@ function App() {
   }, [location]);
 
   useEffect(() => {
-    // Simuler une attente (par exemple, un appel API) avec setTimeout
     setTimeout(() => {
-      setLoading(false); // Stopper le chargement après 3 secondes
+      setLoading(false);
     }, 2000);
-  }, []); // L'effet ne se déclenche qu'une fois (comme componentDidMount)
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="app-container">
