@@ -2,11 +2,11 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ToastContainer, Slide } from 'react-toastify';
 
-import Loading from './Loading/Loading';
 
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
 
+import Loading from './Loading/Loading';
 import Home from '../../pages/Home/Home';
 import SignInUp from '../../pages/SignInUp/SignInUp';
 import Profil from '../../pages/Profil/Profil';
@@ -17,7 +17,6 @@ import MyTrips from '../../pages/MyTrips/MyTrips';
 import MyTrip from '../../pages/MyTrip/MyTrip';
 import NewTrip from '../../pages/NewTrip/NewTrip';
 import NewProposition from '../../pages/NewProposition/NewProposition';
-import NewPassword from '../../pages/NewPassword/NewPassword';
 import EditTrip from '../../pages/EditTrip/EditTrip';
 import EditProposition from '../../pages/EditProposition/EditProposition';
 import EditProfil from '../../pages/EditProfil/EditProfil';
@@ -27,6 +26,7 @@ import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import Error from '../../pages/Error/Error';
+import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 
 
 import './App.scss';
@@ -48,9 +48,6 @@ function App() {
     }, 2000);
   }, []); // L'effet ne se déclenche qu'une fois (comme componentDidMount)
 
-  if (loading) {
-    return <Loading />;
-  }
   return (
     <div className="app-container">
       <Header />
@@ -64,8 +61,8 @@ function App() {
         <Route path="/confirm-account" element={<ConfirmAccount />} />
         <Route path="/confirm-invite" element={<ConfirmInvite />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />}/>
         <Route path="*" element={<Error />} />
-        
 
         {/* Private Routes (user connected) */}
         <Route
@@ -105,14 +102,6 @@ function App() {
           element={
             <PrivateRoute>
               <NewProposition />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/new-password"
-          element={
-            <PrivateRoute>
-              <NewPassword />
             </PrivateRoute>
           }
         />

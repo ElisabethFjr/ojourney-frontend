@@ -1,6 +1,6 @@
 import './Loading.scss';
 
-function App() {
+function Loading() {
   return (
     <div className="container">
       <span className="loader" />
@@ -8,4 +8,4 @@ function App() {
   );
 }
 
-export default App;
+export default Loading;

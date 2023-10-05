@@ -7,7 +7,6 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import ModalForgotPassword from '../../components/ModalForgotPassword/ModalForgotPassword';
 
 import './ForgotPassword.scss';
-import axios from 'axios';
 
 function ForgotPassword () {
 
@@ -19,25 +18,20 @@ function ForgotPassword () {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
+    const jsonData = Object.fromEntries(formData.entries());
 
-    const email = formData.get('email') as string;
-
-const jsonData = Object.fromEntries(formData.entries());
     await axiosInstance
-    .post('/forgot-password', jsonData)
-    
-    
+    .post('/reset', jsonData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })    
     .then(() => {
       setShowModalForgotPassword(true);
-
     })
     .catch((error) => {
       console.error("Une erreur est survenue lors de la rénitialisation de votre mot de passe.", error);
-      if (error.response) {
-        setErrorMessage(error.response.data.error);
-      } else {
-        setErrorMessage("Une erreur s'est produite lors de la rénitialisation de votre mot de passe.");
-      }
+      setErrorMessage(error.response.data.error);
     });
 };
 
@@ -47,12 +41,12 @@ const jsonData = Object.fromEntries(formData.entries());
   <h1 className="forgot-password-title">Réinitialiser le mot de passe</h1>
   
 <h2 className='forgot-password-subtitle'>Veuillez saisir l'adresse mail associée à votre compte.</h2>
-  <form className='forgot-password-form'onSubmit={handleSubmit}>
+  <form className='forgot-password-form' onSubmit={handleSubmit}>
       {showModalForgotPassword && <ModalForgotPassword />}
       {errorMessage && (
         <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
       )}
-  <InputField
+      <InputField
               name="email"
               placeholder="Votre e-mail"
               type="email"
