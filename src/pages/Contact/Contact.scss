@@ -16,4 +16,22 @@
     font-size: 1.5rem;
   }
 
+  &-overview-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+
+  }
+
+  &-image {
+    text-align: center;
+    width: 25%;
+    height: 35%;
+    margin: auto;
+    margin-right: 2rem; 
+    border-radius: v.$border-radius 0 0 v.$border-radius;
+    
+  }
+
 }

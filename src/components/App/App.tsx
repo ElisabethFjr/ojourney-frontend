@@ -62,7 +62,6 @@ function App() {
         <Route path="/confirm-account" element={<ConfirmAccount />} />
         <Route path="/invite" element={<ConfirmInvite />} />
         <Route path="*" element={<Error />} />
-        <Route path="/contact" element={<Contact />} />
 
         {/* Private Routes (user connected) */}
         <Route

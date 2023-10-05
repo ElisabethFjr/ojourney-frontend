@@ -1,2 +1,18 @@
 @use '../../styles/variables' as v;
 
+.terms {
+  &-date {
+    color: v.$color-grey-darkest;
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+
+  &-container {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  &-subtitle {
+    padding-bottom: 0.4rem;
+  }
+}
