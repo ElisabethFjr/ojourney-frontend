@@ -62,9 +62,7 @@ export const login = createAsyncThunk(
       // Send a POST request to login user
       const { data } = await axiosInstance.post('/signIn', objData);
       if (env === 'dev') {
-        // A la connexion, j'ajoute le token directement dans mon instance axios
         axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-        // le token est utilisé uniquement ICI, je le supprime de mes données data
         delete data.token;
       }
       // tripInitialState.trips = data.trips;
