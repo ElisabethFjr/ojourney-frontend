@@ -1,8 +1,10 @@
 import { FormEvent, useState  }from 'react';
 import axiosInstance from '../../utils/axios';
 
+
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
+import ModalForgotPassword from '../../components/ModalForgotPassword/ModalForgotPassword';
 
 import './ForgotPassword.scss';
 
@@ -13,21 +15,7 @@ function ForgotPassword () {
  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
    event.preventDefault();
 
-   if (!email) {
-
-    return;
-
   }
-
-  try {
-
-    const response = await axiosInstance.post('/new-password', { email });
-
-  }
- catch (error) {
-  console.error("Une erreur est survenue lors de la rénilitilisation du mot de passe", error);
-}
-};
 
   return (
     <section className="forgot-password-container">
@@ -35,7 +23,7 @@ function ForgotPassword () {
   <h1 className="forgot-password-title">Réinitialiser le mot de passe</h1>
   
 <h2 className='forgot-password-subtitle'>Veuillez saisir l'adresse mail associée à votre compte.</h2>
-
+<ModalForgotPassword></ModalForgotPassword>
   <form className='forgot-password-form'  onSubmit={handleSubmit}>
   <InputField
               name="email"
@@ -46,8 +34,8 @@ function ForgotPassword () {
             />
           <Button
             text="Confirmer"
-            type="submit"
             customClass="color button-style--width"
+            type="submit"
           />
           
   </form>
