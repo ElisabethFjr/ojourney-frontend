@@ -4,7 +4,7 @@ const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
 });
 
-const env = 'dev';
+const env = null;
 if (env !== 'dev') {
   axiosInstance.defaults.withCredentials = true;
 }

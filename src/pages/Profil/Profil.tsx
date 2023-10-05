@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { updateConsent } from '../../store/reducers/user';
 
@@ -22,26 +22,44 @@ function Profil() {
     useState<boolean>(false);
 
   // ********************************** Consent
-  const [isCommercialAccepted, setIsCommercialAccepted] = useState<boolean>(
-    userData.consent_commercial || false
+  const [commercialConsent, setCommercialConsent] = useState<boolean>(
+    userData.consent_commercial
   );
-  const [isNewsletterAccepted, setIsNewsletterAccepted] = useState(
-    userData.consent_newsletter || false
+  const [newsletterConsent, setNewsletterConsent] = useState(
+    userData.consent_newsletter
   );
 
   // *********************************** USESTATE
 
-  const handleToggleCommercial = () => {
-    setIsCommercialAccepted(!isCommercialAccepted);
-    console.log('handleToggleCommercial', handleToggleCommercial);
+  // const handleUsageCommercialChange = (
+  //   event: ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   const { value } = event.target;
+  //   setCommercialConsent(value === 'true'); // Assuming 'value' is a string 'true' or 'false'
+  //   if (userData && userData.id) {
+  //     dispatch(updateConsent({ formData: value, id: userData.id }));
+  // };
+
+  const handleCommercialToggle = () => {
+    setCommercialConsent(!commercialConsent);
+    console.log('Commercials', commercialConsent);
   };
 
-  const handleToggleNewsletter = () => {
-    setIsNewsletterAccepted(!isNewsletterAccepted);
+  const handleNewsletterToggle = () => {
+    setNewsletterConsent(!newsletterConsent);
+    console.log('Newsletter', newsletterConsent);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const form = event.currentTarget;
+    console.log(form);
+    const formData = new FormData(form);
+    formData.append('consent_commercial', commercialConsent);
+
+    if (userData && userData.id) {
+      dispatch(updateConsent({ formData, id: userData.id }));
+    }
   };
 
   const handleClickDeleteAccount = () => {
@@ -112,47 +130,50 @@ function Profil() {
           Vos choix pour le traitement de vos données sont les suivants:
           <form onSubmit={handleSubmit}>
             {/* ************************** Commercial  */}
-            <p>Usage commercial : </p>
-            {/* ************************** Commercial  */}
             <div className="profil-card-toggle-container">
-              <label htmlFor="consentCommercial" className="profil-card-label">
-                Usage commercial :
+              <p>Usage commercial :</p>
+              <input
+                className="profil-card-checkbox"
+                name="consent_commercial"
+                type="checkbox"
+                id="consentCommercial"
+                onChange={handleCommercialToggle}
+                checked={commercialConsent}
+              />
+              {commercialConsent ? 'Accepté' : 'Refusé'}
+              <label
+                className="profil-card-toggleSwitch"
+                htmlFor="consentCommercial"
+              >
+                <span className="profil-card-checkbox-slider" />
               </label>
-              <div>
-                <input
-                  className="profil-card-toggle"
-                  name="consent_commercial"
-                  type="checkbox"
-                  id="consentCommercial"
-                  onChange={handleToggleCommercial}
-                  checked={isCommercialAccepted}
-                />
-                <label
-                  className="profil-card-toggleSwitch"
-                  htmlFor="consentCommercial"
-                ></label>
-              </div>
             </div>
 
             {/* ************************** NEWSLETTER   */}
             <div className="profil-card-toggle-container">
-              <label htmlFor="consentNewsletter" className="profil-card-label">
-                Newsletter :
+              <p>Usage newsletter :</p>
+              <input
+                className="profil-card-checkbox"
+                name="consent_newsletter"
+                type="checkbox"
+                id="consentNewsletter"
+                onChange={handleNewsletterToggle}
+                checked={newsletterConsent}
+              />
+              {newsletterConsent ? 'Accepté' : 'Refusé'}
+              <label
+                className="profil-card-toggleSwitch"
+                htmlFor="consentNewsletter"
+              >
+                <span className="profil-card-checkbox-slider" />
               </label>
-              <div>
-                <input
-                  className="profil-card-toggle"
-                  name="consent_newsletter"
-                  type="checkbox"
-                  id="consentNewsletter"
-                  onChange={handleToggleNewsletter}
-                  checked={isNewsletterAccepted}
-                />
-                <label
-                  className="profil-card-toggleSwitch"
-                  htmlFor="consentNewsletter"
-                ></label>
-              </div>
+            </div>
+            <div className="profil-card-btn-container">
+              <Button
+                text="Changer vos données"
+                customClass="color"
+                type="submit"
+              />
             </div>
           </form>
         </div>
