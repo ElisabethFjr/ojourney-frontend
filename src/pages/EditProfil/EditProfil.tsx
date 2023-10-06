@@ -12,6 +12,7 @@ import { updateUserData } from '../../store/reducers/user';
 // Imports Components
 import Main from '../../layout/Main/Main';
 import Button from '../../components/Button/Button';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './EditProfil.scss';
 
@@ -27,6 +28,7 @@ function EditProfil() {
   const [lastname, setLastname] = useState(userData.lastname || '');
   const [firstname, setFirstname] = useState(userData.firstname || '');
   const [email, setEmail] = useState(userData.email || '');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Event handler input and textarea changes
   const handleInputChange = (
@@ -53,6 +55,11 @@ function EditProfil() {
       <h1 className="main-title">Modifier votre information</h1>
       <div className="edit-profil-container">
         <form className="edit-profil-form" onSubmit={handleSubmit}>
+          {/* If ErroMessage, display the error */}
+          {errorMessage && (
+            <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+          )}
+
           {/* Lastname Input */}
           <div className="field-edit">
             <label className="field-edit-label" htmlFor="lastname">

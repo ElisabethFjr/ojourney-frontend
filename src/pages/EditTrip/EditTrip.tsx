@@ -7,7 +7,6 @@ import DOMPurify from 'dompurify';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { format } from 'date-fns';
-import { toast } from 'react-toastify';
 
 // Imports Redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -19,6 +18,7 @@ import FormContainer from '../../components/FormContainer/FormContainer';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import Button from '../../components/Button/Button';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './EditTrip.scss';
 
@@ -34,10 +34,19 @@ function EditTrip() {
   const trip = useAppSelector((state) => state.user.trip); // One Trip Data
 
   // States variables declaration
-  const [localisation, setLocalisation] = useState(trip?.localisation || '');
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date());
-  const [description, setDescription] = useState(trip?.description || '');
+  const [localisation, setLocalisation] = useState<string | null>(
+    trip?.localisation || ''
+  );
+  const [startDate, setStartDate] = useState<Date | null>(
+    trip ? new Date(trip.date_start) : null
+  );
+  const [endDate, setEndDate] = useState<Date | null>(
+    trip ? new Date(trip.date_end) : null
+  );
+  const [description, setDescription] = useState<string | null>(
+    trip?.description || ''
+  );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Get the trip id from url
   const { id } = useParams();
@@ -101,6 +110,10 @@ function EditTrip() {
           </div>
           <form onSubmit={handleSubmit}>
             <h2 className="edit-trip-form-title">Mon Voyage</h2>
+            {/* If ErroMessage, display the error */}
+            {errorMessage && (
+              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+            )}
 
             {/* Localisation Input */}
             <div className="field-edit">

@@ -319,6 +319,18 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(deleteTrip.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
+    // Update Trip
+    .addCase(updateTrip.fulfilled, (state, action) => {
+      state.trip = {
+        ...state.trip,
+        ...action.payload,
+      };
+      toast.success('Le voyage ont bien été mis à jour !');
+      state.errorMessage = null;
+    })
+    .addCase(updateTrip.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
     // Update Proposition
     .addCase(updateProposition.fulfilled, (state, action) => {
       state.trip = {

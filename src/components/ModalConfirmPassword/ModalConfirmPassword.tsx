@@ -1,6 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   checkUserPassword,
@@ -10,9 +10,9 @@ import {
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 import ModalContainer from '../ModalContainer/ModalContainer';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 import './ModalConfimPassword.scss';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 function ModaleConfirmPassword() {
   // Initialize Hooks
@@ -26,8 +26,6 @@ function ModaleConfirmPassword() {
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
   const checkedPassword = useAppSelector((state) => state.user.checkedPassword);
-  const toastSuccess = useAppSelector((state) => state.user.successMessage);
-  const toastError = useAppSelector((state) => state.user.errorMessage);
 
   // Event handler on the close modal button
   const handleClose = () => {
@@ -42,12 +40,10 @@ function ModaleConfirmPassword() {
     dispatch(checkUserPassword({ formData, id: userData.id }));
     // If checkedPassword is true (promise checkUserPassword fulfilled), delete the account by dispatch redux action
     if (checkedPassword) {
-      console.log(checkedPassword);
       dispatch(deleteUserAccount({ id: userData.id }));
       navigate('/', { replace: true });
-      toast.success(toastSuccess);
     } else {
-      setErrorMessage(toastError);
+      setErrorMessage('Le mot de passe est incorrect.');
     }
   };
 
