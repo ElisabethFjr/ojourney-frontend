@@ -31,6 +31,12 @@ function ModalConfirmEmail() {
         <p className="modal-confirm-email-text">
             Vous allez recevoir un e-mail avec un lien afin de rénitialiser votre compte. 
           </p>
+          <Button 
+          text="Confirmer" 
+          type="submit" 
+          customClass="color" 
+          onClick={handleClose}
+          />
           </ModalContainer>
           )}
     </div>
