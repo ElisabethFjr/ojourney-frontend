@@ -55,7 +55,7 @@ function EditProposition() {
     await axiosInstance
       .patch(`/trips/${idTrip}/links/${idLink}`, objData)
       .then(() => {
-        navigate(`/my-trip/${idTrip}`); // Navigate to the trip
+        navigate(`/my-trip/${idTrip}`);
         toast.success('La proposition a bien été modifiée !');
       })
       .catch((error) => {

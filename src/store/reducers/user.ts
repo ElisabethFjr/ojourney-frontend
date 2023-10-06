@@ -80,12 +80,12 @@ export const login = createAsyncThunk(
 );
 
 // Create Logout action
-// export const logout = createAction('user/logout');
+export const logout = createAction('user/logout');
 
 // Create Logout action
-export const logout = createAsyncThunk('user/logout', async () => {
-  await axiosInstance.get('/logout');
-});
+// export const logout = createAsyncThunk('user/logout', async () => {
+//   await axiosInstance.get('/logout');
+// });
 
 // Create action to fetch user data
 export const fetchUserInfos = createAsyncThunk(
@@ -151,7 +151,10 @@ export const deleteTrip = createAsyncThunk(
 export const updateConsent = createAsyncThunk(
   'user/updateConsent',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
-    const { data } = await axiosInstance.patch(`/users/${id}`, formData);
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    // Send a PATCH request to update user data
+    const data = await axiosInstance.patch(`/users/${id}`, objData);
     return data;
   }
 );
@@ -174,7 +177,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
     })
     // Logout
-    .addCase(logout.fulfilled, (state) => {
+    .addCase(logout, (state) => {
       state.data = initialState.data; // Reset user data to initial state
       state.isConnected = false;
     })
@@ -243,6 +246,8 @@ const userReducer = createReducer(initialState, (builder) => {
         ...action.payload,
       };
       state.toastSuccess = true;
+      state.toastSuccess = true;
+      state.errorMessage = null;
     });
 });
 
