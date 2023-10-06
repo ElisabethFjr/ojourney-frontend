@@ -1,12 +1,15 @@
-import { useEffect, useRef } from 'react';
-import { Trip, Member, User } from '../../@types';
+import { useEffect, useRef, useState } from 'react';
+import { Member, User } from '../../@types';
+import { useAppDispatch } from '../../hooks/redux';
 
-import MemberMenu from '../MemberMenu/MemberMenu';
+import { deleteMember } from '../../store/reducers/user';
+
+import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
 
 import './OneMember.scss';
 
 interface OneMemberProps {
-  tripId: number;
+  tripId: number | null;
   member: Member;
   isCreator: boolean;
   dataUser: User;
@@ -22,10 +25,19 @@ function OneMember({
   openMemberId,
   setOpenMemberId,
 }: OneMemberProps) {
-  const isOpenMenu = member.id === openMemberId;
+  const dispatch = useAppDispatch();
 
-  console.log('Member id:', member.id);
-  console.log('Trip id:', tripId);
+  const isOpenMenu = member.id === openMemberId;
+  const isCurrentUser = dataUser.id === member.id;
+
+  const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
+    useState<boolean>(false);
+  console.log('setShowModalDeleteConfirm', setShowModalDeleteConfirm);
+  // Event handler to open the modal DeleteConfirmation if click on delete a member
+  const handleClick = () => {
+    setShowModalDeleteConfirm(!showModalDeleteConfirm);
+  };
+
   const divRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -77,15 +89,37 @@ function OneMember({
         <i className="one-trip-members-icon fa-solid fa-user" />
         <p className="one-trip-membres-name">{member.firstname}</p>
         {isOpenMenu && (
-          <MemberMenu
-            tripId={tripId}
-            memberId={member.id}
-            customClass="active"
-            isCreator={isCreator}
-            isCurrentUser={dataUser.id === member.id}
-          />
+          <div className="member-menu active">
+            <button
+              className="member-menu-btn"
+              type="button"
+              onClick={handleClick}
+            >
+              Voir les infos
+            </button>
+            {isCreator && !isCurrentUser && (
+              <button
+                className="member-menu-btn"
+                type="button"
+                onClick={handleClick}
+              >
+                Supprimer
+              </button>
+            )}
+          </div>
         )}
       </div>
+      {showModalDeleteConfirm && (
+        <ModalDeleteConfirm
+          dispatchDeleteAction={() =>
+            dispatch(deleteMember({ tripId, memberId: member.id }))
+          }
+          urlNavigate={`/my-trip/${tripId}`}
+          title="Confirmation suppression"
+          text={`Êtes-vous sûr de vouloir supprimer ${member.firstname} du voyage ?`}
+          closeModal={() => setShowModalDeleteConfirm(false)}
+        />
+      )}
     </li>
   );
 }

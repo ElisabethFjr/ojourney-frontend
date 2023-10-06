@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { isValid, parseISO } from 'date-fns';
 import format from 'date-fns/format';
 import { useAppSelector } from '../../hooks/redux';
+
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
@@ -156,21 +157,18 @@ function MyTrip() {
     setPropositions(newPropositions);
   };
 
-  // *****************************************  MEMBRE
   // Display a list of all members into a button element from the members array fetch to the API
   const allMembers = members.map((member) => (
-    <li key={member.id}>
-      <OneMember
-        member={member}
-        tripId={tripId}
-        isCreator={isCreator}
-        dataUser={dataUser}
-        openMemberId={openMemberId}
-        setOpenMemberId={setOpenMemberId}
-      />
-    </li>
+    <OneMember
+      key={member.id}
+      member={member}
+      tripId={tripId}
+      isCreator={isCreator}
+      dataUser={dataUser}
+      openMemberId={openMemberId}
+      setOpenMemberId={setOpenMemberId}
+    />
   ));
-  // *****************************************  PROPOSITION
   // Display a list of all propositions from the propositions array fetch to the API
   const allPropositions = propositions.map((proposition) => (
     <li key={proposition.id}>
