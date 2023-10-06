@@ -1,0 +1,46 @@
+@use '../../styles/variables' as v;
+
+.modal-information {
+  &-text {
+    width: 100%;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid v.$color-grey-lightest;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  &-icon {
+    color: v.$color-primary;
+    background-color: v.$color-red-lightest;
+    border-radius: 50%;
+    padding: 0.8rem;
+    font-size: 3rem;
+  }
+
+  &-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding-top: 1rem;
+  }
+
+  &-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    &-icon {
+      font-size: 1.5rem;
+      color: v.$color-grey-darkest;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: v.$color-text;
+      }
+    }
+  }
+}

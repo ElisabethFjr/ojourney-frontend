@@ -45,7 +45,6 @@ function NewProposition() {
         console.error(error);
       });
   };
-
   return (
     <Main>
       <h1 className="main-title">Faire une proposition</h1>

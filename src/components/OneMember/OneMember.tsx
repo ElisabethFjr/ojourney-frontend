@@ -1,11 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Member, User } from '../../@types';
+import { useAppDispatch } from '../../hooks/redux';
 
-import MemberMenu from '../MemberMenu/MemberMenu';
+import { deleteMember, informationMember } from '../../store/reducers/user';
+
+import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
+import ModalInformationMember from '../ModalInformationMember/ModalInformationMember';
 
 import './OneMember.scss';
 
-interface MemberProps {
+interface OneMemberProps {
+  tripId: number | null;
   member: Member;
   isCreator: boolean;
   dataUser: User;
@@ -14,13 +19,31 @@ interface MemberProps {
 }
 
 function OneMember({
+  tripId,
   member,
   isCreator,
   dataUser,
   openMemberId,
   setOpenMemberId,
-}: MemberProps) {
+}: OneMemberProps) {
+  const dispatch = useAppDispatch();
+
   const isOpenMenu = member.id === openMemberId;
+  const isCurrentUser = dataUser.id === member.id;
+
+  const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
+    useState<boolean>(false);
+
+  const [showModalInformationMember, setshowModalInformationMember] =
+    useState<boolean>(false);
+
+  const handleClick = () => {
+    setShowModalDeleteConfirm(!showModalDeleteConfirm);
+  };
+  const handleClickInfo = () => {
+    setshowModalInformationMember(!showModalInformationMember);
+  };
+
   const divRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -49,12 +72,11 @@ function OneMember({
     if (isOpenMenu) {
       // Close the menu if the current member is already open
       setOpenMemberId(null);
-    } else {
+    } else if (member) {
       // Open the menu of the current member
       setOpenMemberId(member.id);
     }
   };
-
   return (
     <li className="one-trip-members-item" key={member.id}>
       <div
@@ -73,13 +95,49 @@ function OneMember({
         <i className="one-trip-members-icon fa-solid fa-user" />
         <p className="one-trip-membres-name">{member.firstname}</p>
         {isOpenMenu && (
-          <MemberMenu
-            customClass="active"
-            isCreator={isCreator}
-            isCurrentUser={dataUser.id === member.id}
-          />
+          <div className="member-menu">
+            <button
+              className="member-menu-btn"
+              type="button"
+              onClick={handleClickInfo}
+            >
+              Voir les infos
+            </button>
+            {isCreator && !isCurrentUser && (
+              <button
+                className="member-menu-btn"
+                type="button"
+                onClick={handleClick}
+              >
+                Supprimer
+              </button>
+            )}
+          </div>
         )}
       </div>
+      {showModalInformationMember && (
+        <ModalInformationMember
+          dispatchInformationMember={() =>
+            dispatch(informationMember({ tripId, memberId: member.id }))
+          }
+          title="Carte d'information"
+          lastname={`Nom : ${member.lastname}`}
+          firstname={`Prénom : ${member.firstname}`}
+          email={`Email : ${member.email}`}
+          closeModal={() => setshowModalInformationMember(false)}
+        />
+      )}
+      {showModalDeleteConfirm && (
+        <ModalDeleteConfirm
+          dispatchDeleteAction={() =>
+            dispatch(deleteMember({ tripId, memberId: member.id }))
+          }
+          urlNavigate={`/my-trip/${tripId}`}
+          title="Confirmation suppression"
+          text={`Êtes-vous sûr de vouloir supprimer ${member.firstname} du voyage ?`}
+          closeModal={() => setShowModalDeleteConfirm(false)}
+        />
+      )}
     </li>
   );
 }

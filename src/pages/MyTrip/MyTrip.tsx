@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { isValid, parseISO } from 'date-fns';
 import format from 'date-fns/format';
 import { useAppSelector } from '../../hooks/redux';
+
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
@@ -36,6 +37,7 @@ function MyTrip() {
 
   // Get the trip id from route parameters
   const { id } = useParams();
+  const tripId = Number(id);
 
   /// EVENTS HANDLERS MEMBER ///
 
@@ -160,13 +162,13 @@ function MyTrip() {
     <OneMember
       key={member.id}
       member={member}
+      tripId={tripId}
       isCreator={isCreator}
       dataUser={dataUser}
       openMemberId={openMemberId}
       setOpenMemberId={setOpenMemberId}
     />
   ));
-
   // Display a list of all propositions from the propositions array fetch to the API
   const allPropositions = propositions.map((proposition) => (
     <li key={proposition.id}>
@@ -184,7 +186,7 @@ function MyTrip() {
       />
     </li>
   ));
-
+  // *****************************************  RETURN
   return (
     <Main>
       {showModalInviteMember && <ModalInviteMember id={Number(id)} />}
@@ -238,7 +240,7 @@ function MyTrip() {
           )}
         </div>
       </section>
-
+      {/* *************************************** MEMBRE */}
       <section className="one-trip-members">
         {isCreator && (
           <Button
@@ -255,7 +257,7 @@ function MyTrip() {
           <ul className="one-trip-members-list">{allMembers}</ul>
         )}
       </section>
-
+      {/* *************************************** PROPOSITION */}
       <section className="one-trip-propositions">
         <h2 className="one-trip-propositions-title">Propositions</h2>
         <div className="one-trip-propositions-add-container">
