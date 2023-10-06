@@ -98,6 +98,7 @@ export const checkUserPassword = createAsyncThunk(
     return data;
   }
 );
+
 // Create action to delete user account
 export const deleteUserAccount = createAsyncThunk(
   'user/deleteAccount',
@@ -139,6 +140,18 @@ export const updateConsent = createAsyncThunk(
     const objData = Object.fromEntries(formData);
     // Send a PATCH request to update user data
     const data = await axiosInstance.patch(`/users/${id}`, objData);
+    return data;
+  }
+);
+
+// Create action to create a new trip
+export const addTrip = createAsyncThunk(
+  'user/addTrip',
+  async (formData: FormData) => {
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    // Send a DELETE request to delete user account
+    const { data } = await axiosInstance.post(`/trips`, objData);
     return data;
   }
 );
@@ -205,7 +218,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(updatePassword.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
-    // Check User Password
+    // Check User Password (to delete account)
     .addCase(checkUserPassword.fulfilled, (state) => {
       state.errorMessage = null;
       state.checkedPassword = true;
@@ -225,7 +238,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(deleteUserAccount.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
-    // Update Consent
+    // Update Consents
     .addCase(updateConsent.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
@@ -235,6 +248,18 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
     })
     .addCase(updateConsent.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // Add Trip
+    .addCase(addTrip.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      toast.success('Le voyage a bien été crée !');
+      state.errorMessage = null;
+    })
+    .addCase(addTrip.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Delete Trip

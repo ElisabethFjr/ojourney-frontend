@@ -37,7 +37,7 @@ function PropositionCard({
 
   // Convert trip id to a number
   const tripId = Number(id_trip);
-  const linkId = Number(id_link);
+  const propositionId = Number(id_link);
 
   // Initialize Hook
 
@@ -90,7 +90,7 @@ function PropositionCard({
       {showModalDeleteConfirm && (
         <ModalDeleteConfirm
           dispatchDeleteAction={() =>
-            dispatch(deleteProposition({ id_trip: tripId, id_link: linkId }))
+            dispatch(deleteProposition({ tripId, propositionId }))
           }
           urlNavigate={`/my-trip/${id_trip}`}
           title="Confirmation suppression"

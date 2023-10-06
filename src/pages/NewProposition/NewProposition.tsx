@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
-import { useAppSelector } from '../../hooks/redux';
-import axiosInstance from '../../utils/axios';
+import { useAppDispatch } from '../../hooks/redux';
 
 import Main from '../../layout/Main/Main';
 
@@ -13,13 +12,16 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 import './NewProposition.scss';
+import { addProposition } from '../../store/reducers/trip';
 
 function NewProposition() {
   // Initialize Hooks
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   // Get the trip id from url
   const { id } = useParams();
+  const propositionId = Number(id);
 
   // Declaration state variables
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -30,21 +32,9 @@ function NewProposition() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Convert formData to an JSON object
-    const objData = Object.fromEntries(formData);
-
-    // Send a POST request to create a new proposition
-    await axiosInstance
-      .post(`/trips/${id}/links`, objData)
-      .then(() => {
-        navigate(`/my-trip/${id}`);
-      })
-      .catch((error) => {
-        if (error.response) {
-          setErrorMessage(error.response.data.error);
-        }
-        console.error(error);
-      });
+    // Dispatch addproposition action on the form submission
+    dispatch(addProposition({ formData, id: propositionId }));
+    navigate(`/my-trip/${propositionId}`);
   };
 
   return (

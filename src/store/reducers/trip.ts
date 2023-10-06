@@ -64,22 +64,34 @@ export const updateTrip = createAsyncThunk(
   }
 );
 
+// Create action to ADD a new proposition
+export const addProposition = createAsyncThunk(
+  'user/addProposition',
+  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    // Send a DELETE request to delete user account
+    const { data } = await axiosInstance.post(`/trips/${id}/links`, objData);
+    return data;
+  }
+);
+
 // Create action to UPDATE a proposition
 export const updateProposition = createAsyncThunk(
   'trip/updateProposition',
   async ({
     formData,
     tripId,
-    linkId,
+    propositionId,
   }: {
     formData: FormData;
     tripId: number | null;
-    linkId: number | null;
+    propositionId: number | null;
   }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     const { data } = await axiosInstance.patch(
-      `/trips/${tripId}/links/${linkId}`,
+      `/trips/${tripId}/links/${propositionId}`,
       objData
     );
     return data;
@@ -90,14 +102,14 @@ export const updateProposition = createAsyncThunk(
 export const deleteProposition = createAsyncThunk(
   'trip/deleteProposition',
   async ({
-    id_trip,
-    id_link,
+    tripId,
+    propositionId,
   }: {
-    id_trip: number | null;
-    id_link: number | null;
+    tripId: number | null;
+    propositionId: number | null;
   }) => {
     const { data } = await axiosInstance.delete(
-      `/trips/${id_trip}/links/${id_link}`
+      `/trips/${tripId}/links/${propositionId}`
     );
     return data;
   }
@@ -126,6 +138,18 @@ const tripReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
     })
     .addCase(updateTrip.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // ADD Proposition
+    .addCase(addProposition.fulfilled, (state, action) => {
+      state.trip = {
+        ...state.trip,
+        ...action.payload,
+      };
+      toast.success('La proposition a bien été ajoutée !');
+      state.errorMessage = null;
+    })
+    .addCase(addProposition.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // UPDATE Proposition

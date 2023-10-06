@@ -23,13 +23,13 @@ function EditProposition() {
   const dispatch = useAppDispatch();
 
   // Get the Trip id and the Proposition id from url and transform them to number
-  const { linkId, tripId } = useParams();
-  const idLink = Number(linkId); // Proposition id
+  const { propositionId, tripId } = useParams();
+  const idProposition = Number(propositionId); // Proposition id
   const idTrip = Number(tripId); // Trip id
 
   // Fetch states from Redux store
   const proposition = useAppSelector((state) =>
-    state.trip.trip.links.find((prop) => prop.id === idLink)
+    state.trip.trip.links.find((prop) => prop.id === idProposition)
   );
 
   // States variables declaration
@@ -58,8 +58,14 @@ function EditProposition() {
     const formData = new FormData(form);
 
     // Dispatch udpateProposition action on the form submission
-    dispatch(updateProposition({ formData, tripId: idTrip, linkId: idLink }));
-    navigate(`/my-trip/${linkId}`);
+    dispatch(
+      updateProposition({
+        formData,
+        tripId: idTrip,
+        propositionId: idProposition,
+      })
+    );
+    navigate(`/my-trip/${propositionId}`);
   };
 
   return (

@@ -2,9 +2,8 @@ import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import axiosInstance from '../../utils/axios';
 
-import { fetchUserInfos } from '../../store/reducers/user';
+import { addTrip } from '../../store/reducers/user';
 
 import Main from '../../layout/Main/Main';
 
@@ -33,6 +32,7 @@ function NewTrip() {
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
+
   // Function to format dates before sending them to the server
   const changeDateFormat = (date: Date) => {
     return format(date, 'yyyy-MM-dd');
@@ -67,22 +67,9 @@ function NewTrip() {
     formData.append('date_start', changeDateFormat(startDate));
     formData.append('date_end', changeDateFormat(endDate));
 
-    // Convert formData to an JSON object
-    const objData = Object.fromEntries(formData);
-
-    // Send a POST request to create a new trip
-    await axiosInstance
-      .post('/trips', objData)
-      .then(() => {
-        dispatch(fetchUserInfos(userData.id));
-        navigate(`/my-trips`);
-      })
-      .catch((error) => {
-        if (error.response) {
-          setErrorMessage(error.response.data.error);
-        }
-        console.error(error);
-      });
+    // Dispatch addTrip action on the form submission
+    dispatch(addTrip(formData));
+    navigate(`/my-trips`);
   };
 
   return (
