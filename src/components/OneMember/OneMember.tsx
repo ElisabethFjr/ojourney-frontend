@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react';
-import { Member, User } from '../../@types';
+import { Trip, Member, User } from '../../@types';
 
 import MemberMenu from '../MemberMenu/MemberMenu';
 
 import './OneMember.scss';
 
-interface MemberProps {
+interface OneMemberProps {
+  tripId: number;
   member: Member;
   isCreator: boolean;
   dataUser: User;
@@ -14,13 +15,17 @@ interface MemberProps {
 }
 
 function OneMember({
+  tripId,
   member,
   isCreator,
   dataUser,
   openMemberId,
   setOpenMemberId,
-}: MemberProps) {
+}: OneMemberProps) {
   const isOpenMenu = member.id === openMemberId;
+
+  console.log('Member id:', member.id);
+  console.log('Trip id:', tripId);
   const divRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -49,12 +54,11 @@ function OneMember({
     if (isOpenMenu) {
       // Close the menu if the current member is already open
       setOpenMemberId(null);
-    } else {
+    } else if (member) {
       // Open the menu of the current member
       setOpenMemberId(member.id);
     }
   };
-
   return (
     <li className="one-trip-members-item" key={member.id}>
       <div
@@ -74,6 +78,8 @@ function OneMember({
         <p className="one-trip-membres-name">{member.firstname}</p>
         {isOpenMenu && (
           <MemberMenu
+            tripId={tripId}
+            memberId={member.id}
             customClass="active"
             isCreator={isCreator}
             isCurrentUser={dataUser.id === member.id}
