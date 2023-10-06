@@ -12,6 +12,7 @@ import InputField from '../InputField/InputField';
 import ModalContainer from '../ModalContainer/ModalContainer';
 
 import './ModalConfimPassword.scss';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 function ModaleConfirmPassword() {
   // Initialize Hooks
@@ -20,6 +21,7 @@ function ModaleConfirmPassword() {
 
   // Declaration state variables
   const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
@@ -35,15 +37,15 @@ function ModaleConfirmPassword() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const passwordData = formData.get('password') as string;
-    dispatch(checkUserPassword({ passwordData, id: userData.id }));
+    dispatch(checkUserPassword({ formData, id: userData.id }));
     // If checkedPassword is true (promise checkUserPassword fulfilled), delete the account by dispatch redux action
     if (checkedPassword) {
+      console.log(checkedPassword);
       dispatch(deleteUserAccount({ id: userData.id }));
       navigate('/', { replace: true });
-      toast.success('Le compte a bien été supprimé !');
+      toast.success('Votre compte a bien été supprimé !');
     } else {
-      toast.error('Mot de passe incorrect. Veuillez réessayer.');
+      setErrorMessage('Mot de passe incorrect. Veuillez réessayer.');
     }
   };
 
@@ -64,11 +66,16 @@ function ModaleConfirmPassword() {
             saisissant votre mot de passe.
           </p>
           <form className="modal-delete-account-form" onSubmit={handleSubmit}>
+            {/* If ErroMessage, display the error */}
+            {errorMessage && (
+              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+            )}
             <InputField
               name="password"
               placeholder="Mot de passe"
               type="password"
               icon="fa-solid fa-lock"
+              required
             />
             <div className="modal-delete-account-button-container">
               <Button

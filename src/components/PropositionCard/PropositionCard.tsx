@@ -54,7 +54,12 @@ function PropositionCard({
         <ButtonIcon icon="fa-solid fa-trash" handleClick={handleClickDelete} />
       </div>
       <Link to={url} target="_blank" className="proposition-card">
-        <img className="proposition-card-image" src={srcImage} alt={altImage} />
+        <img
+          className="proposition-card-image"
+          src={srcImage}
+          alt={altImage}
+          crossOrigin="anonymous"
+        />
         <div className="proposition-card-infos">
           <div className="proposition-card-header">
             <h3 className="proposition-card-header-title">{title}</h3>
@@ -77,7 +82,7 @@ function PropositionCard({
       </Link>
       {/* {showModalDeleteConfirm && (
         <ModalDeleteConfirm
-          endpoint={`/trips/${id_trip}/links/${id_link}`}
+        dispatchDeleteAction={dispatch()}
           urlNavigate={`/my-trip/${id_trip}`}
           title="Confirmation suppression"
           text="Êtes-vous sûr de vouloir supprimer définitivement cette proposition ?"
