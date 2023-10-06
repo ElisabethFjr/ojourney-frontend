@@ -1,26 +1,20 @@
 @use '../../styles/variables' as v;
 
-.modal-delete {
-  &-title {
-    width: 100%;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid v.$color-grey-lightest;
-    text-align: center;
-  }
-
+.modal-information {
   &-text {
     width: 100%;
     padding-bottom: 1rem;
     border-bottom: 1px solid v.$color-grey-lightest;
     text-align: center;
+    font-weight: 700;
   }
 
   &-icon {
-    color: v.$color-red;
+    color: v.$color-primary;
     background-color: v.$color-red-lightest;
     border-radius: 50%;
     padding: 0.8rem;
-    font-size: 1.5rem;
+    font-size: 3rem;
   }
 
   &-button-container {

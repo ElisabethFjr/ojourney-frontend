@@ -28,15 +28,16 @@ function ModalInformationMember({
     setIsOpen(!isOpen);
     closeModal(true);
   };
+
   return (
     <div>
       {isOpen && (
         <ModalContainer handleClose={handleClose}>
-          <i className="modal-delete-icon fa-solid fa-triangle-exclamation" />
-          <h1 className="modal-delete-title">{title}</h1>
-          <p className="modal-delete-text">{lastname}</p>
-          <p className="modal-delete-text">{firstname}</p>
-          <p className="modal-delete-text">{email}</p>
+          <i className="modal-information-icon fa-solid fa-id-card" />
+          <h1 className="main-title">{title}</h1>
+          <p className="modal-information-text">{lastname}</p>
+          <p className="modal-information-text">{firstname}</p>
+          <p className="modal-information-text">{email}</p>
         </ModalContainer>
       )}
     </div>

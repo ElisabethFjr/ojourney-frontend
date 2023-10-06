@@ -39,11 +39,9 @@ function OneMember({
 
   const handleClick = () => {
     setShowModalDeleteConfirm(!showModalDeleteConfirm);
-    console.log('setShow:', setShowModalDeleteConfirm);
   };
   const handleClickInfo = () => {
-    setshowModalInformationMember(true);
-    console.log('setShow:', setshowModalInformationMember);
+    setshowModalInformationMember(!showModalInformationMember);
   };
 
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -96,7 +94,6 @@ function OneMember({
       >
         <i className="one-trip-members-icon fa-solid fa-user" />
         <p className="one-trip-membres-name">{member.firstname}</p>
-        {/* ********************************************************************************** */}
         {isOpenMenu && (
           <div className="member-menu">
             <button
@@ -123,11 +120,11 @@ function OneMember({
           dispatchInformationMember={() =>
             dispatch(informationMember({ tripId, memberId: member.id }))
           }
-          title="Visa"
+          title="Carte d'information"
           lastname={`Nom : ${member.lastname}`}
           firstname={`Prénom : ${member.firstname}`}
           email={`Email : ${member.email}`}
-          closeModal={() => setShowModalDeleteConfirm(false)}
+          closeModal={() => setshowModalInformationMember(false)}
         />
       )}
       {showModalDeleteConfirm && (
