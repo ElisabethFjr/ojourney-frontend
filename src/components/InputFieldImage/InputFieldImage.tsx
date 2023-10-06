@@ -18,7 +18,6 @@ function InputFieldImage({ handleFile, text }: InputFieldImageProps) {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const fileUploaded = event.target.files?.[0];
-    console.log(fileUploaded);
 
     if (fileUploaded) {
       handleFile(fileUploaded);

@@ -30,9 +30,6 @@ function NewTrip() {
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  // Fetch states from Redux store
-  const userData = useAppSelector((state) => state.user.data);
-
   // Function to format dates before sending them to the server
   const changeDateFormat = (date: Date) => {
     return format(date, 'yyyy-MM-dd');
