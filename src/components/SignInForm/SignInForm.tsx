@@ -14,7 +14,10 @@ import ModalConfirmEmail from '../ModalConfirmEmail/ModalConfirmEmail';
 function SignInForm() {
 
   const [showModalConfirmEmail, setShowModalConfirmEmail] =
-  useState(true);
+  useState<boolean>(false);
+  const handleClickConfirmEmail = () => {
+    setShowModalConfirmEmail(!showModalConfirmEmail);
+  };
   // Initialize Hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -81,12 +84,16 @@ function SignInForm() {
               </Link>
               </div> 
               
-          <div className="link-forgot-email">
-          <p onClick={handleClick}>Un souci de connextion ? </p>
-      {showModalConfirmEmail && <ModalConfirmEmail text="Un souci de connexion ?" 
-     />}
+          <div className="button-forgot-email">
+            <Button
+            text="Un souci de connexion ?"
+            onClick={handleClickConfirmEmail} 
+            type="button"
+            customClass={'link'}        
+            />  
               </div>
       </form>
+      {showModalConfirmEmail && <ModalConfirmEmail />}
     </div>
   );
 }
