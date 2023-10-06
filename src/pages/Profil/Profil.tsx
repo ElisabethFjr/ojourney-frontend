@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { useState, FormEvent } from 'react';
+import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { updateConsent } from '../../store/reducers/user';
 
@@ -14,55 +15,50 @@ import ModaleConfirmPassword from '../../components/ModalConfirmPassword/ModalCo
 import './Profil.scss';
 
 function Profil() {
-  const data = useAppSelector((state) => state.user.data);
-  const userData = useAppSelector((state) => state.user.data);
-
+  // Inilialize Hooks
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // *********************************** MODAL
+  const data = useAppSelector((state) => state.user.data);
+  const userData = useAppSelector((state) => state.user.data);
+  const toastSuccess = useAppSelector((state) => state.user.toastSuccess);
+
+  // States variables declaration
   const [showModalConfirmPassword, setShowModalConfirmPassword] =
     useState<boolean>(false);
 
-  // ********************************** Consent
   const [commercialConsent, setCommercialConsent] = useState<boolean>(
     userData.consent_commercial
   );
   const [newsletterConsent, setNewsletterConsent] = useState(
     userData.consent_newsletter
   );
-
-  // *********************************** USESTATE
-
-  // const handleUsageCommercialChange = (
-  //   event: ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   const { value } = event.target;
-  //   setCommercialConsent(value === 'true'); // Assuming 'value' is a string 'true' or 'false'
-  //   if (userData && userData.id) {
-  //     dispatch(updateConsent({ formData: value, id: userData.id }));
-  // };
-
+  // Toggle consent state
   const handleCommercialToggle = () => {
     setCommercialConsent(!commercialConsent);
-    console.log('Commercials', commercialConsent);
   };
 
   const handleNewsletterToggle = () => {
     setNewsletterConsent(!newsletterConsent);
-    console.log('Newsletter', newsletterConsent);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  // Event handler for the EditProposition form submission
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    console.log(form);
     const formData = new FormData(form);
-    // formData.append('consent_commercial', commercialConsent);
-
-    if (userData && userData.id) {
-      dispatch(updateConsent({ formData, id: userData.id }));
+    formData.append('consent_commercial', commercialConsent.toString());
+    formData.append('consent_newsletter', newsletterConsent.toString());
+    dispatch(updateConsent({ formData, id: userData.id }));
+    if (toastSuccess) {
+      navigate('/profil');
+      toast.success('La proposition a bien été modifiée !');
+    } else {
+      toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
     }
   };
+
+  // *****************************
 
   const handleClickDeleteAccount = () => {
     setShowModalConfirmPassword(!showModalConfirmPassword);
