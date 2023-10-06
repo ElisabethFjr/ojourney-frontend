@@ -31,6 +31,7 @@ function TripCard({
   // Initialize Hooks
   const dispatch = useAppDispatch();
 
+  // Convert id to a number
   const tripId = Number(id);
 
   // Declaration states variables
@@ -68,6 +69,7 @@ function TripCard({
           urlNavigate="/my-trips"
           title="Confirmation suppression"
           text="Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?"
+          closeModal={() => setShowModalDeleteConfirm(false)}
         />
       )}
     </div>

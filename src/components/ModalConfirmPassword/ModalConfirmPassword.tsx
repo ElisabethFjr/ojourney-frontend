@@ -26,6 +26,8 @@ function ModaleConfirmPassword() {
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
   const checkedPassword = useAppSelector((state) => state.user.checkedPassword);
+  const toastSuccess = useAppSelector((state) => state.user.successMessage);
+  const toastError = useAppSelector((state) => state.user.errorMessage);
 
   // Event handler on the close modal button
   const handleClose = () => {
@@ -43,9 +45,9 @@ function ModaleConfirmPassword() {
       console.log(checkedPassword);
       dispatch(deleteUserAccount({ id: userData.id }));
       navigate('/', { replace: true });
-      toast.success('Votre compte a bien été supprimé !');
+      toast.success(toastSuccess);
     } else {
-      setErrorMessage('Mot de passe incorrect. Veuillez réessayer.');
+      setErrorMessage(toastError);
     }
   };
 

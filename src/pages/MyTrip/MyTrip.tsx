@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { isValid, parseISO } from 'date-fns';
 import format from 'date-fns/format';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
 

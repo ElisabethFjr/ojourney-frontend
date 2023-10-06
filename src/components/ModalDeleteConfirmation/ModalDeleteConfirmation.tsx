@@ -23,6 +23,7 @@ function ModalDeleteConfirm({
 }: ModalDeleteConfirmProps) {
   // Initialize Hooks
   const navigate = useNavigate();
+
   // Declaration state variables
   const [isOpen, setIsOpen] = useState(true);
 
