@@ -52,7 +52,7 @@ function ConfirmInvite() {
         ) : (
           <>
             <h1 className="main-title confirm-title">
-              Une erreur est survenue, l&paos;invitation au voyage a échouée.
+              Une erreur est survenue, l&apos;invitation au voyage a échouée.
             </h1>
             <p className="confirm-text">
               Veuillez réessayer plus tard ou nous contacter.
