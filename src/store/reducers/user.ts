@@ -150,6 +150,23 @@ export const updateConsent = createAsyncThunk(
   }
 );
 
+// Create action to delete a trip
+export const deleteMember = createAsyncThunk(
+  'member/deleteMember',
+  async ({
+    tripId,
+    memberId,
+  }: {
+    tripId: number | null;
+    memberId: number | null;
+  }) => {
+    const { data } = await axiosInstance.delete(
+      `/trips/${tripId}/members/${memberId}`
+    );
+    return data;
+  }
+);
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
     // Login
@@ -222,6 +239,16 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     // Delete Trip
     .addCase(deleteTrip.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      state.trip = null;
+      state.toastSuccess = true;
+      state.errorMessage = null;
+    })
+    // Delete Member
+    .addCase(deleteMember.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
         ...action.payload,
