@@ -13,7 +13,7 @@ axiosInstance.interceptors.request.use((config) => {
   return configCopy;
 });
 
-const env = 'dev';
+const env = null;
 if (env !== 'dev') {
   axiosInstance.defaults.withCredentials = true;
 }
