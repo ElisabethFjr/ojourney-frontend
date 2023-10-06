@@ -15,7 +15,7 @@ import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDe
 import OneMember from '../../components/OneMember/OneMember';
 
 import './MyTrip.scss';
-import { fetchTripData } from '../../store/reducers/user';
+import { deleteTrip, fetchTripData } from '../../store/reducers/user';
 
 function MyTrip() {
   // Initialize Hooks
@@ -83,16 +83,6 @@ function MyTrip() {
   const handleClickDelete = () => {
     setShowModalDeleteConfirm(!showModalDeleteConfirm);
   };
-
-  // Function to update propositions array after deleting a trip
-  // const updatedPropositions = (deletedPropositionId: number) => {
-  //   // Create a new propositions array by removing the proposition with the deleted id
-  //   const newPropositions = propositions?.filter(
-  //     (proposition) => proposition.id !== deletedPropositionId
-  //   );
-  //   // Update the propositions state with the new array
-  //   setPropositions(newPropositions);
-  // };
 
   // Display a list of all members into a button element from the members array fetch to the API
   const allMembers = members?.map((member) => (
@@ -215,16 +205,15 @@ function MyTrip() {
           <ul>{allPropositions}</ul>
         )}
       </section>
-      {/* {showModalDeleteConfirm && (
+      {showModalDeleteConfirm && (
         <ModalDeleteConfirm
-          endpoint={`/trips/${id}`}
+          dispatchDeleteAction={() => dispatch(deleteTrip(tripId))}
           urlNavigate="/my-trips"
-          title="Confirmation supression"
+          title="Confirmation suppression"
           text="Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?"
-          dataType="trips"
-          dataId={Number(id)}
+          closeModal={() => setShowModalDeleteConfirm(false)}
         />
-      )} */}
+      )}
     </Main>
   );
 }

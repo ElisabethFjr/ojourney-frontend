@@ -11,6 +11,7 @@ export interface ModalDeleteConfirmProps {
   text: string;
   dispatchDeleteAction: () => void;
   urlNavigate: string;
+  closeModal: (value: React.SetStateAction<boolean>) => void;
 }
 
 function ModalDeleteConfirm({
@@ -18,17 +19,17 @@ function ModalDeleteConfirm({
   text,
   dispatchDeleteAction,
   urlNavigate,
+  closeModal,
 }: ModalDeleteConfirmProps) {
   // Initialize Hooks
   const navigate = useNavigate();
   // Declaration state variables
   const [isOpen, setIsOpen] = useState(true);
 
-  // Fetch states from Redux store
-
   // Event handler to close the modal
   const handleClose = () => {
     setIsOpen(!isOpen);
+    closeModal(true);
   };
 
   // Event handler to delete an element
