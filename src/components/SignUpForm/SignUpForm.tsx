@@ -55,10 +55,13 @@ function SignUpForm() {
 
   return (
     <form className="form-content" onSubmit={handleSubmit}>
+      {/* ConfirmModal */}
       {showModalConfirm && <ConfirmModal />}
+      {/* Error Message */}
       {errorMessage && (
         <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
       )}
+      {/* Input Lastname */}
       <InputField
         name="lastname"
         placeholder="Nom"
@@ -67,6 +70,7 @@ function SignUpForm() {
         maxlength={100}
         required
       />
+      {/* Input Firstname */}
       <InputField
         name="firstname"
         placeholder="Prénom"
@@ -75,6 +79,7 @@ function SignUpForm() {
         maxlength={100}
         required
       />
+      {/* Input Email */}
       <InputField
         name="email"
         placeholder="Email"
@@ -83,6 +88,7 @@ function SignUpForm() {
         maxlength={320}
         required
       />
+      {/* Input Password */}
       <InputField
         name="password"
         placeholder="Mot de passe"
@@ -92,14 +98,17 @@ function SignUpForm() {
         required
         autocomplete="off"
       />
+      {/* Input Confirmation Password */}
       <InputField
         name="confirmation"
         placeholder="Mot de passe (confirmation)"
         type="password"
         icon="fa-solid fa-lock"
+        maxlength={128}
         required
         autocomplete="off"
       />
+      {/* Submit Button */}
       <Button
         text="S'inscrire"
         customClass="color button-style--width"

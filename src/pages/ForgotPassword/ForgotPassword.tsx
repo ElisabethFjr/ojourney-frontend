@@ -45,17 +45,22 @@ function ForgotPassword() {
         Veuillez saisir l&apos;adresse mail associée à votre compte.
       </h2>
       <form className="forgot-password-form" onSubmit={handleSubmit}>
+        {/* Modal Forgot Password */}
         {showModalForgotPassword && <ModalForgotPassword />}
+        {/* Error Message */}
         {errorMessage && (
           <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
         )}
+        {/* Input Email */}
         <InputField
           name="email"
           placeholder="Votre e-mail"
           type="email"
           icon="fa-solid fa-at"
+          maxlength={320}
           required
         />
+        {/* Submit Button */}
         <Button
           text="Confirmer"
           customClass="color button-style--width"

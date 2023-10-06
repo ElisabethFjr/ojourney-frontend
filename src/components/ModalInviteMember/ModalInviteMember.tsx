@@ -68,6 +68,7 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
             {errorMessage && (
               <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
             )}
+            {/* Email Input */}
             <InputField
               name="email"
               placeholder="E-mail"
@@ -76,6 +77,7 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
               maxlength={320}
               required
             />
+            {/* Buttons */}
             <div className="modal-invite-member-button-container">
               <Button
                 text="Annuler"

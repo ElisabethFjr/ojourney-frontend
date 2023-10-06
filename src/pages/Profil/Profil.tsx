@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { useState, FormEvent } from 'react';
-import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { updateConsent } from '../../store/reducers/user';
 
@@ -21,7 +20,6 @@ function Profil() {
 
   const data = useAppSelector((state) => state.user.data);
   const userData = useAppSelector((state) => state.user.data);
-  const toastSuccess = useAppSelector((state) => state.user.toastSuccess);
 
   // States variables declaration
   const [showModalConfirmPassword, setShowModalConfirmPassword] =
@@ -50,12 +48,7 @@ function Profil() {
     formData.append('consent_commercial', commercialConsent.toString());
     formData.append('consent_newsletter', newsletterConsent.toString());
     dispatch(updateConsent({ formData, id: userData.id }));
-    if (toastSuccess) {
-      navigate('/profil');
-      toast.success('La proposition a bien été modifiée !');
-    } else {
-      toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
-    }
+    navigate('/profil');
   };
 
   // *****************************
@@ -117,7 +110,7 @@ function Profil() {
             document={<PdfDisplay data={userData} />}
             fileName={`${userData.firstname}_${userData.lastname}.pdf`}
           >
-            {({ blob, url, loading, error }) =>
+            {({ loading }) =>
               loading ? 'Chargement...' : ' Téléchargez maintenant !'
             }
           </PDFDownloadLink>
@@ -136,7 +129,7 @@ function Profil() {
         <div>
           Vos choix pour le traitement de vos données sont les suivants:
           <form onSubmit={handleSubmit}>
-            {/* ************************** Commercial  */}
+            {/* Checkbox Button Commercial */}
             <div className="profil-card-toggle-container">
               <p>Usage commercial :</p>
               <input
@@ -155,8 +148,7 @@ function Profil() {
                 <span className="profil-card-checkbox-slider" />
               </label>
             </div>
-
-            {/* ************************** NEWSLETTER   */}
+            {/*  Checkbox Button Newsletter */}
             <div className="profil-card-toggle-container">
               <p>Usage newsletter :</p>
               <input
@@ -175,6 +167,8 @@ function Profil() {
                 <span className="profil-card-checkbox-slider" />
               </label>
             </div>
+
+            {/*  Submit Button */}
             <div className="profil-card-btn-container">
               <Button
                 text="Changer vos données"

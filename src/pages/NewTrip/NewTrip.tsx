@@ -17,6 +17,7 @@ import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './NewTrip.scss';
+import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 function NewTrip() {
   // Initialize Hooks
@@ -90,11 +91,23 @@ function NewTrip() {
       <section className="new-trip-container">
         <FormContainer>
           <form onSubmit={handleSubmit}>
+            {/* Back Button */}
+            <div className="new-trip-back-btn">
+              <ButtonIcon
+                icon="fa-solid fa-arrow-left"
+                handleClick={() => navigate(-1)} // Go back to the previous page
+                customClass="back"
+              />
+            </div>
+
+            {/* Form Title */}
             <h2 className="new-trip-form-title">Nouveau voyage</h2>
+
             {/* Error Message */}
             {errorMessage && (
               <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
             )}
+
             {/* Localisation Input */}
             <InputField
               name="localisation"
@@ -104,6 +117,7 @@ function NewTrip() {
               maxlength={100}
               required
             />
+
             {/* Dates Picker Inputs (Start - End) */}
             <InputDatesPicker
               startDate={startDate}
@@ -111,6 +125,7 @@ function NewTrip() {
               onStartDateChange={handleStartDateChange}
               onEndDateChange={handleEndDateChange}
             />
+
             {/* Description Textarea */}
             <TextareaField
               name="description"
@@ -118,6 +133,7 @@ function NewTrip() {
               icon="fa-solid fa-pen-nib"
               maxlength={200}
             />
+
             {/* Image File Selection Input */}
             <InputFieldImage handleFile={handleFile} text="Ajouter une image" />
             {file && imageUrl && (
@@ -128,6 +144,7 @@ function NewTrip() {
                 crossOrigin="anonymous"
               />
             )}
+
             {/* Submit Button */}
             <Button
               text="Créer le voyage"

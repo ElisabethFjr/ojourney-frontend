@@ -67,24 +67,33 @@ function ResetPassword() {
       </h1>
       <div className="new-password-container">
         <form className="new-password-form" onSubmit={handleSubmit}>
+          {/*  Form Title */}
           <h2 className="new-proposition-form-title">
             Votre nouveau mot de passe
           </h2>
+          {/* Error Message */}
           {errorMessage && (
             <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
           )}
+          {/* Input Password */}
           <InputField
             name="password"
             placeholder="Nouveau mot de passe"
             type="password"
             icon="fa-solid fa-lock"
+            maxlength={128}
+            required
           />
+          {/* Input Confirmation Password */}
           <InputField
             name="confirmation"
             placeholder="Mot de passe (confirmation)"
             type="password"
             icon="fa-solid fa-lock"
+            maxlength={128}
+            required
           />
+          {/* Submit Button */}
           <Button
             text="Confirmer"
             type="submit"

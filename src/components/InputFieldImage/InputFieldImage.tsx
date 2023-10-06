@@ -27,10 +27,7 @@ function InputFieldImage({ handleFile, text }: InputFieldImageProps) {
 
   return (
     <div className="field">
-      <label
-        className="field-image-label visually-hidden"
-        htmlFor="field-image-input"
-      >
+      <label className="field-image-label visually-hidden" htmlFor="url_image">
         Ajouter une image
       </label>
       <input
@@ -38,7 +35,7 @@ function InputFieldImage({ handleFile, text }: InputFieldImageProps) {
         onChange={handleChange}
         name="url_image"
         accept="image/png, image/jpeg, image/gif"
-        id="field-input-image"
+        id="url_image"
         type="file"
         ref={hiddenFileInput}
       />

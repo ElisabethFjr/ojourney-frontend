@@ -17,28 +17,30 @@ function Contact() {
           <FormContainer>
             <form>
               <h1 className="contact-title">Nous contacter</h1>
-
+              {/* Input Name */}
               <InputField
                 name="name"
                 placeholder="Votre nom"
                 type="text"
                 icon="fa-solid fa-user"
+                maxlength={100}
               />
-
+              {/* Input Email */}
               <InputField
                 name="email"
                 placeholder="Votre e-mail"
                 type="email"
                 icon="fa-solid fa-at"
+                maxlength={320}
               />
-
+              {/* Textarea Message */}
               <TextareaField
                 name="message"
                 placeholder="Votre message"
                 icon="fa-solid fa-pen-nib"
-                maxlength={200}
+                maxlength={500}
               />
-
+              {/* Submit Button */}
               <Button
                 text="Envoyer"
                 type="submit"

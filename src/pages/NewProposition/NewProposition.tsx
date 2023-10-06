@@ -10,6 +10,7 @@ import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import TextareaField from '../../components/TextareaField/TextareaField';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 import './NewProposition.scss';
 
@@ -52,11 +53,23 @@ function NewProposition() {
       <section className="new-proposition-container">
         <FormContainer>
           <form onSubmit={handleSubmit}>
+            {/* Back Button */}
+            <div className="new-proposition-back-btn">
+              <ButtonIcon
+                icon="fa-solid fa-arrow-left"
+                handleClick={() => navigate(-1)} // Go back to the previous page
+                customClass="back"
+              />
+            </div>
+
+            {/* Form Title */}
             <h2 className="new-proposition-form-title">Proposition</h2>
+
             {/* Error Message */}
             {errorMessage && (
               <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
             )}
+
             {/* URL Input */}
             <InputField
               name="url"
@@ -65,14 +78,16 @@ function NewProposition() {
               icon="fa-solid fa-link"
               required
             />
+
             {/* Localisation Input */}
             <InputField
               name="localisation"
               placeholder="Localisation"
               type="text"
               icon="fa-solid fa-location-dot"
-              maxlength={50}
+              maxlength={100}
             />
+
             {/* Description Textarea */}
             <TextareaField
               name="description"
@@ -80,6 +95,8 @@ function NewProposition() {
               icon="fa-solid fa-pen-nib"
               maxlength={200}
             />
+
+            {/* Submit Button */}
             <Button
               text="Valider la proposition"
               customClass="color button-style--width"

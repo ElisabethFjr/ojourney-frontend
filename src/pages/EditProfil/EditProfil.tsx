@@ -125,12 +125,14 @@ function EditProfil() {
               autoComplete="autocomplete"
               id="email"
               type="text"
-              maxLength={100}
+              maxLength={320}
             />
             <div className="field-edit-icon">
               <i className="fa-solid fa-at" />
             </div>
           </div>
+
+          {/* Submit Button */}
           <Button
             text="Modifier"
             customClass="color button-style--width"

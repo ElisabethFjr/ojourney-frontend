@@ -68,6 +68,7 @@ function EditProposition() {
       <section className="edit-proposition-container">
         <FormContainer>
           <div className="edit-proposition-back-btn">
+            {/* Back Button */}
             <ButtonIcon
               icon="fa-solid fa-arrow-left"
               handleClick={() => navigate(-1)} // Go back to the previous page

@@ -158,6 +158,7 @@ function EditTrip() {
               <div className="field-date-container">
                 <i className="field-date-edit-icon fa-solid fa-calendar" />
                 <DatePicker
+                  id="date_start"
                   className="field-date-input"
                   selected={startDate}
                   onChange={handleStartDateChange}
@@ -173,12 +174,13 @@ function EditTrip() {
 
             {/* End Date Input */}
             <div className="field-date-edit">
-              <label className="field-date-edit-label" htmlFor="date_start">
+              <label className="field-date-edit-label" htmlFor="date_end">
                 Date de fin
               </label>
               <div className="field-date-container">
                 <i className="field-date-edit-icon fa-solid fa-calendar" />
                 <DatePicker
+                  id="date_end"
                   className="field-date-input"
                   selected={endDate}
                   onChange={handleEndDateChange}

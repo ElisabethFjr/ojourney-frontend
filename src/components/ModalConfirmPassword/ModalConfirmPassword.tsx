@@ -68,13 +68,16 @@ function ModaleConfirmPassword() {
             {errorMessage && (
               <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
             )}
+            {/* Password Input */}
             <InputField
               name="password"
               placeholder="Mot de passe"
               type="password"
               icon="fa-solid fa-lock"
               required
+              maxlength={128}
             />
+            {/* Buttons */}
             <div className="modal-delete-account-button-container">
               <Button
                 text="Annuler"

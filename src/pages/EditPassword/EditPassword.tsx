@@ -76,6 +76,7 @@ function EditPassword() {
       <h1 className="main-title">Modifier votre mot de passe</h1>
       <div className="edit-password-container">
         <form className="edit-password-form" onSubmit={handleSubmit}>
+          {/* Back Button */}
           <div className="edit-password-back-btn">
             <ButtonIcon
               icon="fa-solid fa-arrow-left"
@@ -89,7 +90,7 @@ function EditPassword() {
             <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
           )}
 
-          {/* Affichage de l'erreur */}
+          {/* Input Password */}
           <div className="field-edit">
             <label className="field-edit-label" htmlFor="password">
               Mot de passe
@@ -102,14 +103,17 @@ function EditPassword() {
               placeholder="Modifier le mot de passe"
               id="password"
               type="password"
+              maxLength={128}
               required
             />
             <div className="field-edit-icon">
               <i className="fa-solid fa-lock" />
             </div>
           </div>
+
+          {/* Input Confirm Password */}
           <div className="field-edit">
-            <label className="field-edit-label" htmlFor="Confirmation">
+            <label className="field-edit-label" htmlFor="confirmation">
               Confirmation du mot de passe
             </label>
             <input
@@ -118,14 +122,17 @@ function EditPassword() {
               onChange={(event) => handleInputChange(event, setConfirmation)}
               name="confirmation"
               placeholder="Modifier le mot de passe"
-              id="Confirmation"
+              id="confirmation"
               type="password"
+              maxLength={128}
               required
             />
             <div className="field-edit-icon">
               <i className="fa-solid fa-lock" />
             </div>
           </div>
+
+          {/* Button Submit */}
           <Button
             text="Modifier votre mot de passe"
             customClass="color button-style--width button-style--height"

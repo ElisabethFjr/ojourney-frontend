@@ -41,6 +41,7 @@ function SignInForm() {
         {errorMessage && (
           <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
         )}
+        {/* Input Email */}
         <InputField
           name="email"
           placeholder="Email"
@@ -49,6 +50,7 @@ function SignInForm() {
           maxlength={320}
           required
         />
+        {/* Input Password */}
         <InputField
           name="password"
           placeholder="Password"
@@ -58,20 +60,15 @@ function SignInForm() {
           required
           autocomplete="off"
         />
+        {/* Submit Button */}
         <Button
           text="Se Connecter"
           customClass="color button-style--width"
           type="submit"
         />
-        <div className="button-forgot-password">
-          <Link to="/forgot-password">
-            <Button
-              text="Mot de passe oublié ?"
-              icon="fa-solid fa-pen"
-              type="button"
-              customClass="height"
-            />
-          </Link>
+        {/* Forgot Password Link */}
+        <div className="forgot-password-container">
+          <Link to="/forgot-password">Mot de passe oublié ? </Link>
         </div>
       </form>
     </div>

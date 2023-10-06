@@ -28,6 +28,7 @@ function InputDatesPicker({
         <div className="field-date-container">
           <i className="field-date-icon fa-solid fa-calendar" />
           <DatePicker
+            id="date_start"
             className="field-date-input"
             selected={startDate}
             onChange={onStartDateChange}
@@ -43,12 +44,13 @@ function InputDatesPicker({
       </div>
       {/* End Date Input */}
       <div className="field-date">
-        <label className="field-date-label" htmlFor="date_start">
+        <label className="field-date-label" htmlFor="date_end">
           Date de fin
         </label>
         <div className="field-date-container">
           <i className="field-date-icon fa-solid fa-calendar" />
           <DatePicker
+            id="date_end"
             className="field-date-input"
             selected={endDate}
             onChange={onEndDateChange}
