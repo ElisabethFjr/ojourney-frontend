@@ -41,16 +41,10 @@ function ResetPassword() {
 
     // Send registration form data (JSON) to the server with Axios
     const jsonData = Object.fromEntries(formData.entries());
-    console.log(jsonData);
 
     await axiosInstance
-      .patch(`/reset?reset=${token}`, jsonData, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      })
+      .patch(`/reset?reset=${token}`, jsonData)
       .then(() => {
-        console.log('Mot de passe reset !');
         navigate('/signin-signup');
         toast.success('Le mot de passe a été réinitialiser avec succès !');
       })

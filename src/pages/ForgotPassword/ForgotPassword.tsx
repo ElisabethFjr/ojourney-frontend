@@ -20,11 +20,7 @@ function ForgotPassword() {
     const jsonData = Object.fromEntries(formData.entries());
 
     await axiosInstance
-      .post('/reset', jsonData, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      })
+      .post('/reset', jsonData)
       .then(() => {
         setShowModalForgotPassword(true);
       })

@@ -166,11 +166,10 @@ const tripReducer = createReducer(initialState, (builder) => {
     })
     // DELETE Proposition
     .addCase(deleteProposition.fulfilled, (state, action) => {
-      if (state.trip) {
-        state.trip.links = state.trip.links.filter(
-          (link) => link.id !== action.payload.id
-        );
-      }
+      state.trip = {
+        ...state.trip,
+        ...action.payload,
+      };
       toast.success('La proposition a bien été supprimée !');
     })
     .addCase(deleteProposition.rejected, () => {
