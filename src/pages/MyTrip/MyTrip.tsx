@@ -188,10 +188,12 @@ function MyTrip() {
         id_link={proposition.id}
         handleUpdateData={updatedPropositions} />
     </li>
-    <button
+    <Button
       text='👍'
-      onClick={handleClickVote}>
-      </button>
+      onClick={handleClickVote}
+        type="button"
+        customClass="outline-dark">
+      </Button>
     </>
   ));
 
