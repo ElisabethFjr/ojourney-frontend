@@ -30,7 +30,7 @@ function MyTrip() {
     useState<boolean>(false);
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
-    //const [showVote, setShowVote] = useState<number | null>(null);
+    const [showVote, setShowVote] = useState<number | null>(null);
 
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User data
@@ -45,9 +45,9 @@ function MyTrip() {
     setShowModalInviteMember(!showModalInviteMember);
   };
 
-  //const handleClickVote = () => {
-    //setShowVote(!showVote);
-  //};
+  const handleClickVote = () => {
+    setShowVote(!showVote);
+  };
 
 
   // Event handler to close the member menu when clicked outside
@@ -188,6 +188,10 @@ function MyTrip() {
         id_link={proposition.id}
         handleUpdateData={updatedPropositions} />
     </li>
+    <button
+      text='👍'
+      onClick={handleClickVote}>
+      </button>
     </>
   ));
 

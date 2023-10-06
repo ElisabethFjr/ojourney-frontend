@@ -13,11 +13,6 @@ import ModalConfirmEmail from '../ModalConfirmEmail/ModalConfirmEmail';
 
 function SignInForm() {
 
-  const [showModalConfirmEmail, setShowModalConfirmEmail] =
-  useState<boolean>(false);
-  const handleClickConfirmEmail = () => {
-    setShowModalConfirmEmail(!showModalConfirmEmail);
-  };
   // Initialize Hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -35,8 +30,10 @@ function SignInForm() {
     await dispatch(login(formData));
   };
 
-  const handleClick = () => {
-    setShowModalConfirmEmail(false);
+  const [showModalConfirmEmail, setShowModalConfirmEmail] =
+  useState<boolean>(false);
+  const handleClickConfirmEmail = () => {
+    setShowModalConfirmEmail(!showModalConfirmEmail);
   };
 
   // Navigate to /my-trips if connexion succeed
