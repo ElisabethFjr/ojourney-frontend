@@ -121,7 +121,12 @@ function NewTrip() {
             {/* Image File Selection Input */}
             <InputFieldImage handleFile={handleFile} text="Ajouter une image" />
             {file && imageUrl && (
-              <img className="new-trip-image" src={imageUrl} alt={file.name} />
+              <img
+                className="new-trip-image"
+                src={imageUrl}
+                alt={file.name}
+                crossOrigin="anonymous"
+              />
             )}
             {/* Submit Button */}
             <Button

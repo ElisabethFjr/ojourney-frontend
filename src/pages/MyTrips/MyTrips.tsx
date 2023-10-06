@@ -21,7 +21,7 @@ function MyTrips() {
       <TripCard
         key={trip.id}
         id={trip.id}
-        srcTripImage={`https://luciebaroiller-server.eddi.cloud:8080/images/${trip.url_image}`}
+        srcTripImage={trip.url_image}
         altImage={trip.alt_image}
         authorName={`${userData.firstname} ${userData.lastname}`}
         description={trip.description}

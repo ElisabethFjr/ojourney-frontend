@@ -57,35 +57,25 @@ const env = null;
 export const login = createAsyncThunk(
   'user/login',
   async (formData: FormData) => {
-    try {
-      // Convert formData to an JSON object
-      const objData = Object.fromEntries(formData);
-      // Send a POST request to login user
-      const { data } = await axiosInstance.post('/signIn', objData);
-      if (env === 'dev') {
-        axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-      }
-      return data;
-    } catch (error) {
-      // Check if the error is an Axios error Type and has a response
-      if (axios.isAxiosError(error) && error.response) {
-        // Throw an error with the server's error message
-        throw new Error(error.response.data.error);
-      } else {
-        // If it's not an Axios error or doesn't have a response, throw a generic error
-        throw new Error('UNKNOWN_ERROR');
-      }
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    // Send a POST request to login user
+    const { data } = await axiosInstance.post('/signIn', objData);
+    if (env === 'dev') {
+      localStorage.setItem('token', data.token);
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
     }
+    return data;
   }
 );
 
 // Create Logout action
-export const logout = createAction('user/logout');
+// export const logout = createAction('user/logout');
 
 // Create Logout action
-// export const logout = createAsyncThunk('user/logout', async () => {
-//   await axiosInstance.get('/logout');
-// });
+export const logout = createAsyncThunk('user/logout', async () => {
+  await axiosInstance.get('/logout');
+});
 
 // Create action to fetch user data
 export const fetchUserInfos = createAsyncThunk(
@@ -99,13 +89,14 @@ export const fetchUserInfos = createAsyncThunk(
 // Create action to ckeck user password
 export const checkUserPassword = createAsyncThunk(
   'user/checkUserPassword',
-  async ({ passwordData, id }: { passwordData: string; id: number | null }) => {
+  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
     // Send a DELETE request to delete user account
-    const { data } = await axiosInstance.post(`/users/${id}`, passwordData);
+    const { data } = await axiosInstance.post(`/users/${id}`, objData);
     return data;
   }
 );
-
 // Create action to delete user account
 export const deleteUserAccount = createAsyncThunk(
   'user/deleteAccount',
@@ -177,7 +168,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
     })
     // Logout
-    .addCase(logout, (state) => {
+    .addCase(logout.fulfilled, (state) => {
       state.data = initialState.data; // Reset user data to initial state
       state.isConnected = false;
     })
