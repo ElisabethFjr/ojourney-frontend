@@ -34,7 +34,7 @@ function EditTrip() {
   const trip = useAppSelector((state) => state.user.trip); // One Trip Data
 
   // States variables declaration
-  const [localisation, setLocalisation] = useState<string | null>(
+  const [localisation, setLocalisation] = useState<string>(
     trip?.localisation || ''
   );
   const [startDate, setStartDate] = useState<Date | null>(
@@ -43,9 +43,11 @@ function EditTrip() {
   const [endDate, setEndDate] = useState<Date | null>(
     trip ? new Date(trip.date_end) : null
   );
-  const [description, setDescription] = useState<string | null>(
+  const [description, setDescription] = useState<string>(
     trip?.description || ''
   );
+  const [file, setFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Get the trip id from url
@@ -62,7 +64,7 @@ function EditTrip() {
     setValue(sanitizedValue);
   };
 
-  // Function to format dates before sending them to the server
+  // Function to format dates into string
   const changeDateFormat = (date: Date) => {
     return format(date, 'yyyy-MM-dd');
   };
@@ -77,21 +79,33 @@ function EditTrip() {
     setEndDate(date);
   };
 
-  // Event handler for the selected file image
-  const handleFile = (file: File) => {
-    console.log('Fichier sélectionné :', file);
+  // Event handler for selecting an image file
+  const handleFile = (fileUploaded: File | null) => {
+    if (fileUploaded !== null) {
+      setFile(fileUploaded);
+      const url = URL.createObjectURL(fileUploaded);
+      setImageUrl(url);
+    }
   };
-
   // Event handler for the newTrip form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Format dates start and end
-    formData.append('date_start', changeDateFormat(startDate));
-    formData.append('date_end', changeDateFormat(endDate));
+    // Check all required field and set an errorMessage if one is missing
+    if (!localisation || !startDate || !endDate) {
+      setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
 
+    // Format dates start and end is dates not null
+    if (startDate && endDate) {
+      formData.append('date_start', changeDateFormat(startDate));
+      formData.append('date_end', changeDateFormat(endDate));
+    }
+
+    // Dispatch udpateTrip action on the form submission
     dispatch(updateTrip({ formData, id: tripId }));
     navigate(`/my-trip/${tripId}`);
   };
@@ -204,7 +218,14 @@ function EditTrip() {
               handleFile={handleFile}
               text={"Modifier l'image"}
             />
-
+            {file && imageUrl && (
+              <img
+                className="new-trip-image"
+                src={imageUrl}
+                alt={file.name}
+                crossOrigin="anonymous"
+              />
+            )}
             {/* Form Submit Button */}
             <Button
               text="Modifier le voyage"
