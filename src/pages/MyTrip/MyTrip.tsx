@@ -20,6 +20,10 @@ function MyTrip() {
   // Initialize Hooks
   const dispatch = useAppDispatch();
 
+  // Get the trip id from route parameters
+  const { id } = useParams();
+  const tripId = Number(id);
+
   // Declaration state variables
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [openMemberId, setOpenMemberId] = useState<number | null>(null);
@@ -36,10 +40,6 @@ function MyTrip() {
 
   // Boolean to check if the user is the trip creator
   const isCreator = dataUser.id === trip?.user_id;
-
-  // Get the trip id from route parameters
-  const { id } = useParams();
-  const tripId = Number(id);
 
   useEffect(() => {
     dispatch(fetchTripData(tripId));

@@ -17,6 +17,7 @@ import { updatePassword } from '../../store/reducers/user';
 import Main from '../../layout/Main/Main';
 import Button from '../../components/Button/Button';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 // Import Style
 import './EditPassword.scss';
@@ -75,9 +76,19 @@ function EditPassword() {
       <h1 className="main-title">Modifier votre mot de passe</h1>
       <div className="edit-password-container">
         <form className="edit-password-form" onSubmit={handleSubmit}>
+          <div className="edit-password-back-btn">
+            <ButtonIcon
+              icon="fa-solid fa-arrow-left"
+              handleClick={() => navigate(-1)} // Go back to the previous page
+              customClass="back"
+            />
+          </div>
+
+          {/* If ErroMessage, display the error */}
           {errorMessage && (
             <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
           )}
+
           {/* Affichage de l'erreur */}
           <div className="field-edit">
             <label className="field-edit-label" htmlFor="password">

@@ -30,6 +30,10 @@ function EditTrip() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  // Get the trip id from url
+  const { id } = useParams();
+  const tripId = Number(id);
+
   // Fetch states from Redux store
   const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
 
@@ -50,11 +54,12 @@ function EditTrip() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Get the trip id from url
-  const { id } = useParams();
-  const tripId = Number(id);
+  // Function to format dates into string
+  const changeDateFormat = (date: Date) => {
+    return format(date, 'yyyy-MM-dd');
+  };
 
-  // Event handler input and textarea changes
+  // EVENT HANDLER input and textarea changes
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     setValue: (value: string) => void
@@ -64,22 +69,17 @@ function EditTrip() {
     setValue(sanitizedValue);
   };
 
-  // Function to format dates into string
-  const changeDateFormat = (date: Date) => {
-    return format(date, 'yyyy-MM-dd');
-  };
-
-  // Event handler for start date change
+  // EVENT HANDLER for start date change
   const handleStartDateChange = (date: Date) => {
     setStartDate(date);
   };
 
-  // Event handler for end date change
+  // EVENT HANDLER for end date change
   const handleEndDateChange = (date: Date) => {
     setEndDate(date);
   };
 
-  // Event handler for selecting an image file
+  // EVENT HANDLER for selecting an image file
   const handleFile = (fileUploaded: File | null) => {
     if (fileUploaded !== null) {
       setFile(fileUploaded);
@@ -87,13 +87,13 @@ function EditTrip() {
       setImageUrl(url);
     }
   };
-  // Event handler for the newTrip form submission
+  // EVENT HANDLER for the newTrip form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Check all required field and set an errorMessage if one is missing
+    // Check all required fields and set an errorMessage if one is missing
     if (!localisation || !startDate || !endDate) {
       setErrorMessage('Veuillez remplir tous les champs obligatoires.');
       return;
@@ -119,7 +119,7 @@ function EditTrip() {
             <ButtonIcon
               icon="fa-solid fa-arrow-left"
               handleClick={() => navigate(-1)}
-              customClass="border"
+              customClass="back"
             />
           </div>
           <form onSubmit={handleSubmit}>

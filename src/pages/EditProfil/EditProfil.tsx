@@ -13,6 +13,7 @@ import { updateUserData } from '../../store/reducers/user';
 import Main from '../../layout/Main/Main';
 import Button from '../../components/Button/Button';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 import './EditProfil.scss';
 
@@ -55,6 +56,14 @@ function EditProfil() {
       <h1 className="main-title">Modifier vos information personnelles</h1>
       <div className="edit-profil-container">
         <form className="edit-profil-form" onSubmit={handleSubmit}>
+          <div className="edit-profil-back-btn">
+            <ButtonIcon
+              icon="fa-solid fa-arrow-left"
+              handleClick={() => navigate(-1)} // Go back to the previous page
+              customClass="back"
+            />
+          </div>
+
           {/* If ErroMessage, display the error */}
           {errorMessage && (
             <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />

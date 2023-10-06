@@ -44,7 +44,7 @@ export const initialState: TripState = {
   errorMessage: null,
 };
 
-// Create action to fetch trip infos
+// Create action to FETCH trip infos
 export const fetchTripData = createAsyncThunk(
   'trip/fetchTripData',
   async (id: number | null) => {
@@ -53,7 +53,7 @@ export const fetchTripData = createAsyncThunk(
   }
 );
 
-// Create action to update a trip
+// Create action to UPDATE a trip
 export const updateTrip = createAsyncThunk(
   'trip/updateTrip',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
@@ -64,7 +64,29 @@ export const updateTrip = createAsyncThunk(
   }
 );
 
-// Create action to delete a proposition
+// Create action to UPDATE a proposition
+export const updateProposition = createAsyncThunk(
+  'trip/updateProposition',
+  async ({
+    formData,
+    tripId,
+    linkId,
+  }: {
+    formData: FormData;
+    tripId: number | null;
+    linkId: number | null;
+  }) => {
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    const { data } = await axiosInstance.patch(
+      `/trips/${tripId}/links/${linkId}`,
+      objData
+    );
+    return data;
+  }
+);
+
+// Create action to DELETE a proposition
 export const deleteProposition = createAsyncThunk(
   'trip/deleteProposition',
   async ({
@@ -81,33 +103,9 @@ export const deleteProposition = createAsyncThunk(
   }
 );
 
-// Create action to update a proposition
-export const updateProposition = createAsyncThunk(
-  'trip/updateProposition',
-  async ({
-    formData,
-    idTrip,
-    idLink,
-  }: {
-    formData: FormData;
-    idTrip: number | null;
-    idLink: number | null;
-  }) => {
-    // Convert formData to an JSON object
-    const objData = Object.fromEntries(formData);
-    const { data } = await axiosInstance.patch(
-      `/trips/${idTrip}/links/${idLink}`,
-      objData
-    );
-    return data;
-  }
-);
-
-// Create action to update a proposition
-
 const tripReducer = createReducer(initialState, (builder) => {
   builder
-    // Fetch Trip Data
+    // FETCH Trip Data
     .addCase(fetchTripData.fulfilled, (state, action) => {
       state.trip = {
         ...state.trip,
@@ -118,19 +116,19 @@ const tripReducer = createReducer(initialState, (builder) => {
       state.errorMessage =
         'Une erreur est survenue lors de la récupération du voyage.';
     })
-    // Update Trip
+    // UPDATE Trip
     .addCase(updateTrip.fulfilled, (state, action) => {
       state.trip = {
         ...state.trip,
         ...action.payload,
       };
-      toast.success('Le voyage a bien été mis à jour !');
+      toast.success('Le voyage a bien été modifié !');
       state.errorMessage = null;
     })
     .addCase(updateTrip.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
-    // Update Proposition
+    // UPDATE Proposition
     .addCase(updateProposition.fulfilled, (state, action) => {
       state.trip = {
         ...state.trip,
@@ -142,7 +140,7 @@ const tripReducer = createReducer(initialState, (builder) => {
     .addCase(updateProposition.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
-    // Delete Proposition
+    // DELETE Proposition
     .addCase(deleteProposition.fulfilled, (state, action) => {
       if (state.trip) {
         state.trip.links = state.trip.links.filter(
