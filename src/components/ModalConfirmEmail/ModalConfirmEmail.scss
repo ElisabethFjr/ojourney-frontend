@@ -1,5 +1,7 @@
 @use '../../styles/variables' as v;
 
 .modal-confirm-email {
-
+  &-text {
+    text-align:center;
+  }
 };
