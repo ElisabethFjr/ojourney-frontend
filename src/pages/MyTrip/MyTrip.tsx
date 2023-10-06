@@ -36,6 +36,7 @@ function MyTrip() {
 
   // Get the trip id from route parameters
   const { id } = useParams();
+  const tripId = Number(id);
 
   /// EVENTS HANDLERS MEMBER ///
 
@@ -155,18 +156,21 @@ function MyTrip() {
     setPropositions(newPropositions);
   };
 
+  // *****************************************  MEMBRE
   // Display a list of all members into a button element from the members array fetch to the API
   const allMembers = members.map((member) => (
-    <OneMember
-      key={member.id}
-      member={member}
-      isCreator={isCreator}
-      dataUser={dataUser}
-      openMemberId={openMemberId}
-      setOpenMemberId={setOpenMemberId}
-    />
+    <li key={member.id}>
+      <OneMember
+        member={member}
+        tripId={tripId}
+        isCreator={isCreator}
+        dataUser={dataUser}
+        openMemberId={openMemberId}
+        setOpenMemberId={setOpenMemberId}
+      />
+    </li>
   ));
-
+  // *****************************************  PROPOSITION
   // Display a list of all propositions from the propositions array fetch to the API
   const allPropositions = propositions.map((proposition) => (
     <li key={proposition.id}>
@@ -184,7 +188,7 @@ function MyTrip() {
       />
     </li>
   ));
-
+  // *****************************************  RETURN
   return (
     <Main>
       {showModalInviteMember && <ModalInviteMember id={Number(id)} />}
@@ -238,7 +242,7 @@ function MyTrip() {
           )}
         </div>
       </section>
-
+      {/* *************************************** MEMBRE */}
       <section className="one-trip-members">
         {isCreator && (
           <Button
@@ -255,7 +259,7 @@ function MyTrip() {
           <ul className="one-trip-members-list">{allMembers}</ul>
         )}
       </section>
-
+      {/* *************************************** PROPOSITION */}
       <section className="one-trip-propositions">
         <h2 className="one-trip-propositions-title">Propositions</h2>
         <div className="one-trip-propositions-add-container">
