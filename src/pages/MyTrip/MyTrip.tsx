@@ -30,6 +30,7 @@ function MyTrip() {
     useState<boolean>(false);
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
+    //const [showVote, setShowVote] = useState<number | null>(null);
 
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User data
@@ -43,6 +44,11 @@ function MyTrip() {
   const handleClickAddMember = () => {
     setShowModalInviteMember(!showModalInviteMember);
   };
+
+  //const handleClickVote = () => {
+    //setShowVote(!showVote);
+  //};
+
 
   // Event handler to close the member menu when clicked outside
   // Ref the toggle MemberMenu button
@@ -169,7 +175,7 @@ function MyTrip() {
 
   // Display a list of all propositions from the propositions array fetch to the API
   const allPropositions = propositions.map((proposition) => (
-    <li key={proposition.id}>
+    <><li key={proposition.id}>
       <PropositionCard
         srcImage={proposition.image}
         altImage={proposition.alt_image}
@@ -180,10 +186,11 @@ function MyTrip() {
         url={proposition.url}
         id_trip={proposition.trip_id}
         id_link={proposition.id}
-        handleUpdateData={updatedPropositions}
-      />
+        handleUpdateData={updatedPropositions} />
     </li>
+    </>
   ));
+
 
   return (
     <Main>
