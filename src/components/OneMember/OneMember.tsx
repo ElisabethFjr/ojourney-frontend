@@ -89,12 +89,8 @@ function OneMember({
         <i className="one-trip-members-icon fa-solid fa-user" />
         <p className="one-trip-membres-name">{member.firstname}</p>
         {isOpenMenu && (
-          <div className="member-menu active">
-            <button
-              className="member-menu-btn"
-              type="button"
-              onClick={handleClick}
-            >
+          <div className="member-menu">
+            <button className="member-menu-btn" type="button">
               Voir les infos
             </button>
             {isCreator && !isCurrentUser && (
