@@ -24,8 +24,8 @@ function NewTrip() {
   const dispatch = useAppDispatch();
 
   // Declaration state variables
-  const [startDate, setStartDate] = useState<Date>(new Date()); // Trip start date
-  const [endDate, setEndDate] = useState<Date>(new Date()); // Trip end date
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined); // Trip start date
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined); // Trip end date
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -64,8 +64,8 @@ function NewTrip() {
     const formData = new FormData(form);
 
     // Format dates start and end
-    formData.append('date_start', changeDateFormat(startDate));
-    formData.append('date_end', changeDateFormat(endDate));
+    formData.append('date_start', startDate ? changeDateFormat(startDate) : '');
+    formData.append('date_end', endDate ? changeDateFormat(endDate) : '');
 
     // Dispatch addTrip action on the form submission
     dispatch(addTrip(formData));
@@ -107,8 +107,8 @@ function NewTrip() {
 
             {/* Dates Picker Inputs (Start - End) */}
             <InputDatesPicker
-              startDate={startDate}
-              endDate={endDate}
+              startDate={startDate || null}
+              endDate={endDate || null}
               onStartDateChange={handleStartDateChange}
               onEndDateChange={handleEndDateChange}
             />

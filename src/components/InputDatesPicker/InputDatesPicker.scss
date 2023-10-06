@@ -54,6 +54,12 @@
   }
 }
 
+#date_start::placeholder,
+#date_end::placeholder {
+  color: v.$color-grey;
+  font-weight: 400;
+}
+
 .react-datepicker {
   position: absolute;
   z-index: 1;
