@@ -16,7 +16,7 @@ interface PropositionCardProps {
   url: string;
   id_link: number;
   id_trip: number;
-  handleUpdateData: (deletedPropositionId: number, dataType: string) => void;
+  // handleUpdateData: (deletedPropositionId: number, dataType: string) => void;
 }
 
 function PropositionCard({
@@ -29,8 +29,8 @@ function PropositionCard({
   url,
   id_link,
   id_trip,
-  handleUpdateData,
-}: PropositionCardProps) {
+}: // handleUpdateData,
+PropositionCardProps) {
   // Initialize Hook
   const navigate = useNavigate();
 

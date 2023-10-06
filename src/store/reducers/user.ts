@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 // Imports
 import {
   createReducer,
@@ -52,7 +50,7 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = null;
+const env = 'dev';
 
 export const login = createAsyncThunk(
   'user/login',
@@ -70,16 +68,16 @@ export const login = createAsyncThunk(
 );
 
 // Create Logout action
-// export const logout = createAction('user/logout');
+export const logout = createAction('user/logout');
 
 // Create Logout action
-export const logout = createAsyncThunk('user/logout', async () => {
-  await axiosInstance.get('/logout');
-});
+// export const logout = createAsyncThunk('user/logout', async () => {
+//   await axiosInstance.get('/logout');
+// });
 
 // Create action to fetch user data
 export const fetchUserInfos = createAsyncThunk(
-  'user/getUserInfo',
+  'user/fetchUserInfo',
   async (id: number | null) => {
     const { data } = await axiosInstance.get(`/users/${id}`);
     return data;
@@ -130,15 +128,7 @@ export const updatePassword = createAsyncThunk(
   }
 );
 
-// Create action to delete a trip
-export const deleteTrip = createAsyncThunk(
-  'trip/delete',
-  async (id: number | null) => {
-    const { data } = await axiosInstance.delete(`/trips/${id}`);
-    return data;
-  }
-);
-
+// Create action to update consents
 export const updateConsent = createAsyncThunk(
   'user/updateConsent',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
@@ -146,6 +136,32 @@ export const updateConsent = createAsyncThunk(
     const objData = Object.fromEntries(formData);
     // Send a PATCH request to update user data
     const data = await axiosInstance.patch(`/users/${id}`, objData);
+    return data;
+  }
+);
+
+// Create action to fetch trip infos
+export const fetchTripData = createAsyncThunk(
+  'trip/fetchTripData',
+  async (id: number | null) => {
+    const { data } = await axiosInstance.get(`/trips/${id}`);
+    return data;
+  }
+);
+
+// Create action to update a trip
+export const updateTrip = createAsyncThunk(
+  'trip/updateTrip',
+  async (id: number | null) => {
+    const { data } = await axiosInstance.delete(`/trips/${id}`);
+    return data;
+  }
+);
+// Create action to delete a trip
+export const deleteTrip = createAsyncThunk(
+  'trip/deleteTrip',
+  async (id: number | null) => {
+    const { data } = await axiosInstance.delete(`/trips/${id}`);
     return data;
   }
 );
@@ -168,7 +184,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
     })
     // Logout
-    .addCase(logout.fulfilled, (state) => {
+    .addCase(logout, (state) => {
       state.data = initialState.data; // Reset user data to initial state
       state.isConnected = false;
     })
@@ -182,7 +198,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(fetchUserInfos.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
-    // Updat User Data
+    // Update User Data
     .addCase(updateUserData.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
@@ -220,16 +236,6 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(deleteUserAccount.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
-    // Delete Trip
-    .addCase(deleteTrip.fulfilled, (state, action) => {
-      state.data = {
-        ...state.data,
-        ...action.payload,
-      };
-      state.trip = null;
-      state.toastSuccess = true;
-      state.errorMessage = null;
-    })
     // Update Consent
     .addCase(updateConsent.fulfilled, (state, action) => {
       state.data = {
@@ -237,6 +243,27 @@ const userReducer = createReducer(initialState, (builder) => {
         ...action.payload,
       };
       state.toastSuccess = true;
+      state.toastSuccess = true;
+      state.errorMessage = null;
+    })
+    // Fetch Trip Data
+    .addCase(fetchTripData.fulfilled, (state, action) => {
+      state.trip = {
+        ...state.trip,
+        ...action.payload,
+      };
+    })
+    .addCase(fetchTripData.rejected, (state) => {
+      state.errorMessage =
+        'Une erreur est survenue lors de la récupération du voyage.';
+    })
+    // Delete Trip
+    .addCase(deleteTrip.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      state.trip = null;
       state.toastSuccess = true;
       state.errorMessage = null;
     });

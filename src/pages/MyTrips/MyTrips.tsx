@@ -13,7 +13,6 @@ function MyTrips() {
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data); // User data
   const trips = useAppSelector((state) => state.user.data.trips); // User trips data
-  console.log(trips);
 
   // Display a list of all trips from the trips array fetch to the API
   const allTrips = trips?.map((trip) => (
