@@ -10,10 +10,8 @@ import { format } from 'date-fns';
 import { toast } from 'react-toastify';
 
 // Imports Redux
-import { useAppSelector } from '../../hooks/redux';
-
-// Import AxiosInstance
-import axiosInstance from '../../utils/axios';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { updateTrip } from '../../store/reducers/user';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
@@ -30,15 +28,20 @@ function EditTrip() {
 
   // Initialize Hooks
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  // Fetch states from Redux store
+  const trip = useAppSelector((state) => state.user.trip); // One Trip Data
 
   // States variables declaration
-  const [localisation, setLocalisation] = useState('');
+  const [localisation, setLocalisation] = useState(trip?.localisation || '');
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(trip?.description || '');
 
   // Get the trip id from url
   const { id } = useParams();
+  const tripId = Number(id);
 
   // Event handler input and textarea changes
   const handleInputChange = (
@@ -79,20 +82,9 @@ function EditTrip() {
     // Format dates start and end
     formData.append('date_start', changeDateFormat(startDate));
     formData.append('date_end', changeDateFormat(endDate));
-    // Convert formData to an JSON object
-    const objData = Object.fromEntries(formData);
 
-    // Send a PATCH request to update the trip data
-    await axiosInstance
-      .patch(`/trips/${id}`, objData)
-      .then(() => {
-        navigate(`/my-trip/${id}`); // Navigate to the trip
-        toast.success('Le voyage a bien été modifié !');
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
-      });
+    dispatch(updateTrip({ formData, id: tripId }));
+    navigate(`/my-trip/${tripId}`);
   };
 
   return (

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 // Imports modules
 import DOMPurify from 'dompurify';
-import { toast } from 'react-toastify';
 
 // Imports Redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -23,7 +22,6 @@ function EditProfil() {
 
   // Get user data and environment from Redux store
   const userData = useAppSelector((state) => state.user.data);
-  const toastSuccess = useAppSelector((state) => state.user.toastSuccess);
 
   // States variables declaration
   const [lastname, setLastname] = useState(userData.lastname || '');
@@ -47,14 +45,7 @@ function EditProfil() {
     const formData = new FormData(form);
     // Dispatch the updated user data to Redux store
     dispatch(updateUserData({ formData, id: userData.id }));
-    if (toastSuccess) {
-      navigate('/profil');
-      toast.success('Les informations ont bien été mises à jour !');
-    } else {
-      toast.error(
-        'Échec de la mise à jour des informations, veuillez réessayer plus tard.'
-      );
-    }
+    navigate('/profil');
   };
 
   return (
