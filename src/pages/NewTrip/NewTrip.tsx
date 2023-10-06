@@ -101,7 +101,7 @@ function NewTrip() {
               placeholder="Destination"
               type="text"
               icon="fa-solid fa-location-dot"
-              maxlength={50}
+              maxlength={100}
               required
             />
             {/* Dates Picker Inputs (Start - End) */}

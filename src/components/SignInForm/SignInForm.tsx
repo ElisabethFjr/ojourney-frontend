@@ -46,6 +46,7 @@ function SignInForm() {
           placeholder="Email"
           type="email"
           icon="fa-solid fa-at"
+          maxlength={320}
           required
         />
         <InputField
@@ -53,6 +54,7 @@ function SignInForm() {
           placeholder="Password"
           type="password"
           icon="fa-solid fa-lock"
+          maxlength={128}
           required
           autocomplete="off"
         />

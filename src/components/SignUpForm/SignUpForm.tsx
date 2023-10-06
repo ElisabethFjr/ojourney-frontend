@@ -45,12 +45,11 @@ function SignUpForm() {
         setShowModalConfirm(true);
       })
       .catch((error) => {
-        console.error("Une erreur est survenue lors de l'inscription.", error);
-        if (error.response) {
-          setErrorMessage(error.response.data.error);
-        } else {
-          setErrorMessage("Une erreur s'est produite lors de l'inscription.");
-        }
+        console.error(error);
+        setErrorMessage(
+          error.response.data.error ||
+            "Une erreur s'est produite lors de l'inscription."
+        );
       });
   };
 
@@ -65,6 +64,7 @@ function SignUpForm() {
         placeholder="Nom"
         type="text"
         icon="fa-solid fa-user"
+        maxlength={100}
         required
       />
       <InputField
@@ -72,6 +72,7 @@ function SignUpForm() {
         placeholder="Prénom"
         type="text"
         icon="fa-solid fa-user"
+        maxlength={100}
         required
       />
       <InputField
@@ -79,6 +80,7 @@ function SignUpForm() {
         placeholder="Email"
         type="email"
         icon="fa-solid fa-at"
+        maxlength={320}
         required
       />
       <InputField
@@ -86,6 +88,7 @@ function SignUpForm() {
         placeholder="Mot de passe"
         type="password"
         icon="fa-solid fa-lock"
+        maxlength={128}
         required
         autocomplete="off"
       />

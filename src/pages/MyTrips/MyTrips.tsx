@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { fetchUserInfos } from '../../store/reducers/user';
 
 import Main from '../../layout/Main/Main';
 import TripCard from '../../components/TripCard/TripCard';
@@ -9,7 +10,6 @@ import Button from '../../components/Button/Button';
 import travel from '../../assets/images/travel.png';
 
 import './MyTrips.scss';
-import { fetchUserInfos } from '../../store/reducers/user';
 
 function MyTrips() {
   // Initialize Hooks

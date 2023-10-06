@@ -52,7 +52,7 @@ function EditProfil() {
 
   return (
     <Main>
-      <h1 className="main-title">Modifier votre information</h1>
+      <h1 className="main-title">Modifier vos information personnelles</h1>
       <div className="edit-profil-container">
         <form className="edit-profil-form" onSubmit={handleSubmit}>
           {/* If ErroMessage, display the error */}

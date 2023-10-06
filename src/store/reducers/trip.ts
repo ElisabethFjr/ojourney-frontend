@@ -16,10 +16,10 @@ interface TripState {
     id: number | null;
     date_start: string | null;
     date_end: string | null;
-    localisation: string | null;
-    description: string | null;
-    url_image: string | null;
-    alt_image: string | null;
+    localisation: string;
+    description: string;
+    url_image: string;
+    alt_image: string;
     user_id: number | null;
     members: Member[];
     links: Proposition[];
@@ -33,10 +33,10 @@ export const initialState: TripState = {
     id: null,
     date_start: null,
     date_end: null,
-    localisation: null,
-    description: null,
-    url_image: null,
-    alt_image: null,
+    localisation: '',
+    description: '',
+    url_image: '',
+    alt_image: '',
     user_id: null,
     members: [],
     links: [],
@@ -44,13 +44,22 @@ export const initialState: TripState = {
   errorMessage: null,
 };
 
-const env = 'dev';
-
 // Create action to fetch trip infos
 export const fetchTripData = createAsyncThunk(
   'trip/fetchTripData',
   async (id: number | null) => {
     const { data } = await axiosInstance.get(`/trips/${id}`);
+    return data;
+  }
+);
+
+// Create action to update a trip
+export const updateTrip = createAsyncThunk(
+  'trip/updateTrip',
+  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    const { data } = await axiosInstance.patch(`/trips/${id}`, objData);
     return data;
   }
 );
@@ -108,6 +117,18 @@ const tripReducer = createReducer(initialState, (builder) => {
     .addCase(fetchTripData.rejected, (state) => {
       state.errorMessage =
         'Une erreur est survenue lors de la récupération du voyage.';
+    })
+    // Update Trip
+    .addCase(updateTrip.fulfilled, (state, action) => {
+      state.trip = {
+        ...state.trip,
+        ...action.payload,
+      };
+      toast.success('Le voyage a bien été mis à jour !');
+      state.errorMessage = null;
+    })
+    .addCase(updateTrip.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Update Proposition
     .addCase(updateProposition.fulfilled, (state, action) => {

@@ -13,7 +13,8 @@ import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDe
 import OneMember from '../../components/OneMember/OneMember';
 
 import './MyTrip.scss';
-import { deleteTrip, fetchTripData } from '../../store/reducers/user';
+import { deleteTrip } from '../../store/reducers/user';
+import { fetchTripData } from '../../store/reducers/trip';
 
 function MyTrip() {
   // Initialize Hooks
@@ -29,9 +30,9 @@ function MyTrip() {
 
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User Data
-  const trip = useAppSelector((state) => state.user.trip); // One Trip Data
-  const members = useAppSelector((state) => state.user.trip?.members); // Members of the trip
-  const propositions = useAppSelector((state) => state.user.trip?.links); // Links of the tri
+  const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
+  const members = useAppSelector((state) => state.trip.trip.members); // Members of the trip
+  const propositions = useAppSelector((state) => state.trip.trip.links); // Links of the tri
 
   // Boolean to check if the user is the trip creator
   const isCreator = dataUser.id === trip?.user_id;

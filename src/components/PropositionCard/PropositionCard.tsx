@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
-import { deleteProposition } from '../../store/reducers/user';
+import { deleteProposition } from '../../store/reducers/trip';
 
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';

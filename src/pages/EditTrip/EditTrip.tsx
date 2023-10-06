@@ -10,7 +10,7 @@ import { format } from 'date-fns';
 
 // Imports Redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { updateTrip } from '../../store/reducers/user';
+import { updateTrip } from '../../store/reducers/trip';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
@@ -31,17 +31,17 @@ function EditTrip() {
   const dispatch = useAppDispatch();
 
   // Fetch states from Redux store
-  const trip = useAppSelector((state) => state.user.trip); // One Trip Data
+  const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
 
   // States variables declaration
   const [localisation, setLocalisation] = useState<string>(
-    trip?.localisation || ''
+    trip.localisation || ''
   );
   const [startDate, setStartDate] = useState<Date | null>(
-    trip ? new Date(trip.date_start) : null
+    trip.date_start ? new Date(trip.date_start) : null
   );
   const [endDate, setEndDate] = useState<Date | null>(
-    trip ? new Date(trip.date_end) : null
+    trip.date_end ? new Date(trip.date_end) : null
   );
   const [description, setDescription] = useState<string>(
     trip?.description || ''
