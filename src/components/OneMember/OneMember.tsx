@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { Member, User } from '../../@types';
 import { useAppDispatch } from '../../hooks/redux';
 
-import { deleteMember } from '../../store/reducers/user';
+import { deleteMember, informationMember } from '../../store/reducers/user';
 
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
+import ModalInformationMember from '../ModalInformationMember/ModalInformationMember';
 
 import './OneMember.scss';
 
@@ -32,10 +33,17 @@ function OneMember({
 
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
-  console.log('setShowModalDeleteConfirm', setShowModalDeleteConfirm);
-  // Event handler to open the modal DeleteConfirmation if click on delete a member
+
+  const [showModalInformationMember, setshowModalInformationMember] =
+    useState<boolean>(false);
+
   const handleClick = () => {
     setShowModalDeleteConfirm(!showModalDeleteConfirm);
+    console.log('setShow:', setShowModalDeleteConfirm);
+  };
+  const handleClickInfo = () => {
+    setshowModalInformationMember(true);
+    console.log('setShow:', setshowModalInformationMember);
   };
 
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -88,9 +96,14 @@ function OneMember({
       >
         <i className="one-trip-members-icon fa-solid fa-user" />
         <p className="one-trip-membres-name">{member.firstname}</p>
+        {/* ********************************************************************************** */}
         {isOpenMenu && (
           <div className="member-menu">
-            <button className="member-menu-btn" type="button">
+            <button
+              className="member-menu-btn"
+              type="button"
+              onClick={handleClickInfo}
+            >
               Voir les infos
             </button>
             {isCreator && !isCurrentUser && (
@@ -105,6 +118,18 @@ function OneMember({
           </div>
         )}
       </div>
+      {showModalInformationMember && (
+        <ModalInformationMember
+          dispatchInformationMember={() =>
+            dispatch(informationMember({ tripId, memberId: member.id }))
+          }
+          title="Visa"
+          lastname={`Nom : ${member.lastname}`}
+          firstname={`Prénom : ${member.firstname}`}
+          email={`Email : ${member.email}`}
+          closeModal={() => setShowModalDeleteConfirm(false)}
+        />
+      )}
       {showModalDeleteConfirm && (
         <ModalDeleteConfirm
           dispatchDeleteAction={() =>
