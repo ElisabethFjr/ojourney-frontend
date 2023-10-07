@@ -72,9 +72,8 @@ export const login = createAsyncThunk(
     } catch (error) {
       // Type error as an AxiosError to access specific axios properties (typescript)
       const axiosError = error as AxiosError;
-      const errorMessage =
-        (axiosError.response?.data as { error: string })?.error ||
-        'UNKNOWN_ERROR';
+      const errorMessage = (axiosError.response?.data as { error: string })
+        ?.error;
       // Throw an error with the server's error message if available
       throw new Error(errorMessage);
     }
@@ -102,11 +101,20 @@ export const fetchUserInfos = createAsyncThunk(
 export const checkUserPassword = createAsyncThunk(
   'user/checkUserPassword',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
-    // Convert formData to an JSON object
-    const objData = Object.fromEntries(formData);
-    // Send a DELETE request to delete user account
-    const { data } = await axiosInstance.post(`/users/${id}`, objData);
-    return data;
+    try {
+      // Convert formData to an JSON object
+      const objData = Object.fromEntries(formData);
+      // Send a DELETE request to delete user account
+      const { data } = await axiosInstance.post(`/users/${id}`, objData);
+      return data;
+    } catch (error) {
+      // Type error as an AxiosError to access specific axios properties (typescript)
+      const axiosError = error as AxiosError;
+      const errorMessage = (axiosError.response?.data as { error: string })
+        ?.error;
+      // Throw an error with the server's error message if available
+      throw new Error(errorMessage);
+    }
   }
 );
 
@@ -180,7 +188,9 @@ const userReducer = createReducer(initialState, (builder) => {
   builder
     // Login
     .addCase(login.rejected, (state, action) => {
-      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+      state.errorMessage =
+        action.error.message ||
+        'Une erreur est survenue. Veuillez réessayer plus tard.';
     })
     .addCase(login.fulfilled, (state, action) => {
       state.data = {
@@ -201,9 +211,6 @@ const userReducer = createReducer(initialState, (builder) => {
         ...state.data,
         ...action.payload,
       };
-    })
-    .addCase(fetchUserInfos.rejected, (state, action) => {
-      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
     // Update User Data
     .addCase(updateUserData.fulfilled, (state, action) => {
@@ -234,8 +241,9 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
       state.checkedPassword = true;
     })
-    .addCase(checkUserPassword.rejected, (state) => {
+    .addCase(checkUserPassword.rejected, (state, action) => {
       state.errorMessage =
+        action.error.message ||
         'Une erreur est survenue. Veuillez réessayer plus tard.';
       state.checkedPassword = false;
     })
@@ -246,8 +254,8 @@ const userReducer = createReducer(initialState, (builder) => {
       toast.success('Votre compte a bien été supprimé.');
       state.errorMessage = null;
     })
-    .addCase(deleteUserAccount.rejected, (state, action) => {
-      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+    .addCase(deleteUserAccount.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Update Consents
     .addCase(updateConsent.fulfilled, (state, action) => {

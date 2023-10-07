@@ -46,7 +46,11 @@ function ForgotPassword() {
         </h2>
         <form className="forgot-password-form" onSubmit={handleSubmit}>
           {/* Modal Forgot Password */}
-          {showModalForgotPassword && <ModalForgotPassword />}
+          {showModalForgotPassword && (
+            <ModalForgotPassword
+              closeModal={() => setShowModalForgotPassword(false)}
+            />
+          )}
           {/* Error Message */}
           {errorMessage && (
             <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />

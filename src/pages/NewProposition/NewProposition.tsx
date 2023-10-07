@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 import Main from '../../layout/Main/Main';
 
@@ -26,13 +26,16 @@ function NewProposition() {
   // Declaration state variables
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Fetch states from Redux store
+  const propositions = useAppSelector((state) => state.trip.trip.links);
+
   // Event handler for the newProposition form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Check if missing required field
+    // Error : Check if missing required field
     const url = formData.get('url') as string;
     const localisation = formData.get('localisation') as string;
     if (!url || !localisation) {
@@ -40,10 +43,20 @@ function NewProposition() {
       return;
     }
 
+    // Error : Check if url already exist in the trip
+    const existedProposition = propositions.some(
+      (proposition) => proposition.url === url
+    );
+    if (existedProposition) {
+      setErrorMessage('Ce lien est déjà présent dans le voyage.');
+      return;
+    }
+
     // Dispatch addproposition action on the form submission
     dispatch(addProposition({ formData, id: propositionId }));
     navigate(`/my-trip/${propositionId}`);
   };
+
   return (
     <Main>
       <h1 className="main-title">Faire une proposition</h1>

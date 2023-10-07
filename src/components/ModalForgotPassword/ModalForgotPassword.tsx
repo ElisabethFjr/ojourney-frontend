@@ -2,13 +2,18 @@ import { useState } from 'react';
 
 import ModalContainer from '../ModalContainer/ModalContainer';
 
-import './ModalForgotPassword.scss'
+import './ModalForgotPassword.scss';
 
-function ModalForgotPassword() {
+interface ModalForgotPasswordProps {
+  closeModal: (value: React.SetStateAction<boolean>) => void;
+}
+
+function ModalForgotPassword({ closeModal }: ModalForgotPasswordProps) {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
     setIsOpen(!isOpen);
+    closeModal(true);
   };
 
   return (
@@ -20,7 +25,8 @@ function ModalForgotPassword() {
             Veuillez vérifier votre addresse mail.
           </h1>
           <p className="modal-forgot-password-text">
-            Vous avez reçu un mail contenant un lien pour rénitialiser votre mot de passe.
+            Vous avez reçu un mail contenant un lien pour rénitialiser votre mot
+            de passe.
           </p>
         </ModalContainer>
       )}

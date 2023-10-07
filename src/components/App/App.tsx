@@ -21,11 +21,12 @@ import EditProposition from '../../pages/EditProposition/EditProposition';
 import EditProfil from '../../pages/EditProfil/EditProfil';
 import EditPassword from '../../pages/EditPassword/EditPassword';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
+import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
-import Error from '../../pages/Error/Error';
-import ResetPassword from '../../pages/ResetPassword/ResetPassword';
+import ErrorNotFound from '../../pages/ErrorNotFound/ErrorNotFound';
+import ErrorServer from '../../pages/ErrorServer/ErrorServer';
 
 import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
@@ -64,7 +65,8 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/invite" element={<ConfirmInvite />} />
-        <Route path="*" element={<Error />} />
+        <Route path="*" element={<ErrorNotFound />} />
+        <Route path="/500" element={<ErrorServer />} />
 
         {/* Private Routes (user connected) */}
         <Route

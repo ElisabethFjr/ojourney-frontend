@@ -39,15 +39,18 @@ function ModaleConfirmPassword() {
     const formData = new FormData(form);
     // Clear all Error Messages
     setErrorMessage(null);
+
     // Dispatch checkUserPassword action
-    dispatch(checkUserPassword({ formData, id: userData.id }));
-    // If checkedPassword is true (promise checkUserPassword fulfilled), delete the account by dispatch redux action
-    if (checkedPassword) {
-      dispatch(deleteUserAccount({ id: userData.id }));
-      navigate('/', { replace: true });
-    } else {
-      setErrorMessage('Le mot de passe est incorrect.');
-    }
+    await dispatch(checkUserPassword({ formData, id: userData.id }))
+      .then(() => {
+        // If checkedPassword is true (promise checkUserPassword fulfilled), delete the account by dispatch redux action
+        dispatch(deleteUserAccount({ id: userData.id }));
+        navigate('/', { replace: true });
+      })
+      // If checkedPassword is false, send an error Message
+      .catch(() => {
+        setErrorMessage('Le mot de passe est incorrect.');
+      });
   };
 
   return (

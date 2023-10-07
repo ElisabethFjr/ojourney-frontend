@@ -29,17 +29,20 @@ function EditProposition() {
   const idTrip = Number(tripId); // Trip id
 
   // Fetch states from Redux store
-  const proposition = useAppSelector((state) =>
-    state.trip.trip.links.find((prop) => prop.id === idProposition)
+  const propositions = useAppSelector((state) => state.trip.trip.links);
+
+  // Find the proposition id to edit to get the current data
+  const editedProposition = propositions.find(
+    (proposition) => proposition.id === idProposition
   );
 
   // States variables declaration
-  const [url, setUrl] = useState(proposition?.url || '');
+  const [url, setUrl] = useState(editedProposition?.url || '');
   const [localisation, setLocalisation] = useState(
-    proposition?.localisation || ''
+    editedProposition?.localisation || ''
   );
   const [description, setDescription] = useState(
-    proposition?.description || ''
+    editedProposition?.description || ''
   );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -59,12 +62,23 @@ function EditProposition() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Check if missing required field
+    // Error : Check if missing required field
     if (!url || !localisation) {
       setErrorMessage('Veuillez remplir tous les champs obligatoires.');
       return;
     }
 
+    // Error : Check if edited url already exist in the trip
+    const existedProposition = propositions.some(
+      (proposition) => proposition.url === url
+    );
+    // Existing and current editing proposition url
+    const isEditingExistingProposition =
+      editedProposition && editedProposition.url === url;
+    if (existedProposition && !isEditingExistingProposition) {
+      setErrorMessage("L'URL existe déjà dans le store.");
+      return;
+    }
     // Dispatch udpateProposition action on the form submission
     dispatch(
       updateProposition({
