@@ -16,7 +16,7 @@ function ConfirmAccount() {
     async function confirmEmail() {
       await axiosInstance
         .get(`/confirm?confirm=${token}`)
-        .then((response) => {
+        .then(() => {
           setIsConfirmed(true);
         })
         .catch((error) => {
@@ -52,7 +52,6 @@ function ConfirmAccount() {
               Désolé, la confirmation de compte a échoué.
             </h1>
             <p className="confirm-text">
-              {' '}
               Veuillez réessayer plus tard ou nous contacter.
             </p>
           </>

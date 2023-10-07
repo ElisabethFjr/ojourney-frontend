@@ -2,9 +2,8 @@ import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import axiosInstance from '../../utils/axios';
 
-import { fetchUserInfos } from '../../store/reducers/user';
+import { addTrip } from '../../store/reducers/user';
 
 import Main from '../../layout/Main/Main';
 
@@ -17,6 +16,7 @@ import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './NewTrip.scss';
+import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 function NewTrip() {
   // Initialize Hooks
@@ -24,14 +24,12 @@ function NewTrip() {
   const dispatch = useAppDispatch();
 
   // Declaration state variables
-  const [startDate, setStartDate] = useState<Date>(new Date()); // Trip start date
-  const [endDate, setEndDate] = useState<Date>(new Date()); // Trip end date
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined); // Trip start date
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined); // Trip end date
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  // Fetch states from Redux store
-  const userData = useAppSelector((state) => state.user.data);
   // Function to format dates before sending them to the server
   const changeDateFormat = (date: Date) => {
     return format(date, 'yyyy-MM-dd');
@@ -63,25 +61,12 @@ function NewTrip() {
     const formData = new FormData(form);
 
     // Format dates start and end
-    formData.append('date_start', changeDateFormat(startDate));
-    formData.append('date_end', changeDateFormat(endDate));
+    formData.append('date_start', startDate ? changeDateFormat(startDate) : '');
+    formData.append('date_end', endDate ? changeDateFormat(endDate) : '');
 
-    // Convert formData to an JSON object
-    const objData = Object.fromEntries(formData);
-
-    // Send a POST request to create a new trip
-    await axiosInstance
-      .post('/trips', objData)
-      .then(() => {
-        dispatch(fetchUserInfos(userData.id));
-        navigate(`/my-trips`);
-      })
-      .catch((error) => {
-        if (error.response) {
-          setErrorMessage(error.response.data.error);
-        }
-        console.error(error);
-      });
+    // Dispatch addTrip action on the form submission
+    dispatch(addTrip(formData));
+    navigate(`/my-trips`);
   };
 
   return (
@@ -90,27 +75,41 @@ function NewTrip() {
       <section className="new-trip-container">
         <FormContainer>
           <form onSubmit={handleSubmit}>
+            {/* Back Button */}
+            <div className="new-trip-back-btn">
+              <ButtonIcon
+                icon="fa-solid fa-arrow-left"
+                handleClick={() => navigate(-1)} // Go back to the previous page
+                customClass="back"
+              />
+            </div>
+
+            {/* Form Title */}
             <h2 className="new-trip-form-title">Nouveau voyage</h2>
+
             {/* Error Message */}
             {errorMessage && (
               <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
             )}
+
             {/* Localisation Input */}
             <InputField
               name="localisation"
               placeholder="Destination"
               type="text"
               icon="fa-solid fa-location-dot"
-              maxlength={50}
+              maxlength={100}
               required
             />
+
             {/* Dates Picker Inputs (Start - End) */}
             <InputDatesPicker
-              startDate={startDate}
-              endDate={endDate}
+              startDate={startDate || null}
+              endDate={endDate || null}
               onStartDateChange={handleStartDateChange}
               onEndDateChange={handleEndDateChange}
             />
+
             {/* Description Textarea */}
             <TextareaField
               name="description"
@@ -118,6 +117,7 @@ function NewTrip() {
               icon="fa-solid fa-pen-nib"
               maxlength={200}
             />
+
             {/* Image File Selection Input */}
             <InputFieldImage handleFile={handleFile} text="Ajouter une image" />
             {file && imageUrl && (
@@ -128,6 +128,7 @@ function NewTrip() {
                 crossOrigin="anonymous"
               />
             )}
+
             {/* Submit Button */}
             <Button
               text="Créer le voyage"

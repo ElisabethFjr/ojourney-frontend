@@ -7,13 +7,10 @@ import DOMPurify from 'dompurify';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
 import { format } from 'date-fns';
-import { toast } from 'react-toastify';
 
 // Imports Redux
-import { useAppSelector } from '../../hooks/redux';
-
-// Import AxiosInstance
-import axiosInstance from '../../utils/axios';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { updateTrip } from '../../store/reducers/trip';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
@@ -21,6 +18,7 @@ import FormContainer from '../../components/FormContainer/FormContainer';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import Button from '../../components/Button/Button';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './EditTrip.scss';
 
@@ -30,17 +28,38 @@ function EditTrip() {
 
   // Initialize Hooks
   const navigate = useNavigate();
-
-  // States variables declaration
-  const [localisation, setLocalisation] = useState('');
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date());
-  const [description, setDescription] = useState('');
+  const dispatch = useAppDispatch();
 
   // Get the trip id from url
   const { id } = useParams();
+  const tripId = Number(id);
 
-  // Event handler input and textarea changes
+  // Fetch states from Redux store
+  const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
+
+  // States variables declaration
+  const [localisation, setLocalisation] = useState<string>(
+    trip.localisation || ''
+  );
+  const [startDate, setStartDate] = useState<Date | null>(
+    trip.date_start ? new Date(trip.date_start) : null
+  );
+  const [endDate, setEndDate] = useState<Date | null>(
+    trip.date_end ? new Date(trip.date_end) : null
+  );
+  const [description, setDescription] = useState<string>(
+    trip?.description || ''
+  );
+  const [file, setFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Function to format dates into string
+  const changeDateFormat = (date: Date) => {
+    return format(date, 'yyyy-MM-dd');
+  };
+
+  // EVENT HANDLER input and textarea changes
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     setValue: (value: string) => void
@@ -50,49 +69,45 @@ function EditTrip() {
     setValue(sanitizedValue);
   };
 
-  // Function to format dates before sending them to the server
-  const changeDateFormat = (date: Date) => {
-    return format(date, 'yyyy-MM-dd');
-  };
-
-  // Event handler for start date change
+  // EVENT HANDLER for start date change
   const handleStartDateChange = (date: Date) => {
     setStartDate(date);
   };
 
-  // Event handler for end date change
+  // EVENT HANDLER for end date change
   const handleEndDateChange = (date: Date) => {
     setEndDate(date);
   };
 
-  // Event handler for the selected file image
-  const handleFile = (file: File) => {
-    console.log('Fichier sélectionné :', file);
+  // EVENT HANDLER for selecting an image file
+  const handleFile = (fileUploaded: File | null) => {
+    if (fileUploaded !== null) {
+      setFile(fileUploaded);
+      const url = URL.createObjectURL(fileUploaded);
+      setImageUrl(url);
+    }
   };
-
-  // Event handler for the newTrip form submission
+  // EVENT HANDLER for the newTrip form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Format dates start and end
-    formData.append('date_start', changeDateFormat(startDate));
-    formData.append('date_end', changeDateFormat(endDate));
-    // Convert formData to an JSON object
-    const objData = Object.fromEntries(formData);
+    // Check all required fields and set an errorMessage if one is missing
+    if (!localisation || !startDate || !endDate) {
+      setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
 
-    // Send a PATCH request to update the trip data
-    await axiosInstance
-      .patch(`/trips/${id}`, objData)
-      .then(() => {
-        navigate(`/my-trip/${id}`); // Navigate to the trip
-        toast.success('Le voyage a bien été modifié !');
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
-      });
+    // Format dates start and end is dates not null
+    if (startDate && endDate) {
+      formData.append('date_start', changeDateFormat(startDate));
+      formData.append('date_end', changeDateFormat(endDate));
+    }
+
+    // Dispatch udpateTrip action on the form submission
+    dispatch(updateTrip({ formData, id: tripId }));
+    navigate(`/my-trip/${tripId}`);
   };
 
   return (
@@ -104,11 +119,15 @@ function EditTrip() {
             <ButtonIcon
               icon="fa-solid fa-arrow-left"
               handleClick={() => navigate(-1)}
-              customClass="border"
+              customClass="back"
             />
           </div>
           <form onSubmit={handleSubmit}>
             <h2 className="edit-trip-form-title">Mon Voyage</h2>
+            {/* If ErroMessage, display the error */}
+            {errorMessage && (
+              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+            )}
 
             {/* Localisation Input */}
             <div className="field-edit">
@@ -139,6 +158,7 @@ function EditTrip() {
               <div className="field-date-container">
                 <i className="field-date-edit-icon fa-solid fa-calendar" />
                 <DatePicker
+                  id="date_start"
                   className="field-date-input"
                   selected={startDate}
                   onChange={handleStartDateChange}
@@ -154,12 +174,13 @@ function EditTrip() {
 
             {/* End Date Input */}
             <div className="field-date-edit">
-              <label className="field-date-edit-label" htmlFor="date_start">
+              <label className="field-date-edit-label" htmlFor="date_end">
                 Date de fin
               </label>
               <div className="field-date-container">
                 <i className="field-date-edit-icon fa-solid fa-calendar" />
                 <DatePicker
+                  id="date_end"
                   className="field-date-input"
                   selected={endDate}
                   onChange={handleEndDateChange}
@@ -199,7 +220,14 @@ function EditTrip() {
               handleFile={handleFile}
               text={"Modifier l'image"}
             />
-
+            {file && imageUrl && (
+              <img
+                className="new-trip-image"
+                src={imageUrl}
+                alt={file.name}
+                crossOrigin="anonymous"
+              />
+            )}
             {/* Form Submit Button */}
             <Button
               text="Modifier le voyage"

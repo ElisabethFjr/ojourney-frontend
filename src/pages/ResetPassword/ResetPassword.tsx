@@ -41,16 +41,10 @@ function ResetPassword() {
 
     // Send registration form data (JSON) to the server with Axios
     const jsonData = Object.fromEntries(formData.entries());
-    console.log(jsonData);
 
     await axiosInstance
-      .patch(`/reset?reset=${token}`, jsonData, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      })
+      .patch(`/reset?reset=${token}`, jsonData)
       .then(() => {
-        console.log('Mot de passe reset !');
         navigate('/signin-signup');
         toast.success('Le mot de passe a été réinitialiser avec succès !');
       })
@@ -67,24 +61,33 @@ function ResetPassword() {
       </h1>
       <div className="new-password-container">
         <form className="new-password-form" onSubmit={handleSubmit}>
+          {/*  Form Title */}
           <h2 className="new-proposition-form-title">
             Votre nouveau mot de passe
           </h2>
+          {/* Error Message */}
           {errorMessage && (
             <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
           )}
+          {/* Input Password */}
           <InputField
             name="password"
             placeholder="Nouveau mot de passe"
             type="password"
             icon="fa-solid fa-lock"
+            maxlength={128}
+            required
           />
+          {/* Input Confirmation Password */}
           <InputField
             name="confirmation"
             placeholder="Mot de passe (confirmation)"
             type="password"
             icon="fa-solid fa-lock"
+            maxlength={128}
+            required
           />
+          {/* Submit Button */}
           <Button
             text="Confirmer"
             type="submit"

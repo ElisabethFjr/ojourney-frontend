@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/redux';
+import { deleteProposition } from '../../store/reducers/trip';
 
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
@@ -16,7 +18,6 @@ interface PropositionCardProps {
   url: string;
   id_link: number;
   id_trip: number;
-  handleUpdateData: (deletedPropositionId: number, dataType: string) => void;
 }
 
 function PropositionCard({
@@ -29,10 +30,16 @@ function PropositionCard({
   url,
   id_link,
   id_trip,
-  handleUpdateData,
 }: PropositionCardProps) {
-  // Initialize Hook
+  // Initialize Hooks
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  // Convert trip id to a number
+  const tripId = Number(id_trip);
+  const propositionId = Number(id_link);
+
+  // Initialize Hook
 
   // Display of the Delete Confirm Modal
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
@@ -80,17 +87,17 @@ function PropositionCard({
           </div>
         </div>
       </Link>
-      {/* {showModalDeleteConfirm && (
+      {showModalDeleteConfirm && (
         <ModalDeleteConfirm
-        dispatchDeleteAction={dispatch()}
+          dispatchDeleteAction={() =>
+            dispatch(deleteProposition({ tripId, propositionId }))
+          }
           urlNavigate={`/my-trip/${id_trip}`}
           title="Confirmation suppression"
           text="Êtes-vous sûr de vouloir supprimer définitivement cette proposition ?"
-          dataType="propositions"
-          dataId={id_link}
-          handleUpdateData={handleUpdateData}
+          closeModal={() => setShowModalDeleteConfirm(false)}
         />
-      )} */}
+      )}
     </div>
   );
 }

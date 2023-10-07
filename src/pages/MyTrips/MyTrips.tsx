@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { fetchUserInfos } from '../../store/reducers/user';
 
 import Main from '../../layout/Main/Main';
 import TripCard from '../../components/TripCard/TripCard';
@@ -10,10 +12,16 @@ import travel from '../../assets/images/travel.png';
 import './MyTrips.scss';
 
 function MyTrips() {
+  // Initialize Hooks
+  const dispatch = useAppDispatch();
+
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data); // User data
   const trips = useAppSelector((state) => state.user.data.trips); // User trips data
-  console.log(trips);
+
+  useEffect(() => {
+    dispatch(fetchUserInfos(userData.id));
+  }, [dispatch, userData.id]);
 
   // Display a list of all trips from the trips array fetch to the API
   const allTrips = trips?.map((trip) => (

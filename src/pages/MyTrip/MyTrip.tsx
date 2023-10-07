@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { isValid, parseISO } from 'date-fns';
 import format from 'date-fns/format';
-import { useAppSelector } from '../../hooks/redux';
-
-import axiosInstance from '../../utils/axios';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 import Main from '../../layout/Main/Main';
 
@@ -15,16 +12,19 @@ import ModalInviteMember from '../../components/ModalInviteMember/ModalInviteMem
 import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
 import OneMember from '../../components/OneMember/OneMember';
 
-import { Trip, Member, Proposition } from '../../@types';
-
 import './MyTrip.scss';
+import { deleteTrip } from '../../store/reducers/user';
+import { fetchTripData } from '../../store/reducers/trip';
 
 function MyTrip() {
+  // Initialize Hooks
+  const dispatch = useAppDispatch();
+
+  // Get the trip id from route parameters
+  const { id } = useParams();
+  const tripId = Number(id);
+
   // Declaration state variables
-  const [trip, setTrip] = useState<Trip>(Object);
-  const [propositions, setPropositions] = useState<Proposition[]>([]);
-  const [members, setMembers] = useState<Member[]>([]);
-  const [isCreator, setIsCreator] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [openMemberId, setOpenMemberId] = useState<number | null>(null);
   const [showModalInviteMember, setShowModalInviteMember] =
@@ -34,11 +34,17 @@ function MyTrip() {
     const [showVote, setShowVote] = useState<number | null>(null);
 
   // Fetch states from Redux store
-  const dataUser = useAppSelector((state) => state.user.data); // User data
+  const dataUser = useAppSelector((state) => state.user.data); // User Data
+  const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
+  const members = useAppSelector((state) => state.trip.trip.members); // Members of the trip
+  const propositions = useAppSelector((state) => state.trip.trip.links); // Links of the tri
 
-  // Get the trip id from route parameters
-  const { id } = useParams();
-  const tripId = Number(id);
+  // Boolean to check if the user is the trip creator
+  const isCreator = dataUser.id === trip?.user_id;
+
+  useEffect(() => {
+    dispatch(fetchTripData(tripId));
+  }, [dispatch, tripId]);
 
   /// EVENTS HANDLERS MEMBER ///
 
@@ -50,7 +56,6 @@ function MyTrip() {
   const handleClickVote = () => {
     setShowVote(!showVote);
   };
-
 
   // Event handler to close the member menu when clicked outside
   // Ref the toggle MemberMenu button
@@ -83,88 +88,8 @@ function MyTrip() {
     setShowModalDeleteConfirm(!showModalDeleteConfirm);
   };
 
-  /// FETCH DATA ///
-
-  useEffect(() => {
-    // Function to fetch one trip data from the API
-    // let axiosOptions = {};
-    // if (env === 'dev') {
-    //   axiosOptions = {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   };
-    // } else {
-    //   axiosOptions = {
-    //     withCredentials: true,
-    //   };
-    // }
-    const fetchDataTrip = async () => {
-      await axiosInstance
-        .get(`/trips/${id}`)
-        .then((response) => {
-          // Set the trip state with the trip data received from the API
-          setTrip(response.data);
-          // If user is the creator of the trip, set isCreator on true
-          if (dataUser.id === trip.user_id) {
-            setIsCreator(true);
-          }
-        })
-        .catch((error) => {
-          console.error(
-            'Une erreur est survenue lors de la récupération du voyage.',
-            error
-          );
-        });
-    };
-    // Function to fetch trips's members data from the server with awiosInstance
-    const fetchDataMember = async () => {
-      await axiosInstance
-        .get(`/trips/${id}/members`)
-        .then((response) => {
-          setMembers(response.data);
-        })
-        .catch((error) => {
-          console.error(
-            'Un erreur est survenue lors de la recupération des membres du voyage',
-            error
-          );
-        });
-    };
-    // Function to fetch trips's links data from the server with awiosInstance
-    const fetchDataLink = async () => {
-      await axiosInstance
-        .get(`/trips/${id}/links`)
-        .then((response) => {
-          setPropositions(response.data);
-        })
-        .catch((error) => {
-          console.error(
-            'Un erreur est survenue lors de la recupération des liens du voyage',
-            error
-          );
-        });
-    };
-    fetchDataTrip();
-    fetchDataMember();
-    fetchDataLink();
-  }, [id, dataUser.id, trip.user_id]);
-
-  // Function to update propositions array after deleting a trip
-  const updatedPropositions = (deletedPropositionId: number) => {
-    // Create a new propositions array by removing the proposition with the deleted id
-    const newPropositions = propositions.filter(
-      (proposition) => proposition.id !== deletedPropositionId
-    );
-    console.log(propositions);
-    console.log('Deleted Proposition ID:', deletedPropositionId);
-    // Update the propositions state with the new array
-    console.log('New Propositions:', newPropositions);
-    setPropositions(newPropositions);
-  };
-
   // Display a list of all members into a button element from the members array fetch to the API
-  const allMembers = members.map((member) => (
+  const allMembers = members?.map((member) => (
     <OneMember
       key={member.id}
       member={member}
@@ -175,9 +100,10 @@ function MyTrip() {
       setOpenMemberId={setOpenMemberId}
     />
   ));
+
   // Display a list of all propositions from the propositions array fetch to the API
-  const allPropositions = propositions.map((proposition) => (
-    <><li key={proposition.id}>
+  const allPropositions = propositions?.map((proposition) => (
+    <li key={proposition.id}>
       <PropositionCard
         srcImage={proposition.image}
         altImage={proposition.alt_image}
@@ -188,7 +114,7 @@ function MyTrip() {
         url={proposition.url}
         id_trip={proposition.trip_id}
         id_link={proposition.id}
-        handleUpdateData={updatedPropositions} />
+      />
     </li>
     <Button
       text='👍'
@@ -201,24 +127,23 @@ function MyTrip() {
 
   return (
     <Main>
-      {showModalInviteMember && <ModalInviteMember id={Number(id)} />}
+      {showModalInviteMember && <ModalInviteMember id={tripId} />}
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"
-          src={trip.url_image}
-          alt={trip.alt_image}
+          src={trip?.url_image}
+          alt={trip?.alt_image}
           crossOrigin="anonymous"
         />
         <div className="one-trip-overview-container">
-          <h1 className="one-trip-overview-title">{trip.localisation}</h1>
+          <h1 className="one-trip-overview-title">{trip?.localisation}</h1>
           <div className="one-trip-overview-date">
             <i className="fa-solid fa-calendar" />
             <p className="one-trip-overview-date-name">
               {/* Change displayed date format to d MMM - d MMM YYYY */}
-              {isValid(parseISO(trip.date_start)) &&
-              isValid(parseISO(trip.date_end))
-                ? `${format(parseISO(trip.date_start), 'd MMM')} - ${format(
-                    parseISO(trip.date_end),
+              {trip?.date_start && trip?.date_end
+                ? `${format(new Date(trip?.date_start), 'd MMM')} - ${format(
+                    new Date(trip?.date_end),
                     'd MMM yyyy'
                   )}`
                 : 'Dates invalides'}
@@ -227,10 +152,10 @@ function MyTrip() {
           <div className="one-trip-overview-localisation">
             <i className="fa-solid fa-location-dot" />
             <p className="one-trip-overview-localisation-name">
-              {trip.localisation}
+              {trip?.localisation}
             </p>
           </div>
-          <p className="one-trip-overview-description">{trip.description}</p>
+          <p className="one-trip-overview-description">{trip?.description}</p>
           {isCreator && (
             <div className="one-trip-overview-buttons">
               <Link to={`/edit-trip/${id}`}>
@@ -263,7 +188,7 @@ function MyTrip() {
             onClick={handleClickAddMember}
           />
         )}
-        {members && members.length === 0 ? (
+        {trip?.members && trip?.members.length === 0 ? (
           <p> Aucun membres pour le moment </p>
         ) : (
           <ul className="one-trip-members-list">{allMembers}</ul>
@@ -291,16 +216,15 @@ function MyTrip() {
           <ul>{allPropositions}</ul>
         )}
       </section>
-      {/* {showModalDeleteConfirm && (
+      {showModalDeleteConfirm && (
         <ModalDeleteConfirm
-          endpoint={`/trips/${id}`}
+          dispatchDeleteAction={() => dispatch(deleteTrip(tripId))}
           urlNavigate="/my-trips"
-          title="Confirmation supression"
+          title="Confirmation suppression"
           text="Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?"
-          dataType="trips"
-          dataId={Number(id)}
+          closeModal={() => setShowModalDeleteConfirm(false)}
         />
-      )} */}
+      )}
     </Main>
   );
 }

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 // Imports modules
 import DOMPurify from 'dompurify';
-import { toast } from 'react-toastify';
 
 // Imports Redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -13,6 +12,8 @@ import { updateUserData } from '../../store/reducers/user';
 // Imports Components
 import Main from '../../layout/Main/Main';
 import Button from '../../components/Button/Button';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 import './EditProfil.scss';
 
@@ -23,12 +24,12 @@ function EditProfil() {
 
   // Get user data and environment from Redux store
   const userData = useAppSelector((state) => state.user.data);
-  const toastSuccess = useAppSelector((state) => state.user.toastSuccess);
 
   // States variables declaration
   const [lastname, setLastname] = useState(userData.lastname || '');
   const [firstname, setFirstname] = useState(userData.firstname || '');
   const [email, setEmail] = useState(userData.email || '');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Event handler input and textarea changes
   const handleInputChange = (
@@ -47,21 +48,27 @@ function EditProfil() {
     const formData = new FormData(form);
     // Dispatch the updated user data to Redux store
     dispatch(updateUserData({ formData, id: userData.id }));
-    if (toastSuccess) {
-      navigate('/profil');
-      toast.success('Les informations ont bien été mises à jour !');
-    } else {
-      toast.error(
-        'Échec de la mise à jour des informations, veuillez réessayer plus tard.'
-      );
-    }
+    navigate('/profil');
   };
 
   return (
     <Main>
-      <h1 className="main-title">Modifier votre information</h1>
+      <h1 className="main-title">Modifier vos information personnelles</h1>
       <div className="edit-profil-container">
         <form className="edit-profil-form" onSubmit={handleSubmit}>
+          <div className="edit-profil-back-btn">
+            <ButtonIcon
+              icon="fa-solid fa-arrow-left"
+              handleClick={() => navigate(-1)} // Go back to the previous page
+              customClass="back"
+            />
+          </div>
+
+          {/* If ErroMessage, display the error */}
+          {errorMessage && (
+            <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+          )}
+
           {/* Lastname Input */}
           <div className="field-edit">
             <label className="field-edit-label" htmlFor="lastname">
@@ -118,12 +125,14 @@ function EditProfil() {
               autoComplete="autocomplete"
               id="email"
               type="text"
-              maxLength={100}
+              maxLength={320}
             />
             <div className="field-edit-icon">
               <i className="fa-solid fa-at" />
             </div>
           </div>
+
+          {/* Submit Button */}
           <Button
             text="Modifier"
             customClass="color button-style--width"

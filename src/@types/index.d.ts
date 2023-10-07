@@ -19,6 +19,8 @@ export interface Trip {
   url_image: string;
   alt_image: string;
   user_id: number;
+  members: Member[];
+  links: Proposition[];
 }
 
 export interface Member {

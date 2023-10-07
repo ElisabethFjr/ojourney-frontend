@@ -50,45 +50,44 @@ function SignInForm() {
         {errorMessage && (
           <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
         )}
+        {/* Input Email */}
         <InputField
           name="email"
           placeholder="Email"
           type="email"
           icon="fa-solid fa-at"
+          maxlength={320}
           required
         />
+        {/* Input Password */}
         <InputField
           name="password"
           placeholder="Password"
           type="password"
           icon="fa-solid fa-lock"
+          maxlength={128}
           required
           autocomplete="off"
         />
+        {/* Submit Button */}
         <Button
           text="Se Connecter"
           customClass="color button-style--width"
           type="submit"
         />
-        <div className="button-forgot-password">
-        <Link to={`/forgot-password`}>
-                <Button
-                  text="Mot de passe oublié ?"
-                  icon="fa-solid fa-pen"
-                  type="button"
-                  customClass="height"
-                />
-              </Link>
-              </div> 
+        {/* Forgot Password Link */}
+        <div className="forgot-password-container">
+          <Link to="/forgot-password">Mot de passe oublié ? </Link>
+        </div>
               
-          <div className="button-forgot-email">
-            <Button
-            text="Un souci de connexion ?"
-            onClick={handleClickConfirmEmail} 
-            type="button"
-            customClass={'link'}        
-            />  
-              </div>
+        <div className="button-forgot-email">
+          <Button
+          text="Un souci de connexion ?"
+          onClick={handleClickConfirmEmail} 
+          type="button"
+          customClass={'link'}        
+          />  
+         </div>
       </form>
       {showModalConfirmEmail && <ModalConfirmEmail />}
     </div>

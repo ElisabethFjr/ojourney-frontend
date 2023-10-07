@@ -31,6 +31,7 @@ function TripCard({
   // Initialize Hooks
   const dispatch = useAppDispatch();
 
+  // Convert id to a number
   const tripId = Number(id);
 
   // Declaration states variables

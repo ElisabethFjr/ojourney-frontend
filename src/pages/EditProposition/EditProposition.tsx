@@ -3,14 +3,10 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 // Imports Modules
-import { toast } from 'react-toastify';
 import DOMPurify from 'dompurify';
 
 // Import Curstom Redux Hook
-import { useAppSelector } from '../../hooks/redux';
-
-// Import AxiosInstance
-import axiosInstance from '../../utils/axios';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
@@ -19,19 +15,31 @@ import Button from '../../components/Button/Button';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 import './EditProposition.scss';
+import { updateProposition } from '../../store/reducers/trip';
 
 function EditProposition() {
   // Inilialize Hooks
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  // Get the Trip id and the Proposition id from url and transform them to number
+  const { propositionId, tripId } = useParams();
+  const idProposition = Number(propositionId); // Proposition id
+  const idTrip = Number(tripId); // Trip id
+
+  // Fetch states from Redux store
+  const proposition = useAppSelector((state) =>
+    state.trip.trip.links.find((prop) => prop.id === idProposition)
+  );
 
   // States variables declaration
-  const [url, setUrl] = useState('');
-  const [localisation, setLocalisation] = useState('');
-  const [description, setDescription] = useState('');
-
-  // Get the trip id and the proposition id from url
-  const { idLink } = useParams();
-  const { idTrip } = useParams();
+  const [url, setUrl] = useState(proposition?.url || '');
+  const [localisation, setLocalisation] = useState(
+    proposition?.localisation || ''
+  );
+  const [description, setDescription] = useState(
+    proposition?.description || ''
+  );
 
   // Event handler input and textarea changes
   const handleInputChange = (
@@ -48,20 +56,16 @@ function EditProposition() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    // Convert formData to an JSON object
-    const objData = Object.fromEntries(formData);
 
-    // Send a PATCH request to update the proposition data
-    await axiosInstance
-      .patch(`/trips/${idTrip}/links/${idLink}`, objData)
-      .then(() => {
-        navigate(`/my-trip/${idTrip}`);
-        toast.success('La proposition a bien été modifiée !');
+    // Dispatch udpateProposition action on the form submission
+    dispatch(
+      updateProposition({
+        formData,
+        tripId: idTrip,
+        propositionId: idProposition,
       })
-      .catch((error) => {
-        console.error(error);
-        toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
-      });
+    );
+    navigate(`/my-trip/${propositionId}`);
   };
 
   return (
@@ -70,10 +74,11 @@ function EditProposition() {
       <section className="edit-proposition-container">
         <FormContainer>
           <div className="edit-proposition-back-btn">
+            {/* Back Button */}
             <ButtonIcon
               icon="fa-solid fa-arrow-left"
-              handleClick={() => navigate(-1)}
-              customClass="border"
+              handleClick={() => navigate(-1)} // Go back to the previous page
+              customClass="back"
             />
           </div>
           <form onSubmit={handleSubmit}>

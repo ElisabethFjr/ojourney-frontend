@@ -132,7 +132,7 @@ function App() {
           }
         />
         <Route
-          path="/edit-proposition/:idTrip/:idLink"
+          path="/edit-proposition/:tripId/:propositionId"
           element={
             <PrivateRoute>
               <EditProposition />

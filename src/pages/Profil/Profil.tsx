@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { useState, FormEvent } from 'react';
-import { toast } from 'react-toastify';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { updateConsent } from '../../store/reducers/user';
 
@@ -9,7 +8,6 @@ import Main from '../../layout/Main/Main';
 
 import PdfDisplay from '../../components/PdfDisplay/PdfDisplay';
 import Button from '../../components/Button/Button';
-// import ChangePassword from '../../components/ModalChangePassword/ModalChangePassword';
 import ModaleConfirmPassword from '../../components/ModalConfirmPassword/ModalConfirmPassword';
 
 import './Profil.scss';
@@ -19,25 +17,23 @@ function Profil() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const data = useAppSelector((state) => state.user.data);
+  // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
-  const toastSuccess = useAppSelector((state) => state.user.toastSuccess);
 
   // States variables declaration
   const [showModalConfirmPassword, setShowModalConfirmPassword] =
     useState<boolean>(false);
-
   const [commercialConsent, setCommercialConsent] = useState<boolean>(
     userData.consent_commercial
   );
   const [newsletterConsent, setNewsletterConsent] = useState(
     userData.consent_newsletter
   );
+
   // Toggle consent state
   const handleCommercialToggle = () => {
     setCommercialConsent(!commercialConsent);
   };
-
   const handleNewsletterToggle = () => {
     setNewsletterConsent(!newsletterConsent);
   };
@@ -50,12 +46,7 @@ function Profil() {
     formData.append('consent_commercial', commercialConsent.toString());
     formData.append('consent_newsletter', newsletterConsent.toString());
     dispatch(updateConsent({ formData, id: userData.id }));
-    if (toastSuccess) {
-      navigate('/profil');
-      toast.success('La proposition a bien été modifiée !');
-    } else {
-      toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
-    }
+    navigate('/profil');
   };
 
   // *****************************
@@ -70,16 +61,19 @@ function Profil() {
       <section className="profil-card">
         <h2 className="profil-card-subtitle">Vos informations</h2>
         <p>
-          Nom : <span className="profil-card-text">{data.lastname}</span>
+          Nom : <span className="profil-card-text">{userData.lastname}</span>
         </p>
         <p>
-          Prénom : <span className="profil-card-text">{data.firstname}</span>
+          Prénom :{' '}
+          <span className="profil-card-text">{userData.firstname}</span>
         </p>
         <p>
-          Email : <span className="profil-card-text">{data.email}</span>
+          Email : <span className="profil-card-text">{userData.email}</span>
         </p>
-
-        {/* <p>Projet voyage(s) en cours : {data.trips.length}</p> */}
+        <p>
+          Projet voyage(s) en cours :{' '}
+          <span className="profil-card-text">{userData.trips.length}</span>
+        </p>
         <div className="profil-card-btn-container">
           <Link to="/edit-profil/">
             <Button
@@ -110,24 +104,18 @@ function Profil() {
         <h2 className="profil-card-subtitle">Vos données</h2>
         <p>
           Vous pouvez à tout moment consulter toutes les données vous concernant
-          recueillies par l&apos;application
+          recueillies par l&apos;application.
         </p>
         <div className="profil-card-btn-container">
           <PDFDownloadLink
             document={<PdfDisplay data={userData} />}
             fileName={`${userData.firstname}_${userData.lastname}.pdf`}
+            className="button-style button-style--color"
           >
-            {({ blob, url, loading, error }) =>
+            {({ loading }) =>
               loading ? 'Chargement...' : ' Téléchargez maintenant !'
             }
           </PDFDownloadLink>
-
-          {/* <Button
-            text="Télécharger mes données"
-            customClass="color"
-            type="button"
-            onClick={generatePdf}
-          /> */}
         </div>
       </section>
       {/* *********************** */}
@@ -136,7 +124,7 @@ function Profil() {
         <div>
           Vos choix pour le traitement de vos données sont les suivants:
           <form onSubmit={handleSubmit}>
-            {/* ************************** Commercial  */}
+            {/* Checkbox Button Commercial */}
             <div className="profil-card-toggle-container">
               <p>Usage commercial :</p>
               <input
@@ -155,8 +143,7 @@ function Profil() {
                 <span className="profil-card-checkbox-slider" />
               </label>
             </div>
-
-            {/* ************************** NEWSLETTER   */}
+            {/*  Checkbox Button Newsletter */}
             <div className="profil-card-toggle-container">
               <p>Usage newsletter :</p>
               <input
@@ -175,6 +162,8 @@ function Profil() {
                 <span className="profil-card-checkbox-slider" />
               </label>
             </div>
+
+            {/*  Submit Button */}
             <div className="profil-card-btn-container">
               <Button
                 text="Changer vos données"
@@ -192,7 +181,7 @@ function Profil() {
         <p>
           Vous pouvez à tout moment demander la suppression de votre compte et
           de toutes les données vous concernant. Cette action est définitive et
-          irréversible
+          irréversible.
         </p>
         <div className="profil-card-btn-container">
           <Button

@@ -1,39 +1,42 @@
-// Import hooks from React.
+// Import Hooks
 import { ChangeEvent, FormEvent, useState } from 'react';
-// Import navigation.
+
+// Import React-Router
 import { useNavigate } from 'react-router-dom';
 
+// Import Modules
 import DOMPurify from 'dompurify';
-import { toast } from 'react-toastify';
 
-// Import custom Redux hooks.
+// Import custom Redux hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-// Import action.
+
+// Import Redux actions
 import { updatePassword } from '../../store/reducers/user';
 
+// Import Components
 import Main from '../../layout/Main/Main';
 import Button from '../../components/Button/Button';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
+// Import Style
 import './EditPassword.scss';
 
 function EditPassword() {
-  // Initialize the navigation hook.
+  // Initialize the navigation hook
   const navigate = useNavigate();
-  // Initialize the dispatch function for Redux actions.
+  // Initialize the dispatch function for Redux actions
   const dispatch = useAppDispatch();
 
   // Get user data from the Redux store.
   const userData = useAppSelector((state) => state.user.data);
-  // Get a flag indicating the success
-  const toastSuccess = useAppSelector((state) => state.user.toastSuccess);
 
   // Declaration state variables
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Function to handle input changes with sanitization.
+  // Function to handle input changes with sanitization
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement>,
     setValue: (value: string) => void
@@ -43,7 +46,7 @@ function EditPassword() {
     setValue(sanitizedValue);
   };
 
-  // Function to handle form submission.
+  // Function to handle form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -65,10 +68,7 @@ function EditPassword() {
 
     // Dispatch the updated password to Redux store
     dispatch(updatePassword({ formData, id: userData.id }));
-    if (toastSuccess) {
-      navigate('/profil');
-      toast.success('Les informations ont bien été mises à jour !');
-    }
+    navigate('/profil');
   };
 
   return (
@@ -76,10 +76,21 @@ function EditPassword() {
       <h1 className="main-title">Modifier votre mot de passe</h1>
       <div className="edit-password-container">
         <form className="edit-password-form" onSubmit={handleSubmit}>
+          {/* Back Button */}
+          <div className="edit-password-back-btn">
+            <ButtonIcon
+              icon="fa-solid fa-arrow-left"
+              handleClick={() => navigate(-1)} // Go back to the previous page
+              customClass="back"
+            />
+          </div>
+
+          {/* If ErroMessage, display the error */}
           {errorMessage && (
             <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
           )}
-          {/* Affichage de l'erreur */}
+
+          {/* Input Password */}
           <div className="field-edit">
             <label className="field-edit-label" htmlFor="password">
               Mot de passe
@@ -87,35 +98,41 @@ function EditPassword() {
             <input
               className="field-edit-input"
               value={password}
-              onChange={(e) => handleInputChange(e, setPassword)}
+              onChange={(event) => handleInputChange(event, setPassword)}
               name="password"
               placeholder="Modifier le mot de passe"
               id="password"
               type="password"
+              maxLength={128}
               required
             />
             <div className="field-edit-icon">
               <i className="fa-solid fa-lock" />
             </div>
           </div>
+
+          {/* Input Confirm Password */}
           <div className="field-edit">
-            <label className="field-edit-label" htmlFor="Confirmation">
+            <label className="field-edit-label" htmlFor="confirmation">
               Confirmation du mot de passe
             </label>
             <input
               className="field-edit-input"
               value={confirmation}
-              onChange={(e) => handleInputChange(e, setConfirmation)}
+              onChange={(event) => handleInputChange(event, setConfirmation)}
               name="confirmation"
               placeholder="Modifier le mot de passe"
-              id="Confirmation"
+              id="confirmation"
               type="password"
+              maxLength={128}
               required
             />
             <div className="field-edit-icon">
               <i className="fa-solid fa-lock" />
             </div>
           </div>
+
+          {/* Button Submit */}
           <Button
             text="Modifier votre mot de passe"
             customClass="color button-style--width button-style--height"

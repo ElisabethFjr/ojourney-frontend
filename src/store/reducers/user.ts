@@ -1,11 +1,13 @@
-import axios from 'axios';
-
 // Imports
 import {
   createReducer,
   createAsyncThunk,
   createAction,
 } from '@reduxjs/toolkit';
+
+// Import Toast
+import { toast } from 'react-toastify';
+
 // Import axios
 import axiosInstance from '../../utils/axios';
 
@@ -20,15 +22,14 @@ interface UserState {
     lastname: string | null;
     email: string | null;
     password: string | null;
-    trips: Trip[] | null;
-    links: Proposition[] | null;
-    consent_newsletter: boolean | false;
-    consent_commercial: boolean | false;
+    trips: Trip[];
+    links: Proposition[];
+    consent_newsletter: boolean;
+    consent_commercial: boolean;
   };
   trip: Trip | null;
   isConnected: boolean;
   checkedPassword: boolean;
-  toastSuccess: boolean;
   errorMessage: string | null;
 }
 
@@ -40,13 +41,12 @@ export const initialState: UserState = {
     lastname: null,
     email: null,
     password: null,
-    trips: null,
-    links: null,
+    trips: [],
+    links: [],
     consent_commercial: false,
     consent_newsletter: false,
   },
   isConnected: false,
-  toastSuccess: false,
   checkedPassword: false,
   errorMessage: null,
   trip: null,
@@ -54,6 +54,7 @@ export const initialState: UserState = {
 
 const env = null;
 
+// Create Login action
 export const login = createAsyncThunk(
   'user/login',
   async (formData: FormData) => {
@@ -79,7 +80,7 @@ export const logout = createAsyncThunk('user/logout', async () => {
 
 // Create action to fetch user data
 export const fetchUserInfos = createAsyncThunk(
-  'user/getUserInfo',
+  'user/fetchUserInfo',
   async (id: number | null) => {
     const { data } = await axiosInstance.get(`/users/${id}`);
     return data;
@@ -97,6 +98,7 @@ export const checkUserPassword = createAsyncThunk(
     return data;
   }
 );
+
 // Create action to delete user account
 export const deleteUserAccount = createAsyncThunk(
   'user/deleteAccount',
@@ -130,15 +132,7 @@ export const updatePassword = createAsyncThunk(
   }
 );
 
-// Create action to delete a trip
-export const deleteTrip = createAsyncThunk(
-  'trip/delete',
-  async (id: number | null) => {
-    const { data } = await axiosInstance.delete(`/trips/${id}`);
-    return data;
-  }
-);
-
+// Create action to update consents
 export const updateConsent = createAsyncThunk(
   'user/updateConsent',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
@@ -150,6 +144,17 @@ export const updateConsent = createAsyncThunk(
   }
 );
 
+
+// Create action to create a new trip
+export const addTrip = createAsyncThunk(
+  'user/addTrip',
+  async (formData: FormData) => {
+    // Convert formData to an JSON object
+    const objData = Object.fromEntries(formData);
+    // Send a DELETE request to delete user account
+    const { data } = await axiosInstance.post(`/trips`, objData);
+
+    
 // Create action to delete a trip
 export const deleteMember = createAsyncThunk(
   'member/deleteMember',
@@ -168,6 +173,13 @@ export const deleteMember = createAsyncThunk(
 );
 
 // Create action to delete a trip
+
+export const deleteTrip = createAsyncThunk(
+  'user/deleteTrip',
+  async (id: number | null) => {
+    const { data } = await axiosInstance.delete(`/trips/${id}`);
+
+    
 export const informationMember = createAsyncThunk(
   'member/informationMember',
   async ({
@@ -187,9 +199,6 @@ export const informationMember = createAsyncThunk(
 const userReducer = createReducer(initialState, (builder) => {
   builder
     // Login
-    .addCase(login.pending, (state) => {
-      state.errorMessage = null;
-    })
     .addCase(login.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
@@ -216,17 +225,17 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(fetchUserInfos.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
-    // Updat User Data
-    .addCase(updateUserData.rejected, (state, action) => {
-      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
-    })
+    // Update User Data
     .addCase(updateUserData.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
         ...action.payload,
       };
-      state.toastSuccess = true;
+      toast.success('Les informations ont bien été mises à jour !');
       state.errorMessage = null;
+    })
+    .addCase(updateUserData.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Update Password
     .addCase(updatePassword.fulfilled, (state, action) => {
@@ -234,36 +243,46 @@ const userReducer = createReducer(initialState, (builder) => {
         ...state.data,
         ...action.payload,
       };
-      state.toastSuccess = true;
+      toast.success('Le mot de passe a bien été mis à jour !');
+      state.errorMessage = null;
     })
-    // Check User Password
+    .addCase(updatePassword.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // Check User Password (to delete account)
     .addCase(checkUserPassword.fulfilled, (state) => {
+      state.errorMessage = null;
       state.checkedPassword = true;
     })
-    .addCase(checkUserPassword.rejected, (state, action) => {
-      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+    .addCase(checkUserPassword.rejected, (state) => {
+      state.errorMessage =
+        'Une erreur est survenue. Veuillez réessayer plus tard.';
       state.checkedPassword = false;
     })
     // Delete User Account
     .addCase(deleteUserAccount.fulfilled, (state) => {
       state.data = initialState.data; // Reset user data to initial state
-      state.toastSuccess = true;
       state.isConnected = false;
+      toast.success('Votre compte a bien été supprimé.');
       state.errorMessage = null;
     })
     .addCase(deleteUserAccount.rejected, (state, action) => {
       state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
-    // Delete Trip
-    .addCase(deleteTrip.fulfilled, (state, action) => {
+    // Update Consents
+    .addCase(updateConsent.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
         ...action.payload,
       };
-      state.trip = null;
-      state.toastSuccess = true;
+      toast.success('Les informations ont bien été mises à jour !');
       state.errorMessage = null;
     })
+    .addCase(updateConsent.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // Add Trip
+    .addCase(addTrip.fulfilled, (state, action) => {
     // Delete Member
     .addCase(deleteMember.fulfilled, (state, action) => {
       state.data = {
@@ -290,9 +309,23 @@ const userReducer = createReducer(initialState, (builder) => {
         ...state.data,
         ...action.payload,
       };
-      state.toastSuccess = true;
-      state.toastSuccess = true;
+      toast.success('Le voyage a bien été crée !');
       state.errorMessage = null;
+    })
+    .addCase(addTrip.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // Delete Trip
+    .addCase(deleteTrip.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      toast.success('Le voyage a bien été supprimé !');
+      state.errorMessage = null;
+    })
+    .addCase(deleteTrip.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     });
 });
 

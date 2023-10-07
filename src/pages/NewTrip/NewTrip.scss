@@ -19,8 +19,11 @@
     margin: auto;
     justify-content: center;
     padding-bottom: 2rem;
+  }
 
+  &-back-btn {
+    position: absolute;
+    top: 1.5rem;
+    z-index: 10;
+  }
 }
-
-}
-

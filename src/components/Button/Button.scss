@@ -25,17 +25,8 @@
 
   // DANGER BUTTON
   &--danger {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem v.$gutter;
-    border-radius: v.$border-radius;
-    font-size: v.$font-size;
-    font-weight: 700;
-    cursor: pointer;
     background-color: rgba(204, 38, 55, 0.8);
-    border: 3px solid v.$color-red;
+    border: none;
     color: v.$color-white;
 
     &:hover {

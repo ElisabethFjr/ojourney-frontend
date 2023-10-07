@@ -36,67 +36,75 @@ function SignUpForm() {
     // Send registration form data (JSON) to the server with Axios
     const jsonData = Object.fromEntries(formData.entries());
     await axiosInstance
-      .post('/signUp', jsonData, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      })
+      .post('/signUp', jsonData)
       .then(() => {
         setShowModalConfirm(true);
       })
       .catch((error) => {
-        console.error("Une erreur est survenue lors de l'inscription.", error);
-        if (error.response) {
-          setErrorMessage(error.response.data.error);
-        } else {
-          setErrorMessage("Une erreur s'est produite lors de l'inscription.");
-        }
+        console.error(error);
+        setErrorMessage(
+          error.response.data.error ||
+            "Une erreur s'est produite lors de l'inscription."
+        );
       });
   };
 
   return (
     <form className="form-content" onSubmit={handleSubmit}>
+      {/* ConfirmModal */}
       {showModalConfirm && <ConfirmModal />}
+      {/* Error Message */}
       {errorMessage && (
         <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
       )}
+      {/* Input Lastname */}
       <InputField
         name="lastname"
         placeholder="Nom"
         type="text"
         icon="fa-solid fa-user"
+        maxlength={100}
         required
       />
+      {/* Input Firstname */}
       <InputField
         name="firstname"
         placeholder="Prénom"
         type="text"
         icon="fa-solid fa-user"
+        maxlength={100}
         required
       />
+      {/* Input Email */}
       <InputField
         name="email"
         placeholder="Email"
         type="email"
         icon="fa-solid fa-at"
+        maxlength={320}
         required
       />
+      {/* Input Password */}
       <InputField
         name="password"
         placeholder="Mot de passe"
         type="password"
         icon="fa-solid fa-lock"
+        maxlength={128}
         required
         autocomplete="off"
       />
+      {/* Input Confirmation Password */}
       <InputField
         name="confirmation"
         placeholder="Mot de passe (confirmation)"
         type="password"
         icon="fa-solid fa-lock"
+        maxlength={128}
         required
         autocomplete="off"
       />
+      {/* Submit Button */}
       <Button
         text="S'inscrire"
         customClass="color button-style--width"
