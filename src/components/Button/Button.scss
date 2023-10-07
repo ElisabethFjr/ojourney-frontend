@@ -62,16 +62,21 @@
   &--width {
     width: 100%;
   }
+
   // HEIGHT BUTTON
   &--height {
     height: 2.7rem;
   }
-  
-  &--link{ 
+
+  // LINK BUTTON
+  &--link {
     background-color: transparent;
     border: none;
+    color: v.$color-grey-darkest;
+    font-weight: 400;
     font-size: small;
-    text-decoration: underline;
-}
-
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

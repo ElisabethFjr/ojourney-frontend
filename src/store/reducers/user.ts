@@ -52,7 +52,7 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = 'dev';
+const env = null;
 
 // Create Login action
 export const login = createAsyncThunk(

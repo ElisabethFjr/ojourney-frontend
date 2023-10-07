@@ -1,2 +1,22 @@
 @use '../../styles/variables' as v;
 
+.signin {
+  &-forgot-password {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 1.5rem;
+
+    color: v.$color-grey-darkest;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &-resend-email {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+  }
+}
