@@ -88,7 +88,9 @@ function SignInForm() {
           />
         </div>
       </form>
-      {showModalConfirmEmail && <ModalConfirmEmail />}
+      {showModalConfirmEmail && (
+        <ModalConfirmEmail closeModal={() => setShowModalConfirmEmail(false)} />
+      )}
     </div>
   );
 }

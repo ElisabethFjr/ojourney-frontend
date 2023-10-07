@@ -192,7 +192,11 @@ function Profil() {
           />
         </div>
       </section>
-      {showModalConfirmPassword && <ModaleConfirmPassword />}
+      {showModalConfirmPassword && (
+        <ModaleConfirmPassword
+          closeModal={() => setShowModalConfirmPassword(false)}
+        />
+      )}
     </Main>
   );
 }

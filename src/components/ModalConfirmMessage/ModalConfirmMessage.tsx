@@ -4,11 +4,16 @@ import ModalContainer from '../ModalContainer/ModalContainer';
 
 import './ModalConfirmMessage.scss';
 
-function ModalConfirmMessage() {
+interface ModalConfirmMessageProps {
+  closeModal: (value: React.SetStateAction<boolean>) => void;
+}
+
+function ModalConfirmMessage({ closeModal }: ModalConfirmMessageProps) {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
     setIsOpen(!isOpen);
+    closeModal(true);
   };
 
   return (

@@ -14,7 +14,11 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 import './ModalConfimPassword.scss';
 
-function ModaleConfirmPassword() {
+interface ModaleConfirmPasswordProps {
+  closeModal: (value: React.SetStateAction<boolean>) => void;
+}
+
+function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
   // Initialize Hooks
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -30,6 +34,7 @@ function ModaleConfirmPassword() {
   // Event handler on the close modal button
   const handleClose = () => {
     setIsOpen(!isOpen);
+    closeModal(true);
   };
 
   // Event handler for the Confirm Password form submission

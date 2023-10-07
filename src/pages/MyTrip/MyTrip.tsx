@@ -108,12 +108,12 @@ function MyTrip() {
         srcImage={proposition.image}
         altImage={proposition.alt_image}
         title={proposition.title}
-        authorName={`${dataUser.firstname} ${dataUser.lastname}`}
         localisation={proposition.localisation}
         description={proposition.description}
         url={proposition.url}
         id_trip={proposition.trip_id}
         id_link={proposition.id}
+        user_id={proposition.user_id}
       />
     </li>
     // <Button
@@ -126,7 +126,14 @@ function MyTrip() {
 
   return (
     <Main>
-      {showModalInviteMember && <ModalInviteMember id={tripId} />}
+      {showModalInviteMember && (
+        <ModalInviteMember
+          id={tripId}
+          closeModal={() => {
+            setShowModalInviteMember(false);
+          }}
+        />
+      )}
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"

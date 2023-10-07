@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { deleteProposition } from '../../store/reducers/trip';
 
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
@@ -12,24 +12,24 @@ interface PropositionCardProps {
   srcImage: string;
   altImage: string;
   title: string;
-  authorName: string;
   localisation: string;
   description: string;
   url: string;
   id_link: number;
   id_trip: number;
+  user_id: number;
 }
 
 function PropositionCard({
   srcImage,
   altImage,
   title,
-  authorName,
   localisation,
   description,
   url,
   id_link,
   id_trip,
+  user_id,
 }: PropositionCardProps) {
   // Initialize Hooks
   const dispatch = useAppDispatch();
@@ -39,7 +39,11 @@ function PropositionCard({
   const tripId = Number(id_trip);
   const propositionId = Number(id_link);
 
-  // Initialize Hook
+  // Fetch states from Redux store
+  const members = useAppSelector((state) => state.trip.trip.members);
+
+  // Function to find the author name based on the proposition.user_id
+  const author = members.find((member) => member.id === user_id);
 
   // Display of the Delete Confirm Modal
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
@@ -71,7 +75,9 @@ function PropositionCard({
           <div className="proposition-card-header">
             <h3 className="proposition-card-header-title">{title}</h3>
           </div>
-          <p className="proposition-card-author">Creé par {authorName}</p>
+          <p className="proposition-card-author">
+            Creé par {`${author?.firstname} ${author?.lastname}`}
+          </p>
           {description && (
             <div className="proposition-card-description">
               <p className="proposition-card-description-text">{description}</p>

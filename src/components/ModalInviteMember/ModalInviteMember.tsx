@@ -12,9 +12,10 @@ import './ModalInviteMember.scss';
 
 interface ModalInviteMemberProps {
   id: number | null;
+  closeModal: (value: React.SetStateAction<boolean>) => void;
 }
 
-function ModalInviteMember({ id }: ModalInviteMemberProps) {
+function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
   // Declaration state variables
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -55,6 +56,7 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
 
   const handleClose = () => {
     setIsOpen(!isOpen);
+    closeModal(true);
   };
 
   return (

@@ -9,12 +9,17 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 import './ModalConfirmEmail.scss';
 
-function ModalConfirmEmail() {
+interface ModalConfirmEmailProps {
+  closeModal: (value: React.SetStateAction<boolean>) => void;
+}
+
+function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleClose = () => {
     setIsOpen(!isOpen);
+    closeModal(true);
   };
 
   // Event handler on the invite member submit form

@@ -52,7 +52,9 @@ function SignUpForm() {
   return (
     <form className="form-content" onSubmit={handleSubmit}>
       {/* ConfirmModal */}
-      {showModalConfirm && <ConfirmModal />}
+      {showModalConfirm && (
+        <ConfirmModal closeModal={() => setShowModalConfirm(false)} />
+      )}
       {/* Error Message */}
       {errorMessage && (
         <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
