@@ -36,7 +36,6 @@ function NewProposition() {
     dispatch(addProposition({ formData, id: propositionId }));
     navigate(`/my-trip/${propositionId}`);
   };
-
   return (
     <Main>
       <h1 className="main-title">Faire une proposition</h1>

@@ -1,4 +1,4 @@
-import { FormEvent, useEffect } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login } from '../../store/reducers/user';
@@ -6,10 +6,13 @@ import { login } from '../../store/reducers/user';
 import InputField from '../InputField/InputField';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import Button from '../Button/Button';
+import ModalConfirmemail from '../ModalConfirmEmail/ModalConfirmEmail'
 
 import './SignInForm.scss';
+import ModalConfirmEmail from '../ModalConfirmEmail/ModalConfirmEmail';
 
 function SignInForm() {
+
   // Initialize Hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -25,6 +28,12 @@ function SignInForm() {
     const formData = new FormData(form);
     // Dispatch the login action with form data
     await dispatch(login(formData));
+  };
+
+  const [showModalConfirmEmail, setShowModalConfirmEmail] =
+  useState<boolean>(false);
+  const handleClickConfirmEmail = () => {
+    setShowModalConfirmEmail(!showModalConfirmEmail);
   };
 
   // Navigate to /my-trips if connexion succeed
@@ -70,7 +79,17 @@ function SignInForm() {
         <div className="forgot-password-container">
           <Link to="/forgot-password">Mot de passe oublié ? </Link>
         </div>
+              
+        <div className="button-forgot-email">
+          <Button
+          text="Un souci de connexion ?"
+          onClick={handleClickConfirmEmail} 
+          type="button"
+          customClass={'link'}        
+          />  
+         </div>
       </form>
+      {showModalConfirmEmail && <ModalConfirmEmail />}
     </div>
   );
 }

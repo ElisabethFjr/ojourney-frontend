@@ -31,6 +31,7 @@ function MyTrip() {
     useState<boolean>(false);
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
+    const [showVote, setShowVote] = useState<number | null>(null);
 
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User Data
@@ -50,6 +51,10 @@ function MyTrip() {
   // Event handler to open the add member modal on the button click
   const handleClickAddMember = () => {
     setShowModalInviteMember(!showModalInviteMember);
+  };
+
+  const handleClickVote = () => {
+    setShowVote(!showVote);
   };
 
   // Event handler to close the member menu when clicked outside
@@ -88,6 +93,7 @@ function MyTrip() {
     <OneMember
       key={member.id}
       member={member}
+      tripId={tripId}
       isCreator={isCreator}
       dataUser={dataUser}
       openMemberId={openMemberId}
@@ -108,9 +114,15 @@ function MyTrip() {
         url={proposition.url}
         id_trip={proposition.trip_id}
         id_link={proposition.id}
-        // handleUpdateData={updatedPropositions}
       />
     </li>
+    <Button
+      text='👍'
+      onClick={handleClickVote}
+        type="button"
+        customClass="outline-dark">
+      </Button>
+    </>
   ));
 
   return (
@@ -165,7 +177,7 @@ function MyTrip() {
           )}
         </div>
       </section>
-
+      {/* *************************************** MEMBRE */}
       <section className="one-trip-members">
         {isCreator && (
           <Button
@@ -182,7 +194,7 @@ function MyTrip() {
           <ul className="one-trip-members-list">{allMembers}</ul>
         )}
       </section>
-
+      {/* *************************************** PROPOSITION */}
       <section className="one-trip-propositions">
         <h2 className="one-trip-propositions-title">Propositions</h2>
         <div className="one-trip-propositions-add-container">
