@@ -32,6 +32,14 @@ function NewProposition() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Check if missing required field
+    const url = formData.get('url') as string;
+    const localisation = formData.get('localisation') as string;
+    if (!url || !localisation) {
+      setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+
     // Dispatch addproposition action on the form submission
     dispatch(addProposition({ formData, id: propositionId }));
     navigate(`/my-trip/${propositionId}`);
@@ -75,12 +83,13 @@ function NewProposition() {
               type="text"
               icon="fa-solid fa-location-dot"
               maxlength={100}
+              required
             />
 
             {/* Description Textarea */}
             <TextareaField
               name="description"
-              placeholder="Description"
+              placeholder="Description (facultatif)"
               icon="fa-solid fa-pen-nib"
               maxlength={200}
             />

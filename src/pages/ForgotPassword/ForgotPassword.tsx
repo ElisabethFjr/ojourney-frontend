@@ -30,6 +30,7 @@ function ForgotPassword() {
           'Une erreur est survenue lors de la rénitialisation de votre mot de passe.',
           error
         );
+        // Set the error message state with the server's error message if available
         setErrorMessage(error.response.data.error);
       });
   };

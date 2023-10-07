@@ -95,7 +95,7 @@ function EditTrip() {
 
     // Check all required fields and set an errorMessage if one is missing
     if (!localisation || !startDate || !endDate) {
-      setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+      setErrorMessage('Veuillez renseigner tous les champs obligatoires.');
       return;
     }
 
@@ -103,6 +103,14 @@ function EditTrip() {
     if (startDate && endDate) {
       formData.append('date_start', changeDateFormat(startDate));
       formData.append('date_end', changeDateFormat(endDate));
+    }
+
+    // Check if dates are same and set an errorMessage
+    if (changeDateFormat(startDate) === changeDateFormat(endDate)) {
+      setErrorMessage(
+        'Les dates de début et de fin ne peuvent pas être identiques'
+      );
+      return;
     }
 
     // Dispatch udpateTrip action on the form submission
@@ -144,6 +152,7 @@ function EditTrip() {
                 id="localisation"
                 type="text"
                 maxLength={100}
+                required
               />
               <div className="field-edit-icon">
                 <i className="fa-solid fa-location-dot" />
@@ -168,6 +177,7 @@ function EditTrip() {
                   placeholderText="Date de début (jj/mm/aaaa)"
                   dateFormat="dd/MM/yyyy"
                   locale="fr" // Set french locale
+                  required
                 />
               </div>
             </div>
@@ -191,6 +201,7 @@ function EditTrip() {
                   placeholderText="Date de fin (jj/mm/aaaa)"
                   dateFormat="dd/MM/yyyy"
                   locale="fr" // Set french locale
+                  required
                 />
               </div>
             </div>

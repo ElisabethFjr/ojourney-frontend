@@ -19,7 +19,7 @@ function SignUpForm() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Extract password and confirmation from formData
+    // Extract data from formData
     const password = formData.get('password') as string;
     const confirmation = formData.get('confirmation') as string;
 
@@ -28,7 +28,6 @@ function SignUpForm() {
       setErrorMessage("La confirmation de mot de passe n'est pas valide.");
       return;
     }
-    setErrorMessage(null);
 
     // Remove the 'confirmation' field from the data to be sent
     formData.delete('confirmation');
@@ -42,6 +41,7 @@ function SignUpForm() {
       })
       .catch((error) => {
         console.error(error);
+        // Set the error message state with the server's error message if available
         setErrorMessage(
           error.response.data.error ||
             "Une erreur s'est produite lors de l'inscription."

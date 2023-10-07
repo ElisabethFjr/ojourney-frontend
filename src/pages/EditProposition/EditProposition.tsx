@@ -7,15 +7,16 @@ import DOMPurify from 'dompurify';
 
 // Import Curstom Redux Hook
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { updateProposition } from '../../store/reducers/trip';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
 import FormContainer from '../../components/FormContainer/FormContainer';
 import Button from '../../components/Button/Button';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './EditProposition.scss';
-import { updateProposition } from '../../store/reducers/trip';
 
 function EditProposition() {
   // Inilialize Hooks
@@ -40,6 +41,7 @@ function EditProposition() {
   const [description, setDescription] = useState(
     proposition?.description || ''
   );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Event handler input and textarea changes
   const handleInputChange = (
@@ -56,6 +58,12 @@ function EditProposition() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
+
+    // Check if missing required field
+    if (!url || !localisation) {
+      setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
 
     // Dispatch udpateProposition action on the form submission
     dispatch(
@@ -82,7 +90,13 @@ function EditProposition() {
             />
           </div>
           <form onSubmit={handleSubmit}>
+            {/* Form Title */}
             <h2 className="edit-proposition-form-title">Ma Proposition</h2>
+
+            {/* Error Message */}
+            {errorMessage && (
+              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+            )}
 
             {/* Url Input */}
             <div className="field-edit">
@@ -99,6 +113,7 @@ function EditProposition() {
                 id="url"
                 type="url"
                 maxLength={100}
+                required
               />
               <div className="field-edit-icon">
                 <i className="fa-solid fa-link" />
@@ -120,6 +135,7 @@ function EditProposition() {
                 id="localisation"
                 type="text"
                 maxLength={100}
+                required
               />
               <div className="field-edit-icon">
                 <i className="fa-solid fa-location-dot" />

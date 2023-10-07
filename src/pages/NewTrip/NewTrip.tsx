@@ -60,9 +60,24 @@ function NewTrip() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Check if missing required field
+    const destination = formData.get('localisation') as string;
+    if (!destination || !startDate || !endDate) {
+      setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+
     // Format dates start and end
     formData.append('date_start', startDate ? changeDateFormat(startDate) : '');
     formData.append('date_end', endDate ? changeDateFormat(endDate) : '');
+
+    // Check if dates are same and set an errorMessage
+    if (changeDateFormat(startDate) === changeDateFormat(endDate)) {
+      setErrorMessage(
+        'Les dates de début et de fin ne peuvent pas être identiques'
+      );
+      return;
+    }
 
     // Dispatch addTrip action on the form submission
     dispatch(addTrip(formData));

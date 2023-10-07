@@ -37,6 +37,9 @@ function ModaleConfirmPassword() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
+    // Clear all Error Messages
+    setErrorMessage(null);
+    // Dispatch checkUserPassword action
     dispatch(checkUserPassword({ formData, id: userData.id }));
     // If checkedPassword is true (promise checkUserPassword fulfilled), delete the account by dispatch redux action
     if (checkedPassword) {

@@ -26,6 +26,9 @@ function ModalInviteMember({ id }: ModalInviteMemberProps) {
     const formData = new FormData(form);
     const jsonData = Object.fromEntries(formData.entries());
 
+    // Clear all Error Messages
+    setErrorMessage(null);
+
     // Check if input is empty before submit
     if (!jsonData.email) {
       setErrorMessage('Veuillez renseigner une adresse e-mail.');

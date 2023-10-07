@@ -20,16 +20,17 @@ function SignInForm() {
   const isConnected = useAppSelector((state) => state.user.isConnected);
 
   // Event handler SignIn form submit
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
     // Dispatch the login action with form data
-    await dispatch(login(formData));
+    dispatch(login(formData));
   };
 
   const [showModalConfirmEmail, setShowModalConfirmEmail] =
     useState<boolean>(false);
+
   const handleClickConfirmEmail = () => {
     setShowModalConfirmEmail(!showModalConfirmEmail);
   };

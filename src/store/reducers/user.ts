@@ -8,7 +8,8 @@ import {
 // Import Toast
 import { toast } from 'react-toastify';
 
-// Import axios
+// Imports Axios
+import { AxiosError } from 'axios';
 import axiosInstance from '../../utils/axios';
 
 // Import types
@@ -52,21 +53,31 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = null;
+const env = 'dev';
 
 // Create Login action
 export const login = createAsyncThunk(
   'user/login',
   async (formData: FormData) => {
-    // Convert formData to an JSON object
-    const objData = Object.fromEntries(formData);
-    // Send a POST request to login user
-    const { data } = await axiosInstance.post('/signIn', objData);
-    if (env === 'dev') {
-      localStorage.setItem('token', data.token);
-      axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+    try {
+      // Convert formData to an JSON object
+      const objData = Object.fromEntries(formData);
+      // Send a POST request to login user
+      const { data } = await axiosInstance.post('/signIn', objData);
+      if (env === 'dev') {
+        localStorage.setItem('token', data.token);
+        axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+      }
+      return data;
+    } catch (error) {
+      // Type error as an AxiosError to access specific axios properties (typescript)
+      const axiosError = error as AxiosError;
+      const errorMessage =
+        (axiosError.response?.data as { error: string })?.error ||
+        'UNKNOWN_ERROR';
+      // Throw an error with the server's error message if available
+      throw new Error(errorMessage);
     }
-    return data;
   }
 );
 

@@ -34,7 +34,12 @@ function ResetPassword() {
       setErrorMessage("La confirmation de mot de passe n'est pas valide.");
       return;
     }
-    setErrorMessage(null);
+
+    // Check if one field is empty and set an errorMessage
+    if (!newPassword || !confirmPassword) {
+      setErrorMessage('Veuillez renseigner tous les champs obligatoires.');
+      return;
+    }
 
     // Remove the 'confirmation' field from the data to be sent
     formData.delete('confirmation');
