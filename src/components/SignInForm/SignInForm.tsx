@@ -6,13 +6,11 @@ import { login } from '../../store/reducers/user';
 import InputField from '../InputField/InputField';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import Button from '../Button/Button';
-import ModalConfirmemail from '../ModalConfirmEmail/ModalConfirmEmail'
-
-import './SignInForm.scss';
 import ModalConfirmEmail from '../ModalConfirmEmail/ModalConfirmEmail';
 
-function SignInForm() {
+import './SignInForm.scss';
 
+function SignInForm() {
   // Initialize Hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -31,7 +29,7 @@ function SignInForm() {
   };
 
   const [showModalConfirmEmail, setShowModalConfirmEmail] =
-  useState<boolean>(false);
+    useState<boolean>(false);
   const handleClickConfirmEmail = () => {
     setShowModalConfirmEmail(!showModalConfirmEmail);
   };
@@ -76,18 +74,18 @@ function SignInForm() {
           type="submit"
         />
         {/* Forgot Password Link */}
-        <div className="forgot-password-container">
+        <div className="signin-forgot-password">
           <Link to="/forgot-password">Mot de passe oublié ? </Link>
         </div>
-              
-        <div className="button-forgot-email">
+
+        <div className="signin-resend-email">
           <Button
-          text="Un souci de connexion ?"
-          onClick={handleClickConfirmEmail} 
-          type="button"
-          customClass={'link'}        
-          />  
-         </div>
+            text="Un souci de connexion ?"
+            onClick={handleClickConfirmEmail}
+            type="button"
+            customClass="link"
+          />
+        </div>
       </form>
       {showModalConfirmEmail && <ModalConfirmEmail />}
     </div>
