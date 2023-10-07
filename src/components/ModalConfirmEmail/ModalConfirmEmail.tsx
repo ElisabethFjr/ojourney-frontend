@@ -28,6 +28,7 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jsonData = Object.fromEntries(formData.entries());
+    console.log(jsonData);
 
     // Check if input is empty before submit
     if (!jsonData.email || !jsonData.password) {
@@ -40,15 +41,22 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
       .post('/confirm', jsonData)
       .then(() => {
         setIsOpen(!isOpen);
-        toast.success('Le mail a bien été envoyé !');
+        toast.success("L'email a bien été envoyé !");
       })
       .catch((error) => {
         console.error(
           "Une erreur est survenue lors la récupération de l'email.",
           error
         );
-        toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
-        setErrorMessage(error.response.data.error);
+        if (
+          error.response &&
+          error.response.status === 404 &&
+          error.response.data.error === "This user doesn't exist in DB !"
+        ) {
+          setErrorMessage(
+            "Vous n'avez pas de compte ou avez déjà validé votre email."
+          );
+        }
       });
   };
 
@@ -60,6 +68,10 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
           <h1 className="modal-confirm-email-title">
             Veuillez renseigner votre adresse email et votre mot de passe.
           </h1>
+          <p className="modal-confirm-email-text">
+            Vous allez recevoir un e-mail avec un lien afin de valider votre
+            compte.
+          </p>
           {/* If ErroMessage, display the error */}
           <form className="modal-confirm-email-form" onSubmit={handleSubmit}>
             {errorMessage && (
@@ -79,16 +91,7 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
               icon="fa-solid fa-lock"
               required
             />
-            <p className="modal-confirm-email-text">
-              Vous allez recevoir un e-mail avec un lien afin de valider votre
-              compte.
-            </p>
-            <Button
-              text="Confirmer"
-              type="submit"
-              customClass="color"
-              onClick={handleClose}
-            />
+            <Button text="Confirmer" type="submit" customClass="color" />
           </form>
         </ModalContainer>
       )}
