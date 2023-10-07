@@ -42,10 +42,7 @@ function SignUpForm() {
       .catch((error) => {
         console.error(error);
         // Set the error message state with the server's error message if available
-        setErrorMessage(
-          error.response.data.error ||
-            "Une erreur s'est produite lors de l'inscription."
-        );
+        setErrorMessage(error.response.data.error);
       });
   };
 

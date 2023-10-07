@@ -48,9 +48,7 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
           "Une erreur est survenue lors la récupération de l'email.",
           error
         );
-        toast.error(
-          "L'invitation n'a pas pu être envoyée." || error.response.data.message
-        );
+        toast.error("L'invitation n'a pas pu être envoyée.");
       });
   };
 

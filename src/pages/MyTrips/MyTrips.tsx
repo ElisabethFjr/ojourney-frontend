@@ -31,11 +31,10 @@ function MyTrips() {
         id={trip.id}
         srcTripImage={trip.url_image}
         altImage={trip.alt_image}
-        authorName={`${userData.firstname} ${userData.lastname}`}
         description={trip.description}
         localisation={trip.localisation}
         linkHref={`/my-trip/${trip.id}`}
-        // handleUpdateData={updatedTrips}
+        user_id={trip.user_id}
       />
     </li>
   ));
