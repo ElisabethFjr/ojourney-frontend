@@ -52,7 +52,7 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = null;
+const env = 'dev';
 
 // Create Login action
 export const login = createAsyncThunk(
@@ -144,7 +144,6 @@ export const updateConsent = createAsyncThunk(
   }
 );
 
-
 // Create action to create a new trip
 export const addTrip = createAsyncThunk(
   'user/addTrip',
@@ -153,45 +152,15 @@ export const addTrip = createAsyncThunk(
     const objData = Object.fromEntries(formData);
     // Send a DELETE request to delete user account
     const { data } = await axiosInstance.post(`/trips`, objData);
-
-    
-// Create action to delete a trip
-export const deleteMember = createAsyncThunk(
-  'member/deleteMember',
-  async ({
-    tripId,
-    memberId,
-  }: {
-    tripId: number | null;
-    memberId: number | null;
-  }) => {
-    const { data } = await axiosInstance.delete(
-      `/trips/${tripId}/members/${memberId}`
-    );
     return data;
   }
 );
 
-// Create action to delete a trip
-
+// Create action to delete a trip// Create action to delete a trip
 export const deleteTrip = createAsyncThunk(
   'user/deleteTrip',
   async (id: number | null) => {
     const { data } = await axiosInstance.delete(`/trips/${id}`);
-
-    
-export const informationMember = createAsyncThunk(
-  'member/informationMember',
-  async ({
-    tripId,
-    memberId,
-  }: {
-    tripId: number | null;
-    memberId: number | null;
-  }) => {
-    const { data } = await axiosInstance.get(
-      `/trips/${tripId}/members/${memberId}`
-    );
     return data;
   }
 );
@@ -281,30 +250,9 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(updateConsent.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
+
     // Add Trip
     .addCase(addTrip.fulfilled, (state, action) => {
-    // Delete Member
-    .addCase(deleteMember.fulfilled, (state, action) => {
-      state.data = {
-        ...state.data,
-        ...action.payload,
-      };
-      state.trip = null;
-      state.toastSuccess = true;
-      state.errorMessage = null;
-    })
-    // Information Member
-    .addCase(informationMember.fulfilled, (state, action) => {
-      state.data = {
-        ...state.data,
-        ...action.payload,
-      };
-      state.trip = null;
-      state.toastSuccess = true;
-      state.errorMessage = null;
-    })
-    // Update Consent
-    .addCase(updateConsent.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
         ...action.payload,

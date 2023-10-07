@@ -31,7 +31,7 @@ function MyTrip() {
     useState<boolean>(false);
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
-    const [showVote, setShowVote] = useState<number | null>(null);
+  // const [showVote, setShowVote] = useState<boolean | null>(null);
 
   // Fetch states from Redux store
   const dataUser = useAppSelector((state) => state.user.data); // User Data
@@ -40,7 +40,7 @@ function MyTrip() {
   const propositions = useAppSelector((state) => state.trip.trip.links); // Links of the tri
 
   // Boolean to check if the user is the trip creator
-  const isCreator = dataUser.id === trip?.user_id;
+  const isCreator = dataUser.id === trip.user_id;
 
   useEffect(() => {
     dispatch(fetchTripData(tripId));
@@ -53,9 +53,9 @@ function MyTrip() {
     setShowModalInviteMember(!showModalInviteMember);
   };
 
-  const handleClickVote = () => {
-    setShowVote(!showVote);
-  };
+  // const handleClickVote = () => {
+  //   setShowVote(!showVote);
+  // };
 
   // Event handler to close the member menu when clicked outside
   // Ref the toggle MemberMenu button
@@ -89,7 +89,7 @@ function MyTrip() {
   };
 
   // Display a list of all members into a button element from the members array fetch to the API
-  const allMembers = members?.map((member) => (
+  const allMembers = members.map((member) => (
     <OneMember
       key={member.id}
       member={member}
@@ -102,7 +102,7 @@ function MyTrip() {
   ));
 
   // Display a list of all propositions from the propositions array fetch to the API
-  const allPropositions = propositions?.map((proposition) => (
+  const allPropositions = propositions.map((proposition) => (
     <li key={proposition.id}>
       <PropositionCard
         srcImage={proposition.image}
@@ -116,13 +116,12 @@ function MyTrip() {
         id_link={proposition.id}
       />
     </li>
-    <Button
-      text='👍'
-      onClick={handleClickVote}
-        type="button"
-        customClass="outline-dark">
-      </Button>
-    </>
+    // <Button
+    //   text='👍'
+    //   onClick={handleClickVote}
+    //     type="button"
+    //     customClass="outline-dark">
+    //   </Button>
   ));
 
   return (
@@ -131,19 +130,19 @@ function MyTrip() {
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"
-          src={trip?.url_image}
-          alt={trip?.alt_image}
+          src={trip.url_image}
+          alt={trip.alt_image}
           crossOrigin="anonymous"
         />
         <div className="one-trip-overview-container">
-          <h1 className="one-trip-overview-title">{trip?.localisation}</h1>
+          <h1 className="one-trip-overview-title">{trip.localisation}</h1>
           <div className="one-trip-overview-date">
             <i className="fa-solid fa-calendar" />
             <p className="one-trip-overview-date-name">
               {/* Change displayed date format to d MMM - d MMM YYYY */}
-              {trip?.date_start && trip?.date_end
-                ? `${format(new Date(trip?.date_start), 'd MMM')} - ${format(
-                    new Date(trip?.date_end),
+              {trip.date_start && trip.date_end
+                ? `${format(new Date(trip.date_start), 'd MMM')} - ${format(
+                    new Date(trip.date_end),
                     'd MMM yyyy'
                   )}`
                 : 'Dates invalides'}
@@ -152,10 +151,10 @@ function MyTrip() {
           <div className="one-trip-overview-localisation">
             <i className="fa-solid fa-location-dot" />
             <p className="one-trip-overview-localisation-name">
-              {trip?.localisation}
+              {trip.localisation}
             </p>
           </div>
-          <p className="one-trip-overview-description">{trip?.description}</p>
+          <p className="one-trip-overview-description">{trip.description}</p>
           {isCreator && (
             <div className="one-trip-overview-buttons">
               <Link to={`/edit-trip/${id}`}>
@@ -188,7 +187,7 @@ function MyTrip() {
             onClick={handleClickAddMember}
           />
         )}
-        {trip?.members && trip?.members.length === 0 ? (
+        {trip.members && trip.members.length === 0 ? (
           <p> Aucun membres pour le moment </p>
         ) : (
           <ul className="one-trip-members-list">{allMembers}</ul>

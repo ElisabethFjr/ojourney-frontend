@@ -9,7 +9,6 @@ export interface ModalInformationMemberProps {
   lastname: string;
   firstname: string;
   email: string;
-  dispatchInformationMember: () => void;
   closeModal: (value: React.SetStateAction<boolean>) => void;
 }
 
@@ -18,13 +17,11 @@ function ModalInformationMember({
   lastname,
   firstname,
   email,
-  dispatchInformationMember,
   closeModal,
 }: ModalInformationMemberProps) {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
-    dispatchInformationMember();
     setIsOpen(!isOpen);
     closeModal(true);
   };

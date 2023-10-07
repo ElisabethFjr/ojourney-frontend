@@ -115,6 +115,40 @@ export const deleteProposition = createAsyncThunk(
   }
 );
 
+// Create action to fetch member infos
+export const informationMember = createAsyncThunk(
+  'member/informationMember',
+  async ({
+    tripId,
+    memberId,
+  }: {
+    tripId: number | null;
+    memberId: number | null;
+  }) => {
+    const { data } = await axiosInstance.get(
+      `/trips/${tripId}/members/${memberId}`
+    );
+    return data;
+  }
+);
+
+// Create action to DELETE a member from a trip
+export const deleteMember = createAsyncThunk(
+  'member/deleteMember',
+  async ({
+    tripId,
+    memberId,
+  }: {
+    tripId: number | null;
+    memberId: number | null;
+  }) => {
+    const { data } = await axiosInstance.delete(
+      `/trips/${tripId}/members/${memberId}`
+    );
+    return data;
+  }
+);
+
 const tripReducer = createReducer(initialState, (builder) => {
   builder
     // FETCH Trip Data
@@ -174,6 +208,24 @@ const tripReducer = createReducer(initialState, (builder) => {
     })
     .addCase(deleteProposition.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // DELETE a Member
+    .addCase(deleteMember.fulfilled, (state, action) => {
+      state.trip = {
+        ...state.trip,
+        ...action.payload,
+      };
+      toast.success('Le membre a bien été supprimée !');
+    })
+    .addCase(deleteMember.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // FETCH One Member infos
+    .addCase(informationMember.fulfilled, (state, action) => {
+      state.trip = {
+        ...state.trip,
+        ...action.payload,
+      };
     });
 });
 

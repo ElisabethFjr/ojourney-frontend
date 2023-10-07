@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Member, User } from '../../@types';
 import { useAppDispatch } from '../../hooks/redux';
 
-import { deleteMember, informationMember } from '../../store/reducers/user';
+import { deleteMember } from '../../store/reducers/trip';
 
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
 import ModalInformationMember from '../ModalInformationMember/ModalInformationMember';
@@ -77,6 +77,7 @@ function OneMember({
       setOpenMemberId(member.id);
     }
   };
+
   return (
     <li className="one-trip-members-item" key={member.id}>
       <div
@@ -117,9 +118,6 @@ function OneMember({
       </div>
       {showModalInformationMember && (
         <ModalInformationMember
-          dispatchInformationMember={() =>
-            dispatch(informationMember({ tripId, memberId: member.id }))
-          }
           title="Carte d'information"
           lastname={`Nom : ${member.lastname}`}
           firstname={`Prénom : ${member.firstname}`}
