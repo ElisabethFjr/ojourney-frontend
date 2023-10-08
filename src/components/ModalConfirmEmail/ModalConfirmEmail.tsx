@@ -43,6 +43,7 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
       .post('/confirm', jsonData)
       .then(() => {
         setIsOpen(!isOpen);
+        closeModal(true);
         toast.success("L'email a bien été envoyé !");
       })
       .catch((error) => {

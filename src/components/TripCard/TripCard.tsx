@@ -38,7 +38,7 @@ function TripCard({
   // Fetch states from Redux store
   const trip = useAppSelector((state) => state.trip.trip);
 
-  // Function to find the author name based on the proposition.user_id
+  // Function to find the author name based on the trip.user_id
   const author = trip.members.find((member) => member.id === userId);
 
   // Declaration states variables

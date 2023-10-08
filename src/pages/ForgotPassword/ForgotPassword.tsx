@@ -35,15 +35,17 @@ function ForgotPassword() {
         setShowModalForgotPassword(true);
       })
       .catch((error) => {
-        console.error(
-          'Une erreur est survenue lors de la rénitialisation de votre mot de passe.',
-          error
-        );
+        console.error(error);
         // Set the error message state with the server's error message if available
-        setErrorMessage(
-          error.response.data.error ||
+        if (
+          error.response.data.error.trim() === "This user doesn't exist in DB !"
+        ) {
+          setErrorMessage("Aucun compte n'est associé à cette adresse email.");
+        } else {
+          setErrorMessage(
             'Une erreur est survenue lors de la rénitialisation de votre mot de passe.'
-        );
+          );
+        }
       });
   };
 

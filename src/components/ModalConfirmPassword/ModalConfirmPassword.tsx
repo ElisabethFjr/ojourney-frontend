@@ -29,7 +29,6 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
-  const checkedPassword = useAppSelector((state) => state.user.checkedPassword);
 
   // Event handler on the close modal button
   const handleClose = () => {
@@ -46,17 +45,20 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
     // Clear all Error Messages
     setErrorMessage(null);
 
-    // Dispatch checkUserPassword action
-    await dispatch(checkUserPassword({ formData, id: userData.id }))
-      .then(() => {
-        // If checkedPassword is true (promise checkUserPassword fulfilled), delete the account by dispatch redux action
-        dispatch(deleteUserAccount({ id: userData.id }));
+    // Dispatch the action to check the password and set the response on a variable
+    try {
+      const response = await dispatch(
+        checkUserPassword({ formData, id: userData.id })
+      );
+      // If the password is correct (response success), dispatch the action to delete the account
+      if (response.payload.success === 'Correct password !') {
+        await dispatch(deleteUserAccount({ id: userData.id }));
         navigate('/', { replace: true });
-      })
-      // If checkedPassword is false, send an error Message
-      .catch(() => {
-        setErrorMessage('Le mot de passe est incorrect.');
-      });
+      }
+    } catch {
+      // If the password not correct, set an error Message
+      setErrorMessage('Le mot de passe est incorrect.');
+    }
   };
 
   return (

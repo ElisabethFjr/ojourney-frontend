@@ -142,26 +142,29 @@ function MyTrip() {
           crossOrigin="anonymous"
         />
         <div className="one-trip-overview-container">
-          <h1 className="one-trip-overview-title">{trip.localisation}</h1>
-          <div className="one-trip-overview-date">
-            <i className="fa-solid fa-calendar" />
-            <p className="one-trip-overview-date-name">
-              {/* Change displayed date format to d MMM - d MMM YYYY */}
-              {trip.date_start && trip.date_end
-                ? `${format(new Date(trip.date_start), 'd MMM')} - ${format(
-                    new Date(trip.date_end),
-                    'd MMM yyyy'
-                  )}`
-                : 'Dates invalides'}
-            </p>
+          <div className="one-trip-overview-infos">
+            <h1 className="one-trip-overview-title">{trip.localisation}</h1>
+            <div className="one-trip-overview-date">
+              <i className="fa-solid fa-calendar" />
+              <p className="one-trip-overview-date-name">
+                {/* Change displayed date format to d MMM - d MMM YYYY */}
+                {trip.date_start && trip.date_end
+                  ? `${format(new Date(trip.date_start), 'd MMM')} - ${format(
+                      new Date(trip.date_end),
+                      'd MMM yyyy'
+                    )}`
+                  : 'Dates invalides'}
+              </p>
+            </div>
+            <div className="one-trip-overview-localisation">
+              <i className="fa-solid fa-location-dot" />
+              <p className="one-trip-overview-localisation-name">
+                {trip.localisation}
+              </p>
+            </div>
+            <p className="one-trip-overview-description">{trip.description}</p>
           </div>
-          <div className="one-trip-overview-localisation">
-            <i className="fa-solid fa-location-dot" />
-            <p className="one-trip-overview-localisation-name">
-              {trip.localisation}
-            </p>
-          </div>
-          <p className="one-trip-overview-description">{trip.description}</p>
+
           {isCreator && (
             <div className="one-trip-overview-buttons">
               <Link to={`/edit-trip/${id}`}>
