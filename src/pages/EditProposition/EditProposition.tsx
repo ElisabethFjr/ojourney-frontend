@@ -7,15 +7,16 @@ import DOMPurify from 'dompurify';
 
 // Import Curstom Redux Hook
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { updateProposition } from '../../store/reducers/trip';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
 import FormContainer from '../../components/FormContainer/FormContainer';
 import Button from '../../components/Button/Button';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './EditProposition.scss';
-import { updateProposition } from '../../store/reducers/trip';
 
 function EditProposition() {
   // Inilialize Hooks
@@ -28,18 +29,22 @@ function EditProposition() {
   const idTrip = Number(tripId); // Trip id
 
   // Fetch states from Redux store
-  const proposition = useAppSelector((state) =>
-    state.trip.trip.links.find((prop) => prop.id === idProposition)
+  const propositions = useAppSelector((state) => state.trip.trip.links);
+
+  // Find the proposition id to edit to get the current data
+  const editedProposition = propositions.find(
+    (proposition) => proposition.id === idProposition
   );
 
   // States variables declaration
-  const [url, setUrl] = useState(proposition?.url || '');
+  const [url, setUrl] = useState(editedProposition?.url || '');
   const [localisation, setLocalisation] = useState(
-    proposition?.localisation || ''
+    editedProposition?.localisation || ''
   );
   const [description, setDescription] = useState(
-    proposition?.description || ''
+    editedProposition?.description || ''
   );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Event handler input and textarea changes
   const handleInputChange = (
@@ -57,6 +62,26 @@ function EditProposition() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Clear all Error Messages
+    setErrorMessage(null);
+
+    // Error : Check if missing required field
+    if (!url || !localisation) {
+      setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+
+    // Error : Check if edited url already exist in the trip
+    const existedProposition = propositions.some(
+      (proposition) => proposition.url === url
+    );
+    // Existing and current editing proposition url
+    const isEditingExistingProposition =
+      editedProposition && editedProposition.url === url;
+    if (existedProposition && !isEditingExistingProposition) {
+      setErrorMessage("L'URL existe déjà dans le store.");
+      return;
+    }
     // Dispatch udpateProposition action on the form submission
     dispatch(
       updateProposition({
@@ -82,7 +107,13 @@ function EditProposition() {
             />
           </div>
           <form onSubmit={handleSubmit}>
+            {/* Form Title */}
             <h2 className="edit-proposition-form-title">Ma Proposition</h2>
+
+            {/* Error Message */}
+            {errorMessage && (
+              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+            )}
 
             {/* Url Input */}
             <div className="field-edit">
@@ -99,6 +130,7 @@ function EditProposition() {
                 id="url"
                 type="url"
                 maxLength={100}
+                required
               />
               <div className="field-edit-icon">
                 <i className="fa-solid fa-link" />
@@ -120,6 +152,7 @@ function EditProposition() {
                 id="localisation"
                 type="text"
                 maxLength={100}
+                required
               />
               <div className="field-edit-icon">
                 <i className="fa-solid fa-location-dot" />

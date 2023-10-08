@@ -13,7 +13,7 @@ interface OneMemberProps {
   tripId: number | null;
   member: Member;
   isCreator: boolean;
-  dataUser: User;
+  userData: User;
   openMemberId: number | null;
   setOpenMemberId: React.Dispatch<React.SetStateAction<number | null>>;
 }
@@ -22,14 +22,14 @@ function OneMember({
   tripId,
   member,
   isCreator,
-  dataUser,
+  userData,
   openMemberId,
   setOpenMemberId,
 }: OneMemberProps) {
   const dispatch = useAppDispatch();
 
   const isOpenMenu = member.id === openMemberId;
-  const isCurrentUser = dataUser.id === member.id;
+  const isCurrentUser = userData.id === member.id;
 
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);

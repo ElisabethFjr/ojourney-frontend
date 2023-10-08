@@ -46,6 +46,16 @@ function EditProfil() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
+
+    // Clear all Error Messages
+    setErrorMessage(null);
+
+    // Check if one field is empty and set an errorMessage
+    if (!firstname || !lastname || !email) {
+      setErrorMessage('Veuillez renseigner tous les champs.');
+      return;
+    }
+
     // Dispatch the updated user data to Redux store
     dispatch(updateUserData({ formData, id: userData.id }));
     navigate('/profil');

@@ -56,12 +56,20 @@ function EditPassword() {
     const newPassword = formData.get('password') as string;
     const confirmPassword = formData.get('confirmation') as string;
 
+    // Clear all Error Messages
+    setErrorMessage(null);
+
     // Check if the password and confirmation match
     if (newPassword !== confirmPassword) {
       setErrorMessage("La confirmation de mot de passe n'est pas valide.");
       return;
     }
-    setErrorMessage(null);
+
+    // Check if one field is empty and set an errorMessag
+    if (!password || !confirmation) {
+      setErrorMessage('Veuillez renseigner tous les champs obligatoires.');
+      return;
+    }
 
     // Remove the 'confirmation' field from the data to be sent
     formData.delete('confirmation');

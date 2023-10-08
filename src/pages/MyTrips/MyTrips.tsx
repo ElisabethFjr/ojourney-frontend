@@ -18,24 +18,24 @@ function MyTrips() {
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data); // User data
   const trips = useAppSelector((state) => state.user.data.trips); // User trips data
+  console.log(trips);
 
   useEffect(() => {
     dispatch(fetchUserInfos(userData.id));
   }, [dispatch, userData.id]);
 
   // Display a list of all trips from the trips array fetch to the API
-  const allTrips = trips?.map((trip) => (
+  const allTrips = trips.map((trip) => (
     <li className="trips-list-item" key={trip.id}>
       <TripCard
         key={trip.id}
         id={trip.id}
         srcTripImage={trip.url_image}
         altImage={trip.alt_image}
-        authorName={`${userData.firstname} ${userData.lastname}`}
         description={trip.description}
         localisation={trip.localisation}
         linkHref={`/my-trip/${trip.id}`}
-        // handleUpdateData={updatedTrips}
+        user_id={trip.user_id}
       />
     </li>
   ));

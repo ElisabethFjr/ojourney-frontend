@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 import { deleteTrip } from '../../store/reducers/user';
 
@@ -13,26 +13,33 @@ export interface TripCardProps {
   id: number;
   srcTripImage: string;
   altImage: string;
-  authorName: string;
   description: string;
   localisation: string;
   linkHref: string;
+  user_id: number;
 }
 
 function TripCard({
   id,
   srcTripImage,
   altImage,
-  authorName,
   description,
   localisation,
   linkHref,
+  user_id,
 }: TripCardProps) {
   // Initialize Hooks
   const dispatch = useAppDispatch();
 
   // Convert id to a number
   const tripId = Number(id);
+  const userId = Number(user_id);
+
+  // Fetch states from Redux store
+  const trip = useAppSelector((state) => state.trip.trip);
+
+  // Function to find the author name based on the trip.user_id
+  const author = trip.members.find((member) => member.id === userId);
 
   // Declaration states variables
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
@@ -59,7 +66,9 @@ function TripCard({
           <div className="trip-card-header">
             <h3 className="trip-card-header-title">{localisation}</h3>
           </div>
-          <p className="trip-card-author">Creé par {authorName}</p>
+          <p className="trip-card-author">
+            Creé par {`${author?.firstname} ${author?.lastname}`}
+          </p>
           <p className="trip-card-description">{description}</p>
         </div>
       </Link>

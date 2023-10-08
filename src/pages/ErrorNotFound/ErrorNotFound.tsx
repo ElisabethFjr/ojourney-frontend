@@ -1,8 +1,8 @@
 import road from '../../assets/images/road.png';
 
-import './Error.scss';
+import './ErrorNotFound.scss';
 
-function Error() {
+function ErrorNotFound() {
   return (
     <main className="error">
       <h1 className="error-title">Erreur 404</h1>
@@ -19,4 +19,4 @@ function Error() {
   );
 }
 
-export default Error;
+export default ErrorNotFound;

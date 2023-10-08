@@ -14,7 +14,11 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 import './ModalConfimPassword.scss';
 
-function ModaleConfirmPassword() {
+interface ModaleConfirmPasswordProps {
+  closeModal: (value: React.SetStateAction<boolean>) => void;
+}
+
+function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
   // Initialize Hooks
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -25,11 +29,11 @@ function ModaleConfirmPassword() {
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
-  const checkedPassword = useAppSelector((state) => state.user.checkedPassword);
 
   // Event handler on the close modal button
   const handleClose = () => {
     setIsOpen(!isOpen);
+    closeModal(true);
   };
 
   // Event handler for the Confirm Password form submission
@@ -37,12 +41,22 @@ function ModaleConfirmPassword() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    dispatch(checkUserPassword({ formData, id: userData.id }));
-    // If checkedPassword is true (promise checkUserPassword fulfilled), delete the account by dispatch redux action
-    if (checkedPassword) {
-      dispatch(deleteUserAccount({ id: userData.id }));
-      navigate('/', { replace: true });
-    } else {
+
+    // Clear all Error Messages
+    setErrorMessage(null);
+
+    // Dispatch the action to check the password and set the response on a variable
+    try {
+      const response = await dispatch(
+        checkUserPassword({ formData, id: userData.id })
+      );
+      // If the password is correct (response success), dispatch the action to delete the account
+      if (response.payload.success === 'Correct password !') {
+        await dispatch(deleteUserAccount({ id: userData.id }));
+        navigate('/', { replace: true });
+      }
+    } catch {
+      // If the password not correct, set an error Message
       setErrorMessage('Le mot de passe est incorrect.');
     }
   };

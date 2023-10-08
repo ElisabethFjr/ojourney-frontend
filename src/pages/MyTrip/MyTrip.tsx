@@ -34,13 +34,13 @@ function MyTrip() {
   // const [showVote, setShowVote] = useState<boolean | null>(null);
 
   // Fetch states from Redux store
-  const dataUser = useAppSelector((state) => state.user.data); // User Data
+  const userData = useAppSelector((state) => state.user.data); // User Data
   const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
   const members = useAppSelector((state) => state.trip.trip.members); // Members of the trip
   const propositions = useAppSelector((state) => state.trip.trip.links); // Links of the tri
 
   // Boolean to check if the user is the trip creator
-  const isCreator = dataUser.id === trip.user_id;
+  const isCreator = userData.id === trip.user_id;
 
   useEffect(() => {
     dispatch(fetchTripData(tripId));
@@ -95,7 +95,7 @@ function MyTrip() {
       member={member}
       tripId={tripId}
       isCreator={isCreator}
-      dataUser={dataUser}
+      userData={userData}
       openMemberId={openMemberId}
       setOpenMemberId={setOpenMemberId}
     />
@@ -108,12 +108,12 @@ function MyTrip() {
         srcImage={proposition.image}
         altImage={proposition.alt_image}
         title={proposition.title}
-        authorName={`${dataUser.firstname} ${dataUser.lastname}`}
         localisation={proposition.localisation}
         description={proposition.description}
         url={proposition.url}
         id_trip={proposition.trip_id}
         id_link={proposition.id}
+        user_id={proposition.user_id}
       />
     </li>
     // <Button
@@ -126,7 +126,14 @@ function MyTrip() {
 
   return (
     <Main>
-      {showModalInviteMember && <ModalInviteMember id={tripId} />}
+      {showModalInviteMember && (
+        <ModalInviteMember
+          id={tripId}
+          closeModal={() => {
+            setShowModalInviteMember(false);
+          }}
+        />
+      )}
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"
@@ -135,26 +142,29 @@ function MyTrip() {
           crossOrigin="anonymous"
         />
         <div className="one-trip-overview-container">
-          <h1 className="one-trip-overview-title">{trip.localisation}</h1>
-          <div className="one-trip-overview-date">
-            <i className="fa-solid fa-calendar" />
-            <p className="one-trip-overview-date-name">
-              {/* Change displayed date format to d MMM - d MMM YYYY */}
-              {trip.date_start && trip.date_end
-                ? `${format(new Date(trip.date_start), 'd MMM')} - ${format(
-                    new Date(trip.date_end),
-                    'd MMM yyyy'
-                  )}`
-                : 'Dates invalides'}
-            </p>
+          <div className="one-trip-overview-infos">
+            <h1 className="one-trip-overview-title">{trip.localisation}</h1>
+            <div className="one-trip-overview-date">
+              <i className="fa-solid fa-calendar" />
+              <p className="one-trip-overview-date-name">
+                {/* Change displayed date format to d MMM - d MMM YYYY */}
+                {trip.date_start && trip.date_end
+                  ? `${format(new Date(trip.date_start), 'd MMM')} - ${format(
+                      new Date(trip.date_end),
+                      'd MMM yyyy'
+                    )}`
+                  : 'Dates invalides'}
+              </p>
+            </div>
+            <div className="one-trip-overview-localisation">
+              <i className="fa-solid fa-location-dot" />
+              <p className="one-trip-overview-localisation-name">
+                {trip.localisation}
+              </p>
+            </div>
+            <p className="one-trip-overview-description">{trip.description}</p>
           </div>
-          <div className="one-trip-overview-localisation">
-            <i className="fa-solid fa-location-dot" />
-            <p className="one-trip-overview-localisation-name">
-              {trip.localisation}
-            </p>
-          </div>
-          <p className="one-trip-overview-description">{trip.description}</p>
+
           {isCreator && (
             <div className="one-trip-overview-buttons">
               <Link to={`/edit-trip/${id}`}>

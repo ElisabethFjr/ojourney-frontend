@@ -8,7 +8,8 @@ import {
 // Import Toast
 import { toast } from 'react-toastify';
 
-// Import axios
+// Imports Axios
+import { AxiosError } from 'axios';
 import axiosInstance from '../../utils/axios';
 
 // Import types
@@ -54,31 +55,40 @@ export const initialState: UserState = {
 
 const env = null;
 
-// Create Login action
+// Create LOGIN action
 export const login = createAsyncThunk(
   'user/login',
   async (formData: FormData) => {
-    // Convert formData to an JSON object
-    const objData = Object.fromEntries(formData);
-    // Send a POST request to login user
-    const { data } = await axiosInstance.post('/signIn', objData);
-    if (env === 'dev') {
-      localStorage.setItem('token', data.token);
-      axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+    try {
+      // Convert formData to an JSON object
+      const objData = Object.fromEntries(formData);
+      // Send a POST request to login user
+      const { data } = await axiosInstance.post('/signIn', objData);
+      if (env === 'dev') {
+        localStorage.setItem('token', data.token);
+        axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+      }
+      return data;
+    } catch (error) {
+      // Type error as an AxiosError to access specific axios properties (typescript)
+      const axiosError = error as AxiosError;
+      const errorMessage = (axiosError.response?.data as { error: string })
+        ?.error;
+      // Throw an error with the server's error message if available
+      throw new Error(errorMessage);
     }
-    return data;
   }
 );
 
-// Create Logout action
+// Create LAGOUT action (local)
 // export const logout = createAction('user/logout');
 
-// Create Logout action
+// Create LOGOUT action (deployed)
 export const logout = createAsyncThunk('user/logout', async () => {
   await axiosInstance.get('/logout');
 });
 
-// Create action to fetch user data
+// Create action to FETCH user data
 export const fetchUserInfos = createAsyncThunk(
   'user/fetchUserInfo',
   async (id: number | null) => {
@@ -87,7 +97,7 @@ export const fetchUserInfos = createAsyncThunk(
   }
 );
 
-// Create action to ckeck user password
+// Create action to CHECK user password
 export const checkUserPassword = createAsyncThunk(
   'user/checkUserPassword',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
@@ -99,7 +109,7 @@ export const checkUserPassword = createAsyncThunk(
   }
 );
 
-// Create action to delete user account
+// Create action to DELETE user account
 export const deleteUserAccount = createAsyncThunk(
   'user/deleteAccount',
   async ({ id }: { id: number | null }) => {
@@ -108,7 +118,7 @@ export const deleteUserAccount = createAsyncThunk(
   }
 );
 
-// Create action update user data
+// Create action UPDATE user data
 export const updateUserData = createAsyncThunk(
   'user/updateUserData',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
@@ -120,7 +130,7 @@ export const updateUserData = createAsyncThunk(
   }
 );
 
-// Create action to update user password
+// Create action to UPDATE user password
 export const updatePassword = createAsyncThunk(
   'user/updatePassword',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
@@ -132,7 +142,7 @@ export const updatePassword = createAsyncThunk(
   }
 );
 
-// Create action to update consents
+// Create action to UPDATE consents
 export const updateConsent = createAsyncThunk(
   'user/updateConsent',
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
@@ -144,7 +154,7 @@ export const updateConsent = createAsyncThunk(
   }
 );
 
-// Create action to create a new trip
+// Create action to ADD a new trip
 export const addTrip = createAsyncThunk(
   'user/addTrip',
   async (formData: FormData) => {
@@ -156,7 +166,7 @@ export const addTrip = createAsyncThunk(
   }
 );
 
-// Create action to delete a trip// Create action to delete a trip
+// Create action to DELETE a trip
 export const deleteTrip = createAsyncThunk(
   'user/deleteTrip',
   async (id: number | null) => {
@@ -169,7 +179,22 @@ const userReducer = createReducer(initialState, (builder) => {
   builder
     // Login
     .addCase(login.rejected, (state, action) => {
-      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+      let errorMessage = '';
+      switch (action.error.message) {
+        case 'Wrong email or password !':
+          errorMessage = 'Email ou mot de passe incorrect.';
+          break;
+        case 'Please confirm your email before signing in !':
+          errorMessage =
+            'Veuillez confirmer votre email avant de vous connecter.';
+          break;
+        default:
+          errorMessage =
+            action.error.message ||
+            'Une erreur est survenue. Veuillez réessayer plus tard.';
+          break;
+      }
+      state.errorMessage = errorMessage;
     })
     .addCase(login.fulfilled, (state, action) => {
       state.data = {
@@ -190,9 +215,6 @@ const userReducer = createReducer(initialState, (builder) => {
         ...state.data,
         ...action.payload,
       };
-    })
-    .addCase(fetchUserInfos.rejected, (state, action) => {
-      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
     })
     // Update User Data
     .addCase(updateUserData.fulfilled, (state, action) => {
@@ -219,24 +241,26 @@ const userReducer = createReducer(initialState, (builder) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Check User Password (to delete account)
-    .addCase(checkUserPassword.fulfilled, (state) => {
+    .addCase(checkUserPassword.fulfilled, (state, action) => {
+      state.checkedPassword = action.payload.success === 'Correct password !';
       state.errorMessage = null;
-      state.checkedPassword = true;
     })
     .addCase(checkUserPassword.rejected, (state) => {
-      state.errorMessage =
-        'Une erreur est survenue. Veuillez réessayer plus tard.';
       state.checkedPassword = false;
+      state.errorMessage = 'Le mot de passe est incorrect.';
     })
     // Delete User Account
     .addCase(deleteUserAccount.fulfilled, (state) => {
-      state.data = initialState.data; // Reset user data to initial state
-      state.isConnected = false;
-      toast.success('Votre compte a bien été supprimé.');
-      state.errorMessage = null;
+      // If correct password, delete the user account
+      if (state.checkedPassword) {
+        state.data = initialState.data; // Reset user data to initial state
+        state.isConnected = false; // Disconnection
+        toast.success('Votre compte a bien été supprimé.');
+        state.errorMessage = null;
+      }
     })
-    .addCase(deleteUserAccount.rejected, (state, action) => {
-      state.errorMessage = action.error.message || 'UNKNOWN_ERROR';
+    .addCase(deleteUserAccount.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Update Consents
     .addCase(updateConsent.fulfilled, (state, action) => {

@@ -20,17 +20,32 @@ function ForgotPassword() {
     const formData = new FormData(form);
     const jsonData = Object.fromEntries(formData.entries());
 
+    // Clear all Error Messages
+    setErrorMessage(null);
+
+    // Check if field is empty and set an errorMessage
+    if (!jsonData.email) {
+      setErrorMessage('Veuillez renseigner votre email.');
+      return;
+    }
+
     await axiosInstance
       .post('/reset', jsonData)
       .then(() => {
         setShowModalForgotPassword(true);
       })
       .catch((error) => {
-        console.error(
-          'Une erreur est survenue lors de la rénitialisation de votre mot de passe.',
-          error
-        );
-        setErrorMessage(error.response.data.error);
+        console.error(error);
+        // Set the error message state with the server's error message if available
+        if (
+          error.response.data.error.trim() === "This user doesn't exist in DB !"
+        ) {
+          setErrorMessage("Aucun compte n'est associé à cette adresse email.");
+        } else {
+          setErrorMessage(
+            'Une erreur est survenue lors de la rénitialisation de votre mot de passe.'
+          );
+        }
       });
   };
 
@@ -45,7 +60,11 @@ function ForgotPassword() {
         </h2>
         <form className="forgot-password-form" onSubmit={handleSubmit}>
           {/* Modal Forgot Password */}
-          {showModalForgotPassword && <ModalForgotPassword />}
+          {showModalForgotPassword && (
+            <ModalForgotPassword
+              closeModal={() => setShowModalForgotPassword(false)}
+            />
+          )}
           {/* Error Message */}
           {errorMessage && (
             <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />

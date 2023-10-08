@@ -19,16 +19,18 @@ function SignUpForm() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Extract password and confirmation from formData
+    // Extract data from formData
     const password = formData.get('password') as string;
     const confirmation = formData.get('confirmation') as string;
+
+    // Clear all Error Messages
+    setErrorMessage(null);
 
     // Check match password and confirmation, if not, display an error message
     if (password !== confirmation) {
       setErrorMessage("La confirmation de mot de passe n'est pas valide.");
       return;
     }
-    setErrorMessage(null);
 
     // Remove the 'confirmation' field from the data to be sent
     formData.delete('confirmation');
@@ -42,17 +44,23 @@ function SignUpForm() {
       })
       .catch((error) => {
         console.error(error);
-        setErrorMessage(
-          error.response.data.error ||
-            "Une erreur s'est produite lors de l'inscription."
-        );
+        // Set the error message state with the server's error message if available
+        if (error.response.data.error.trim() === 'User already exists !') {
+          setErrorMessage('Un compte est déjà associé à cette adresse email.');
+        } else {
+          setErrorMessage(
+            'Une erreur est survenue lors de la rénitialisation de votre mot de passe.'
+          );
+        }
       });
   };
 
   return (
     <form className="form-content" onSubmit={handleSubmit}>
       {/* ConfirmModal */}
-      {showModalConfirm && <ConfirmModal />}
+      {showModalConfirm && (
+        <ConfirmModal closeModal={() => setShowModalConfirm(false)} />
+      )}
       {/* Error Message */}
       {errorMessage && (
         <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />

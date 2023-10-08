@@ -158,10 +158,6 @@ const tripReducer = createReducer(initialState, (builder) => {
         ...action.payload,
       };
     })
-    .addCase(fetchTripData.rejected, (state) => {
-      state.errorMessage =
-        'Une erreur est survenue lors de la récupération du voyage.';
-    })
     // UPDATE Trip
     .addCase(updateTrip.fulfilled, (state, action) => {
       state.trip = {
