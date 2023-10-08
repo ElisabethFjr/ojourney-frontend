@@ -35,6 +35,9 @@ function NewProposition() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Clear all Error Messages
+    setErrorMessage(null);
+
     // Error : Check if missing required field
     const url = formData.get('url') as string;
     const localisation = formData.get('localisation') as string;

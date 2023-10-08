@@ -20,6 +20,9 @@ function ForgotPassword() {
     const formData = new FormData(form);
     const jsonData = Object.fromEntries(formData.entries());
 
+    // Clear all Error Messages
+    setErrorMessage(null);
+
     // Check if field is empty and set an errorMessage
     if (!jsonData.email) {
       setErrorMessage('Veuillez renseigner votre email.');

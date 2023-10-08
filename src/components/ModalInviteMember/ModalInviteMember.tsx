@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { toast } from 'react-toastify';
 import axiosInstance from '../../utils/axios';
+import { useAppSelector } from '../../hooks/redux';
 
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
@@ -11,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './ModalInviteMember.scss';
 
 interface ModalInviteMemberProps {
-  id: number | null;
+  id: number | null; // Trip id
   closeModal: (value: React.SetStateAction<boolean>) => void;
 }
 
@@ -20,7 +21,10 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Fetch states from Redux store
+  const members = useAppSelector((state) => state.trip.trip.members); // Members of the trip
   // Event handler on the invite member submit form
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -30,9 +34,21 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
     // Clear all Error Messages
     setErrorMessage(null);
 
-    // Check if input is empty before submit
+    // Extract email from formData
+    const email = formData.get('email') as string;
+
+    // Error : Check if input is empty before submit
     if (!jsonData.email) {
       setErrorMessage('Veuillez renseigner une adresse e-mail.');
+      return;
+    }
+
+    // Error : Check is the member email already exist in the trip
+    const isMemberAlreadyExists = members.some(
+      (member) => member.email === email
+    );
+    if (isMemberAlreadyExists) {
+      setErrorMessage('Ce membre existe déjà dans le voyage.');
       return;
     }
 
@@ -41,6 +57,7 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
       .post(`/trips/${id}/invite`, jsonData)
       .then(() => {
         setIsOpen(!isOpen);
+        closeModal(true);
         toast.success("L'invitation a bien été envoyée !");
       })
       .catch((error) => {

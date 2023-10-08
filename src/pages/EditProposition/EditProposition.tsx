@@ -62,6 +62,9 @@ function EditProposition() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Clear all Error Messages
+    setErrorMessage(null);
+
     // Error : Check if missing required field
     if (!url || !localisation) {
       setErrorMessage('Veuillez remplir tous les champs obligatoires.');

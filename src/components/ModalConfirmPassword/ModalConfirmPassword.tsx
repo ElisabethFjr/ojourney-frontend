@@ -42,6 +42,7 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
+
     // Clear all Error Messages
     setErrorMessage(null);
 

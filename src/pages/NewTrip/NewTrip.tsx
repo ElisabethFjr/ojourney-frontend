@@ -60,6 +60,9 @@ function NewTrip() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Clear all Error Messages
+    setErrorMessage(null);
+
     // Check if missing required field
     const destination = formData.get('localisation') as string;
     if (!destination || !startDate || !endDate) {

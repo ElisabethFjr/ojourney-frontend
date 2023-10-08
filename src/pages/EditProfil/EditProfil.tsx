@@ -47,6 +47,9 @@ function EditProfil() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Clear all Error Messages
+    setErrorMessage(null);
+
     // Check if one field is empty and set an errorMessage
     if (!firstname || !lastname || !email) {
       setErrorMessage('Veuillez renseigner tous les champs.');

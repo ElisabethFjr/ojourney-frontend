@@ -23,6 +23,9 @@ function SignUpForm() {
     const password = formData.get('password') as string;
     const confirmation = formData.get('confirmation') as string;
 
+    // Clear all Error Messages
+    setErrorMessage(null);
+
     // Check match password and confirmation, if not, display an error message
     if (password !== confirmation) {
       setErrorMessage("La confirmation de mot de passe n'est pas valide.");

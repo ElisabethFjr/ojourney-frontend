@@ -28,7 +28,9 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jsonData = Object.fromEntries(formData.entries());
-    console.log(jsonData);
+
+    // Clear all Error Messages
+    setErrorMessage(null);
 
     // Check if input is empty before submit
     if (!jsonData.email || !jsonData.password) {

@@ -93,6 +93,9 @@ function EditTrip() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Clear all Error Messages
+    setErrorMessage(null);
+
     // Check all required fields and set an errorMessage if one is missing
     if (!localisation || !startDate || !endDate) {
       setErrorMessage('Veuillez renseigner tous les champs obligatoires.');
