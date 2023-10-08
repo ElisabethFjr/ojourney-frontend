@@ -33,12 +33,13 @@ function TripCard({
 
   // Convert id to a number
   const tripId = Number(id);
+  const userId = Number(user_id);
 
   // Fetch states from Redux store
-  const members = useAppSelector((state) => state.trip.trip.members);
+  const trip = useAppSelector((state) => state.trip.trip);
 
   // Function to find the author name based on the proposition.user_id
-  const author = members.find((member) => member.id === user_id);
+  const author = trip.members.find((member) => member.id === userId);
 
   // Declaration states variables
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =

@@ -38,12 +38,13 @@ function PropositionCard({
   // Convert trip id to a number
   const tripId = Number(id_trip);
   const propositionId = Number(id_link);
+  const userId = Number(user_id);
 
   // Fetch states from Redux store
   const members = useAppSelector((state) => state.trip.trip.members);
 
   // Function to find the author name based on the proposition.user_id
-  const author = members.find((member) => member.id === user_id);
+  const author = members.find((member) => member.id === userId);
 
   // Display of the Delete Confirm Modal
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =

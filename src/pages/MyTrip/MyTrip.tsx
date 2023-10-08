@@ -34,13 +34,13 @@ function MyTrip() {
   // const [showVote, setShowVote] = useState<boolean | null>(null);
 
   // Fetch states from Redux store
-  const dataUser = useAppSelector((state) => state.user.data); // User Data
+  const userData = useAppSelector((state) => state.user.data); // User Data
   const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
   const members = useAppSelector((state) => state.trip.trip.members); // Members of the trip
   const propositions = useAppSelector((state) => state.trip.trip.links); // Links of the tri
 
   // Boolean to check if the user is the trip creator
-  const isCreator = dataUser.id === trip.user_id;
+  const isCreator = userData.id === trip.user_id;
 
   useEffect(() => {
     dispatch(fetchTripData(tripId));
@@ -95,7 +95,7 @@ function MyTrip() {
       member={member}
       tripId={tripId}
       isCreator={isCreator}
-      dataUser={dataUser}
+      userData={userData}
       openMemberId={openMemberId}
       setOpenMemberId={setOpenMemberId}
     />
