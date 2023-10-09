@@ -9,7 +9,6 @@ function Home() {
   const isConnected = useAppSelector((state) => state.user.isConnected);
 
   return (
-    
     <main className="home">
       <div className="home-container">
         <div className="home-container-box">
@@ -29,7 +28,8 @@ function Home() {
             <Button
               type="button"
               text="Commencer à planifier"
-              customClass="color" />
+              customClass="color"
+            />
           </Link>
         </div>
       </div>
