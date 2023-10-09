@@ -17,6 +17,8 @@ interface TripState {
     date_start: string | null;
     date_end: string | null;
     localisation: string;
+    lat: number | null;
+    lon: number | null;
     description: string;
     url_image: string;
     alt_image: string;
@@ -34,6 +36,8 @@ export const initialState: TripState = {
     date_start: null,
     date_end: null,
     localisation: '',
+    lat: null,
+    lon: null,
     description: '',
     url_image: '',
     alt_image: '',

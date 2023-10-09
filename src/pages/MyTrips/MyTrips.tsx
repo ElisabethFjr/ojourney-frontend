@@ -18,7 +18,6 @@ function MyTrips() {
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data); // User data
   const trips = useAppSelector((state) => state.user.data.trips); // User trips data
-  console.log(trips);
 
   useEffect(() => {
     dispatch(fetchUserInfos(userData.id));

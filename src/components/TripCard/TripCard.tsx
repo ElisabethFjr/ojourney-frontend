@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
@@ -8,6 +8,8 @@ import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
 
 import './TripCard.scss';
+import { User } from '../../@types';
+import axiosInstance from '../../utils/axios';
 
 export interface TripCardProps {
   id: number;
@@ -35,11 +37,15 @@ function TripCard({
   const tripId = Number(id);
   const userId = Number(user_id);
 
-  // Fetch states from Redux store
-  const trip = useAppSelector((state) => state.trip.trip);
+  // Declaration useState variable
+  const [author, setAuthor] = useState<User>();
 
-  // Function to find the author name based on the trip.user_id
-  const author = trip.members.find((member) => member.id === userId);
+  // Fetch the trip's creator data with his user_id
+  useEffect(() => {
+    axiosInstance
+      .get(`/users/${userId}`)
+      .then((response) => setAuthor(response.data));
+  });
 
   // Declaration states variables
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =

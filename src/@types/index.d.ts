@@ -15,12 +15,14 @@ export interface Trip {
   date_start: string;
   date_end: string;
   localisation: string;
+  lat: number;
+  lon: number;
   description: string;
   url_image: string;
   alt_image: string;
   user_id: number;
-  members: Member[];
   links: Proposition[];
+  members: Member[];
 }
 
 export interface Member {
@@ -36,10 +38,12 @@ export interface Proposition {
   url: string;
   localisation: string;
   trip_id: number;
+  user_id: number;
   title: string;
+  lat: number;
+  lon: number;
   image: string;
   alt_image: string;
-  user_id: number;
 }
 
 export interface Link {
