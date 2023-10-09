@@ -32,7 +32,7 @@ axiosInstance.interceptors.response.use(
 );
 
 // Check environment and set credentials if not in development
-const env = null;
+const env = 'dev';
 if (env !== 'dev') {
   axiosInstance.defaults.withCredentials = true;
 }

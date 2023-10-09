@@ -6,6 +6,7 @@ export interface ButtonProps {
   type?: 'submit' | 'reset' | 'button';
   icon?: string;
   onClick?: () => void;
+  isLoading?: boolean;
 }
 
 function Button({
@@ -13,8 +14,10 @@ function Button({
   customClass,
   icon,
   onClick,
+  isLoading,
   type = 'button',
 }: ButtonProps) {
+  console.log('isLOadding', isLoading);
   return (
     <button
       className={`button-style button-style--${customClass || ''}`}
@@ -22,6 +25,7 @@ function Button({
       onClick={onClick}
     >
       {icon && <i className={icon} />}
+      {isLoading ? 'Loading' : ''}
       {text}
     </button>
   );

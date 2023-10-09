@@ -53,7 +53,7 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = null;
+const env = 'dev';
 
 // Create LOGIN action
 export const login = createAsyncThunk(
@@ -81,12 +81,12 @@ export const login = createAsyncThunk(
 );
 
 // Create LAGOUT action (local)
-// export const logout = createAction('user/logout');
+export const logout = createAction('user/logout');
 
 // Create LOGOUT action (deployed)
-export const logout = createAsyncThunk('user/logout', async () => {
-  await axiosInstance.get('/logout');
-});
+// export const logout = createAsyncThunk('user/logout', async () => {
+//   await axiosInstance.get('/logout');
+// });
 
 // Create action to FETCH user data
 export const fetchUserInfos = createAsyncThunk(
@@ -205,7 +205,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
     })
     // Logout
-    .addCase(logout.fulfilled, (state) => {
+    .addCase(logout, (state) => {
       state.data = initialState.data; // Reset user data to initial state
       state.isConnected = false;
     })
@@ -222,6 +222,7 @@ const userReducer = createReducer(initialState, (builder) => {
         ...state.data,
         ...action.payload,
       };
+
       toast.success('Les informations ont bien été mises à jour !');
       state.errorMessage = null;
     })

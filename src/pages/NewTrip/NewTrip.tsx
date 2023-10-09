@@ -29,6 +29,7 @@ function NewTrip() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Function to format dates before sending them to the server
   const changeDateFormat = (date: Date) => {
@@ -54,39 +55,51 @@ function NewTrip() {
     }
   };
 
-  // Event handler for the newTrip form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+    try {
+      event.preventDefault();
+      setIsLoading(true);
+      const form = event.currentTarget;
+      const formData = new FormData(form);
 
-    // Clear all Error Messages
-    setErrorMessage(null);
+      // Clear all Error Messages
+      setErrorMessage(null);
 
-    // Check if missing required field
-    const destination = formData.get('localisation') as string;
-    if (!destination || !startDate || !endDate) {
-      setErrorMessage('Veuillez remplir tous les champs obligatoires.');
-      return;
-    }
+      // Check if missing required field
+      const destination = formData.get('localisation') as string;
+      if (!destination || !startDate || !endDate) {
+        setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
 
-    // Format dates start and end
-    formData.append('date_start', startDate ? changeDateFormat(startDate) : '');
-    formData.append('date_end', endDate ? changeDateFormat(endDate) : '');
-
-    // Check if dates are same and set an errorMessage
-    if (changeDateFormat(startDate) === changeDateFormat(endDate)) {
-      setErrorMessage(
-        'Les dates de début et de fin ne peuvent pas être identiques'
+      // Format dates start and end
+      formData.append(
+        'date_start',
+        startDate ? changeDateFormat(startDate) : ''
       );
-      return;
+      formData.append('date_end', endDate ? changeDateFormat(endDate) : '');
+
+      // Check if dates are the same and set an errorMessage
+      if (changeDateFormat(startDate) === changeDateFormat(endDate)) {
+        setErrorMessage(
+          'Les dates de début et de fin ne peuvent pas être identiques'
+        );
+        return;
+      }
+      // Simulate a delay of 2 seconds for testing isLoading
+      setTimeout(async () => {
+        // Dispatch addTrip action on the form submission
+        await dispatch(addTrip(formData));
+        // navigate(`/my-trips`);
+        console.log('je passe la');
+        setIsLoading(false);
+      }, 2000); // 2 seconds delay
+    } catch (error) {
+      console.error('Error caught:', error);
+      setIsLoading(false);
     }
-
-    // Dispatch addTrip action on the form submission
-    dispatch(addTrip(formData));
-    navigate(`/my-trips`);
   };
-
+  console.log('render new trip');
   return (
     <Main>
       <h1 className="main-title">Créer un nouveau voyage</h1>
@@ -149,9 +162,10 @@ function NewTrip() {
 
             {/* Submit Button */}
             <Button
-              text="Créer le voyage"
+              text="Créer un voyage"
               type="submit"
               customClass="color button-style--width"
+              isLoading={isLoading}
             />
           </form>
         </FormContainer>
