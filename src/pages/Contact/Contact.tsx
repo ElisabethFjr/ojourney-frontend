@@ -9,6 +9,7 @@ import sendmessage from '../../assets/images/sendmessage.png';
 import './Contact.scss';
 
 function Contact() {
+
   return (
     <Main>
       <section className="contact-container">
