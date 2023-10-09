@@ -53,7 +53,7 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = 'dev';
+const env = null;
 
 // Create LOGIN action
 export const login = createAsyncThunk(
@@ -65,7 +65,6 @@ export const login = createAsyncThunk(
       // Send a POST request to login user
       const { data } = await axiosInstance.post('/signIn', objData);
       if (env === 'dev') {
-        localStorage.setItem('token', data.token);
         axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       }
       return data;

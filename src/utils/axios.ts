@@ -10,16 +10,6 @@ const axiosInstance = axios.create({
 axiosInstance.defaults.headers.common['Content-Type'] =
   'application/x-www-form-urlencoded';
 
-// Interceptor to include the Authorization token if available
-axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  const configCopy = { ...config };
-  if (token) {
-    configCopy.headers.Authorization = `Bearer ${token}`;
-  }
-  return configCopy;
-});
-
 // Interceptor to redirect the user to the /500 route if status code of the response if 500 (Internal Server Error).
 axiosInstance.interceptors.response.use(
   (response) => response,
@@ -32,7 +22,7 @@ axiosInstance.interceptors.response.use(
 );
 
 // Check environment and set credentials if not in development
-const env = 'dev';
+const env = null;
 if (env !== 'dev') {
   axiosInstance.defaults.withCredentials = true;
 }
