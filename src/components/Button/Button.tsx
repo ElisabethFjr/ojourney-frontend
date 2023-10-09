@@ -1,3 +1,5 @@
+import LoadingButton from '../LoadingButton/LoadingButton';
+
 import './Button.scss';
 
 export interface ButtonProps {
@@ -6,6 +8,7 @@ export interface ButtonProps {
   type?: 'submit' | 'reset' | 'button';
   icon?: string;
   onClick?: () => void;
+  isLoading?: boolean;
 }
 
 function Button({
@@ -13,6 +16,7 @@ function Button({
   customClass,
   icon,
   onClick,
+  isLoading,
   type = 'button',
 }: ButtonProps) {
   return (
@@ -22,7 +26,7 @@ function Button({
       onClick={onClick}
     >
       {icon && <i className={icon} />}
-      {text}
+      {isLoading ? <LoadingButton /> : text}
     </button>
   );
 }

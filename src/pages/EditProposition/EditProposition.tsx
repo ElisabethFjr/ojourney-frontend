@@ -45,6 +45,7 @@ function EditProposition() {
     editedProposition?.description || ''
   );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Event handler input and textarea changes
   const handleInputChange = (
@@ -59,6 +60,7 @@ function EditProposition() {
   // Event handler for the EditProposition form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
 
@@ -90,6 +92,7 @@ function EditProposition() {
         propositionId: idProposition,
       })
     );
+    setIsLoading(false);
     navigate(`/my-trip/${propositionId}`);
   };
 
@@ -184,6 +187,7 @@ function EditProposition() {
               text="Modifier la proposition"
               customClass="color button-style--width"
               type="submit"
+              isLoading={isLoading}
             />
           </form>
         </FormContainer>

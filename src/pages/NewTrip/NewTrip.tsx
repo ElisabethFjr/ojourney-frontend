@@ -1,7 +1,8 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { is } from 'date-fns/locale';
+import { useAppDispatch } from '../../hooks/redux';
 
 import { addTrip } from '../../store/reducers/user';
 
@@ -29,6 +30,7 @@ function NewTrip() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Function to format dates before sending them to the server
   const changeDateFormat = (date: Date) => {
@@ -54,9 +56,9 @@ function NewTrip() {
     }
   };
 
-  // Event handler for the newTrip form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
 
@@ -74,7 +76,7 @@ function NewTrip() {
     formData.append('date_start', startDate ? changeDateFormat(startDate) : '');
     formData.append('date_end', endDate ? changeDateFormat(endDate) : '');
 
-    // Check if dates are same and set an errorMessage
+    // Check if dates are the same and set an errorMessage
     if (changeDateFormat(startDate) === changeDateFormat(endDate)) {
       setErrorMessage(
         'Les dates de début et de fin ne peuvent pas être identiques'
@@ -84,6 +86,7 @@ function NewTrip() {
 
     // Dispatch addTrip action on the form submission
     dispatch(addTrip(formData));
+    setIsLoading(false);
     navigate(`/my-trips`);
   };
 
@@ -149,9 +152,10 @@ function NewTrip() {
 
             {/* Submit Button */}
             <Button
-              text="Créer le voyage"
+              text="Créer un voyage"
               type="submit"
               customClass="color button-style--width"
+              isLoading={isLoading}
             />
           </form>
         </FormContainer>
