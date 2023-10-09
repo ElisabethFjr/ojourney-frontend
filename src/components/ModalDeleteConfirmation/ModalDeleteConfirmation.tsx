@@ -12,6 +12,7 @@ export interface ModalDeleteConfirmProps {
   dispatchDeleteAction: () => void;
   urlNavigate: string;
   closeModal: (value: React.SetStateAction<boolean>) => void;
+  isAuthor?: boolean;
 }
 
 function ModalDeleteConfirm({
@@ -20,6 +21,7 @@ function ModalDeleteConfirm({
   dispatchDeleteAction,
   urlNavigate,
   closeModal,
+  isAuthor,
 }: ModalDeleteConfirmProps) {
   // Initialize Hooks
   const navigate = useNavigate();
@@ -55,7 +57,7 @@ function ModalDeleteConfirm({
               onClick={handleClose}
             />
             <Button
-              text="Supprimer"
+              text={isAuthor ? 'Supprimer' : 'Valider'}
               type="button"
               customClass="danger"
               onClick={handleDelete}

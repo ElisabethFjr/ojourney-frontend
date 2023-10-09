@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 import { deleteTrip } from '../../store/reducers/user';
+import { deleteMember } from '../../store/reducers/trip';
+import axiosInstance from '../../utils/axios';
 
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
 
-import './TripCard.scss';
 import { User } from '../../@types';
-import axiosInstance from '../../utils/axios';
+
+import './TripCard.scss';
 
 export interface TripCardProps {
   id: number;
@@ -38,13 +40,19 @@ function TripCard({
   const userId = Number(user_id);
 
   // Declaration useState variable
-  const [author, setAuthor] = useState<User>();
+  const [author, setAuthor] = useState<User>({} as User);
+
+  // Fetch states from Redux store
+  const userData = useAppSelector((state) => state.user.data);
+  // Get the connecter member id
+  const memberId = userData.id;
+  const isAuthor = userData.id === userId;
 
   // Fetch the trip's creator data with his user_id
   useEffect(() => {
-    axiosInstance
-      .get(`/users/${userId}`)
-      .then((response) => setAuthor(response.data));
+    axiosInstance.get(`/users/${userId}`).then((response) => {
+      setAuthor(response.data);
+    });
   }, [userId]);
 
   // Declaration states variables
@@ -54,6 +62,15 @@ function TripCard({
   // Event handler to open the modal DeleteConfirmation if click on delete a trip
   const handleClickDelete = () => {
     setShowModalDeleteConfirm(!showModalDeleteConfirm);
+  };
+
+  // Handler delete actions on click on the trash icon, depending on author status
+  const dispatchDeleteAction = () => {
+    if (author) {
+      dispatch(deleteTrip(tripId)); // If author, dispatch the deleteTrip action
+    } else {
+      dispatch(deleteMember({ tripId, memberId })); // If just member, dispatch the deleteMember action to leave the trip
+    }
   };
 
   return (
@@ -80,11 +97,16 @@ function TripCard({
       </Link>
       {showModalDeleteConfirm && (
         <ModalDeleteConfirm
-          dispatchDeleteAction={() => dispatch(deleteTrip(tripId))}
+          dispatchDeleteAction={dispatchDeleteAction}
           urlNavigate="/my-trips"
-          title="Confirmation suppression"
-          text="Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?"
+          title={isAuthor ? 'Confirmation suppression' : 'Quitter le voyage'}
+          text={
+            isAuthor
+              ? 'Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?'
+              : 'Êtes-vous sûr de vouloir quitter définitivement ce voyage ?'
+          }
           closeModal={() => setShowModalDeleteConfirm(false)}
+          isAuthor={isAuthor}
         />
       )}
     </div>
