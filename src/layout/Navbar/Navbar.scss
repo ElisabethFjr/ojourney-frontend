@@ -5,7 +5,7 @@
   font-size: v.$font-size;
   &-list {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: start;
     gap: 3rem;
     list-style: none;
@@ -90,6 +90,7 @@
 
     &-list-link.signin-signup {
       border: none;
+      color: v.$color-text;
       &:hover {
         border: none;
         background-color: transparent;
