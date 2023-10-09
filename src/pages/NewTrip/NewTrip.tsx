@@ -1,8 +1,8 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
-import { is } from 'date-fns/locale';
 import { useAppDispatch } from '../../hooks/redux';
+
+import changeDateFormat from '../../utils/formatDate';
 
 import { addTrip } from '../../store/reducers/user';
 
@@ -15,9 +15,9 @@ import TextareaField from '../../components/TextareaField/TextareaField';
 import Button from '../../components/Button/Button';
 import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 import './NewTrip.scss';
-import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 function NewTrip() {
   // Initialize Hooks
@@ -31,11 +31,6 @@ function NewTrip() {
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  // Function to format dates before sending them to the server
-  const changeDateFormat = (date: Date) => {
-    return format(date, 'yyyy-MM-dd');
-  };
 
   // Event handler for start date change
   const handleStartDateChange = (date: Date) => {

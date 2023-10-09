@@ -6,7 +6,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
-import { format } from 'date-fns';
+
+// Import Utils functions
+import changeDateFormat from '../../utils/formatDate';
 
 // Imports Redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -53,11 +55,6 @@ function EditTrip() {
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  // Function to format dates into string
-  const changeDateFormat = (date: Date) => {
-    return format(date, 'yyyy-MM-dd');
-  };
 
   // EVENT HANDLER input and textarea changes
   const handleInputChange = (

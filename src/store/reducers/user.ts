@@ -30,6 +30,7 @@ interface UserState {
   };
   trip: Trip | null;
   isConnected: boolean;
+  isLoading: boolean;
   checkedPassword: boolean;
   errorMessage: string | null;
 }
@@ -48,6 +49,7 @@ export const initialState: UserState = {
     consent_newsletter: false,
   },
   isConnected: false,
+  isLoading: false,
   checkedPassword: false,
   errorMessage: null,
   trip: null,

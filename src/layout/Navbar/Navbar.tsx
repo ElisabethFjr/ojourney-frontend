@@ -38,26 +38,17 @@ function Navbar() {
                 <NavLink to="/new-trip">Nouveau voyage</NavLink>
               </li>
               <li className="header-navbar-list-link">
-                <NavLink to="/profil" className="header-navbar-list-link">
-                  Profil
-                </NavLink>
+                <NavLink to="/profil">Profil</NavLink>
               </li>
-              <li className="header-navbar-list-link">
-                <NavLink
-                  to="/"
-                  className="header-navbar-list-link"
-                  onClick={handleLogout}
-                >
+              <li className="header-navbar-list-link signin-signup">
+                <NavLink to="/" onClick={handleLogout}>
                   Se déconnecter
                 </NavLink>
               </li>
             </>
           ) : (
-            <li className="header-navbar-list-link">
-              <NavLink
-                to="/signin-signup"
-                className="header-navbar-list-link signin-signup"
-              >
+            <li className="header-navbar-list-link signin-signup">
+              <NavLink to="/signin-signup">
                 Se Connecter/S&apos;inscrire
               </NavLink>
             </li>
