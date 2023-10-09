@@ -63,7 +63,9 @@ export const updateTrip = createAsyncThunk(
   async ({ formData, id }: { formData: FormData; id: number | null }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
-    const { data } = await axiosInstance.patch(`/trips/${id}`, objData);
+    const { data } = await axiosInstance.patch(`/trips/${id}`, objData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
     return data;
   }
 );
