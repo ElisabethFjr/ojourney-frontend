@@ -1,3 +1,5 @@
+import LoadingButton from '../LoadingButton/LoadingButton';
+
 import './Button.scss';
 
 export interface ButtonProps {
@@ -25,8 +27,7 @@ function Button({
       onClick={onClick}
     >
       {icon && <i className={icon} />}
-      {isLoading ? 'Loading' : ''}
-      {text}
+      {isLoading ? <LoadingButton /> : text}
     </button>
   );
 }

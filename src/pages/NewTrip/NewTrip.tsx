@@ -17,6 +17,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './NewTrip.scss';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
+import { is } from 'date-fns/locale';
 
 function NewTrip() {
   // Initialize Hooks
