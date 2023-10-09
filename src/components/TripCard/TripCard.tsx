@@ -45,7 +45,7 @@ function TripCard({
     axiosInstance
       .get(`/users/${userId}`)
       .then((response) => setAuthor(response.data));
-  });
+  }, [userId]);
 
   // Declaration states variables
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
