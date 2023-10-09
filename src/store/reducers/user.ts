@@ -2,7 +2,7 @@
 import {
   createReducer,
   createAsyncThunk,
-  // createAction,
+  createAction,
 } from '@reduxjs/toolkit';
 
 // Import Toast
@@ -80,12 +80,12 @@ export const login = createAsyncThunk(
 );
 
 // Create LAGOUT action (local)
-export const logout = createAction('user/logout');
+// export const logout = createAction('user/logout');
 
 // Create LOGOUT action (deployed)
-// export const logout = createAsyncThunk('user/logout', async () => {
-//   await axiosInstance.get('/logout');
-// });
+export const logout = createAsyncThunk('user/logout', async () => {
+  await axiosInstance.get('/logout');
+});
 
 // Create action to FETCH user data
 export const fetchUserInfos = createAsyncThunk(
@@ -206,7 +206,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
     })
     // Logout
-    .addCase(logout, (state) => {
+    .addCase(logout.fulfilled, (state) => {
       state.data = initialState.data; // Reset user data to initial state
       state.isConnected = false;
     })

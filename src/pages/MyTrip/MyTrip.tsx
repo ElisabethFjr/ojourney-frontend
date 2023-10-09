@@ -54,10 +54,6 @@ function MyTrip() {
     setShowModalInviteMember(!showModalInviteMember);
   };
 
-  // const handleClickVote = () => {
-  //   setShowVote(!showVote);
-  // };
-
   // Event handler to close the member menu when clicked outside
   // Ref the toggle MemberMenu button
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -121,6 +117,7 @@ function MyTrip() {
 
   return (
     <Main>
+      {/* ********** MODALE INVITE MEMBER */}
       {showModalInviteMember && (
         <ModalInviteMember
           id={tripId}
@@ -129,6 +126,7 @@ function MyTrip() {
           }}
         />
       )}
+      {/* ********** TRIP OVERVIEW */}
       <section className="one-trip-overview">
         <img
           className="one-trip-overview-image"
@@ -181,7 +179,7 @@ function MyTrip() {
           )}
         </div>
       </section>
-      {/* *************************************** MEMBRE */}
+      {/* ********** MEMBERS LIST */}
       <section className="one-trip-members">
         {isCreator && (
           <Button
@@ -198,12 +196,13 @@ function MyTrip() {
           <ul className="one-trip-members-list">{allMembers}</ul>
         )}
       </section>
+      {/* ********** MAP */}
       {trip.lat && trip.lon ? (
         <MapDisplay lat={trip.lat} lon={trip.lon} links={trip.links} />
       ) : (
         <p />
       )}
-      {/* *************************************** PROPOSITION */}
+      {/* ********** PROPOSITIONS LIST */}
       <section className="one-trip-propositions">
         <h2 className="one-trip-propositions-title">Propositions</h2>
         <div className="one-trip-propositions-add-container">
