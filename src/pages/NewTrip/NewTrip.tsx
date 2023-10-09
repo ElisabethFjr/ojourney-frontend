@@ -1,7 +1,8 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { is } from 'date-fns/locale';
+import { useAppDispatch } from '../../hooks/redux';
 
 import { addTrip } from '../../store/reducers/user';
 
@@ -17,7 +18,6 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './NewTrip.scss';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
-import { is } from 'date-fns/locale';
 
 function NewTrip() {
   // Initialize Hooks
@@ -57,50 +57,39 @@ function NewTrip() {
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    try {
-      event.preventDefault();
-      setIsLoading(true);
-      const form = event.currentTarget;
-      const formData = new FormData(form);
+    event.preventDefault();
+    setIsLoading(true);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
 
-      // Clear all Error Messages
-      setErrorMessage(null);
+    // Clear all Error Messages
+    setErrorMessage(null);
 
-      // Check if missing required field
-      const destination = formData.get('localisation') as string;
-      if (!destination || !startDate || !endDate) {
-        setErrorMessage('Veuillez remplir tous les champs obligatoires.');
-        return;
-      }
-
-      // Format dates start and end
-      formData.append(
-        'date_start',
-        startDate ? changeDateFormat(startDate) : ''
-      );
-      formData.append('date_end', endDate ? changeDateFormat(endDate) : '');
-
-      // Check if dates are the same and set an errorMessage
-      if (changeDateFormat(startDate) === changeDateFormat(endDate)) {
-        setErrorMessage(
-          'Les dates de début et de fin ne peuvent pas être identiques'
-        );
-        return;
-      }
-      // Simulate a delay of 2 seconds for testing isLoading
-      setTimeout(async () => {
-        // Dispatch addTrip action on the form submission
-        await dispatch(addTrip(formData));
-        // navigate(`/my-trips`);
-        console.log('je passe la');
-        setIsLoading(false);
-      }, 2000); // 2 seconds delay
-    } catch (error) {
-      console.error('Error caught:', error);
-      setIsLoading(false);
+    // Check if missing required field
+    const destination = formData.get('localisation') as string;
+    if (!destination || !startDate || !endDate) {
+      setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+      return;
     }
+
+    // Format dates start and end
+    formData.append('date_start', startDate ? changeDateFormat(startDate) : '');
+    formData.append('date_end', endDate ? changeDateFormat(endDate) : '');
+
+    // Check if dates are the same and set an errorMessage
+    if (changeDateFormat(startDate) === changeDateFormat(endDate)) {
+      setErrorMessage(
+        'Les dates de début et de fin ne peuvent pas être identiques'
+      );
+      return;
+    }
+
+    // Dispatch addTrip action on the form submission
+    dispatch(addTrip(formData));
+    setIsLoading(false);
+    navigate(`/my-trips`);
   };
-  console.log('render new trip');
+
   return (
     <Main>
       <h1 className="main-title">Créer un nouveau voyage</h1>

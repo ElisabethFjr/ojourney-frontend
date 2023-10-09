@@ -19,7 +19,6 @@ function Button({
   isLoading,
   type = 'button',
 }: ButtonProps) {
-  console.log('isLOadding', isLoading);
   return (
     <button
       className={`button-style button-style--${customClass || ''}`}

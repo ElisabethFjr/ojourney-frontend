@@ -25,13 +25,14 @@ function NewProposition() {
 
   // Declaration state variables
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   // Fetch states from Redux store
   const propositions = useAppSelector((state) => state.trip.trip.links);
 
   // Event handler for the newProposition form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
 
@@ -57,6 +58,8 @@ function NewProposition() {
 
     // Dispatch addproposition action on the form submission
     dispatch(addProposition({ formData, id: propositionId }));
+    setIsLoading(false);
+
     navigate(`/my-trip/${propositionId}`);
   };
 
@@ -115,6 +118,7 @@ function NewProposition() {
               text="Valider la proposition"
               customClass="color button-style--width"
               type="submit"
+              isLoading={isLoading}
             />
           </form>
         </FormContainer>
