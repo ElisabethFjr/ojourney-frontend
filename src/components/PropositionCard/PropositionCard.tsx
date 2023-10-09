@@ -40,8 +40,12 @@ function PropositionCard({
   const propositionId = Number(id_link);
   const userId = Number(user_id);
 
+  // Declaration varibles states
+  const [likes, setLikes] = useState<number>(0);
+
   // Fetch states from Redux store
   const members = useAppSelector((state) => state.trip.trip.members);
+  // const liked = useAppSelector((state) => state.trip.liked);
 
   // Function to find the author name based on the proposition.user_id
   const author = members.find((member) => member.id === userId);
@@ -55,15 +59,35 @@ function PropositionCard({
     setShowModalDeleteConfirm(!showModalDeleteConfirm);
   };
 
+  // Event handler to open the EditProposition page
   const handleClickEdit = () => {
     navigate(`/edit-proposition/${id_trip}/${id_link}`);
   };
+
+  // Event handler to add a +1 like if clicked 
+  const handleClickVote = () => {
+    setLikes(likes +1);
+    // if (liked) {
+    // dispatch(toggleLike)
+    // }
+    }
 
   return (
     <div className="proposition-card-container">
       <div className="proposition-card-icons">
         <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
         <ButtonIcon icon="fa-solid fa-trash" handleClick={handleClickDelete} />
+      </div>
+      <div className="proposition-card-like">
+        {likes > 0 && <p>({likes})</p>}
+        <button
+          className="proposition-card-like-btn"
+          type="button"
+          onClick={handleClickVote}
+        >
+          <i className="proposition-card-like-icon fa-regular fa-thumbs-up" />
+          <span>J'aime</span>
+        </button>
       </div>
       <Link to={url} target="_blank" className="proposition-card">
         <img

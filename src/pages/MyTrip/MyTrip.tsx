@@ -117,12 +117,6 @@ function MyTrip() {
         user_id={proposition.user_id}
       />
     </li>
-    // <Button
-    //   text='👍'
-    //   onClick={handleClickVote}
-    //     type="button"
-    //     customClass="outline-dark">
-    //   </Button>
   ));
 
   return (
