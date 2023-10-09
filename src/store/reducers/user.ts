@@ -2,7 +2,7 @@
 import {
   createReducer,
   createAsyncThunk,
-  createAction,
+  // createAction,
 } from '@reduxjs/toolkit';
 
 // Import Toast
@@ -160,7 +160,9 @@ export const addTrip = createAsyncThunk(
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a DELETE request to delete user account
-    const { data } = await axiosInstance.post(`/trips`, objData);
+    const { data } = await axiosInstance.post(`/trips`, objData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
     return data;
   }
 );
@@ -274,7 +276,6 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(updateConsent.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
-
     // Add Trip
     .addCase(addTrip.fulfilled, (state, action) => {
       state.data = {

@@ -11,6 +11,7 @@ import Button from '../../components/Button/Button';
 import ModalInviteMember from '../../components/ModalInviteMember/ModalInviteMember';
 import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
 import OneMember from '../../components/OneMember/OneMember';
+import MapDisplay from '../../components/Map/Map';
 
 import './MyTrip.scss';
 import { deleteTrip } from '../../store/reducers/user';
@@ -203,6 +204,11 @@ function MyTrip() {
           <ul className="one-trip-members-list">{allMembers}</ul>
         )}
       </section>
+      {trip.lat && trip.lon ? (
+        <MapDisplay lat={trip.lat} lon={trip.lon} links={trip.links} />
+      ) : (
+        <p />
+      )}
       {/* *************************************** PROPOSITION */}
       <section className="one-trip-propositions">
         <h2 className="one-trip-propositions-title">Propositions</h2>
