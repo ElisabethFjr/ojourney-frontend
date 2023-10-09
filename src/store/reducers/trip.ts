@@ -149,6 +149,23 @@ export const deleteMember = createAsyncThunk(
   }
 );
 
+// Create action to TOGGLE a like on a proposition
+// export const toggleLike = createAsyncThunk(
+//   'member/deleteMember',
+//   async ({
+//     tripId,
+//     linkId,
+//   }: {
+//     tripId: number | null;
+//     linkId: number | null;
+//   }) => {
+//     const { data } = await axiosInstance.delete(
+//       `/trips/${tripId}/links/${linkId}`
+//     );
+//     return data;
+//   }
+// );
+
 const tripReducer = createReducer(initialState, (builder) => {
   builder
     // FETCH Trip Data
