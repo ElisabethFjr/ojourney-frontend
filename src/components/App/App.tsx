@@ -80,9 +80,13 @@ function App() {
         <Route
           path="/my-trips"
           element={
-            <PrivateRoute>
-              <MyTrips />
-            </PrivateRoute>
+            loading ? (
+              <Loading />
+            ) : (
+              <PrivateRoute>
+                <MyTrips />
+              </PrivateRoute>
+            )
           }
         />
         <Route
