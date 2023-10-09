@@ -16,6 +16,9 @@
       color: v.$color-white;
       font-weight: 700;
       font-size: 0.8rem;
+      &:hover {
+        color: v.$color-accent-lightest;
+      }
     }
   }
 
@@ -25,3 +28,5 @@
     font-size: 0.7rem;
   }
 }
+
+
