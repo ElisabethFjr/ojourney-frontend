@@ -168,7 +168,6 @@ export const toggleLike = createAsyncThunk(
     const { data } = await axiosInstance.post(
       `/trips/${tripId}/links/${linkId}/like`
     );
-    console.log(data);
     return data;
   }
 );
