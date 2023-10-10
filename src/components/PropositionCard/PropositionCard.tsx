@@ -6,6 +6,7 @@ import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
 
 import './PropositionCard.scss';
+import { Like } from '../../@types';
 
 interface PropositionCardProps {
   srcImage: string;
@@ -18,7 +19,7 @@ interface PropositionCardProps {
   id_trip: number;
   user_id: number;
   total_likes: number;
-  likes: [];
+  likes: Like;
 }
 
 function PropositionCard({
