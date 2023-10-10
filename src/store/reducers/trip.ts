@@ -1,5 +1,9 @@
 // Imports
-import { createReducer, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createReducer,
+  createAsyncThunk,
+  createAction,
+} from '@reduxjs/toolkit';
 
 // Import Toast
 import { toast } from 'react-toastify';
@@ -8,7 +12,7 @@ import { toast } from 'react-toastify';
 import axiosInstance from '../../utils/axios';
 
 // Import types
-import { Member, Proposition } from '../../@types';
+import { Member, Proposition, Suggestion } from '../../@types';
 
 // Type trip states
 interface TripState {
@@ -28,6 +32,7 @@ interface TripState {
   };
   isLoading: boolean;
   errorMessage: string | null;
+  suggestions: Suggestion[];
 }
 
 // Trip Reducer initial states
@@ -48,6 +53,7 @@ export const initialState: TripState = {
   },
   isLoading: false,
   errorMessage: null,
+  suggestions: [],
 };
 
 // Create action to FETCH trip infos
@@ -122,7 +128,6 @@ export const deleteProposition = createAsyncThunk(
     return data;
   }
 );
-
 // Create action to fetch member infos
 export const informationMember = createAsyncThunk(
   'member/informationMember',
@@ -174,6 +179,15 @@ export const toggleLike = createAsyncThunk(
   }
 );
 
+export const getSuggestions = createAsyncThunk(
+  'trips/autocomplete',
+  async (obj: object) => {
+    const { data } = await axiosInstance.post('/trips/autocomplete', obj);
+    return data;
+  }
+);
+export const resetSuggestions = createAction('trips/resetSuggestions');
+
 const tripReducer = createReducer(initialState, (builder) => {
   builder
     // FETCH Trip Data
@@ -195,6 +209,12 @@ const tripReducer = createReducer(initialState, (builder) => {
       };
       toast.success('Le voyage a bien été modifié !');
       state.errorMessage = null;
+    })
+    .addCase(getSuggestions.fulfilled, (state, action) => {
+      state.suggestions = action.payload;
+    })
+    .addCase(resetSuggestions, (state) => {
+      state.suggestions = [];
     })
     .addCase(updateTrip.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');

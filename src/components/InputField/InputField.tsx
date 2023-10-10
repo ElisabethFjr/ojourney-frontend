@@ -2,6 +2,8 @@ import { useState, ChangeEvent } from 'react';
 import DOMPurify from 'dompurify';
 
 import './InputField.scss';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
+import { getSuggestions, resetSuggestions } from '../../store/reducers/trip';
 
 export interface InputFieldProps {
   name: string;
@@ -23,11 +25,51 @@ function InputField({
   maxlength,
 }: InputFieldProps) {
   const [value, setValue] = useState('');
-
+  const [previousValueLength, setpreviousValueLength] = useState(0);
+  const suggestions = useAppSelector((state) => state.trip.suggestions);
+  const dispatch = useAppDispatch();
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.name === 'localisation') {
+      if (previousValueLength < event.target.value.length) {
+        setpreviousValueLength(previousValueLength + 1);
+        const obj = { value: event.target.value };
+        dispatch(getSuggestions(obj));
+      } else if (
+        previousValueLength > event.target.value.length &&
+        previousValueLength !== 0
+      ) {
+        setpreviousValueLength(previousValueLength - 1);
+        dispatch(resetSuggestions());
+      }
+    }
     const sanitizedValue = DOMPurify.sanitize(event.target.value);
     setValue(sanitizedValue);
   };
+
+  const handleClickSugg = (newValue: string) => {
+    setValue(newValue);
+    dispatch(resetSuggestions());
+  };
+  const handleBlur = () => {
+    dispatch(resetSuggestions());
+  };
+
+  const allSuggestions = suggestions.map((sugg) => {
+    const random = Math.floor(Math.random() * 15000);
+    return (
+      <div
+        role="button"
+        className="field-input"
+        tabIndex={0}
+        onKeyDown={() => handleClickSugg(`${sugg.line1} ${sugg.line2}`)}
+        key={random}
+        onClick={() => handleClickSugg(`${sugg.line1} ${sugg.line2}`)}
+        onBlur={handleBlur}
+      >
+        {sugg.line1} {sugg.line2}
+      </div>
+    );
+  });
 
   return (
     <div className="field">
@@ -46,6 +88,11 @@ function InputField({
       <label className="field-label" htmlFor={name}>
         {placeholder}
       </label>
+      {suggestions && suggestions.length > 1 && name === 'localisation' ? (
+        allSuggestions
+      ) : (
+        <p />
+      )}
       <div className="field-icon">
         <i className={icon} />
       </div>
