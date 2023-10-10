@@ -38,22 +38,25 @@ function PropositionCard({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [alreadyLiked, setAlreadyLiked] = useState<boolean>(false);
-  const userId = Number(user_id);
 
-  useEffect(() => {
-    let testingLikes = false;
-    if (likes.length > 0) {
-      likes.forEach((like) => {
-        if (like === userId) {
-          testingLikes = true;
-        }
-      });
-    }
-    setAlreadyLiked(testingLikes);
-  }, [alreadyLiked, likes, userId]);
   // Convert trip id to a number
   const tripId = Number(id_trip);
   const propositionId = Number(id_link);
+  const userId = Number(user_id);
+
+  // useEffect(() => {
+  //   console.log(likes);
+  //   let testingLikes = false;
+  //   if (likes.length > 0) { // likes.lenght = undefined
+  //     likes.forEach((like) => {
+  //       if (like === userId) {
+  //         testingLikes = true;
+  //       }
+  //     });
+  //   }
+  //   setAlreadyLiked(testingLikes);
+  // }, [alreadyLiked, likes, userId]);
+
   // Fetch states from Redux store
   const members = useAppSelector((state) => state.trip.trip.members);
   // const liked = useAppSelector((state) => state.trip.liked);

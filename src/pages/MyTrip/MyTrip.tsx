@@ -12,6 +12,7 @@ import ModalInviteMember from '../../components/ModalInviteMember/ModalInviteMem
 import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
 import OneMember from '../../components/OneMember/OneMember';
 import MapDisplay from '../../components/Map/Map';
+import Loading from '../../components/Loading/Loading';
 
 import './MyTrip.scss';
 import { deleteTrip } from '../../store/reducers/user';
@@ -39,6 +40,7 @@ function MyTrip() {
   const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
   const members = useAppSelector((state) => state.trip.trip.members); // Members of the trip
   const propositions = useAppSelector((state) => state.trip.trip.links); // Links of the tri
+  const isLoading = useAppSelector((state) => state.trip.isLoading); // Loading state
 
   // Boolean to check if the user is the trip creator
   const isCreator = userData.id === trip.user_id;
@@ -117,7 +119,9 @@ function MyTrip() {
     </li>
   ));
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Main>
       {/* ********** MODALE INVITE MEMBER */}
       {showModalInviteMember && (

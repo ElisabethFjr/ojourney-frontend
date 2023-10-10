@@ -26,6 +26,7 @@ interface TripState {
     members: Member[];
     links: Proposition[];
   };
+  isLoading: boolean;
   errorMessage: string | null;
 }
 
@@ -45,6 +46,7 @@ export const initialState: TripState = {
     members: [],
     links: [],
   },
+  isLoading: false,
   errorMessage: null,
 };
 
@@ -175,11 +177,15 @@ export const toggleLike = createAsyncThunk(
 const tripReducer = createReducer(initialState, (builder) => {
   builder
     // FETCH Trip Data
+    .addCase(fetchTripData.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(fetchTripData.fulfilled, (state, action) => {
       state.trip = {
         ...state.trip,
         ...action.payload,
       };
+      state.isLoading = false;
     })
     // UPDATE Trip
     .addCase(updateTrip.fulfilled, (state, action) => {
