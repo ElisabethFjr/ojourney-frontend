@@ -66,3 +66,15 @@
     }
   }
 }
+
+// RESPONSIVE Screen < 999px
+@media (max-width: 999px) {
+
+  .one-trip {
+    &-overview,
+    &-members,
+    &-propositions-add-container {
+      flex-direction: column;
+}
+}
+}

@@ -16,7 +16,7 @@ function Contact() {
         <div className="contact-overview-page">
           <img src={sendmessage} className="contact-image" alt="send-message" />
           <FormContainer>
-            <form>
+            <form className="contact-form">
               <h1 className="contact-title">Nous contacter</h1>
               {/* Input Name */}
               <InputField

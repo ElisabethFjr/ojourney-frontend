@@ -29,4 +29,13 @@
   }
 }
 
-
+@media (max-width: 500px) {
+  .footer {
+    &-nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+  }
+}

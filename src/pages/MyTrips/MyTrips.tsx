@@ -6,6 +6,7 @@ import { fetchUserInfos } from '../../store/reducers/user';
 import Main from '../../layout/Main/Main';
 import TripCard from '../../components/TripCard/TripCard';
 import Button from '../../components/Button/Button';
+import Loading from '../../components/Loading/Loading';
 
 import travel from '../../assets/images/travel.png';
 
@@ -18,6 +19,7 @@ function MyTrips() {
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data); // User data
   const trips = useAppSelector((state) => state.user.data.trips); // User trips data
+  const isLoading = useAppSelector((state) => state.user.isLoading); // Loading state
 
   useEffect(() => {
     dispatch(fetchUserInfos(userData.id));
@@ -39,7 +41,9 @@ function MyTrips() {
     </li>
   ));
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Main>
       <h1 className="main-title">Mes Voyages</h1>
 

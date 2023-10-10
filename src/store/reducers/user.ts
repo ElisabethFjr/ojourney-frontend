@@ -55,7 +55,7 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = null;
+const env = 'dev';
 
 // Create LOGIN action
 export const login = createAsyncThunk(
@@ -213,11 +213,15 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isConnected = false;
     })
     // Fetch User Data
+    .addCase(fetchUserInfos.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(fetchUserInfos.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
         ...action.payload,
       };
+      state.isLoading = false;
     })
     // Update User Data
     .addCase(updateUserData.fulfilled, (state, action) => {
