@@ -31,9 +31,6 @@ export interface Member {
   lastname: string;
   email: string;
 }
-export interface Like {
-  [];
-}
 
 export interface Proposition {
   id: number;
@@ -47,7 +44,7 @@ export interface Proposition {
   lon: number;
   image: string;
   alt_image: string;
-  likes: Like;
+  likes: [];
   total_likes: number;
 }
 

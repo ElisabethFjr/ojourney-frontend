@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import axiosInstance from '../../utils/axios';
 
 // Import types
-import { Member, Proposition, Like } from '../../@types';
+import { Member, Proposition } from '../../@types';
 
 // Type trip states
 interface TripState {
