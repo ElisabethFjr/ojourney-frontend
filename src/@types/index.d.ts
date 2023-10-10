@@ -53,3 +53,8 @@ export interface Link {
   url: string;
   image: string;
 }
+
+export interface Suggestion {
+  line1: string;
+  line2: string;
+}
