@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 import { deleteTrip } from '../../store/reducers/user';
@@ -34,6 +34,7 @@ function TripCard({
 }: TripCardProps) {
   // Initialize Hooks
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   // Convert id to a number
   const tripId = Number(id);
@@ -44,6 +45,7 @@ function TripCard({
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
+
   // Get the connecter member id
   const memberId = userData.id;
   const isAuthor = userData.id === userId;
@@ -66,10 +68,11 @@ function TripCard({
 
   // Handler delete actions on click on the trash icon, depending on author status
   const dispatchDeleteAction = () => {
-    if (author) {
+    if (isAuthor) {
       dispatch(deleteTrip(tripId)); // If author, dispatch the deleteTrip action
     } else {
       dispatch(deleteMember({ tripId, memberId })); // If just member, dispatch the deleteMember action to leave the trip
+      navigate('/my-trips'); // Then, redirect to /my-trips to update userData
     }
   };
 
