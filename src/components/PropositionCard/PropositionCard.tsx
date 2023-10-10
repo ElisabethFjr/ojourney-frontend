@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { deleteProposition, toggleLike } from '../../store/reducers/trip';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
+
+// import SCSS variables
+import vars from '../../styles/_export.module.scss';
 
 import './PropositionCard.scss';
 
@@ -17,8 +20,7 @@ interface PropositionCardProps {
   id_link: number;
   id_trip: number;
   user_id: number;
-  total_likes: number;
-  likes: [];
+  likes: number[];
 }
 
 function PropositionCard({
@@ -31,28 +33,18 @@ function PropositionCard({
   id_link,
   id_trip,
   user_id,
-  total_likes,
   likes,
 }: PropositionCardProps) {
   // Initialize Hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [alreadyLiked, setAlreadyLiked] = useState<boolean>(false);
+
   const userId = Number(user_id);
 
-  useEffect(() => {
-    let testingLikes = true;
-    if (likes.length > 0) {
-      likes.forEach((like) => {
-        if (like === userId) {
-          testingLikes = true;
-        }
-      });
-    }
-    setAlreadyLiked(testingLikes);
-    console.log('alreadyLiked (inside useEffect):', alreadyLiked);
-  }, [alreadyLiked, likes, userId]);
-  console.log('alreadyLiked (outside useEffect):', alreadyLiked);
+  // Does the connected user like this trip?
+  const doUserLike = useAppSelector(
+    (state) => state.user.data.id && likes.includes(state.user.data.id)
+  );
 
   // Convert trip id to a number
   const tripId = Number(id_trip);
@@ -88,21 +80,18 @@ function PropositionCard({
         <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
         <ButtonIcon icon="fa-solid fa-trash" handleClick={handleClickDelete} />
       </div>
-      {/* *********************************************************** */}
       <div className="proposition-card-like">
-        {total_likes > 0 && <p>({total_likes})</p>}
+        {likes && <p>({likes.length})</p>}
         <button
           className="proposition-card-like-btn"
           type="button"
           onClick={handleClickVote}
-          style={alreadyLiked ? { color: 'red' } : { color: 'green' }}
+          style={doUserLike ? { color: vars.colorPrimary } : { color: 'black' }}
         >
           <i className="proposition-card-like-icon fa-regular fa-thumbs-up" />
           J&lsquo;aime
         </button>
       </div>
-      {/* *********************************************************** */}
-
       <Link to={url} target="_blank" className="proposition-card">
         <img
           className="proposition-card-image"

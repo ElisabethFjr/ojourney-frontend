@@ -111,7 +111,6 @@ function MyTrip() {
         id_trip={proposition.trip_id}
         id_link={proposition.id}
         user_id={proposition.user_id}
-        total_likes={proposition.total_likes}
         likes={proposition.likes}
       />
     </li>
