@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import axiosInstance from '../../utils/axios';
 
 // Import types
-import { Member, Proposition } from '../../@types';
+import { Member, Proposition, Like } from '../../@types';
 
 // Type trip states
 interface TripState {
@@ -156,21 +156,22 @@ export const deleteMember = createAsyncThunk(
 );
 
 // Create action to TOGGLE a like on a proposition
-// export const toggleLike = createAsyncThunk(
-//   'member/deleteMember',
-//   async ({
-//     tripId,
-//     linkId,
-//   }: {
-//     tripId: number | null;
-//     linkId: number | null;
-//   }) => {
-//     const { data } = await axiosInstance.delete(
-//       `/trips/${tripId}/links/${linkId}`
-//     );
-//     return data;
-//   }
-// );
+export const toggleLike = createAsyncThunk(
+  'trips/toggleLike',
+  async ({
+    tripId,
+    linkId,
+  }: {
+    tripId: number | null;
+    linkId: number | null;
+  }) => {
+    const { data } = await axiosInstance.post(
+      `/trips/${tripId}/links/${linkId}/like`
+    );
+    console.log(data);
+    return data;
+  }
+);
 
 const tripReducer = createReducer(initialState, (builder) => {
   builder
@@ -238,6 +239,12 @@ const tripReducer = createReducer(initialState, (builder) => {
     })
     .addCase(deleteMember.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    .addCase(toggleLike.fulfilled, (state, action) => {
+      state.trip = {
+        ...state.trip,
+        ...action.payload,
+      };
     })
     // FETCH One Member infos
     .addCase(informationMember.fulfilled, (state, action) => {

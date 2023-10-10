@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { deleteProposition } from '../../store/reducers/trip';
-
+import { deleteProposition, toggleLike } from '../../store/reducers/trip';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
 
@@ -18,6 +17,8 @@ interface PropositionCardProps {
   id_link: number;
   id_trip: number;
   user_id: number;
+  total_likes: number;
+  likes: [];
 }
 
 function PropositionCard({
@@ -30,26 +31,35 @@ function PropositionCard({
   id_link,
   id_trip,
   user_id,
+  total_likes,
+  likes,
 }: PropositionCardProps) {
   // Initialize Hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [alreadyLiked, setAlreadyLiked] = useState<boolean>(false);
+  const userId = Number(user_id);
 
+  useEffect(() => {
+    let testingLikes = false;
+    if (likes.length > 0) {
+      likes.forEach((like) => {
+        if (like === userId) {
+          testingLikes = true;
+        }
+      });
+    }
+    setAlreadyLiked(testingLikes);
+  }, [alreadyLiked, likes, userId]);
   // Convert trip id to a number
   const tripId = Number(id_trip);
   const propositionId = Number(id_link);
-  const userId = Number(user_id);
-
-  // Declaration varibles states
-  const [likes, setLikes] = useState<number>(0);
-
   // Fetch states from Redux store
   const members = useAppSelector((state) => state.trip.trip.members);
   // const liked = useAppSelector((state) => state.trip.liked);
 
   // Function to find the author name based on the proposition.user_id
   const author = members.find((member) => member.id === userId);
-
   // Display of the Delete Confirm Modal
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
@@ -64,13 +74,10 @@ function PropositionCard({
     navigate(`/edit-proposition/${id_trip}/${id_link}`);
   };
 
-  // Event handler to add a +1 like if clicked 
+  // Event handler to add a +1 like if clicked
   const handleClickVote = () => {
-    setLikes(likes +1);
-    // if (liked) {
-    // dispatch(toggleLike)
-    // }
-    }
+    dispatch(toggleLike({ tripId, linkId: propositionId }));
+  };
 
   return (
     <div className="proposition-card-container">
@@ -79,14 +86,21 @@ function PropositionCard({
         <ButtonIcon icon="fa-solid fa-trash" handleClick={handleClickDelete} />
       </div>
       <div className="proposition-card-like">
-        {likes > 0 && <p>({likes})</p>}
+        {total_likes > 0 && <p>({total_likes})</p>}
         <button
           className="proposition-card-like-btn"
           type="button"
           onClick={handleClickVote}
         >
-          <i className="proposition-card-like-icon fa-regular fa-thumbs-up" />
-          <span>J'aime</span>
+          <i
+            className="proposition-card-like-icon fa-regular fa-thumbs-up"
+            style={alreadyLiked ? { color: '#ff7d5c' } : { color: 'black' }}
+          />
+          <span
+            style={alreadyLiked ? { color: '#ff7d5c' } : { color: 'black' }}
+          >
+            J&lsquo;aime
+          </span>
         </button>
       </div>
       <Link to={url} target="_blank" className="proposition-card">
