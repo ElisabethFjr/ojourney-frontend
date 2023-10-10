@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../store/reducers/user';
@@ -21,9 +21,21 @@ function Navbar() {
   };
 
   // Handle Toggle Menu Burger
-  const toggleBurgerMenu = () => {
+  const toggleBurgerMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
     setIsOpen(!isOpen);
   };
+  const closeBurgerMenu = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    document.body.addEventListener('click', closeBurgerMenu);
+
+    return () => {
+      document.body.removeEventListener('click', closeBurgerMenu);
+    };
+  }, []);
 
   return (
     <>
@@ -34,7 +46,7 @@ function Navbar() {
               <li className="header-navbar-list-link">
                 <NavLink to="/my-trips">Mes voyages</NavLink>
               </li>
-              <li className="header-navbar-list-link">
+              <li className="header-navbar-list-link ">
                 <NavLink to="/new-trip">Nouveau voyage</NavLink>
               </li>
               <li className="header-navbar-list-link">

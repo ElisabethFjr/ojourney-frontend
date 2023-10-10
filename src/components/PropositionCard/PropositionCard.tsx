@@ -41,7 +41,7 @@ function PropositionCard({
   const userId = Number(user_id);
 
   useEffect(() => {
-    let testingLikes = false;
+    let testingLikes = true;
     if (likes.length > 0) {
       likes.forEach((like) => {
         if (like === userId) {
@@ -50,7 +50,10 @@ function PropositionCard({
       });
     }
     setAlreadyLiked(testingLikes);
+    console.log('alreadyLiked (inside useEffect):', alreadyLiked);
   }, [alreadyLiked, likes, userId]);
+  console.log('alreadyLiked (outside useEffect):', alreadyLiked);
+
   // Convert trip id to a number
   const tripId = Number(id_trip);
   const propositionId = Number(id_link);
@@ -85,24 +88,21 @@ function PropositionCard({
         <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
         <ButtonIcon icon="fa-solid fa-trash" handleClick={handleClickDelete} />
       </div>
+      {/* *********************************************************** */}
       <div className="proposition-card-like">
         {total_likes > 0 && <p>({total_likes})</p>}
         <button
           className="proposition-card-like-btn"
           type="button"
           onClick={handleClickVote}
+          style={alreadyLiked ? { color: 'red' } : { color: 'green' }}
         >
-          <i
-            className="proposition-card-like-icon fa-regular fa-thumbs-up"
-            style={alreadyLiked ? { color: '#ff7d5c' } : { color: 'black' }}
-          />
-          <span
-            style={alreadyLiked ? { color: '#ff7d5c' } : { color: 'black' }}
-          >
-            J&lsquo;aime
-          </span>
+          <i className="proposition-card-like-icon fa-regular fa-thumbs-up" />
+          J&lsquo;aime
         </button>
       </div>
+      {/* *********************************************************** */}
+
       <Link to={url} target="_blank" className="proposition-card">
         <img
           className="proposition-card-image"
