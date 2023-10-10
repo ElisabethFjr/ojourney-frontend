@@ -120,10 +120,18 @@
       font-size: 1.2rem;
     }
 
-    
-
     &--active {
       color: v.$color-primary;
     }
   }
 }
+
+// RESPONSIVE Screen < 999px
+@media (max-width: 999px) {
+
+  .proposition-card {
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
