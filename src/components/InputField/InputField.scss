@@ -52,3 +52,24 @@
     color: v.$color-accent;
   }
 }
+
+// Localisation Input
+.field-input-suggestion {
+  &-list {
+    position: absolute;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: v.$color-white;
+    border: 1px solid v.$color-grey-lightest;
+    border-radius: v.$border-radius;
+  }
+  &-item {
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    &:hover {
+      background-color: v.$color-grey-lightest2;
+    }
+  }
+}
