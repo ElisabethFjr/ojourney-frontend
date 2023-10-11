@@ -1,12 +1,17 @@
-import { FormEvent, useState } from 'react';
+// Import React Hooks & FormEvent
+import { useState, FormEvent } from 'react';
+// Import React-Toastify
 import { toast } from 'react-toastify';
+// Import Axios Instance
 import axiosInstance from '../../utils/axios';
 
+// Import Component
 import ModalContainer from '../ModalContainer/ModalContainer';
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
+// Import Styles
 import './ModalConfirmEmail.scss';
 
 interface ModalConfirmEmailProps {
@@ -14,9 +19,10 @@ interface ModalConfirmEmailProps {
 }
 
 function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
+  // State Variable
   const [isOpen, setIsOpen] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
+  // Close modal
   const handleClose = () => {
     setIsOpen(!isOpen);
     closeModal(true);
@@ -25,8 +31,11 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
   // Event handler on the invite member submit form
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Get the current form
     const form = event.currentTarget;
+    // Create a FormData object
     const formData = new FormData(form);
+    // Convert a JSON object
     const jsonData = Object.fromEntries(formData.entries());
 
     // Clear all Error Messages
@@ -47,10 +56,6 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
         toast.success("L'email a bien été envoyé !");
       })
       .catch((error) => {
-        console.error(
-          "Une erreur est survenue lors la récupération de l'email.",
-          error
-        );
         if (
           error.response &&
           error.response.status === 404 &&

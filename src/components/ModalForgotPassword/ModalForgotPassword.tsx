@@ -1,7 +1,7 @@
 import { useState } from 'react';
-
+// Import
 import ModalContainer from '../ModalContainer/ModalContainer';
-
+// Import Styles
 import './ModalForgotPassword.scss';
 
 interface ModalForgotPasswordProps {
@@ -9,8 +9,9 @@ interface ModalForgotPasswordProps {
 }
 
 function ModalForgotPassword({ closeModal }: ModalForgotPasswordProps) {
+  // Declaration state variables
   const [isOpen, setIsOpen] = useState(true);
-
+  // Close modal
   const handleClose = () => {
     setIsOpen(!isOpen);
     closeModal(true);

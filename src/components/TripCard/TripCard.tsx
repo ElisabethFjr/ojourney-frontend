@@ -1,16 +1,20 @@
+// Import React Hooks
 import { useEffect, useState } from 'react';
+// Import React-Router-Dom
 import { Link, useNavigate } from 'react-router-dom';
+// Import Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-
+// Import Redux Actions
 import { deleteTrip } from '../../store/reducers/user';
 import { deleteMember } from '../../store/reducers/trip';
+// Import Axios Intance
 import axiosInstance from '../../utils/axios';
-
+// Import Components
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
-
+// Import Interfaces
 import { User } from '../../@types';
-
+// Import Styles
 import './TripCard.scss';
 
 export interface TripCardProps {
@@ -61,7 +65,7 @@ function TripCard({
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
 
-  // Event handler to open the modal DeleteConfirmation if click on delete a trip
+  // Event handler to open/ to delete the modal trip
   const handleClickDelete = () => {
     setShowModalDeleteConfirm(!showModalDeleteConfirm);
   };
@@ -71,8 +75,9 @@ function TripCard({
     if (isAuthor) {
       dispatch(deleteTrip(tripId)); // If author, dispatch the deleteTrip action
     } else {
-      dispatch(deleteMember({ tripId, memberId })); // If just member, dispatch the deleteMember action to leave the trip
-      navigate('/my-trips'); // Then, redirect to /my-trips to update userData
+      // If just member, dispatch the deleteMember action to leave the trip
+      dispatch(deleteMember({ tripId, memberId }));
+      navigate('/my-trips');
     }
   };
 

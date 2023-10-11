@@ -1,20 +1,29 @@
+//  Import React-Router-Dom
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+// Import React Hooks
 import { useState, useEffect } from 'react';
+// Import React-Toastify
 import { ToastContainer, Slide } from 'react-toastify';
+// Import Redux Hooks
 // import { useAppDispatch } from '../../hooks/redux';
 // import { checkUserToken } from '../../store/reducers/user';
+
+// Import axios instance
 import axiosInstance from '../../utils/axios';
 
+// Import Layout
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
-
+// Import Component
 import Loading from '../Loading/Loading';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
+
+// Import Pages
 import Home from '../../pages/Home/Home';
 import SignInUp from '../../pages/SignInUp/SignInUp';
 import Profil from '../../pages/Profil/Profil';
 import ConfirmAccount from '../../pages/ConfirmAccount/ConfirmAccount';
 import ConfirmInvite from '../../pages/ConfirmInvite/ConfirmInvite';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import MyTrips from '../../pages/MyTrips/MyTrips';
 import MyTrip from '../../pages/MyTrip/MyTrip';
 import NewTrip from '../../pages/NewTrip/NewTrip';
@@ -31,7 +40,9 @@ import Terms from '../../pages/Terms/Terms';
 import ErrorNotFound from '../../pages/ErrorNotFound/ErrorNotFound';
 import ErrorServer from '../../pages/ErrorServer/ErrorServer';
 
+// Import Styles
 import './App.scss';
+// Import styles 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {

@@ -1,5 +1,8 @@
+// Import component from Pigeon-maps
 import { Map, Marker } from 'pigeon-maps';
+// Import Interface
 import { Proposition } from '../../@types';
+// Import Styles
 import './Map.scss';
 
 interface MapProps {
@@ -7,15 +10,15 @@ interface MapProps {
   lon: number;
   links: Proposition[];
 }
+// Function render a map with markers
 function MapDisplay({ lat, lon, links }: MapProps) {
   const allLinks = links.map((link) => {
     return (
       <Marker
         key={link.id}
         width={40}
-        anchor={[link.lat, link.lon]}
-        color="#ff7d5cbd"
-        hover
+        anchor={[link.lat, link.lon]} // Latitude and longitude coordinates
+        hover // Enable hover effect
       />
     );
   });

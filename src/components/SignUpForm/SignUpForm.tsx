@@ -1,11 +1,13 @@
+// Import React Hooks & FormeEvent
 import { FormEvent, useState } from 'react';
+// Import Axios Instance
 import axiosInstance from '../../utils/axios';
-
+// Import Components
 import InputField from '../InputField/InputField';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ConfirmModal from '../ModalConfirmMessage/ModalConfirmMessage';
 import Button from '../Button/Button';
-
+// Import Styles
 import './SignUpForm.scss';
 
 function SignUpForm() {
@@ -16,7 +18,9 @@ function SignUpForm() {
   // Handle SignUp form submit
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Get the current from
     const form = event.currentTarget;
+    // Create a FormData Object
     const formData = new FormData(form);
 
     // Extract data from formData
@@ -43,8 +47,6 @@ function SignUpForm() {
         setShowModalConfirm(true);
       })
       .catch((error) => {
-        console.error(error);
-        // Set the error message state with the server's error message if available
         if (error.response.data.error.trim() === 'User already exists !') {
           setErrorMessage('Un compte est déjà associé à cette adresse email.');
         } else {

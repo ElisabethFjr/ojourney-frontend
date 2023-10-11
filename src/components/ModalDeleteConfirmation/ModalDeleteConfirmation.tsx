@@ -1,9 +1,11 @@
+// Import React Hooks
 import { useState } from 'react';
+// Import React-Router-Dom
 import { useNavigate } from 'react-router-dom';
-
+// Import Components
 import Button from '../Button/Button';
 import ModalContainer from '../ModalContainer/ModalContainer';
-
+// Import Styles
 import './ModalDeleteConfirmation.scss';
 
 export interface ModalDeleteConfirmProps {
@@ -35,7 +37,7 @@ function ModalDeleteConfirm({
     closeModal(true);
   };
 
-  // Event handler to delete an element
+  // Event handler to delete
   const handleDelete = async () => {
     dispatchDeleteAction();
     handleClose();

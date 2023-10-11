@@ -1,3 +1,4 @@
+// Import Styles
 import './Main.scss';
 
 interface MainProps {

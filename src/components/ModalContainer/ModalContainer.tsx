@@ -1,3 +1,4 @@
+// Import Styles
 import './ModalContainer.scss';
 
 interface ModalContainerProps {

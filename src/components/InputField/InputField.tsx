@@ -1,11 +1,16 @@
+//  Import React Hooks & ChangeEvent
 import { useState, ChangeEvent } from 'react';
+// Import Dompurify
 import DOMPurify from 'dompurify';
-import { nanoid } from 'nanoid';
-
+// Import Redux Hooks
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
+// Import Nanoid
+import { nanoid } from 'nanoid';
+// Import Redux Actions
 import { resetSuggestions } from '../../store/reducers/trip';
+// Import utils
 import handleSuggestionLocalisation from '../../utils/handleLocalisation';
-
+//Import Styles
 import './InputField.scss';
 
 export interface InputFieldProps {
@@ -27,11 +32,11 @@ function InputField({
   autocomplete,
   maxlength,
 }: InputFieldProps) {
-  // Initialize Hooks
-  const dispatch = useAppDispatch();
 
-  // Declaration state variables
-  const [value, setValue] = useState(''); // Input value
+  // Access the Redux dispatch function using the 'useAppDispatch' hook.
+  const dispatch = useAppDispatch();
+  // Declaration State Variables
+  const [value, setValue] = useState('');
   const [previousValueLength, setpreviousValueLength] = useState(0); // State for the previous input value (for suggestions localisation)
 
   // Fetch states from Redux store

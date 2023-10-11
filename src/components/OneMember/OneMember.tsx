@@ -1,12 +1,15 @@
+// Import React Hooks
 import { useEffect, useRef, useState } from 'react';
+// Import Interfaces
 import { Member, User } from '../../@types';
+// Import Redux Hooks
 import { useAppDispatch } from '../../hooks/redux';
-
+// Import Reduc Action
 import { deleteMember } from '../../store/reducers/trip';
-
+// Import Components
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
 import ModalInformationMember from '../ModalInformationMember/ModalInformationMember';
-
+// Import Styles
 import './OneMember.scss';
 
 interface OneMemberProps {
@@ -26,14 +29,15 @@ function OneMember({
   openMemberId,
   setOpenMemberId,
 }: OneMemberProps) {
+  // Initialize Hooks
   const dispatch = useAppDispatch();
 
   const isOpenMenu = member.id === openMemberId;
   const isCurrentUser = userData.id === member.id;
 
+  // State Variable
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
-
   const [showModalInformationMember, setshowModalInformationMember] =
     useState<boolean>(false);
 

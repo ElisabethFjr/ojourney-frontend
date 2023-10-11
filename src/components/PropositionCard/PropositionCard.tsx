@@ -1,13 +1,17 @@
+// Import React Hooks
 import { useState } from 'react';
+// Import React-Router-Dom
 import { Link, useNavigate } from 'react-router-dom';
+// Import Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+// Import Redux Actions
 import { deleteProposition, toggleLike } from '../../store/reducers/trip';
+// Import Styles
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
 
-// import SCSS variables
+// Import Styles
 import vars from '../../styles/_export.module.scss';
-
 import './PropositionCard.scss';
 
 interface PropositionCardProps {
@@ -38,7 +42,7 @@ function PropositionCard({
   // Initialize Hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  // Convert user id to a number
   const userId = Number(user_id);
 
   // Does the connected user like this trip?
@@ -51,11 +55,9 @@ function PropositionCard({
   const propositionId = Number(id_link);
   // Fetch states from Redux store
   const members = useAppSelector((state) => state.trip.trip.members);
-  // const liked = useAppSelector((state) => state.trip.liked);
-
   // Function to find the author name based on the proposition.user_id
   const author = members.find((member) => member.id === userId);
-  // Display of the Delete Confirm Modal
+  // State Variable
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
 

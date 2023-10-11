@@ -1,13 +1,17 @@
+// Import React Hooks & FormEvent
 import { useState, FormEvent } from 'react';
+// Import React-Toastify
 import { toast } from 'react-toastify';
+// Import Axios Instance
 import axiosInstance from '../../utils/axios';
+// Import Redux Hooks
 import { useAppSelector } from '../../hooks/redux';
-
+// Import Components
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 import ModalContainer from '../ModalContainer/ModalContainer';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-
+// Import Styles
 import 'react-toastify/dist/ReactToastify.css';
 import './ModalInviteMember.scss';
 
@@ -27,8 +31,11 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Get the current from
     const form = event.currentTarget;
+    // Create a FormData Object
     const formData = new FormData(form);
+    // Convert a JSON object
     const jsonData = Object.fromEntries(formData.entries());
 
     // Clear all Error Messages
@@ -61,14 +68,14 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
         toast.success("L'invitation a bien été envoyée !");
       })
       .catch((error) => {
-        console.error(
+        error(
           "Une erreur est survenue lors la récupération de l'email.",
           error
         );
         toast.error("L'invitation n'a pas pu être envoyée.");
       });
   };
-
+  // Close Modal
   const handleClose = () => {
     setIsOpen(!isOpen);
     closeModal(true);
