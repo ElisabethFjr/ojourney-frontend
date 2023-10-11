@@ -1,4 +1,4 @@
-// Imports React
+// Imports React Hook
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -16,6 +16,7 @@ import Button from '../../components/Button/Button';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
+// Import Style
 import './EditProposition.scss';
 
 function EditProposition() {

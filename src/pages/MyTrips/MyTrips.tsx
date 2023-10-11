@@ -1,15 +1,21 @@
+// Import React Hook
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+// Import Curstom Redux Hook
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchUserInfos } from '../../store/reducers/user';
 
+// Imports Layout & Commponents
 import Main from '../../layout/Main/Main';
 import TripCard from '../../components/TripCard/TripCard';
 import Button from '../../components/Button/Button';
 import Loading from '../../components/Loading/Loading';
 
+// Import Image
 import travel from '../../assets/images/travel.png';
 
+// Import Styles
 import './MyTrips.scss';
 
 function MyTrips() {

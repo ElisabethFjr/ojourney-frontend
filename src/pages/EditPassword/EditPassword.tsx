@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 // Import Redux actions
 import { updatePassword } from '../../store/reducers/user';
 
-// Import Components
+// Imports Layout & Components
 import Main from '../../layout/Main/Main';
 import Button from '../../components/Button/Button';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';

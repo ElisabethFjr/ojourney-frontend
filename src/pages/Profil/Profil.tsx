@@ -1,15 +1,19 @@
+// Imports React Hook
 import { Link, useNavigate } from 'react-router-dom';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { useState, FormEvent } from 'react';
+
+// Import Curstom Redux Hook
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { updateConsent } from '../../store/reducers/user';
 
+// Imports Layout & Components
 import Main from '../../layout/Main/Main';
-
 import PdfDisplay from '../../components/PdfDisplay/PdfDisplay';
 import Button from '../../components/Button/Button';
 import ModaleConfirmPassword from '../../components/ModalConfirmPassword/ModalConfirmPassword';
 
+// Import Styles
 import './Profil.scss';
 
 function Profil() {

@@ -1,19 +1,23 @@
+// Import React Hook
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+
 import format from 'date-fns/format';
+
+// Import Curstom Redux Hook
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
+// Import Layout & Components
 import Main from '../../layout/Main/Main';
-
 import PropositionCard from '../../components/PropositionCard/PropositionCard';
 import Button from '../../components/Button/Button';
-
 import ModalInviteMember from '../../components/ModalInviteMember/ModalInviteMember';
 import ModalDeleteConfirm from '../../components/ModalDeleteConfirmation/ModalDeleteConfirmation';
 import OneMember from '../../components/OneMember/OneMember';
 import MapDisplay from '../../components/Map/Map';
 import Loading from '../../components/Loading/Loading';
 
+// Import Styles
 import './MyTrip.scss';
 import { deleteTrip } from '../../store/reducers/user';
 import { fetchTripData } from '../../store/reducers/trip';

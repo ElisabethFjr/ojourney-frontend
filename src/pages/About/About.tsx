@@ -1,5 +1,7 @@
+// Import Layout
 import Main from '../../layout/Main/Main';
 
+// Import styles
 import './About.scss';
 
 function About() {

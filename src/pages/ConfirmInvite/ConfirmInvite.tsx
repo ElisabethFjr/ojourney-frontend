@@ -1,13 +1,20 @@
+//Import React Hook
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+// Import Axios Instance
 import axiosInstance from '../../utils/axios';
 
+// Imports Layout & Components
 import Main from '../../layout/Main/Main';
 import Button from '../../components/Button/Button';
 
+// Import Styles
 import './ConfirmInvite.scss';
 
 function ConfirmInvite() {
+
+  // Declaration States Variables
   const [isConfirmed, setIsConfirmed] = useState(false);
 
   const token = document.location.hash.split('?')[1];

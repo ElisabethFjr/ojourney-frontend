@@ -1,13 +1,16 @@
+// Import React Hook
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// Import Curstom Redux Hook
 import { useAppDispatch } from '../../hooks/redux';
 
 import changeDateFormat from '../../utils/formatDate';
 
 import { addTrip } from '../../store/reducers/user';
 
+// Imports Layouts & Components
 import Main from '../../layout/Main/Main';
-
 import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
@@ -17,6 +20,7 @@ import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
+// Import Styles
 import './NewTrip.scss';
 
 function NewTrip() {

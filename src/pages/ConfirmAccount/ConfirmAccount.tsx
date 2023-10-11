@@ -1,10 +1,13 @@
+// Import react
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+// Import axios instance
 import axiosInstance from '../../utils/axios';
 
 import Main from '../../layout/Main/Main';
 import Button from '../../components/Button/Button';
 
+// Import styles
 import './ConfirmAccount.scss';
 
 function ConfirmAccount() {
