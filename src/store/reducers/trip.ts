@@ -210,14 +210,15 @@ const tripReducer = createReducer(initialState, (builder) => {
       toast.success('Le voyage a bien été modifié !');
       state.errorMessage = null;
     })
+    .addCase(updateTrip.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // GET/RESET Suggestions in NewTrip and EditTrip
     .addCase(getSuggestions.fulfilled, (state, action) => {
       state.suggestions = action.payload;
     })
     .addCase(resetSuggestions, (state) => {
       state.suggestions = [];
-    })
-    .addCase(updateTrip.rejected, () => {
-      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // ADD Proposition
     .addCase(addProposition.fulfilled, (state, action) => {
