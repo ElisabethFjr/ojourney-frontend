@@ -35,7 +35,8 @@ function EditTrip() {
   const dispatch = useAppDispatch();
 
   // Get the trip id from url
-  const { id } = useParams() ?? '';
+  const { id } = useParams();
+  const tripId = id ?? '';
 
   // Fetch states from Redux store
   const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
@@ -162,8 +163,8 @@ function EditTrip() {
     }
 
     // Dispatch udpateTrip action on the form submission
-    dispatch(updateTrip({ formData, id }));
-    navigate(`/my-trip/${id}`);
+    dispatch(updateTrip({ formData, tripId }));
+    navigate(`/my-trip/${tripId}`);
   };
 
   return (

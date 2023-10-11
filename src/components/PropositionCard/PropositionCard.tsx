@@ -76,7 +76,7 @@ function PropositionCard({
 
   // Event handler to add a +1 like if clicked
   const handleClickVote = () => {
-    dispatch(toggleLike({ tripId, linkId: propositionId }));
+    dispatch(toggleLike({ tripId, propositionId }));
   };
 
   return (

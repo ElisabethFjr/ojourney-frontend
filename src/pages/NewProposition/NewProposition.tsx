@@ -61,7 +61,7 @@ function NewProposition() {
     }
 
     // Dispatch addproposition action on the form submission
-    dispatch(addProposition({ formData, id: tripId }));
+    dispatch(addProposition({ formData, tripId }));
     setIsLoading(false);
 
     navigate(`/my-trip/${id}`);

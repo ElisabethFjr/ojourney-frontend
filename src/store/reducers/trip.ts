@@ -59,8 +59,8 @@ export const initialState: TripState = {
 // Create action to FETCH trip infos
 export const fetchTripData = createAsyncThunk(
   'trip/fetchTripData',
-  async (id: string | null) => {
-    const { data } = await axiosInstance.get(`/trips/${id}`);
+  async (tripId: string | null) => {
+    const { data } = await axiosInstance.get(`/trips/${tripId}`);
     return data;
   }
 );
@@ -68,10 +68,16 @@ export const fetchTripData = createAsyncThunk(
 // Create action to UPDATE a trip
 export const updateTrip = createAsyncThunk(
   'trip/updateTrip',
-  async ({ formData, id }: { formData: FormData; id: string | null }) => {
+  async ({
+    formData,
+    tripId,
+  }: {
+    formData: FormData;
+    tripId: string | null;
+  }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
-    const { data } = await axiosInstance.patch(`/trips/${id}`, objData, {
+    const { data } = await axiosInstance.patch(`/trips/${tripId}`, objData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     return data;
@@ -81,11 +87,20 @@ export const updateTrip = createAsyncThunk(
 // Create action to ADD a new proposition
 export const addProposition = createAsyncThunk(
   'user/addProposition',
-  async ({ formData, id }: { formData: FormData; id: string | null }) => {
+  async ({
+    formData,
+    tripId,
+  }: {
+    formData: FormData;
+    tripId: string | null;
+  }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a DELETE request to delete user account
-    const { data } = await axiosInstance.post(`/trips/${id}/links`, objData);
+    const { data } = await axiosInstance.post(
+      `/trips/${tripId}/links`,
+      objData
+    );
     return data;
   }
 );
@@ -167,13 +182,13 @@ export const toggleLike = createAsyncThunk(
   'trips/toggleLike',
   async ({
     tripId,
-    linkId,
+    propositionId,
   }: {
     tripId: string | null;
-    linkId: string | null;
+    propositionId: string | null;
   }) => {
     const { data } = await axiosInstance.post(
-      `/trips/${tripId}/links/${linkId}/like`
+      `/trips/${tripId}/links/${propositionId}/like`
     );
     return data;
   }
