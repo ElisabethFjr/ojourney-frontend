@@ -1,9 +1,5 @@
 // Imports
-import {
-  createReducer,
-  createAsyncThunk,
-  createAction,
-} from '@reduxjs/toolkit';
+import { createReducer, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Import Toast
 import { toast } from 'react-toastify';
@@ -82,10 +78,7 @@ export const login = createAsyncThunk(
   }
 );
 
-// Create LOGOUT action (local)
-// export const logout = createAction('user/logout');
-
-// Create LOGOUT action (deployed)
+// Create LOGOUT action
 export const logout = createAsyncThunk('user/logout', async () => {
   if (env === 'dev') {
     localStorage.removeItem('userToken');

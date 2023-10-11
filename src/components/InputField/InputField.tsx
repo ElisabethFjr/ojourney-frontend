@@ -2,15 +2,15 @@
 import { useState, ChangeEvent } from 'react';
 // Import Dompurify
 import DOMPurify from 'dompurify';
-// Import Redux Hooks
-import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 // Import Nanoid
 import { nanoid } from 'nanoid';
+// Import Redux Hooks
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 // Import Redux Actions
 import { resetSuggestions } from '../../store/reducers/trip';
 // Import utils
 import handleSuggestionLocalisation from '../../utils/handleLocalisation';
-//Import Styles
+// Import Styles
 import './InputField.scss';
 
 export interface InputFieldProps {
@@ -32,7 +32,6 @@ function InputField({
   autocomplete,
   maxlength,
 }: InputFieldProps) {
-
   // Access the Redux dispatch function using the 'useAppDispatch' hook.
   const dispatch = useAppDispatch();
   // Declaration State Variables
