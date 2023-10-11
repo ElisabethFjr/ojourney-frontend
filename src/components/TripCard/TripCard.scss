@@ -67,54 +67,54 @@
     gap: 0.6rem;
     z-index: 9;
   }
+}
 
-  // RESPONSIVE SCRENN < 999px
-  @media (max-width: 999px) {
-    .trip-card {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      height: 400px;
+// RESPONSIVE SCREN < 999px
+@media (max-width: 999px) {
+  .trip-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 400px;
 
-      &-container {
-        position: relative;
-      }
+    &-container {
+      position: relative;
+    }
 
-      &-icons {
-        position: absolute;
-        top: 11px;
-        right: 15px;
-        gap: 0.6rem;
-        z-index: 9;
-      }
+    &-icons {
+      position: absolute;
+      top: 11px;
+      right: 15px;
+      gap: 0.6rem;
+      z-index: 9;
     }
   }
+}
 
-  // RESPONSIVE SCRENN < 450px
-  @media (max-width: 450px) {
-    .trip-card {
-      width: 100%;
+// RESPONSIVE SCREN < 450px
+@media (max-width: 450px) {
+  .trip-card {
+    width: 100%;
 
-      &-icons {
-        top: 11px;
-        right: 15px;
-        gap: 0.6rem;
-        z-index: 9;
-      }
+    &-icons {
+      top: 11px;
+      right: 15px;
+      gap: 0.6rem;
+      z-index: 9;
     }
   }
+}
 
-  // RESPONSIVE SCRENN < 375px
-  @media (max-width: 375px) {
-    .trip-card {
-      width: 100%;
+// RESPONSIVE SCREN < 375px
+@media (max-width: 375px) {
+  .trip-card {
+    width: 100%;
 
-      &-icons {
-        top: 11px;
-        right: 15px;
-        gap: 0.6rem;
-        z-index: 9;
-      }
+    &-icons {
+      top: 11px;
+      right: 15px;
+      gap: 0.6rem;
+      z-index: 9;
     }
   }
 }

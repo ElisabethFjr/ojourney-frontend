@@ -126,7 +126,7 @@ function Profil() {
           <form onSubmit={handleSubmit}>
             {/* Checkbox Button Commercial */}
             <div className="profil-card-toggle-container">
-              <p>Usage commercial :</p>
+              <p className="profil-card-toggle-text"> commercial :</p>
               <input
                 className="profil-card-checkbox"
                 name="consent_commercial"
@@ -145,7 +145,7 @@ function Profil() {
             </div>
             {/*  Checkbox Button Newsletter */}
             <div className="profil-card-toggle-container">
-              <p>Usage newsletter :</p>
+              <p className="profil-card-toggle-text">Usage newsletter :</p>
               <input
                 className="profil-card-checkbox"
                 name="consent_newsletter"

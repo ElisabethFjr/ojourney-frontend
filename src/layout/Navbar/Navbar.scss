@@ -49,6 +49,7 @@
 // RESPONSIVE Screen < 999px
 @media (max-width: 999px) {
   .header-navbar {
+    display: none;
     position: fixed;
     left: 0;
     top: 4.5rem;
@@ -59,11 +60,10 @@
     box-shadow: 0px 6px 6px -6px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease-in-out;
     opacity: 0;
-
     &.active {
+      display: block;
       height: calc(300px - 4.5rem);
     }
-
     &-toggle {
       display: block;
       background-color: transparent;
@@ -74,7 +74,6 @@
         background-color: v.$color-white;
       }
     }
-
     &-list {
       display: flex;
       flex-direction: column;
@@ -86,6 +85,17 @@
       opacity: 0;
       padding: 0 1rem;
       transition: max-height 0.3s linear, opacity 0.1s linear;
+      .active & {
+        height: 100%;
+        max-height: 100%;
+        opacity: 1;
+        transition: max-height 0.1s linear, opacity 0.8s linear;
+      }
+    }
+    &-list-link {
+      width: 100%;
+      padding: 0.6rem 0;
+      text-align: center;
 
       .active & {
         height: 100%;
@@ -94,13 +104,6 @@
         transition: max-height 0.1s linear, opacity 0.8s linear;
       }
     }
-
-    &-list-link {
-      width: 80%;
-      padding: 0.6rem 0;
-      text-align: center;
-    }
-
     &-list-link.signin-signup {
       border: none;
       color: v.$color-text;
@@ -111,7 +114,6 @@
       }
     }
   }
-
   .active.header-navbar {
     left: 0;
     opacity: 1;
