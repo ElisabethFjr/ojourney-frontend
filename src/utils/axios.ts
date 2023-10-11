@@ -16,7 +16,7 @@ if (localStorage.getItem('userToken')) {
 }
 
 // Check environment and set credentials if not in development
-const env = 'dev';
+const env = null;
 if (env !== 'dev') {
   axiosInstance.defaults.withCredentials = true;
 }
