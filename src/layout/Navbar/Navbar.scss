@@ -23,7 +23,8 @@
       color: v.$color-primary;
     }
 
-    &.signin-signup {
+    &--signin-signup,
+    &--logout {
       padding: 0.6rem v.$gutter;
       border: 2px solid v.$color-primary;
       border-radius: v.$border-radius;

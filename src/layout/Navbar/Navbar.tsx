@@ -53,15 +53,22 @@ function Navbar() {
                 <NavLink to="/profil">Profil</NavLink>
               </li>
               <li className="header-navbar-list-link">
-                <NavLink to="/" onClick={handleLogout}>
+                <NavLink
+                  to="/"
+                  onClick={handleLogout}
+                  className="header-navbar-list-link--logout"
+                >
                   Se déconnecter
                 </NavLink>
               </li>
             </>
           ) : (
             <li className="header-navbar-list-link">
-              <NavLink to="/signin-signup" className="signin-signup">
-                Se Connecter/S inscrire
+              <NavLink
+                to="/signin-signup"
+                className="header-navbar-list-link--signin-signup"
+              >
+                Se Connecter/S&apos;inscrire
               </NavLink>
             </li>
           )}
