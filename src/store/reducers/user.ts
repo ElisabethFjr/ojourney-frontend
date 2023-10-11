@@ -14,7 +14,7 @@ import { Proposition, Trip } from '../../@types';
 // Type user states
 interface UserState {
   data: {
-    id: number | null;
+    id: string | null;
     firstname: string | null;
     lastname: string | null;
     email: string | null;
@@ -51,7 +51,7 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = 'dev';
+const env = null;
 
 // Create LOGIN action
 export const login = createAsyncThunk(
@@ -90,7 +90,7 @@ export const logout = createAsyncThunk('user/logout', async () => {
 // Create action to FETCH user data
 export const fetchUserInfos = createAsyncThunk(
   'user/fetchUserInfo',
-  async (id: number | null) => {
+  async (id: string | null) => {
     const { data } = await axiosInstance.get(`/users/${id}`);
     return data;
   }
@@ -100,9 +100,7 @@ export const fetchUserInfos = createAsyncThunk(
 export const checkUserToken = createAsyncThunk(
   'user/checkUserToken',
   async () => {
-    const { data } = await axiosInstance.post('/user', {
-      token: localStorage.getItem('userToken'),
-    });
+    const { data } = await axiosInstance.get('/user');
     return data;
   }
 );
@@ -110,7 +108,7 @@ export const checkUserToken = createAsyncThunk(
 // Create action to CHECK user password
 export const checkUserPassword = createAsyncThunk(
   'user/checkUserPassword',
-  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+  async ({ formData, id }: { formData: FormData; id: string | null }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a DELETE request to delete user account
@@ -122,7 +120,7 @@ export const checkUserPassword = createAsyncThunk(
 // Create action to DELETE user account
 export const deleteUserAccount = createAsyncThunk(
   'user/deleteAccount',
-  async ({ id }: { id: number | null }) => {
+  async ({ id }: { id: string | null }) => {
     // Send a DELETE request to delete user account
     await axiosInstance.delete(`/users/${id}`);
   }
@@ -131,7 +129,7 @@ export const deleteUserAccount = createAsyncThunk(
 // Create action UPDATE user data
 export const updateUserData = createAsyncThunk(
   'user/updateUserData',
-  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+  async ({ formData, id }: { formData: FormData; id: string | null }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a POST request to update user data
@@ -143,7 +141,7 @@ export const updateUserData = createAsyncThunk(
 // Create action to UPDATE user password
 export const updatePassword = createAsyncThunk(
   'user/updatePassword',
-  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+  async ({ formData, id }: { formData: FormData; id: string | null }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a POST request to update user data
@@ -155,7 +153,7 @@ export const updatePassword = createAsyncThunk(
 // Create action to UPDATE consents
 export const updateConsent = createAsyncThunk(
   'user/updateConsent',
-  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+  async ({ formData, id }: { formData: FormData; id: string | null }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a PATCH request to update user data
@@ -181,8 +179,8 @@ export const addTrip = createAsyncThunk(
 // Create action to DELETE a trip
 export const deleteTrip = createAsyncThunk(
   'user/deleteTrip',
-  async (id: number | null) => {
-    const { data } = await axiosInstance.delete(`/trips/${id}`);
+  async (tripId: string | null) => {
+    const { data } = await axiosInstance.delete(`/trips/${tripId}`);
     return data;
   }
 );

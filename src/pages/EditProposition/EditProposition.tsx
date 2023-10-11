@@ -15,7 +15,7 @@ import handleSuggestionLocalisation from '../../utils/handleLocalisation';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
-import FormContainer from '../../components/FormContainer/FormContainer';
+import FormContainer from '../../layout/FormContainer/FormContainer';
 import Button from '../../components/Button/Button';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -28,10 +28,10 @@ function EditProposition() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // Get the Trip id and the Proposition id from url and transform them to number
+  // Get the Trip id and the Proposition id from url
   const { propositionId, tripId } = useParams();
-  const idProposition = Number(propositionId); // Proposition id
-  const idTrip = Number(tripId); // Trip id
+  const idProposition = propositionId ?? ''; // Proposition id
+  const idTrip = tripId ?? ''; // Trip id
 
   // Fetch states from Redux store
   const propositions = useAppSelector((state) => state.trip.trip.links);
@@ -144,7 +144,7 @@ function EditProposition() {
       })
     );
     setIsLoading(false);
-    navigate(`/my-trip/${propositionId}`);
+    navigate(`/my-trip/${idTrip}`);
   };
 
   return (

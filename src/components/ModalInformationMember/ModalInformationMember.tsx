@@ -1,7 +1,7 @@
 // Import React Hooks
 import { useState } from 'react';
 // Import Components
-import ModalContainer from '../ModalContainer/ModalContainer';
+import ModalContainer from '../../layout/ModalContainer/ModalContainer';
 // Import Styles
 import './ModaleInformationMember.scss';
 
@@ -33,7 +33,7 @@ function ModalInformationMember({
       {isOpen && (
         <ModalContainer handleClose={handleClose}>
           <i className="modal-information-icon fa-solid fa-id-card" />
-          <h1 className="main-title">{title}</h1>
+          <h1 className="modal-information-title modal-title">{title}</h1>
           <p className="modal-information-text">{lastname}</p>
           <p className="modal-information-text">{firstname}</p>
           <p className="modal-information-text">{email}</p>

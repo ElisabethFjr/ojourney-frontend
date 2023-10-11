@@ -33,7 +33,7 @@
     background-color: transparent;
     color: v.$color-text;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: v.$ease-in-out;
 
     &:hover {
       color: v.$color-primary-lightest;

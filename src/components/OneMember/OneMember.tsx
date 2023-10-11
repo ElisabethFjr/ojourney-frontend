@@ -13,18 +13,18 @@ import ModalInformationMember from '../ModalInformationMember/ModalInformationMe
 import './OneMember.scss';
 
 interface OneMemberProps {
-  tripId: number | null;
+  tripId: string | null;
   member: Member;
-  isCreator: boolean;
+  isTripCreator: boolean;
   userData: User;
-  openMemberId: number | null;
-  setOpenMemberId: React.Dispatch<React.SetStateAction<number | null>>;
+  openMemberId: string | null;
+  setOpenMemberId: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 function OneMember({
   tripId,
   member,
-  isCreator,
+  isTripCreator,
   userData,
   openMemberId,
   setOpenMemberId,
@@ -108,7 +108,7 @@ function OneMember({
             >
               Voir les infos
             </button>
-            {isCreator && !isCurrentUser && (
+            {isTripCreator && !isCurrentUser && (
               <button
                 className="member-menu-btn"
                 type="button"

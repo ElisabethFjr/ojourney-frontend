@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Import Components
 import Button from '../Button/Button';
-import ModalContainer from '../ModalContainer/ModalContainer';
+import ModalContainer from '../../layout/ModalContainer/ModalContainer';
 // Import Styles
 import './ModalDeleteConfirmation.scss';
 
@@ -14,7 +14,7 @@ export interface ModalDeleteConfirmProps {
   dispatchDeleteAction: () => void;
   urlNavigate: string;
   closeModal: (value: React.SetStateAction<boolean>) => void;
-  isAuthor?: boolean;
+  isTripAuthor?: boolean;
 }
 
 function ModalDeleteConfirm({
@@ -23,7 +23,7 @@ function ModalDeleteConfirm({
   dispatchDeleteAction,
   urlNavigate,
   closeModal,
-  isAuthor,
+  isTripAuthor,
 }: ModalDeleteConfirmProps) {
   // Initialize Hooks
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ function ModalDeleteConfirm({
       {isOpen && (
         <ModalContainer handleClose={handleClose}>
           <i className="modal-delete-icon fa-solid fa-triangle-exclamation" />
-          <h1 className="modal-delete-title">{title}</h1>
+          <h1 className="modal-delete-title modal-title">{title}</h1>
           <p className="modal-delete-text">{text}</p>
           <div className="modal-delete-button-container">
             <Button
@@ -59,7 +59,7 @@ function ModalDeleteConfirm({
               onClick={handleClose}
             />
             <Button
-              text={isAuthor ? 'Supprimer' : 'Valider'}
+              text={isTripAuthor ? 'Supprimer' : 'Valider'}
               type="button"
               customClass="danger"
               onClick={handleDelete}

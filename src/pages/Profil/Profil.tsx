@@ -23,6 +23,7 @@ function Profil() {
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
+  console.log(userData);
 
   // States variables declaration
   const [showModalConfirmPassword, setShowModalConfirmPassword] =

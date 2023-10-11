@@ -21,7 +21,7 @@ function ForgotPassword() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-     // Get the current form element
+    // Get the current form element
     const form = event.currentTarget;
     // Create a FormData object
     const formData = new FormData(form);
@@ -38,7 +38,7 @@ function ForgotPassword() {
     }
 
     await axiosInstance
-    // Send request PATCH to URL in json
+      // Send request PATCH to URL in json
       .post('/reset', jsonData)
       .then(() => {
         setShowModalForgotPassword(true);

@@ -1,7 +1,7 @@
 // Import React Hooks
 import { useState } from 'react';
 // Import Component
-import ModalContainer from '../ModalContainer/ModalContainer';
+import ModalContainer from '../../layout/ModalContainer/ModalContainer';
 // Import Styles
 import './ModalConfirmMessage.scss';
 
@@ -23,7 +23,7 @@ function ModalConfirmMessage({ closeModal }: ModalConfirmMessageProps) {
       {isOpen && (
         <ModalContainer handleClose={handleClose}>
           <i className="modal-confirm-icon fa-solid fa-envelope-circle-check" />
-          <h1 className="modal-confirm-title">
+          <h1 className="modal-confirm-title modal-title">
             Veuillez vérifier votre addresse mail.
           </h1>
           <p className="modal-confirm-text">

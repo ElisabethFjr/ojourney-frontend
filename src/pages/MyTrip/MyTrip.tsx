@@ -27,12 +27,12 @@ function MyTrip() {
   const dispatch = useAppDispatch();
 
   // Get the trip id from route parameters
-  const { id } = useParams();
-  const tripId = Number(id);
+  const { id } = useParams() ?? '';
+  const tripId = id ?? '';
 
   // Declaration state variables
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-  const [openMemberId, setOpenMemberId] = useState<number | null>(null);
+  const [openMemberId, setOpenMemberId] = useState<string | null>(null);
   const [showModalInviteMember, setShowModalInviteMember] =
     useState<boolean>(false);
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
@@ -47,7 +47,7 @@ function MyTrip() {
   const isLoading = useAppSelector((state) => state.trip.isLoading); // Loading state
 
   // Boolean to check if the user is the trip creator
-  const isCreator = userData.id === trip.user_id;
+  const isTripCreator = userData.id === trip.user_id;
 
   useEffect(() => {
     dispatch(fetchTripData(tripId));
@@ -97,7 +97,7 @@ function MyTrip() {
       key={member.id}
       member={member}
       tripId={tripId}
-      isCreator={isCreator}
+      isTripCreator={isTripCreator}
       userData={userData}
       openMemberId={openMemberId}
       setOpenMemberId={setOpenMemberId}
@@ -118,6 +118,7 @@ function MyTrip() {
         id_link={proposition.id}
         user_id={proposition.user_id}
         likes={proposition.likes}
+        isTripCreator={isTripCreator}
       />
     </li>
   ));
@@ -167,7 +168,7 @@ function MyTrip() {
             <p className="one-trip-overview-description">{trip.description}</p>
           </div>
 
-          {isCreator && (
+          {isTripCreator && (
             <div className="one-trip-overview-buttons">
               <Link to={`/edit-trip/${id}`} className="edit-btn">
                 <Button
@@ -190,7 +191,7 @@ function MyTrip() {
       </section>
       {/* ********** MEMBERS LIST */}
       <section className="one-trip-members">
-        {isCreator && (
+        {isTripCreator && (
           <Button
             text="Ajouter"
             icon="fa-solid fa-user-plus"
@@ -218,7 +219,7 @@ function MyTrip() {
           <p className="one-trip-propositions-add-text">
             Faites une nouvelle proposition.
           </p>
-          <Link to={`/new-proposition/${id}`}>
+          <Link to={`/new-proposition/${tripId}`}>
             <Button
               text="Nouvelle proposition"
               icon="fa-solid fa-plus"

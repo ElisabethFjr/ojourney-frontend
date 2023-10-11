@@ -1,6 +1,6 @@
 import road from '../../assets/images/road.png';
 
-//Import Styles
+// Import Styles
 import './ErrorNotFound.scss';
 
 function ErrorNotFound() {

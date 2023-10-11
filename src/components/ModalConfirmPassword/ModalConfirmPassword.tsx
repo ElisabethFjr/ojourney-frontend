@@ -12,7 +12,7 @@ import {
 // Import Components
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
-import ModalContainer from '../ModalContainer/ModalContainer';
+import ModalContainer from '../../layout/ModalContainer/ModalContainer';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 // Import Styles
 import './ModalConfimPassword.scss';
@@ -71,7 +71,7 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
       {isOpen && (
         <ModalContainer handleClose={handleClose}>
           <i className="modal-delete-account-icon fa-solid fa-triangle-exclamation" />
-          <h1 className="modal-delete-account-title">
+          <h1 className="modal-delete-account-title modal-title">
             Supprimer votre compte ?
           </h1>
           <p className="modal-delete-account-text">

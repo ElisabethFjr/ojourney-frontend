@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import axiosInstance from '../../utils/axios';
 
 // Import Component
-import ModalContainer from '../ModalContainer/ModalContainer';
+import ModalContainer from '../../layout/ModalContainer/ModalContainer';
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
@@ -22,6 +22,7 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
   // State Variable
   const [isOpen, setIsOpen] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   // Close modal
   const handleClose = () => {
     setIsOpen(!isOpen);
@@ -42,7 +43,7 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
     setErrorMessage(null);
 
     // Check if input is empty before submit
-    if (!jsonData.email || !jsonData.password) {
+    if (!jsonData.email) {
       setErrorMessage('Veuillez renseigner tous les champs.');
       return;
     }
@@ -73,8 +74,8 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
       {isOpen && (
         <ModalContainer handleClose={handleClose}>
           <i className="modal-confirm-email-icon fa-solid fa-envelope-circle-check" />
-          <h1 className="modal-confirm-email-title">
-            Veuillez renseigner votre adresse email et votre mot de passe.
+          <h1 className="modal-confirm-email-title modal-title">
+            Veuillez renseigner votre adresse email.
           </h1>
           <p className="modal-confirm-email-text">
             Vous allez recevoir un e-mail avec un lien afin de valider votre
@@ -90,13 +91,6 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
               placeholder="E-mail"
               type="email"
               icon="fa-solid fa-envelope-circle-check"
-              required
-            />
-            <InputField
-              name="password"
-              placeholder="Mot de passe"
-              type="password"
-              icon="fa-solid fa-lock"
               required
             />
             <Button text="Confirmer" type="submit" customClass="color" />

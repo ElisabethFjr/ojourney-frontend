@@ -11,7 +11,7 @@ import { addTrip } from '../../store/reducers/user';
 
 // Imports Layouts & Components
 import Main from '../../layout/Main/Main';
-import FormContainer from '../../components/FormContainer/FormContainer';
+import FormContainer from '../../layout/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';

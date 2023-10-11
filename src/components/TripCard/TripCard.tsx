@@ -18,13 +18,13 @@ import { User } from '../../@types';
 import './TripCard.scss';
 
 export interface TripCardProps {
-  id: number;
+  id: string;
   srcTripImage: string;
   altImage: string;
   description: string;
   localisation: string;
   linkHref: string;
-  user_id: number;
+  user_id: string;
 }
 
 function TripCard({
@@ -40,9 +40,9 @@ function TripCard({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // Convert id to a number
-  const tripId = Number(id);
-  const userId = Number(user_id);
+  // Id variables
+  const tripId = id;
+  const userId = user_id;
 
   // Declaration useState variable
   const [author, setAuthor] = useState<User>({} as User);
@@ -52,7 +52,7 @@ function TripCard({
 
   // Get the connecter member id
   const memberId = userData.id;
-  const isAuthor = userData.id === userId;
+  const isTripAuthor = userData.id === userId;
 
   // Fetch the trip's creator data with his user_id
   useEffect(() => {
@@ -72,7 +72,7 @@ function TripCard({
 
   // Handler delete actions on click on the trash icon, depending on author status
   const dispatchDeleteAction = () => {
-    if (isAuthor) {
+    if (isTripAuthor) {
       dispatch(deleteTrip(tripId)); // If author, dispatch the deleteTrip action
     } else {
       // If just member, dispatch the deleteMember action to leave the trip
@@ -107,14 +107,16 @@ function TripCard({
         <ModalDeleteConfirm
           dispatchDeleteAction={dispatchDeleteAction}
           urlNavigate="/my-trips"
-          title={isAuthor ? 'Confirmation suppression' : 'Quitter le voyage'}
+          title={
+            isTripAuthor ? 'Confirmation suppression' : 'Quitter le voyage'
+          }
           text={
-            isAuthor
+            isTripAuthor
               ? 'Êtes-vous sûr de vouloir supprimer définitivement ce voyage ?'
               : 'Êtes-vous sûr de vouloir quitter définitivement ce voyage ?'
           }
           closeModal={() => setShowModalDeleteConfirm(false)}
-          isAuthor={isAuthor}
+          isTripAuthor={isTripAuthor}
         />
       )}
     </div>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Main from '../../layout/Main/Main';
 
-import FormContainer from '../../components/FormContainer/FormContainer';
+import FormContainer from '../../layout/FormContainer/FormContainer';
 import SignInForm from '../../components/SignInForm/SignInForm';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 

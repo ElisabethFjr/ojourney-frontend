@@ -17,7 +17,7 @@ import { resetSuggestions, updateTrip } from '../../store/reducers/trip';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
-import FormContainer from '../../components/FormContainer/FormContainer';
+import FormContainer from '../../layout/FormContainer/FormContainer';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import Button from '../../components/Button/Button';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
@@ -36,7 +36,7 @@ function EditTrip() {
 
   // Get the trip id from url
   const { id } = useParams();
-  const tripId = Number(id);
+  const tripId = id ?? '';
 
   // Fetch states from Redux store
   const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
@@ -163,7 +163,7 @@ function EditTrip() {
     }
 
     // Dispatch udpateTrip action on the form submission
-    dispatch(updateTrip({ formData, id: tripId }));
+    dispatch(updateTrip({ formData, tripId }));
     navigate(`/my-trip/${tripId}`);
   };
 
