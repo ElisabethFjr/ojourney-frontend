@@ -1,13 +1,17 @@
+// Import React Hooks & FormEvent
 import { FormEvent, useEffect, useState } from 'react';
+// Import React-Router-Dom
 import { Link, useNavigate } from 'react-router-dom';
+// Import Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+// Import Redux Actions
 import { login } from '../../store/reducers/user';
-
+// Import Components
 import InputField from '../InputField/InputField';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import Button from '../Button/Button';
 import ModalConfirmEmail from '../ModalConfirmEmail/ModalConfirmEmail';
-
+// Import Styles
 import './SignInForm.scss';
 
 function SignInForm() {
@@ -22,12 +26,14 @@ function SignInForm() {
   // Event handler SignIn form submit
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Get the current from
     const form = event.currentTarget;
+    // Create a FormData Object
     const formData = new FormData(form);
     // Dispatch the login action with form data
     dispatch(login(formData));
   };
-
+  // State Varibles
   const [showModalConfirmEmail, setShowModalConfirmEmail] =
     useState<boolean>(false);
 

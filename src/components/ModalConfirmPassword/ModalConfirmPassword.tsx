@@ -24,10 +24,9 @@ interface ModaleConfirmPasswordProps {
 function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
   // Initialize Hooks
   const navigate = useNavigate();
-  // Get Dispatch
   const dispatch = useAppDispatch();
 
-  // State Variables
+  // Declaration state variables
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 

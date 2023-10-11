@@ -10,7 +10,7 @@ interface ModalConfirmMessageProps {
 }
 
 function ModalConfirmMessage({ closeModal }: ModalConfirmMessageProps) {
-  // State Variable
+  // Declaration state variables
   const [isOpen, setIsOpen] = useState(true);
   // Close modal
   const handleClose = () => {

@@ -30,7 +30,7 @@ function InputField({
 }: InputFieldProps) {
   // Access the Redux dispatch function using the 'useAppDispatch' hook.
   const dispatch = useAppDispatch();
-  // State Variable
+  // Declaration State Variables
   const [value, setValue] = useState('');
   const [previousValueLength, setpreviousValueLength] = useState(0);
 

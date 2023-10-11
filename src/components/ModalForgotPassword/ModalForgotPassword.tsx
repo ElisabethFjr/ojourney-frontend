@@ -9,6 +9,7 @@ interface ModalForgotPasswordProps {
 }
 
 function ModalForgotPassword({ closeModal }: ModalForgotPasswordProps) {
+  // Declaration state variables
   const [isOpen, setIsOpen] = useState(true);
   // Close modal
   const handleClose = () => {
