@@ -1,9 +1,12 @@
 import { useState, ChangeEvent } from 'react';
 import DOMPurify from 'dompurify';
+import { nanoid } from 'nanoid';
+
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
+import { resetSuggestions } from '../../store/reducers/trip';
+import handleSuggestionLocalisation from '../../utils/handleLocalisation';
 
 import './InputField.scss';
-import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { setSuggestions, resetSuggestions } from '../../store/reducers/trip';
 
 export interface InputFieldProps {
   name: string;
@@ -37,24 +40,13 @@ function InputField({
   // EVENT HANDLER to handle changes in the input component
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     // If specific input "localisation", set the auto suggestions from the geoapify API
-    if (event.target.name === 'localisation') {
-      const inputValueLength = event.target.value.length;
-      // If the input value increase (user is adding some characters on the input)
-      if (previousValueLength < inputValueLength) {
-        setpreviousValueLength(inputValueLength);
-        const searchValue = event.target.value;
-        // Dispatch the action to display suggestions based on the current input value
-        dispatch(setSuggestions({ value: searchValue }));
-        // Else, if the input value decrease (user is deleting some characters on the input)
-      } else if (
-        previousValueLength > inputValueLength &&
-        inputValueLength !== 0
-      ) {
-        setpreviousValueLength(inputValueLength);
-        // Dispatch the action to clear all suggestions
-        dispatch(resetSuggestions());
-      }
-    }
+    // Check /utils/handleLocalisation to see the function
+    handleSuggestionLocalisation(
+      event,
+      dispatch,
+      previousValueLength,
+      setpreviousValueLength
+    );
     // Sanitize the input value using DOMPurify to prevent security vulnerabilities
     const sanitizedValue = DOMPurify.sanitize(event.target.value);
     setValue(sanitizedValue);
@@ -73,8 +65,8 @@ function InputField({
 
   // Create a list of localisation suggestion depending on the input value
   const allSuggestions = suggestions.map((suggestion) => {
-    // Generate a random key item
-    const randomKeyItem = Math.floor(Math.random() * 15000);
+    // Generate a random key item with nanoid
+    const uniqueKey = nanoid();
     return (
       <div
         role="button"
@@ -83,7 +75,7 @@ function InputField({
         onKeyDown={() =>
           handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
         }
-        key={randomKeyItem}
+        key={uniqueKey}
         onClick={() =>
           handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
         }

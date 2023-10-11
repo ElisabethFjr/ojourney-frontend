@@ -6,17 +6,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
+import { nanoid } from 'nanoid';
 
 // Import Utils functions
 import changeDateFormat from '../../utils/formatDate';
 
 // Imports Redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import {
-  resetSuggestions,
-  setSuggestions,
-  updateTrip,
-} from '../../store/reducers/trip';
+import { resetSuggestions, updateTrip } from '../../store/reducers/trip';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
@@ -27,6 +24,7 @@ import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './EditTrip.scss';
+import handleSuggestionLocalisation from '../../utils/handleLocalisation';
 
 function EditTrip() {
   // Set Locale to fr
@@ -45,9 +43,7 @@ function EditTrip() {
   const suggestions = useAppSelector((state) => state.trip.suggestions);
 
   // States variables declaration
-
   const [previousValueLength, setpreviousValueLength] = useState(0); // State for the previous input value (for suggestions localisation)
-
   const [localisation, setLocalisation] = useState<string>(
     trip.localisation || ''
   );
@@ -70,28 +66,53 @@ function EditTrip() {
     setValue: (value: string) => void
   ) => {
     // If specific input "localisation", set the auto suggestions from the geoapify API
-    if (event.target.name === 'localisation') {
-      const inputValueLength = event.target.value.length;
-      // If the input value increase (user is adding some characters on the input)
-      if (previousValueLength < inputValueLength) {
-        setpreviousValueLength(inputValueLength);
-        const searchValue = event.target.value;
-        // Dispatch the action to display suggestions based on the current input value
-        dispatch(setSuggestions({ value: searchValue }));
-        // Else, if the input value decrease (user is deleting some characters on the input)
-      } else if (
-        previousValueLength > inputValueLength &&
-        inputValueLength !== 0
-      ) {
-        setpreviousValueLength(inputValueLength);
-        // Dispatch the action to clear all suggestions
-        dispatch(resetSuggestions());
-      }
-    }
+    // Check /utils/handleLocalisation to see the function
+    handleSuggestionLocalisation(
+      event,
+      dispatch,
+      previousValueLength,
+      setpreviousValueLength
+    );
     // Sanitize the input value using DOMPurify to prevent security vulnerabilities
     const sanitizedValue = DOMPurify.sanitize(event.target.value);
     setValue(sanitizedValue);
   };
+
+  // EVENT HANDLER on the click on a suggested localisation
+  const handleClickSuggestion = (newValue: string) => {
+    setLocalisation(newValue);
+    dispatch(resetSuggestions());
+  };
+
+  // EVENT HANDLER when the input localisation element loses focus
+  const handleBlur = () => {
+    dispatch(resetSuggestions());
+  };
+
+  // Create a list of localisation suggestion depending on the input value
+  const allSuggestions = suggestions.map((suggestion) => {
+    // Generate a random key item with nanoid
+    const uniqueKey = nanoid();
+    return (
+      <div
+        role="button"
+        className="field-edit-input-suggestion-item"
+        tabIndex={0}
+        onKeyDown={() =>
+          handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
+        }
+        key={uniqueKey}
+        onClick={() =>
+          handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
+        }
+        onBlur={handleBlur}
+      >
+        {/* Localisation suggestion composed of 'line1' and 'line2' elements from the API */}
+        {/* Details localisation : address_line1 for the adress and address_line2 for the country) */}
+        {suggestion.line1} {suggestion.line2}
+      </div>
+    );
+  });
 
   // EVENT HANDLER for start date change
   const handleStartDateChange = (date: Date) => {
@@ -111,6 +132,7 @@ function EditTrip() {
       setImageUrl(url);
     }
   };
+
   // EVENT HANDLER for the newTrip form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -144,41 +166,6 @@ function EditTrip() {
     dispatch(updateTrip({ formData, id: tripId }));
     navigate(`/my-trip/${tripId}`);
   };
-
-  // EVENT HANDLER on the click on a suggested localisation
-  const handleClickSuggestion = (newValue: string) => {
-    setLocalisation(newValue);
-    dispatch(resetSuggestions());
-  };
-
-  // EVENT HANDLER when an input element loses focus
-  const handleBlur = () => {
-    dispatch(resetSuggestions());
-  };
-  // Create a list of localisation suggestion depending on the input value
-  const allSuggestions = suggestions.map((suggestion) => {
-    // Generate a random key item
-    const randomKeyItem = Math.floor(Math.random() * 15000);
-    return (
-      <div
-        role="button"
-        className="field-edit-input-suggestion-item"
-        tabIndex={0}
-        onKeyDown={() =>
-          handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
-        }
-        key={randomKeyItem}
-        onClick={() =>
-          handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
-        }
-        onBlur={handleBlur}
-      >
-        {/* Localisation suggestion composed of 'line1' and 'line2' elements from the API */}
-        {/* Details localisation : address_line1 for the adress and address_line2 for the country) */}
-        {suggestion.line1} {suggestion.line2}
-      </div>
-    );
-  });
 
   return (
     <Main>
