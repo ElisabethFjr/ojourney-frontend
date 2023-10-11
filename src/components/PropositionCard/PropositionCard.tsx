@@ -21,10 +21,11 @@ interface PropositionCardProps {
   localisation: string;
   description: string;
   url: string;
-  id_link: number;
-  id_trip: number;
-  user_id: number;
-  likes: number[];
+  id_link: string;
+  id_trip: string;
+  user_id: string;
+  likes: string[];
+  isTripCreator: boolean;
 }
 
 function PropositionCard({
@@ -38,26 +39,28 @@ function PropositionCard({
   id_trip,
   user_id,
   likes,
+  isTripCreator,
 }: PropositionCardProps) {
   // Initialize Hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  // Convert user id to a number
-  const userId = Number(user_id);
+
+  // Set ids if exist
+  const userId = user_id ?? '';
+  const tripId = id_trip ?? '';
+  const propositionId = id_link ?? '';
 
   // Does the connected user like this trip?
   const isUserLikedTrip = useAppSelector(
     (state) => state.user.data.id && likes.includes(state.user.data.id)
   );
 
-  // Convert trip id to a number
-  const tripId = Number(id_trip);
-  const propositionId = Number(id_link);
   // Fetch states from Redux store
   const members = useAppSelector((state) => state.trip.trip.members);
   // Function to find the author name based on the proposition.user_id
-  const author = members.find((member) => member.id === userId);
-  // State Variable
+  const isPropositionAuthor = members.find((member) => member.id === userId);
+
+  // Declaration State Variable
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
 
@@ -78,10 +81,17 @@ function PropositionCard({
 
   return (
     <div className="proposition-card-container">
-      <div className="proposition-card-icons">
-        <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
-        <ButtonIcon icon="fa-solid fa-trash" handleClick={handleClickDelete} />
-      </div>
+      {/* Display icons edit/delete buttons only if the current user is the author of the proposition or the trip creator */}
+      {isPropositionAuthor || isTripCreator ? (
+        <div className="proposition-card-icons">
+          <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
+          <ButtonIcon
+            icon="fa-solid fa-trash"
+            handleClick={handleClickDelete}
+          />
+        </div>
+      ) : null}
+      {/* Like Button & Display the number of likes */}
       <div className="proposition-card-like">
         {likes && <p>({likes.length})</p>}
         <button
@@ -98,6 +108,7 @@ function PropositionCard({
           J&lsquo;aime
         </button>
       </div>
+      {/* Proposition Card */}
       <Link to={url} target="_blank" className="proposition-card">
         <img
           className="proposition-card-image"
@@ -109,8 +120,12 @@ function PropositionCard({
           <div className="proposition-card-header">
             <h3 className="proposition-card-header-title">{title}</h3>
           </div>
+          {/* Display the author's name or "Membre supprimé" if the member has been deleted */}
           <p className="proposition-card-author">
-            Creé par {`${author?.firstname} ${author?.lastname}`}
+            Creé par{' '}
+            {isPropositionAuthor
+              ? `${isPropositionAuthor?.firstname} ${isPropositionAuthor?.lastname}`
+              : 'Membre supprimé'}
           </p>
           {description && (
             <div className="proposition-card-description">
@@ -127,12 +142,13 @@ function PropositionCard({
           </div>
         </div>
       </Link>
+      {/* Display the Delete Modale if the trash button is clicked */}
       {showModalDeleteConfirm && (
         <ModalDeleteConfirm
           dispatchDeleteAction={() =>
             dispatch(deleteProposition({ tripId, propositionId }))
           }
-          urlNavigate={`/my-trip/${id_trip}`}
+          urlNavigate={`/my-trip/${tripId}`}
           title="Confirmation suppression"
           text="Êtes-vous sûr de vouloir supprimer définitivement cette proposition ?"
           closeModal={() => setShowModalDeleteConfirm(false)}

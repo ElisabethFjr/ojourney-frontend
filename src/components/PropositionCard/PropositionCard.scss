@@ -122,15 +122,16 @@
       display: flex;
       align-items: center;
       gap: 0.2rem;
-      padding: 0 0.3rem;
+      padding: 0.1rem 0.4rem;
       border-radius: v.$border-radius;
       border: none;
       background-color: transparent;
+      transition: v.$ease-in-out;
 
       &:hover {
         background-color: v.$color-grey-lightest;
         border-radius: v.$border-radius;
-        padding: 0 0.3rem;
+        padding: 0.1rem 0.4rem;
       }
     }
 
@@ -150,7 +151,9 @@
   .proposition-card {
     flex-direction: column;
     width: 100%;
-    height: 450px;
+    min-height: 380px;
+    height: auto;
+    max-height: 450px;
 
     &-image {
       max-width: none;

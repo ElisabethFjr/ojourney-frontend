@@ -1,6 +1,6 @@
 // Import Layout & Components
 import Main from '../../layout/Main/Main';
-import FormContainer from '../../components/FormContainer/FormContainer';
+import FormContainer from '../../layout/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import TextareaField from '../../components/TextareaField/TextareaField';
@@ -10,7 +10,6 @@ import sendmessage from '../../assets/images/sendmessage.png';
 import './Contact.scss';
 
 function Contact() {
-
   return (
     <Main>
       <section className="contact-container">

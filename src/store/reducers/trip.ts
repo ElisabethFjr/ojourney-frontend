@@ -17,7 +17,7 @@ import { Member, Proposition, Suggestion } from '../../@types';
 // Type trip states
 interface TripState {
   trip: {
-    id: number | null;
+    id: string | null;
     date_start: string | null;
     date_end: string | null;
     localisation: string;
@@ -26,7 +26,7 @@ interface TripState {
     description: string;
     url_image: string;
     alt_image: string;
-    user_id: number | null;
+    user_id: string | null;
     members: Member[];
     links: Proposition[];
   };
@@ -59,7 +59,7 @@ export const initialState: TripState = {
 // Create action to FETCH trip infos
 export const fetchTripData = createAsyncThunk(
   'trip/fetchTripData',
-  async (id: number | null) => {
+  async (id: string | null) => {
     const { data } = await axiosInstance.get(`/trips/${id}`);
     return data;
   }
@@ -68,7 +68,7 @@ export const fetchTripData = createAsyncThunk(
 // Create action to UPDATE a trip
 export const updateTrip = createAsyncThunk(
   'trip/updateTrip',
-  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+  async ({ formData, id }: { formData: FormData; id: string | null }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     const { data } = await axiosInstance.patch(`/trips/${id}`, objData, {
@@ -81,7 +81,7 @@ export const updateTrip = createAsyncThunk(
 // Create action to ADD a new proposition
 export const addProposition = createAsyncThunk(
   'user/addProposition',
-  async ({ formData, id }: { formData: FormData; id: number | null }) => {
+  async ({ formData, id }: { formData: FormData; id: string | null }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a DELETE request to delete user account
@@ -99,8 +99,8 @@ export const updateProposition = createAsyncThunk(
     propositionId,
   }: {
     formData: FormData;
-    tripId: number | null;
-    propositionId: number | null;
+    tripId: string | null;
+    propositionId: string | null;
   }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
@@ -119,8 +119,8 @@ export const deleteProposition = createAsyncThunk(
     tripId,
     propositionId,
   }: {
-    tripId: number | null;
-    propositionId: number | null;
+    tripId: string | null;
+    propositionId: string | null;
   }) => {
     const { data } = await axiosInstance.delete(
       `/trips/${tripId}/links/${propositionId}`
@@ -135,8 +135,8 @@ export const informationMember = createAsyncThunk(
     tripId,
     memberId,
   }: {
-    tripId: number | null;
-    memberId: number | null;
+    tripId: string | null;
+    memberId: string | null;
   }) => {
     const { data } = await axiosInstance.get(
       `/trips/${tripId}/members/${memberId}`
@@ -152,8 +152,8 @@ export const deleteMember = createAsyncThunk(
     tripId,
     memberId,
   }: {
-    tripId: number | null;
-    memberId: number | null;
+    tripId: string | null;
+    memberId: string | null;
   }) => {
     const { data } = await axiosInstance.delete(
       `/trips/${tripId}/members/${memberId}`
@@ -169,8 +169,8 @@ export const toggleLike = createAsyncThunk(
     tripId,
     linkId,
   }: {
-    tripId: number | null;
-    linkId: number | null;
+    tripId: string | null;
+    linkId: string | null;
   }) => {
     const { data } = await axiosInstance.post(
       `/trips/${tripId}/links/${linkId}/like`

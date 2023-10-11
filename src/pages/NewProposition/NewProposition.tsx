@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 // Imports Layouts & Conponents
 import Main from '../../layout/Main/Main';
-import FormContainer from '../../components/FormContainer/FormContainer';
+import FormContainer from '../../layout/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import TextareaField from '../../components/TextareaField/TextareaField';
@@ -24,8 +24,8 @@ function NewProposition() {
   const dispatch = useAppDispatch();
 
   // Get the trip id from url
-  const { id } = useParams();
-  const propositionId = Number(id);
+  const { id } = useParams() ?? '';
+  const tripId = id ?? '';
 
   // Declaration state variables
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -61,10 +61,10 @@ function NewProposition() {
     }
 
     // Dispatch addproposition action on the form submission
-    dispatch(addProposition({ formData, id: propositionId }));
+    dispatch(addProposition({ formData, id: tripId }));
     setIsLoading(false);
 
-    navigate(`/my-trip/${propositionId}`);
+    navigate(`/my-trip/${id}`);
   };
 
   return (

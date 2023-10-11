@@ -18,6 +18,7 @@ function MapDisplay({ lat, lon, links }: MapProps) {
         key={link.id}
         width={40}
         anchor={[link.lat, link.lon]} // Latitude and longitude coordinates
+        color="#ff7d5cbd"
         hover // Enable hover effect
       />
     );

@@ -58,10 +58,6 @@ function PdfDisplay({ data }: PdfDisplayProps) {
           <Text>Votre prénom : {data.firstname}</Text>
           <Text>Votre email : {data.email}</Text>
           <Text>
-            Votre mot de passe (hashé pour des raisons de sécurité) :{' '}
-            {data.password}
-          </Text>
-          <Text>
             Votre consentement concernant l&apos;utilisation de vos données dans
             un but commercial : {data.consent_commercial}
           </Text>

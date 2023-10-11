@@ -1,13 +1,6 @@
 @use '../../styles/variables' as v;
 
 .modal-delete {
-  &-title {
-    width: 100%;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid v.$color-grey-lightest;
-    text-align: center;
-  }
-
   &-text {
     width: 100%;
     padding-bottom: 1rem;
@@ -42,7 +35,7 @@
     &-icon {
       font-size: 1.5rem;
       color: v.$color-grey-darkest;
-      transition: all 0.3s ease;
+      transition: v.$ease-in-out;
 
       &:hover {
         color: v.$color-text;

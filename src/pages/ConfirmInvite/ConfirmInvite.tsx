@@ -1,4 +1,4 @@
-//Import React Hook
+// Import React Hook
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -13,7 +13,6 @@ import Button from '../../components/Button/Button';
 import './ConfirmInvite.scss';
 
 function ConfirmInvite() {
-
   // Declaration States Variables
   const [isConfirmed, setIsConfirmed] = useState(false);
 
@@ -22,7 +21,7 @@ function ConfirmInvite() {
   useEffect(() => {
     async function confirmInvite() {
       await axiosInstance
-      // Send request GET to URL with token
+        // Send request GET to URL with token
         .get(`/invite?invite=${token}`)
         .then(() => {
           setIsConfirmed(true);

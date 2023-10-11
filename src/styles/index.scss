@@ -32,6 +32,21 @@ body {
   }
 }
 
+// MODAL
+.modal-title {
+  width: 100%;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid v.$color-grey-lightest;
+  text-align: center;
+}
+
+// RESPONSIVE Screen < 599px
+@media (max-width: 599px) {
+  .modal-title {
+    font-size: 1.4rem;
+  }
+}
+
 // INPUT Field Edit Pages
 .field-edit {
   position: relative;

@@ -9,14 +9,14 @@ import { useAppSelector } from '../../hooks/redux';
 // Import Components
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
-import ModalContainer from '../ModalContainer/ModalContainer';
+import ModalContainer from '../../layout/ModalContainer/ModalContainer';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 // Import Styles
 import 'react-toastify/dist/ReactToastify.css';
 import './ModalInviteMember.scss';
 
 interface ModalInviteMemberProps {
-  id: number | null; // Trip id
+  id: string | null; // Trip id
   closeModal: (value: React.SetStateAction<boolean>) => void;
 }
 
@@ -86,7 +86,9 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
       {isOpen && (
         <ModalContainer handleClose={handleClose}>
           <i className="modal-invite-member-icon fa-solid fa-envelope-circle-check" />
-          <h1 className="modal-invite-member-title">Inviter un membre</h1>
+          <h1 className="modal-invite-member-title modal-title">
+            Inviter un membre
+          </h1>
           <p className="modal-invite-member-text">
             Veuillez renseigner l&apos;adresse email du membre à inviter.
           </p>

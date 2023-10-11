@@ -1,12 +1,12 @@
-//  Import React-Router-Dom
+// Import React-Router-Dom
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 // Import React Hooks
 import { useState, useEffect } from 'react';
 // Import React-Toastify
 import { ToastContainer, Slide } from 'react-toastify';
 // Import Redux Hooks
-// import { useAppDispatch } from '../../hooks/redux';
-// import { checkUserToken } from '../../store/reducers/user';
+import { useAppDispatch } from '../../hooks/redux';
+import { checkUserToken } from '../../store/reducers/user';
 
 // Import axios instance
 import axiosInstance from '../../utils/axios';
@@ -48,17 +48,17 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   // Declaration state variable
   const [loading, setLoading] = useState(true);
 
   // Check the connected user's token for authentication, if ok dispatch the user's data
-  // useEffect(() => {
-  //   if (localStorage.getItem('userToken')) {
-  //     dispatch(checkUserToken());
-  //   }
-  // }, [dispatch]);
+  useEffect(() => {
+    if (localStorage.getItem('userToken')) {
+      dispatch(checkUserToken());
+    }
+  }, [dispatch]);
 
   // Scroll to the top of the page when the location changes
   useEffect(() => {

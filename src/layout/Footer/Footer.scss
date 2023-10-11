@@ -11,6 +11,7 @@
     display: flex;
     justify-content: center;
     gap: 2rem;
+    transition: v.$ease-in-out;
     &-link {
       text-decoration: none;
       color: v.$color-white;

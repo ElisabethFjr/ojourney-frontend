@@ -1,5 +1,5 @@
 export interface User {
-  id: number | null;
+  id: string | null;
   firstname: string | null;
   lastname: string | null;
   email: string | null;
@@ -11,7 +11,7 @@ export interface User {
 }
 
 export interface Trip {
-  id: number;
+  id: string;
   date_start: string;
   date_end: string;
   localisation: string;
@@ -20,25 +20,25 @@ export interface Trip {
   description: string;
   url_image: string;
   alt_image: string;
-  user_id: number;
+  user_id: string;
   links: Proposition[];
   members: Member[];
 }
 
 export interface Member {
-  id: number;
+  id: string;
   firstname: string;
   lastname: string;
   email: string;
 }
 
 export interface Proposition {
-  id: number;
+  id: string;
   description: string;
   url: string;
   localisation: string;
-  trip_id: number;
-  user_id: number;
+  trip_id: string;
+  user_id: string;
   title: string;
   lat: number;
   lon: number;

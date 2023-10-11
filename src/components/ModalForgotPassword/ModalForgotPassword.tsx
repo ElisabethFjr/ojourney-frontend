@@ -1,6 +1,6 @@
 import { useState } from 'react';
 // Import
-import ModalContainer from '../ModalContainer/ModalContainer';
+import ModalContainer from '../../layout/ModalContainer/ModalContainer';
 // Import Styles
 import './ModalForgotPassword.scss';
 
@@ -22,7 +22,7 @@ function ModalForgotPassword({ closeModal }: ModalForgotPasswordProps) {
       {isOpen && (
         <ModalContainer handleClose={handleClose}>
           <i className="modal-forgot-password-icon fa-solid fa-envelope-circle-check" />
-          <h1 className="modal-forgot-password-title">
+          <h1 className="modal-forgot-password-title modal-title">
             Veuillez vérifier votre addresse mail.
           </h1>
           <p className="modal-forgot-password-text">
