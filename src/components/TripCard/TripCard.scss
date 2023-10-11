@@ -102,18 +102,18 @@
 
     &-icons {
       position: absolute;
+
       top: 11px;
       right: 15px;
       gap: 0.6rem;
       z-index: 9;
     }
-
     &-infos {
       padding: 1rem 2rem;
     }
-
     &-description {
       overflow-wrap: break-word;
     }
+
   }
 }

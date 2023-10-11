@@ -35,59 +35,62 @@
   gap: 0.5rem;
   width: 100%;
   padding-top: 0.5rem;
-}
+  font-weight: 700;
+  .profil-card-toggle-text {
+    font-weight: 400;
+  }
+  .profil-card-checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 
-.profil-card-checkbox {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+  .profil-card-toggleSwitch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    width: 50px;
+    height: 25px;
+    padding: 3px;
+    background-color: v.$color-grey;
+    border-radius: 20px;
+    cursor: pointer;
+    transition-duration: 0.2s;
+  }
 
-.profil-card-toggleSwitch {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  width: 50px;
-  height: 25px;
-  padding: 3px;
-  background-color: v.$color-grey;
-  border-radius: 20px;
-  cursor: pointer;
-  transition-duration: 0.2s;
-}
-
-.profil-card-checkbox-slider {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  background-color: v.$color-white;
-  transition-duration: 0.2s;
-}
-
-#consentCommercial:checked + .profil-card-toggleSwitch {
-  background-color: v.$color-primary;
-  transition-duration: 0.2s;
-}
-
-#consentNewsletter:checked
-  + .profil-card-toggleSwitch
   .profil-card-checkbox-slider {
-  transform: translateX(26px);
-  transition-duration: 0.2s;
-}
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: v.$color-white;
+    transition-duration: 0.2s;
+  }
 
-#consentNewsletter:checked + .profil-card-toggleSwitch {
-  background-color: v.$color-primary;
-  transition-duration: 0.2s;
-}
+  #consentCommercial:checked + .profil-card-toggleSwitch {
+    background-color: v.$color-primary;
+    transition-duration: 0.2s;
+  }
 
-#consentCommercial:checked
-  + .profil-card-toggleSwitch
-  .profil-card-checkbox-slider {
-  transform: translateX(26px);
-  transition-duration: 0.2s;
+  #consentNewsletter:checked
+    + .profil-card-toggleSwitch
+    .profil-card-checkbox-slider {
+    transform: translateX(26px);
+    transition-duration: 0.2s;
+  }
+
+  #consentNewsletter:checked + .profil-card-toggleSwitch {
+    background-color: v.$color-primary;
+    transition-duration: 0.2s;
+  }
+
+  #consentCommercial:checked
+    + .profil-card-toggleSwitch
+    .profil-card-checkbox-slider {
+    transform: translateX(26px);
+    transition-duration: 0.2s;
+  }
 }
