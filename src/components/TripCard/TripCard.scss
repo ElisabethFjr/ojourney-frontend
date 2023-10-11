@@ -36,9 +36,22 @@
     display: flex;
     flex-direction: column;
     align-items: start;
+    width: 60%;
     height: 100%;
     padding: 1rem;
     padding-right: 6rem;
+  }
+
+  &-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
   }
 
   &-header {
@@ -67,54 +80,41 @@
     gap: 0.6rem;
     z-index: 9;
   }
+}
 
-  // RESPONSIVE SCREEN < 999px
-  @media (max-width: 999px) {
-    .trip-card {
-      display: flex;
-      flex-direction: column;
+// RESPONSIVE SCREEN < 599px
+@media (max-width: 599px) {
+  .trip-card {
+    flex-direction: column;
+    width: 100%;
+    height: 350px;
+
+    &-image {
+      max-width: none;
       width: 100%;
-      height: 400px;
-
-      &-container {
-        position: relative;
-      }
-
-      &-icons {
-        position: absolute;
-        top: 11px;
-        right: 15px;
-        gap: 0.6rem;
-        z-index: 9;
-      }
+      max-height: 175px;
+      border-radius: 0;
     }
-  }
 
-  // RESPONSIVE SCREEN < 450px
-  @media (max-width: 450px) {
-    .trip-card {
-      width: 100%;
-
-      &-icons {
-        top: 11px;
-        right: 15px;
-        gap: 0.6rem;
-        z-index: 9;
-      }
+    &-container {
+      position: relative;
     }
-  }
 
-  // RESPONSIVE SCREEN < 375px
-  @media (max-width: 375px) {
-    .trip-card {
-      width: 100%;
+    &-icons {
+      position: absolute;
+      top: 11px;
+      right: 15px;
+      gap: 0.6rem;
+      z-index: 9;
+    }
 
-      &-icons {
-        top: 11px;
-        right: 15px;
-        gap: 0.6rem;
-        z-index: 9;
-      }
+    &-infos {
+      padding: 1rem 2rem;
+      width: auto;
+    }
+
+    &-description {
+      overflow-wrap: break-word;
     }
   }
 }
