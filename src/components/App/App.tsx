@@ -1,6 +1,9 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ToastContainer, Slide } from 'react-toastify';
+// import { useAppDispatch } from '../../hooks/redux';
+// import { checkUserToken } from '../../store/reducers/user';
+import axiosInstance from '../../utils/axios';
 
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
@@ -33,19 +36,32 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
+  // const dispatch = useAppDispatch();
 
+  // Declaration state variable
   const [loading, setLoading] = useState(true);
 
+  // Check the connected user's token for authentication, if ok dispatch the user's data
+  // useEffect(() => {
+  //   if (localStorage.getItem('userToken')) {
+  //     dispatch(checkUserToken());
+  //   }
+  // }, [dispatch]);
+
+  // Scroll to the top of the page when the location changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
 
+  // Use a timeout to add a loading screen for 2 seconds
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
 
+  // If page loading, render the Loading component
   if (loading) {
     return <Loading />;
   }
@@ -145,6 +161,16 @@ function App() {
             </PrivateRoute>
           }
         />
+        {/* Interceptor to redirect the user to the /500 route if status code of the response if 500 (Internal Server Error). */}
+        {axiosInstance.interceptors.response.use(
+          (response) => response,
+          (error) => {
+            if (error.response && error.response.status === 500) {
+              navigate('/500');
+            }
+            return Promise.reject(error);
+          }
+        )}
       </Routes>
       <Footer />
       <ToastContainer

@@ -165,7 +165,7 @@ function MyTrip() {
 
           {isCreator && (
             <div className="one-trip-overview-buttons">
-              <Link to={`/edit-trip/${id}`}>
+              <Link to={`/edit-trip/${id}`} className="edit-btn">
                 <Button
                   text="Editer"
                   icon="fa-solid fa-pen"
@@ -177,7 +177,7 @@ function MyTrip() {
                 text="Supprimer"
                 icon="fa-solid fa-trash"
                 type="button"
-                customClass="outline-dark"
+                customClass="outline-dark delete-btn"
                 onClick={handleClickDelete}
               />
             </div>

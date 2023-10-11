@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { redirect } from 'react-router-dom';
 
 // Create an Axios instance with the base URL
 const axiosInstance = axios.create({
@@ -10,16 +9,11 @@ const axiosInstance = axios.create({
 axiosInstance.defaults.headers.common['Content-Type'] =
   'application/x-www-form-urlencoded';
 
-// Interceptor to redirect the user to the /500 route if status code of the response if 500 (Internal Server Error).
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response && error.response.status === 500) {
-      redirect('/500');
-    }
-    return Promise.reject(error);
-  }
-);
+// If a user token is found, set it as an Authorization header in Axios
+if (localStorage.getItem('userToken')) {
+  axiosInstance.defaults.headers.common.Authorization =
+    localStorage.getItem('userToken')?.replace(/"|_/g, '') || '';
+}
 
 // Check environment and set credentials if not in development
 const env = null;
