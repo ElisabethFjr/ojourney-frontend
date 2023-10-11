@@ -179,13 +179,16 @@ export const toggleLike = createAsyncThunk(
   }
 );
 
-export const getSuggestions = createAsyncThunk(
-  'trips/autocomplete',
+// Create action to SET the destination suggestions from the API geoapify
+export const setSuggestions = createAsyncThunk(
+  'trips/setSuggestions',
   async (obj: object) => {
     const { data } = await axiosInstance.post('/trips/autocomplete', obj);
     return data;
   }
 );
+
+// Create action to RESET the destination suggestions
 export const resetSuggestions = createAction('trips/resetSuggestions');
 
 const tripReducer = createReducer(initialState, (builder) => {
@@ -210,14 +213,15 @@ const tripReducer = createReducer(initialState, (builder) => {
       toast.success('Le voyage a bien été modifié !');
       state.errorMessage = null;
     })
-    .addCase(getSuggestions.fulfilled, (state, action) => {
+    .addCase(updateTrip.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // SET/RESET Suggestions Destination in NewTrip and EditTrip
+    .addCase(setSuggestions.fulfilled, (state, action) => {
       state.suggestions = action.payload;
     })
     .addCase(resetSuggestions, (state) => {
       state.suggestions = [];
-    })
-    .addCase(updateTrip.rejected, () => {
-      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // ADD Proposition
     .addCase(addProposition.fulfilled, (state, action) => {

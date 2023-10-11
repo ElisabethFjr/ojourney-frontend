@@ -6,13 +6,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fr from 'date-fns/locale/fr';
+import { nanoid } from 'nanoid';
 
 // Import Utils functions
 import changeDateFormat from '../../utils/formatDate';
 
 // Imports Redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { updateTrip } from '../../store/reducers/trip';
+import { resetSuggestions, updateTrip } from '../../store/reducers/trip';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
@@ -23,6 +24,7 @@ import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 import './EditTrip.scss';
+import handleSuggestionLocalisation from '../../utils/handleLocalisation';
 
 function EditTrip() {
   // Set Locale to fr
@@ -38,8 +40,10 @@ function EditTrip() {
 
   // Fetch states from Redux store
   const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
+  const suggestions = useAppSelector((state) => state.trip.suggestions);
 
   // States variables declaration
+  const [previousValueLength, setpreviousValueLength] = useState(0); // State for the previous input value (for suggestions localisation)
   const [localisation, setLocalisation] = useState<string>(
     trip.localisation || ''
   );
@@ -61,10 +65,54 @@ function EditTrip() {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     setValue: (value: string) => void
   ) => {
-    const { value } = event.target;
-    const sanitizedValue = DOMPurify.sanitize(value);
+    // If specific input "localisation", set the auto suggestions from the geoapify API
+    // Check /utils/handleLocalisation to see the function
+    handleSuggestionLocalisation(
+      event,
+      dispatch,
+      previousValueLength,
+      setpreviousValueLength
+    );
+    // Sanitize the input value using DOMPurify to prevent security vulnerabilities
+    const sanitizedValue = DOMPurify.sanitize(event.target.value);
     setValue(sanitizedValue);
   };
+
+  // EVENT HANDLER on the click on a suggested localisation
+  const handleClickSuggestion = (newValue: string) => {
+    setLocalisation(newValue);
+    dispatch(resetSuggestions());
+  };
+
+  // EVENT HANDLER when the input localisation element loses focus
+  const handleBlur = () => {
+    dispatch(resetSuggestions());
+  };
+
+  // Create a list of localisation suggestion depending on the input value
+  const allSuggestions = suggestions.map((suggestion) => {
+    // Generate a random key item with nanoid
+    const uniqueKey = nanoid();
+    return (
+      <div
+        role="button"
+        className="field-edit-input-suggestion-item"
+        tabIndex={0}
+        onKeyDown={() =>
+          handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
+        }
+        key={uniqueKey}
+        onClick={() =>
+          handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
+        }
+        onBlur={handleBlur}
+      >
+        {/* Localisation suggestion composed of 'line1' and 'line2' elements from the API */}
+        {/* Details localisation : address_line1 for the adress and address_line2 for the country) */}
+        {suggestion.line1} {suggestion.line2}
+      </div>
+    );
+  });
 
   // EVENT HANDLER for start date change
   const handleStartDateChange = (date: Date) => {
@@ -84,6 +132,7 @@ function EditTrip() {
       setImageUrl(url);
     }
   };
+
   // EVENT HANDLER for the newTrip form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -154,18 +203,24 @@ function EditTrip() {
                 maxLength={100}
                 required
               />
+              {/* Display localisations suggestion list if it exists and if input name = localisation */}
+              {suggestions && suggestions.length > 1 ? (
+                <div className="field-edit-input-suggestion-list">
+                  {allSuggestions}
+                </div>
+              ) : null}
               <div className="field-edit-icon">
                 <i className="fa-solid fa-location-dot" />
               </div>
             </div>
 
             {/* Start Date Input */}
-            <div className="field-date-edit">
-              <label className="field-date-edit-label" htmlFor="date_start">
+            <div className="field-edit-date">
+              <label className="field-edit-date-label" htmlFor="date_start">
                 Date de début
               </label>
               <div className="field-date-container">
-                <i className="field-date-edit-icon fa-solid fa-calendar" />
+                <i className="field-edit-date-icon fa-solid fa-calendar" />
                 <DatePicker
                   id="date_start"
                   className="field-date-input"
@@ -183,12 +238,12 @@ function EditTrip() {
             </div>
 
             {/* End Date Input */}
-            <div className="field-date-edit">
-              <label className="field-date-edit-label" htmlFor="date_end">
+            <div className="field-edit-date">
+              <label className="field-edit-date-label" htmlFor="date_end">
                 Date de fin
               </label>
               <div className="field-date-container">
-                <i className="field-date-edit-icon fa-solid fa-calendar" />
+                <i className="field-edit-date-icon fa-solid fa-calendar" />
                 <DatePicker
                   id="date_end"
                   className="field-date-input"
