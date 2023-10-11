@@ -1,17 +1,20 @@
+// Import React Hooks & FormEvent
 import { useState, FormEvent } from 'react';
+// Import React-Router-Dom
 import { useNavigate } from 'react-router-dom';
-
+// Import Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+// Import Redux Actions
 import {
   checkUserPassword,
   deleteUserAccount,
 } from '../../store/reducers/user';
-
+// Import Components
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 import ModalContainer from '../ModalContainer/ModalContainer';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-
+// Import Styles
 import './ModalConfimPassword.scss';
 
 interface ModaleConfirmPasswordProps {
@@ -21,16 +24,17 @@ interface ModaleConfirmPasswordProps {
 function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
   // Initialize Hooks
   const navigate = useNavigate();
+  // Get Dispatch
   const dispatch = useAppDispatch();
 
-  // Declaration state variables
+  // State Variables
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
 
-  // Event handler on the close modal button
+  // Close Modal
   const handleClose = () => {
     setIsOpen(!isOpen);
     closeModal(true);
@@ -39,24 +43,26 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
   // Event handler for the Confirm Password form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Get the current from
     const form = event.currentTarget;
+    // Create a FormData Object
     const formData = new FormData(form);
 
     // Clear all Error Messages
     setErrorMessage(null);
 
-    // Dispatch the action to check the password and set the response on a variable
+    // Dispatch the action
     try {
       const response = await dispatch(
         checkUserPassword({ formData, id: userData.id })
       );
-      // If the password is correct (response success), dispatch the action to delete the account
+      // If the password is correct, dispatch the action to delete the account
       if (response.payload.success === 'Correct password !') {
         await dispatch(deleteUserAccount({ id: userData.id }));
         navigate('/', { replace: true });
       }
     } catch {
-      // If the password not correct, set an error Message
+      // Error Message
       setErrorMessage('Le mot de passe est incorrect.');
     }
   };
@@ -78,11 +84,9 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
             saisissant votre mot de passe.
           </p>
           <form className="modal-delete-account-form" onSubmit={handleSubmit}>
-            {/* If ErroMessage, display the error */}
             {errorMessage && (
               <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
             )}
-            {/* Password Input */}
             <InputField
               name="password"
               placeholder="Mot de passe"
@@ -91,7 +95,6 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
               required
               maxlength={128}
             />
-            {/* Buttons */}
             <div className="modal-delete-account-button-container">
               <Button
                 text="Annuler"

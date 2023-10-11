@@ -1,7 +1,8 @@
+// Import React Hooks
 import { useState } from 'react';
-
+// Import Components
 import ModalContainer from '../ModalContainer/ModalContainer';
-
+// Import Styles
 import './ModaleInformationMember.scss';
 
 export interface ModalInformationMemberProps {
@@ -19,8 +20,9 @@ function ModalInformationMember({
   email,
   closeModal,
 }: ModalInformationMemberProps) {
+  // State Variable
   const [isOpen, setIsOpen] = useState(true);
-
+  // Close Modal
   const handleClose = () => {
     setIsOpen(!isOpen);
     closeModal(true);

@@ -1,9 +1,13 @@
+//  Import React Hooks & ChangeEvent
 import { useState, ChangeEvent } from 'react';
+// Import Dompurify
 import DOMPurify from 'dompurify';
-
-import './InputField.scss';
+// Import Redux Hooks
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
+// Import Redux Actions
 import { getSuggestions, resetSuggestions } from '../../store/reducers/trip';
+// Import Style
+import './InputField.scss';
 
 export interface InputFieldProps {
   name: string;
@@ -24,10 +28,14 @@ function InputField({
   autocomplete,
   maxlength,
 }: InputFieldProps) {
+  // Access the Redux dispatch function using the 'useAppDispatch' hook.
+  const dispatch = useAppDispatch();
+  // State Variable
   const [value, setValue] = useState('');
   const [previousValueLength, setpreviousValueLength] = useState(0);
+
   const suggestions = useAppSelector((state) => state.trip.suggestions);
-  const dispatch = useAppDispatch();
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'localisation') {
       if (previousValueLength < event.target.value.length) {

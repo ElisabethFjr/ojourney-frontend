@@ -1,3 +1,4 @@
+// Import Styles
 import './Loading.scss';
 
 function Loading() {

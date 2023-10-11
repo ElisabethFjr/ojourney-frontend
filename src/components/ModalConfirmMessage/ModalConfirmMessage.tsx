@@ -1,7 +1,8 @@
+// Import React Hooks
 import { useState } from 'react';
-
+// Import Component
 import ModalContainer from '../ModalContainer/ModalContainer';
-
+// Import Styles
 import './ModalConfirmMessage.scss';
 
 interface ModalConfirmMessageProps {
@@ -9,8 +10,9 @@ interface ModalConfirmMessageProps {
 }
 
 function ModalConfirmMessage({ closeModal }: ModalConfirmMessageProps) {
+  // State Variable
   const [isOpen, setIsOpen] = useState(true);
-
+  // Close modal
   const handleClose = () => {
     setIsOpen(!isOpen);
     closeModal(true);
