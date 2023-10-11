@@ -4,10 +4,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 // Imports Modules
 import DOMPurify from 'dompurify';
+import { nanoid } from 'nanoid';
 
 // Import Curstom Redux Hook
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { updateProposition } from '../../store/reducers/trip';
+import { resetSuggestions, updateProposition } from '../../store/reducers/trip';
+
+// Import Utils Functions
+import handleSuggestionLocalisation from '../../utils/handleLocalisation';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
@@ -30,6 +34,7 @@ function EditProposition() {
 
   // Fetch states from Redux store
   const propositions = useAppSelector((state) => state.trip.trip.links);
+  const suggestions = useAppSelector((state) => state.trip.suggestions);
 
   // Find the proposition id to edit to get the current data
   const editedProposition = propositions.find(
@@ -37,6 +42,7 @@ function EditProposition() {
   );
 
   // States variables declaration
+  const [previousValueLength, setpreviousValueLength] = useState(0); // State for the previous input value (for suggestions localisation)
   const [url, setUrl] = useState(editedProposition?.url || '');
   const [localisation, setLocalisation] = useState(
     editedProposition?.localisation || ''
@@ -52,10 +58,54 @@ function EditProposition() {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     setValue: (value: string) => void
   ) => {
-    const { value } = event.target;
-    const sanitizedValue = DOMPurify.sanitize(value);
+    // If specific input "localisation", set the auto suggestions from the geoapify API
+    // Check /utils/handleLocalisation to see the function
+    handleSuggestionLocalisation(
+      event,
+      dispatch,
+      previousValueLength,
+      setpreviousValueLength
+    );
+    // Sanitize the input value using DOMPurify to prevent security vulnerabilities
+    const sanitizedValue = DOMPurify.sanitize(event.target.value);
     setValue(sanitizedValue);
   };
+
+  // EVENT HANDLER on the click on a suggested localisation
+  const handleClickSuggestion = (newValue: string) => {
+    setLocalisation(newValue);
+    dispatch(resetSuggestions());
+  };
+
+  // EVENT HANDLER when the input localisation element loses focus
+  const handleBlur = () => {
+    dispatch(resetSuggestions());
+  };
+
+  // Create a list of localisation suggestion depending on the input value
+  const allSuggestions = suggestions.map((suggestion) => {
+    // Generate a random key item with nanoid
+    const uniqueKey = nanoid();
+    return (
+      <div
+        role="button"
+        className="field-edit-input-suggestion-item"
+        tabIndex={0}
+        onKeyDown={() =>
+          handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
+        }
+        key={uniqueKey}
+        onClick={() =>
+          handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
+        }
+        onBlur={handleBlur}
+      >
+        {/* Localisation suggestion composed of 'line1' and 'line2' elements from the API */}
+        {/* Details localisation : address_line1 for the adress and address_line2 for the country) */}
+        {suggestion.line1} {suggestion.line2}
+      </div>
+    );
+  });
 
   // Event handler for the EditProposition form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -157,6 +207,12 @@ function EditProposition() {
                 maxLength={100}
                 required
               />
+              {/* Display localisations suggestion list if it exists and if input name = localisation */}
+              {suggestions && suggestions.length > 1 ? (
+                <div className="field-edit-input-suggestion-list">
+                  {allSuggestions}
+                </div>
+              ) : null}
               <div className="field-edit-icon">
                 <i className="fa-solid fa-location-dot" />
               </div>

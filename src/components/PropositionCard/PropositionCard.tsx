@@ -42,7 +42,7 @@ function PropositionCard({
   const userId = Number(user_id);
 
   // Does the connected user like this trip?
-  const doUserLike = useAppSelector(
+  const isUserLikedTrip = useAppSelector(
     (state) => state.user.data.id && likes.includes(state.user.data.id)
   );
 
@@ -86,7 +86,11 @@ function PropositionCard({
           className="proposition-card-like-btn"
           type="button"
           onClick={handleClickVote}
-          style={doUserLike ? { color: vars.colorPrimary } : { color: 'black' }}
+          style={
+            isUserLikedTrip
+              ? { color: vars.colorPrimary }
+              : { color: vars.colorText }
+          }
         >
           <i className="proposition-card-like-icon fa-regular fa-thumbs-up" />
           J&lsquo;aime

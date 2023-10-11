@@ -1,7 +1,6 @@
 import { Map, Marker } from 'pigeon-maps';
-import React from 'react';
-import './Map.scss';
 import { Proposition } from '../../@types';
+import './Map.scss';
 
 interface MapProps {
   lat: number;
