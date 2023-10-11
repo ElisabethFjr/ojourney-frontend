@@ -188,6 +188,7 @@ function Profil() {
           irréversible.
         </p>
         <div className="profil-card-btn-container">
+          {/*  Danger Button */}
           <Button
             text="Supprimer le compte"
             customClass="danger"

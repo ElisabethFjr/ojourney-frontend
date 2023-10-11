@@ -22,6 +22,7 @@ function ConfirmInvite() {
   useEffect(() => {
     async function confirmInvite() {
       await axiosInstance
+      // Send request GET to URL with token
         .get(`/invite?invite=${token}`)
         .then(() => {
           setIsConfirmed(true);
