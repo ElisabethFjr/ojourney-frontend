@@ -1,11 +1,12 @@
+// Import Layout & Components
 import Main from '../../layout/Main/Main';
-
 import FormContainer from '../../components/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import TextareaField from '../../components/TextareaField/TextareaField';
 import sendmessage from '../../assets/images/sendmessage.png';
 
+// Import Style
 import './Contact.scss';
 
 function Contact() {

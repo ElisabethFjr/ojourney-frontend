@@ -1,8 +1,11 @@
+// Import React
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 
+// Import Components
 import Button from '../../components/Button/Button';
 
+// Import Styles
 import './Home.scss';
 
 function Home() {

@@ -1,15 +1,19 @@
+// Imports React Hook
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+// Import Axios Instance
 import axiosInstance from '../../utils/axios';
 
+// Import Layout & Components
 import Main from '../../layout/Main/Main';
-
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
-
-import './ResetPassword.scss';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+
+// Import Styles
+import './ResetPassword.scss';
 
 function ResetPassword() {
   // Initialize Hooks
@@ -22,7 +26,9 @@ function ResetPassword() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Get the current form element
     const form = event.currentTarget;
+    // Create a FormData object
     const formData = new FormData(form);
 
     // Extract password and confirmation from formData
@@ -51,8 +57,10 @@ function ResetPassword() {
     const jsonData = Object.fromEntries(formData.entries());
 
     await axiosInstance
+    // Send request PATCH to URL with token in json
       .patch(`/reset?reset=${token}`, jsonData)
       .then(() => {
+        // Redirects to the page
         navigate('/signin-signup');
         toast.success('Le mot de passe a été réinitialiser avec succès !');
       })

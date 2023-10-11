@@ -1,4 +1,4 @@
-// Imports React
+// Imports react
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import DOMPurify from 'dompurify';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { updateUserData } from '../../store/reducers/user';
 
-// Imports Components
+// Imports Layout & Components
 import Main from '../../layout/Main/Main';
 import Button from '../../components/Button/Button';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';

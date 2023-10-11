@@ -1,12 +1,17 @@
+// Import React
 import { FormEvent, useState } from 'react';
+
+// Import Axios Instance
 import axiosInstance from '../../utils/axios';
 
+// Imports Layout & Components
 import Main from '../../layout/Main/Main';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import ModalForgotPassword from '../../components/ModalForgotPassword/ModalForgotPassword';
 
+// Import Styles
 import './ForgotPassword.scss';
 
 function ForgotPassword() {
@@ -16,8 +21,11 @@ function ForgotPassword() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+     // Get the current form element
     const form = event.currentTarget;
+    // Create a FormData object
     const formData = new FormData(form);
+    // Convert a JSON object
     const jsonData = Object.fromEntries(formData.entries());
 
     // Clear all Error Messages
@@ -30,6 +38,7 @@ function ForgotPassword() {
     }
 
     await axiosInstance
+    // Send request PATCH to URL in json
       .post('/reset', jsonData)
       .then(() => {
         setShowModalForgotPassword(true);
