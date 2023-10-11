@@ -68,6 +68,7 @@ export const login = createAsyncThunk(
       const { data } = await axiosInstance.post('/signIn', objData);
       if (env === 'dev') {
         axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+        localStorage.setItem('userToken', data.token);
       }
       return data;
     } catch (error) {
@@ -81,12 +82,16 @@ export const login = createAsyncThunk(
   }
 );
 
-// Create LAGOUT action (local)
+// Create LOGOUT action (local)
 // export const logout = createAction('user/logout');
 
 // Create LOGOUT action (deployed)
 export const logout = createAsyncThunk('user/logout', async () => {
-  await axiosInstance.get('/logout');
+  if (env === 'dev') {
+    localStorage.removeItem('userToken');
+  } else {
+    await axiosInstance.get('/logout');
+  }
 });
 
 // Create action to FETCH user data
@@ -94,6 +99,17 @@ export const fetchUserInfos = createAsyncThunk(
   'user/fetchUserInfo',
   async (id: number | null) => {
     const { data } = await axiosInstance.get(`/users/${id}`);
+    return data;
+  }
+);
+
+// Create action to CHECK user data with token
+export const checkUserToken = createAsyncThunk(
+  'user/checkUserToken',
+  async () => {
+    const { data } = await axiosInstance.post('/user', {
+      token: localStorage.getItem('userToken'),
+    });
     return data;
   }
 );
@@ -222,6 +238,17 @@ const userReducer = createReducer(initialState, (builder) => {
         ...action.payload,
       };
       state.isLoading = false;
+    })
+    // Check User Data Token
+    .addCase(checkUserToken.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      state.isConnected = true;
+    })
+    .addCase(checkUserToken.rejected, (state) => {
+      state.isConnected = false;
     })
     // Update User Data
     .addCase(updateUserData.fulfilled, (state, action) => {
