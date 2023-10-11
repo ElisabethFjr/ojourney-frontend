@@ -38,7 +38,6 @@ function PropositionCard({
   // Initialize Hooks
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-<
 
   const userId = Number(user_id);
 
@@ -53,7 +52,6 @@ function PropositionCard({
   // Fetch states from Redux store
   const members = useAppSelector((state) => state.trip.trip.members);
   // const liked = useAppSelector((state) => state.trip.liked);
-
 
   // Function to find the author name based on the proposition.user_id
   const author = members.find((member) => member.id === userId);

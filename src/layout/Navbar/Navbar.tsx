@@ -44,43 +44,24 @@ function Navbar() {
           {isConnected ? (
             <>
               <li className="header-navbar-list-link">
-                <NavLink to="/my-trips">
-                  Mes voyages
-                </NavLink>
+                <NavLink to="/my-trips">Mes voyages</NavLink>
               </li>
-              <li className="header-navbar-list-link ">
+              <li className="header-navbar-list-link">
                 <NavLink to="/new-trip">Nouveau voyage</NavLink>
-
-              <li className="header-navbar-list-link">
-                <NavLink to="/new-trip">
-                  Nouveau voyage
-                </NavLink>
               </li>
               <li className="header-navbar-list-link">
-                <NavLink
-                  to="/profil"
-                  className="header-navbar-list-link"
-                >
-                  Profil
-                </NavLink>
+                <NavLink to="/profil">Profil</NavLink>
               </li>
               <li className="header-navbar-list-link">
-                <NavLink
-                  to="/"
-                  className="header-navbar-list-link"
-                  onClick={handleLogout}
-                >
+                <NavLink to="/" onClick={handleLogout}>
                   Se déconnecter
                 </NavLink>
               </li>
             </>
           ) : (
             <li className="header-navbar-list-link">
-              <NavLink
-                to="/signin-signup"
-                className="header-navbar-list-link signin-signup"
-              >
-                Se Connecter/S&apos;inscrire
+              <NavLink to="/signin-signup" className="signin-signup">
+                Se Connecter/S inscrire
               </NavLink>
             </li>
           )}
