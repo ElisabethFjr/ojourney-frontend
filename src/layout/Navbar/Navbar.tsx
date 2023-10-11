@@ -1,8 +1,12 @@
+// Import React Hooks
 import { useState, useEffect } from 'react';
+// Import React-Router-Dom
 import { NavLink } from 'react-router-dom';
+// Import Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+// Import Redux Actions
 import { logout } from '../../store/reducers/user';
-
+// Import Styles
 import './Navbar.scss';
 
 function Navbar() {
@@ -25,10 +29,11 @@ function Navbar() {
     event.stopPropagation();
     setIsOpen(!isOpen);
   };
+  // Close the Burger Menu
   const closeBurgerMenu = () => {
     setIsOpen(false);
   };
-
+  // Add a click to close the menu
   useEffect(() => {
     document.body.addEventListener('click', closeBurgerMenu);
 
