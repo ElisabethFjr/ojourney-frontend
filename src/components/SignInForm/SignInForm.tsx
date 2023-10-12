@@ -33,6 +33,7 @@ function SignInForm() {
     const formData = new FormData(form);
     // Dispatch the login action with form data
     await dispatch(login(formData));
+    navigate('/my-trips');
   };
   // State Varibles
   const [showModalConfirmEmail, setShowModalConfirmEmail] =
@@ -41,13 +42,6 @@ function SignInForm() {
   const handleClickConfirmEmail = () => {
     setShowModalConfirmEmail(!showModalConfirmEmail);
   };
-
-  // Navigate to /my-trips if connexion succeed
-  useEffect(() => {
-    if (isConnected) {
-      navigate('/my-trips');
-    }
-  }, [navigate, isConnected]);
 
   return (
     <div className="form-content">

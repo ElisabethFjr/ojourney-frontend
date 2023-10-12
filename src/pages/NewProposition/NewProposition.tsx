@@ -30,11 +30,17 @@ function NewProposition() {
   const tripId = id ?? '';
 
   // Declaration state variables
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error Message
+  const [isSuggestionSelected, setSuggestionSelected] = useState(false); // Suggestion selection indicator
 
   // Fetch states from Redux store
   const propositions = useAppSelector((state) => state.trip.trip.links);
   const isLoading = useAppSelector((state) => state.trip.isLoading);
+
+  // Event handler for selected suggestion localisation
+  const handleSuggestionSelected = (selected: boolean) => {
+    setSuggestionSelected(selected);
+  };
 
   // Event handler for the newProposition form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -50,6 +56,14 @@ function NewProposition() {
     const localisation = formData.get('localisation') as string;
     if (!url || !localisation) {
       setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+
+    // Error : Check if user doesn't selected a localsation suggestion from the API
+    if (!isSuggestionSelected) {
+      setErrorMessage(
+        'Veuillez sélectionner une destination dans la lise de suggestion.'
+      );
       return;
     }
 
@@ -108,6 +122,7 @@ function NewProposition() {
               icon="fa-solid fa-location-dot"
               maxlength={100}
               required
+              handleSuggestionSelected={handleSuggestionSelected}
             />
 
             {/* Description Textarea */}
