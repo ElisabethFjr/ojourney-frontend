@@ -8,6 +8,7 @@ export interface TextareaFieldProps {
   required?: boolean;
   autocomplete?: string;
   maxlength?: number;
+  ariaLabel?: string;
 }
 
 function TextareaField({

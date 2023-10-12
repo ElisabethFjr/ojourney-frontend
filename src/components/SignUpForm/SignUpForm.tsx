@@ -66,7 +66,10 @@ function SignUpForm() {
     <form className="form-content" onSubmit={handleSubmit}>
       {/* ConfirmModal */}
       {showModalConfirm && (
-        <ConfirmModal closeModal={() => setShowModalConfirm(false)} />
+        <ConfirmModal
+          closeModal={() => setShowModalConfirm(false)}
+          aria-label="Confirmation Modal"
+        />
       )}
       {/* Error Message */}
       {errorMessage && (

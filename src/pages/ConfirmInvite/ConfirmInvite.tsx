@@ -49,7 +49,12 @@ function ConfirmInvite() {
               cliquant sur le bouton ci-dessous.
             </p>
             <Link to="/signin-signup">
-              <Button text="Se Connecter" customClass="color" type="button" />
+              <Button
+                text="Se Connecter"
+                customClass="color"
+                type="button"
+                aria-label="Se connecter"
+              />
             </Link>
           </>
         ) : (

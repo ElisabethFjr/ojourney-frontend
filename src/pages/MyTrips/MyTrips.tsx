@@ -60,7 +60,7 @@ function MyTrips() {
           <img
             className="no-trip-image"
             src={travel}
-            alt="O'Journey plane travelling"
+            alt="O'Journey en voyage en avion"
             crossOrigin="anonymous"
             width="25%"
             height="auto"

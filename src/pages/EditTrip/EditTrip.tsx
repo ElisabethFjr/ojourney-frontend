@@ -185,6 +185,7 @@ function EditTrip() {
               icon="fa-solid fa-arrow-left"
               handleClick={() => navigate(-1)}
               customClass="back"
+              aria-label="Retour à la page précédente"
             />
           </div>
           <form onSubmit={handleSubmit}>

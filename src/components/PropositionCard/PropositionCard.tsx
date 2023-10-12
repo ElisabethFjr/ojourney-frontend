@@ -82,10 +82,15 @@ function PropositionCard({
       {/* Display icons edit/delete buttons only if the current user is the author of the proposition or the trip creator */}
       {isPropositionAuthor || isTripCreator ? (
         <div className="proposition-card-icons">
-          <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
+          <ButtonIcon
+            icon="fa-solid fa-pen"
+            handleClick={handleClickEdit}
+            aria-label="Editer proposition"
+          />
           <ButtonIcon
             icon="fa-solid fa-trash"
             handleClick={handleClickDelete}
+            aria-label="Supprimer proposition"
           />
         </div>
       ) : null}
@@ -101,6 +106,7 @@ function PropositionCard({
               ? { color: vars.colorPrimary }
               : { color: vars.colorText }
           }
+          aria-label="Like Button"
         >
           <i className="proposition-card-like-icon fa-regular fa-thumbs-up" />
           J&lsquo;aime

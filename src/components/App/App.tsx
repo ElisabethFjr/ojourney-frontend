@@ -51,9 +51,11 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // Check the connected user's information for authentication (token or cookies), if ok dispatch the user's data
+  // Check the connected user's information for authentication (token or cookies in headers), if ok dispatch the user's data
   useEffect(() => {
-    if (localStorage.getItem('userToken')) {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
       dispatch(checkUserInfos());
     }
   }, [dispatch]);

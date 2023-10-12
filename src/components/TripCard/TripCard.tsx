@@ -84,7 +84,11 @@ function TripCard({
   return (
     <div className="trip-card-container">
       <div className="trip-card-icons">
-        <ButtonIcon icon="fa-solid fa-trash" handleClick={handleClickDelete} />
+        <ButtonIcon
+          icon="fa-solid fa-trash"
+          handleClick={handleClickDelete}
+          aria-label="Supprimer le voyage"
+        />
       </div>
       <Link to={linkHref} className="trip-card">
         <img

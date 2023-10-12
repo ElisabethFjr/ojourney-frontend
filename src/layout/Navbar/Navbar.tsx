@@ -83,6 +83,7 @@ function Navbar() {
         className="header-navbar-toggle"
         type="button"
         onClick={toggleBurgerMenu}
+        arial-label="Menu des liens de navigations"
       >
         <i
           className={`header-navbar-toggle-icon fa-solid  ${
