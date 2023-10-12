@@ -11,13 +11,7 @@ function PrivateRoute({ children }: PrivateRouteProps) {
   const isConnected = useAppSelector((state) => state.user.isConnected);
 
   if (!isConnected) {
-    return (
-      <Navigate
-        to="/signin-signup"
-        replace
-        aria-label="Redirection vers la page de connexion ou d'inscription"
-      />
-    );
+    return <Navigate to="/signin-signup" replace />;
   }
 
   return children;

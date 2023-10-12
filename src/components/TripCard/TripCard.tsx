@@ -82,12 +82,12 @@ function TripCard({
   };
 
   return (
-    <div className="trip-card-container" aria-label="Carte du voyage">
+    <div className="trip-card-container">
       <div className="trip-card-icons">
         <ButtonIcon
           icon="fa-solid fa-trash"
           handleClick={handleClickDelete}
-          aria-label="Boutton supprimer le voyage"
+          aria-label="Supprimer le voyage"
         />
       </div>
       <Link to={linkHref} className="trip-card">

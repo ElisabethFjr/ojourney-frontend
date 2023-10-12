@@ -87,12 +87,12 @@ function PropositionCard({
           <ButtonIcon
             icon="fa-solid fa-pen"
             handleClick={handleClickEdit}
-            aria-label="Edit Button"
+            aria-label="Editer proposition"
           />
           <ButtonIcon
             icon="fa-solid fa-trash"
             handleClick={handleClickDelete}
-            aria-label="Delete Button"
+            aria-label="Supprimer proposition"
           />
         </div>
       ) : null}
@@ -115,12 +115,7 @@ function PropositionCard({
         </button>
       </div>
       {/* Proposition Card */}
-      <Link
-        to={url}
-        target="_blank"
-        className="proposition-card"
-        aria-label="Link to Proposition Details"
-      >
+      <Link to={url} target="_blank" className="proposition-card">
         <img
           className="proposition-card-image"
           src={srcImage}
@@ -139,27 +134,17 @@ function PropositionCard({
               : 'Membre supprimé'}
           </p>
           {description && (
-            <div
-              className="proposition-card-description"
-              aria-label="Description"
-            >
+            <div className="proposition-card-description">
               <p className="proposition-card-description-text">{description}</p>
             </div>
           )}
           <div className="proposition-card-localisation">
             <i className="fa-solid fa-location-dot" />
-            <p
-              className="proposition-card-localisation-name"
-              aria-label="Localisation"
-            >
-              {localisation}
-            </p>
+            <p className="proposition-card-localisation-name">{localisation}</p>
           </div>
           <div className="proposition-card-url">
             <i className="fa-solid fa-square-arrow-up-right" />
-            <p className="proposition-card-url-detail" aria-label="URL Detail">
-              Voir détail
-            </p>
+            <p className="proposition-card-url-detail">Voir détail</p>
           </div>
         </div>
       </Link>

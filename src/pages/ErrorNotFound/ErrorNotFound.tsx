@@ -14,7 +14,7 @@ function ErrorNotFound() {
       <img
         className="error-image"
         src={road}
-        alt="O'Journey road sticker orange yellow error 404"
+        alt="Autocollant de route O'Journey orange jaune erreur 404"
       />
     </main>
   );

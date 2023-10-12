@@ -60,7 +60,7 @@ function MyTrips() {
           <img
             className="no-trip-image"
             src={travel}
-            alt="O'Journey plane travelling"
+            alt="O'Journey en voyage en avion"
             crossOrigin="anonymous"
           />
           <p className="no-trip-message">Aucun voyage disponible.</p>

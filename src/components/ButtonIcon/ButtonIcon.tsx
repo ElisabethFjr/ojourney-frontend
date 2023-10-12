@@ -4,7 +4,6 @@ export interface ButtonIconProps {
   icon: string;
   handleClick: () => void;
   customClass?: string;
-  buttonIcon: string;
 }
 
 function ButtonIcon({ icon, handleClick, customClass }: ButtonIconProps) {

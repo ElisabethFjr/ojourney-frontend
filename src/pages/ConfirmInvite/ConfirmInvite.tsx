@@ -28,7 +28,7 @@ function ConfirmInvite() {
         })
         .catch((error) => {
           setIsConfirmed(false);
-          console.error(
+          error(
             "Une erreur est survenue lors de la l'invitation du membre.",
             error
           );
@@ -53,7 +53,12 @@ function ConfirmInvite() {
               cliquant sur le bouton ci-dessous.
             </p>
             <Link to="/signin-signup">
-              <Button text="Se Connecter" customClass="color" type="button" />
+              <Button
+                text="Se Connecter"
+                customClass="color"
+                type="button"
+                aria-label="Se connecter"
+              />
             </Link>
           </>
         ) : (

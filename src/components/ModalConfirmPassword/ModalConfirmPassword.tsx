@@ -100,14 +100,8 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
                 type="button"
                 customClass="outline-dark"
                 onClick={handleClose}
-                aria-label="Annuler la suppression"
               />
-              <Button
-                text="Supprimer"
-                type="submit"
-                customClass="danger"
-                aria-label="Supprimer votre compte"
-              />
+              <Button text="Supprimer" type="submit" customClass="danger" />
             </div>
           </form>
         </ModalContainer>

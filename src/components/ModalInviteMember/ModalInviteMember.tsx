@@ -86,10 +86,7 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
       {isOpen && (
         <ModalContainer handleClose={handleClose}>
           <i className="modal-invite-member-icon fa-solid fa-envelope-circle-check" />
-          <h1
-            className="modal-invite-member-title modal-title"
-            aria-label="Inviter un membre"
-          >
+          <h1 className="modal-invite-member-title modal-title">
             Inviter un membre
           </h1>
           <p className="modal-invite-member-text">
@@ -116,14 +113,8 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
                 type="button"
                 customClass="outline-dark"
                 onClick={handleClose}
-                aria-label="Annuler l'invitaione"
               />
-              <Button
-                text="Confirmer"
-                type="submit"
-                customClass="color"
-                aria-label="Supprimer la modal"
-              />
+              <Button text="Confirmer" type="submit" customClass="color" />
             </div>
           </form>
         </ModalContainer>

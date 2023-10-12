@@ -23,7 +23,7 @@ function Contact() {
           </div>
 
           <form className="contact-form">
-            <h1 className="contact-title">Nous contacter</h1>
+            <h1 className="modal-title">Nous contacter</h1>
             {/* Input Name */}
             <InputField
               name="name"
@@ -52,6 +52,7 @@ function Contact() {
               text="Envoyer"
               type="submit"
               customClass="color button-style--width"
+              arial-label="Envoiez votre formulaire de contact"
             />
           </form>
         </div>

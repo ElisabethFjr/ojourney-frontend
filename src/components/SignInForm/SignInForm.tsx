@@ -50,18 +50,10 @@ function SignInForm() {
 
   return (
     <div className="form-content">
-      <form
-        className="form-element"
-        onSubmit={handleSubmit}
-        aria-label="Formulaire de connexion"
-      >
+      <form className="form-element" onSubmit={handleSubmit}>
         {/* If ErroMessage, display the error */}
         {errorMessage && (
-          <ErrorMessage
-            icon="fa-solid fa-xmark"
-            text={errorMessage}
-            aria-label="Message d'erreur"
-          />
+          <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
         )}
         {/* Input Email */}
         <InputField
@@ -71,7 +63,6 @@ function SignInForm() {
           icon="fa-solid fa-at"
           maxlength={320}
           required
-          aria-label="Adresse e-mail"
         />
         {/* Input Password */}
         <InputField
@@ -82,14 +73,12 @@ function SignInForm() {
           maxlength={128}
           required
           autocomplete="off"
-          aria-label="Password Input"
         />
         {/* Submit Button */}
         <Button
           text="Se Connecter"
           customClass="color button-style--width"
           type="submit"
-          aria-label="Bouton de connexion"
         />
         {/* Forgot Password Link */}
         <div className="signin-forgot-password">
@@ -102,7 +91,6 @@ function SignInForm() {
             onClick={handleClickConfirmEmail}
             type="button"
             customClass="link"
-            aria-label="Bouton Renvoyer un email de confirmation"
           />
         </div>
       </form>
