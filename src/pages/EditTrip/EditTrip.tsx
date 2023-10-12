@@ -43,7 +43,6 @@ function EditTrip() {
   const suggestions = useAppSelector((state) => state.trip.suggestions);
 
   // States variables declaration
-  const [previousValueLength, setpreviousValueLength] = useState(0); // State for the previous input value (for suggestions localisation)
   const [localisation, setLocalisation] = useState<string>(
     trip.localisation || ''
   );
@@ -65,14 +64,9 @@ function EditTrip() {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     setValue: (value: string) => void
   ) => {
-    // If specific input "localisation", set the auto suggestions from the geoapify API
+    // If specific input "localisation", set the auto suggestions from the geoapify API with a debounce
     // Check /utils/handleLocalisation to see the function
-    handleSuggestionLocalisation(
-      event,
-      dispatch,
-      previousValueLength,
-      setpreviousValueLength
-    );
+    handleSuggestionLocalisation(event, dispatch);
     // Sanitize the input value using DOMPurify to prevent security vulnerabilities
     const sanitizedValue = DOMPurify.sanitize(event.target.value);
     setValue(sanitizedValue);
