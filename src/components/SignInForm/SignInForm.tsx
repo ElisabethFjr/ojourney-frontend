@@ -22,6 +22,7 @@ function SignInForm() {
   // Fetch states from Redux store
   const errorMessage = useAppSelector((state) => state.user.errorMessage);
   const isConnected = useAppSelector((state) => state.user.isConnected);
+  const isLoading = useAppSelector((state) => state.user.isLoading);
 
   // Event handler SignIn form submit
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -91,6 +92,7 @@ function SignInForm() {
             onClick={handleClickConfirmEmail}
             type="button"
             customClass="link"
+            isLoading={isLoading}
           />
         </div>
       </form>

@@ -14,10 +14,13 @@ function SignUpForm() {
   // Declaration state variables
   const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false); // State to display or not confirmation modal
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // State to display an error message
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Handle SignUp form submit
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Set the loading button pending
+    setIsLoading(true);
     // Get the current from
     const form = event.currentTarget;
     // Create a FormData Object
@@ -45,6 +48,7 @@ function SignUpForm() {
       .post('/signUp', jsonData)
       .then(() => {
         setShowModalConfirm(true);
+        setIsLoading(false);
       })
       .catch((error) => {
         if (error.response.data.error.trim() === 'User already exists !') {
@@ -119,6 +123,7 @@ function SignUpForm() {
         text="S'inscrire"
         customClass="color button-style--width"
         type="submit"
+        isLoading={isLoading}
       />
     </form>
   );

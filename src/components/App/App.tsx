@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { ToastContainer, Slide } from 'react-toastify';
 // Import Redux Hooks
 import { useAppDispatch } from '../../hooks/redux';
-import { checkUserToken } from '../../store/reducers/user';
+import { checkUserInfos } from '../../store/reducers/user';
 
 // Import axios instance
 import axiosInstance from '../../utils/axios';
@@ -53,10 +53,10 @@ function App() {
   // Declaration state variable
   const [loading, setLoading] = useState(true);
 
-  // Check the connected user's token for authentication, if ok dispatch the user's data
+  // Check the connected user's information for authentication (token or cookies), if ok dispatch the user's data
   useEffect(() => {
     if (localStorage.getItem('userToken')) {
-      dispatch(checkUserToken());
+      dispatch(checkUserInfos());
     }
   }, [dispatch]);
 

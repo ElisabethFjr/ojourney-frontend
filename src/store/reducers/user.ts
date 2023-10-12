@@ -94,8 +94,8 @@ export const fetchUserInfos = createAsyncThunk(
 );
 
 // Create action to CHECK user data with token
-export const checkUserToken = createAsyncThunk(
-  'user/checkUserToken',
+export const checkUserInfos = createAsyncThunk(
+  'user/checkUserInfos',
   async () => {
     const { data } = await axiosInstance.get('/user');
     return data;
@@ -202,6 +202,7 @@ const userReducer = createReducer(initialState, (builder) => {
           break;
       }
       state.errorMessage = errorMessage;
+      state.isLoading = false;
     })
     .addCase(login.fulfilled, (state, action) => {
       state.data = {
@@ -210,6 +211,10 @@ const userReducer = createReducer(initialState, (builder) => {
       };
       state.isConnected = true;
       state.errorMessage = null;
+      state.isLoading = false;
+    })
+    .addCase(login.pending, (state) => {
+      state.isLoading = true;
     })
     // Logout
     .addCase(logout.fulfilled, (state) => {
@@ -228,14 +233,14 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isLoading = false;
     })
     // Check User Data Token
-    .addCase(checkUserToken.fulfilled, (state, action) => {
+    .addCase(checkUserInfos.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
         ...action.payload,
       };
       state.isConnected = true;
     })
-    .addCase(checkUserToken.rejected, (state) => {
+    .addCase(checkUserInfos.rejected, (state) => {
       state.isConnected = false;
     })
     // Update User Data
