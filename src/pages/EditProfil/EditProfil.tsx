@@ -25,7 +25,7 @@ function EditProfil() {
   // Get user data and environment from Redux store
   const userData = useAppSelector((state) => state.user.data);
 
-  // States variables declaration
+  // Declaration States Variables
   const [lastname, setLastname] = useState(userData.lastname || '');
   const [firstname, setFirstname] = useState(userData.firstname || '');
   const [email, setEmail] = useState(userData.email || '');

@@ -49,3 +49,13 @@
     }
   }
 }
+
+// RESPONSIVE Screen < 599px
+@media (max-width: 599px) {
+  .modal {
+    &-container {
+      width: 95%;
+      padding: 1rem;
+}
+}
+}

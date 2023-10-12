@@ -1,4 +1,4 @@
-// Import React
+// Import React Hook
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 
