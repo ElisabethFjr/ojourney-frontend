@@ -124,8 +124,8 @@ export const deleteUserAccount = createAsyncThunk(
 );
 
 // Create action UPDATE user data
-export const updateUserData = createAsyncThunk(
-  'user/updateUserData',
+export const updateUserProfil = createAsyncThunk(
+  'user/updateUserProfil',
   async ({ formData, id }: { formData: FormData; id: string | null }) => {
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
@@ -185,6 +185,18 @@ export const deleteTrip = createAsyncThunk(
 const userReducer = createReducer(initialState, (builder) => {
   builder
     // Login
+    .addCase(login.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(login.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      state.isConnected = true;
+      state.errorMessage = null;
+      state.isLoading = false;
+    })
     .addCase(login.rejected, (state, action) => {
       let errorMessage = '';
       switch (action.error.message) {
@@ -204,22 +216,13 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = errorMessage;
       state.isLoading = false;
     })
-    .addCase(login.fulfilled, (state, action) => {
-      state.data = {
-        ...state.data,
-        ...action.payload,
-      };
-      state.isConnected = true;
-      state.errorMessage = null;
-      state.isLoading = false;
-    })
-    .addCase(login.pending, (state) => {
-      state.isLoading = true;
-    })
     // Logout
     .addCase(logout.fulfilled, (state) => {
       state.data = initialState.data; // Reset user data to initial state
       state.isConnected = false;
+    })
+    .addCase(logout.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Fetch User Data
     .addCase(fetchUserInfos.pending, (state) => {
@@ -244,7 +247,10 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isConnected = false;
     })
     // Update User Data
-    .addCase(updateUserData.fulfilled, (state, action) => {
+    .addCase(updateUserProfil.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(updateUserProfil.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
         ...action.payload,
@@ -252,11 +258,16 @@ const userReducer = createReducer(initialState, (builder) => {
 
       toast.success('Les informations ont bien été mises à jour !');
       state.errorMessage = null;
+      state.isLoading = false;
     })
-    .addCase(updateUserData.rejected, () => {
+    .addCase(updateUserProfil.rejected, (state) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+      state.isLoading = false;
     })
     // Update Password
+    .addCase(updatePassword.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(updatePassword.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
@@ -264,9 +275,11 @@ const userReducer = createReducer(initialState, (builder) => {
       };
       toast.success('Le mot de passe a bien été mis à jour !');
       state.errorMessage = null;
+      state.isLoading = false;
     })
-    .addCase(updatePassword.rejected, () => {
+    .addCase(updatePassword.rejected, (state) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+      state.isLoading = false;
     })
     // Check User Password (to delete account)
     .addCase(checkUserPassword.fulfilled, (state, action) => {
@@ -291,6 +304,9 @@ const userReducer = createReducer(initialState, (builder) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Update Consents
+    .addCase(updateConsent.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(updateConsent.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
@@ -298,11 +314,16 @@ const userReducer = createReducer(initialState, (builder) => {
       };
       toast.success('Les informations ont bien été mises à jour !');
       state.errorMessage = null;
+      state.isLoading = false;
     })
-    .addCase(updateConsent.rejected, () => {
+    .addCase(updateConsent.rejected, (state) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+      state.isLoading = false;
     })
     // Add Trip
+    .addCase(addTrip.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(addTrip.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
@@ -311,9 +332,6 @@ const userReducer = createReducer(initialState, (builder) => {
       toast.success('Le voyage a bien été crée !');
       state.errorMessage = null;
       state.isLoading = false;
-    })
-    .addCase(addTrip.pending, (state) => {
-      state.isLoading = true;
     })
     .addCase(addTrip.rejected, (state) => {
       state.isLoading = false;

@@ -57,7 +57,7 @@ function ResetPassword() {
     const jsonData = Object.fromEntries(formData.entries());
 
     await axiosInstance
-    // Send request PATCH to URL with token in json
+      // Send request PATCH to URL with token in json
       .patch(`/reset?reset=${token}`, jsonData)
       .then(() => {
         // Redirects to the page

@@ -50,7 +50,7 @@ function Profil() {
     const formData = new FormData(form);
     formData.append('consent_commercial', commercialConsent.toString());
     formData.append('consent_newsletter', newsletterConsent.toString());
-    dispatch(updateConsent({ formData, id: userData.id }));
+    await dispatch(updateConsent({ formData, id: userData.id }));
     navigate('/profil');
   };
 

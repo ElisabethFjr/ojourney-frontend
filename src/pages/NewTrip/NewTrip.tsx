@@ -101,7 +101,7 @@ function NewTrip() {
     }
 
     // Dispatch addTrip action on the form submission
-    dispatch(addTrip(formData));
+    await dispatch(addTrip(formData));
     navigate(`/my-trips`);
   };
 
