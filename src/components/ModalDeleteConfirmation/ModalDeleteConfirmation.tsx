@@ -57,12 +57,16 @@ function ModalDeleteConfirm({
               type="button"
               customClass="outline-dark"
               onClick={handleClose}
+              arial-label="Annuler la suppression"
             />
             <Button
               text={isTripAuthor ? 'Supprimer' : 'Valider'}
               type="button"
               customClass="danger"
               onClick={handleDelete}
+              aria-label={
+                isTripAuthor ? "Supprimer l'élément" : "Valider l'action"
+              }
             />
           </div>
         </ModalContainer>

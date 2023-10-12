@@ -93,4 +93,8 @@
     transform: translateX(26px);
     transition-duration: 0.2s;
   }
+  .profil-card-checkbox:focus + .profil-card-toggleSwitch {
+    box-shadow: 0 0 3px 2px v.$color-tabfocus;
+    transition: box-shadow 0.2s;
+  }
 }

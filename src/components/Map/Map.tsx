@@ -6,6 +6,7 @@ import { Map, Marker, Overlay } from 'pigeon-maps';
 import { Proposition } from '../../@types';
 // Import Styles
 import './Map.scss';
+import vars from '../../styles/_export.module.scss';
 
 interface MapProps {
   lat: number;
@@ -21,19 +22,25 @@ function MapDisplay({ lat, lon, links }: MapProps) {
         key={link.title}
         width={40}
         anchor={[link.lat, link.lon]} // Latitude and longitude coordinates
-        color="#ff7d5c"
+        color={vars.colorPrimary}
+        aria-label={`Votre position, Latitude: ${lat}, Longitude: ${lon}`}
+        hover // Enable hover effect
+
         onMouseOver={() => setHandlingHover(link)}
+
       />
     );
   });
   return (
+
     <Map height={300} center={[lat, lon]} defaultZoom={12}>
       <Marker
         width={50}
         anchor={[lat, lon]}
-        color="#ff7d5c"
+        color={vars.colorPrimary}
         className="marker"
         onMouseOver={() => setHandlingHover(undefined)}
+        aria-label={`Votre position, Latitude: ${lat}, Longitude: ${lon}`}
       />
       {allLinks}
       {handlingHover ? (

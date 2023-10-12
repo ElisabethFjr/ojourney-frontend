@@ -34,6 +34,7 @@ function ModalConfirmMessage({ closeModal }: ModalConfirmMessageProps) {
             type="button"
             className="modal-confirm-close-btn"
             onClick={handleClose}
+            arial-label="Fermer la modal"
           >
             <i className="modal-confirm-close-btn-icon fa-solid fa-xmark" />
           </button>

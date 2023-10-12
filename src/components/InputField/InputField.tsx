@@ -83,6 +83,7 @@ function InputField({
           handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
         }
         onBlur={handleBlur}
+        aria-label={`${suggestion.line1} ${suggestion.line2}`}
       >
         {/* Localisation suggestion composed of 'line1' and 'line2' elements from the API */}
         {/* Details localisation : address_line1 for the adress and address_line2 for the country) */}

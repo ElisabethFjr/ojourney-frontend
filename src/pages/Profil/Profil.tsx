@@ -131,7 +131,12 @@ function Profil() {
           <form onSubmit={handleSubmit}>
             {/* Checkbox Button Commercial */}
             <div className="profil-card-toggle-container">
-              <p className="profil-card-toggle-text"> Commercial :</p>
+              <label
+                htmlFor="consentCommercial"
+                className="profil-card-toggle-text"
+              >
+                commercial :
+              </label>
               <input
                 className="profil-card-checkbox"
                 name="consent_commercial"
@@ -139,7 +144,14 @@ function Profil() {
                 id="consentCommercial"
                 onChange={handleCommercialToggle}
                 checked={commercialConsent}
+                aria-label="Consentement commercial"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleCommercialToggle();
+                  }
+                }}
               />
+
               {commercialConsent ? 'Accepté' : 'Refusé'}
               <label
                 className="profil-card-toggleSwitch"
@@ -150,7 +162,12 @@ function Profil() {
             </div>
             {/*  Checkbox Button Newsletter */}
             <div className="profil-card-toggle-container">
-              <p className="profil-card-toggle-text">Usage newsletter :</p>
+              <label
+                htmlFor="consentNewsletter"
+                className="profil-card-toggle-text"
+              >
+                Usage newsletter :
+              </label>
               <input
                 className="profil-card-checkbox"
                 name="consent_newsletter"
@@ -158,6 +175,12 @@ function Profil() {
                 id="consentNewsletter"
                 onChange={handleNewsletterToggle}
                 checked={newsletterConsent}
+                aria-label="Consentement pour la newsletter"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleNewsletterToggle();
+                  }
+                }}
               />
               {newsletterConsent ? 'Accepté' : 'Refusé'}
               <label
