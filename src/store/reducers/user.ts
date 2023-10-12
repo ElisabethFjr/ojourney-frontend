@@ -219,6 +219,7 @@ const userReducer = createReducer(initialState, (builder) => {
     // Logout
     .addCase(logout.fulfilled, (state) => {
       state.data = initialState.data; // Reset user data to initial state
+      toast.success('Vous avez été déconnecté avec succès.');
       state.isConnected = false;
     })
     .addCase(logout.rejected, () => {
