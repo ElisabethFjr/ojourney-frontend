@@ -1,54 +1,30 @@
 @use '../../styles/variables' as v;
 
 .container-button {
-  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0;
   min-height: 0.6rem;
 }
 
 .button-loader {
   width: 18px;
   height: 18px;
-  background: v.$color-white;
-  display: block;
-  position: relative;
+  border: 5px solid v.$color-white;
+  border-bottom-color: v.$color-primary;
+  border-radius: 50%;
+  display: inline-block;
   box-sizing: border-box;
-  animation: rotationBack 1s ease-in-out infinite reverse;
-}
-.button-loader::before {
-  content: '';
-  box-sizing: border-box;
-  left: 0;
-  top: 0;
-  transform: rotate(45deg);
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background: v.$color-white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  animation: rotation 1s linear infinite;
 }
 
-.button-loader::after {
-  content: '';
-  box-sizing: border-box;
-
-  border-radius: 20%;
-  position: absolute;
-  left: 20%;
-  top: 20%;
-  background: v.$color-primary-lightest;
-  transform: translate(-20%, -20%);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-}
-
-@keyframes rotationBack {
+@keyframes rotation {
   0% {
     transform: rotate(0deg);
   }
   100% {
-    transform: rotate(-360deg);
+    transform: rotate(360deg);
   }
 }
 

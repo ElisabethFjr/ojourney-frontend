@@ -97,6 +97,10 @@ export const fetchUserInfos = createAsyncThunk(
 export const checkUserInfos = createAsyncThunk(
   'user/checkUserInfos',
   async () => {
+    if (env === 'dev') {
+      const token = localStorage.getItem('userToken');
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    }
     const { data } = await axiosInstance.get('/user');
     return data;
   }
@@ -154,7 +158,7 @@ export const updateConsent = createAsyncThunk(
     // Convert formData to an JSON object
     const objData = Object.fromEntries(formData);
     // Send a PATCH request to update user data
-    const data = await axiosInstance.patch(`/users/${id}`, objData);
+    const { data } = await axiosInstance.patch(`/users/${id}`, objData);
     return data;
   }
 );
@@ -235,6 +239,9 @@ const userReducer = createReducer(initialState, (builder) => {
         ...action.payload,
       };
       state.isLoading = false;
+    })
+    .addCase(fetchUserInfos.rejected, () => {
+      toast.error('Veuillez vous reconnecter.');
     })
     // Check User Data Token
     .addCase(checkUserInfos.fulfilled, (state, action) => {

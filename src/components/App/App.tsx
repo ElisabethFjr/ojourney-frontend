@@ -1,11 +1,17 @@
 // Import React-Router-Dom
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 // Import React Hooks
 import { useState, useEffect } from 'react';
 // Import React-Toastify
 import { ToastContainer, Slide } from 'react-toastify';
 // Import Redux Hooks
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { checkUserInfos } from '../../store/reducers/user';
 
 // Import axios instance
@@ -51,13 +57,15 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  // Declaration state variable
+  const [loading, setLoading] = useState(true);
+
+  // Fetch Redux States
+  const isConnected = useAppSelector((state) => state.user.isConnected);
+
   // Check the connected user's information for authentication (token or cookies in headers), if ok dispatch the user's data
   useEffect(() => {
-    const token = localStorage.getItem('userToken');
-    if (token) {
-      axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
-      dispatch(checkUserInfos());
-    }
+    dispatch(checkUserInfos());
   }, [dispatch]);
 
   // Scroll to the top of the page when the location changes
@@ -65,13 +73,24 @@ function App() {
     window.scrollTo(0, 0);
   }, [location]);
 
+  // Use a timeout to add a loading screen for 2 seconds
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1200);
+  }, []);
+
+  // If page loading, render the Loading component
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="app-container">
       <Header />
       <Routes>
         {/* Public Routes (visitor) */}
         <Route path="/" element={<Home />} />
-        <Route path="/signin-signup" element={<SignInUp />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
@@ -82,7 +101,11 @@ function App() {
         <Route path="/invite" element={<ConfirmInvite />} />
         <Route path="*" element={<ErrorNotFound />} />
         <Route path="/500" element={<ErrorServer />} />
-
+        {/* Public Routes for Login/Register (visitor) */}
+        <Route
+          path="/signin-signup"
+          element={isConnected ? <Navigate to="/" /> : <SignInUp />}
+        />
         {/* Private Routes (user connected) */}
         <Route
           path="/profil"

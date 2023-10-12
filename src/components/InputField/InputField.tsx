@@ -49,6 +49,13 @@ function InputField({
     handleSuggestionLocalisation(event, dispatch);
     // Sanitize the input value using DOMPurify to prevent security vulnerabilities
     const sanitizedValue = DOMPurify.sanitize(event.target.value);
+    // If empty input, set the handleSuggestionSelected at false
+    if (sanitizedValue === '') {
+      if (handleSuggestionSelected) {
+        handleSuggestionSelected(false);
+      }
+    }
+    // Update the input value with the sanitized value
     setValue(sanitizedValue);
   };
 
