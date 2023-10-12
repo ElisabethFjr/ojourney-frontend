@@ -24,6 +24,7 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
   // Declaration state variables
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
 
   // Fetch states from Redux store
   const members = useAppSelector((state) => state.trip.trip.members); // Members of the trip
@@ -31,6 +32,8 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Set the loading button pending
+    setIsLoading(true);
     // Get the current from
     const form = event.currentTarget;
     // Create a FormData Object
@@ -65,13 +68,11 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
       .then(() => {
         setIsOpen(!isOpen);
         closeModal(true);
+        setIsLoading(false);
         toast.success("L'invitation a bien été envoyée !");
       })
-      .catch((error) => {
-        error(
-          "Une erreur est survenue lors la récupération de l'email.",
-          error
-        );
+      .catch(() => {
+        setIsLoading(false);
         toast.error("L'invitation n'a pas pu être envoyée.");
       });
   };
@@ -114,7 +115,12 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
                 customClass="outline-dark"
                 onClick={handleClose}
               />
-              <Button text="Confirmer" type="submit" customClass="color" />
+              <Button
+                text="Confirmer"
+                type="submit"
+                customClass="color"
+                isLoading={isLoading}
+              />
             </div>
           </form>
         </ModalContainer>

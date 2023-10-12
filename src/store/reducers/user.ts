@@ -291,6 +291,9 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = 'Le mot de passe est incorrect.';
     })
     // Delete User Account
+    .addCase(deleteUserAccount.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(deleteUserAccount.fulfilled, (state) => {
       // If correct password, delete the user account
       if (state.checkedPassword) {
@@ -298,10 +301,12 @@ const userReducer = createReducer(initialState, (builder) => {
         state.isConnected = false; // Disconnection
         toast.success('Votre compte a bien été supprimé.');
         state.errorMessage = null;
+        state.isLoading = false;
       }
     })
-    .addCase(deleteUserAccount.rejected, () => {
+    .addCase(deleteUserAccount.rejected, (state) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+      state.isLoading = false;
     })
     // Update Consents
     .addCase(updateConsent.pending, (state) => {

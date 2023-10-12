@@ -12,9 +12,9 @@ import './SignUpForm.scss';
 
 function SignUpForm() {
   // Declaration state variables
-  const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false); // State to display or not confirmation modal
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State to display an error message
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false); // Confirmation modal display
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error message
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
 
   // Handle SignUp form submit
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -51,6 +51,7 @@ function SignUpForm() {
         setIsLoading(false);
       })
       .catch((error) => {
+        setIsLoading(false);
         if (error.response.data.error.trim() === 'User already exists !') {
           setErrorMessage('Un compte est déjà associé à cette adresse email.');
         } else {

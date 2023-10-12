@@ -23,7 +23,7 @@ function Profil() {
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
-  console.log(userData);
+  const isLoading = useAppSelector((state) => state.user.isLoading);
 
   // States variables declaration
   const [showModalConfirmPassword, setShowModalConfirmPassword] =
@@ -174,6 +174,7 @@ function Profil() {
                 text="Changer vos données"
                 customClass="color"
                 type="submit"
+                isLoading={isLoading}
               />
             </div>
           </form>

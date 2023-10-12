@@ -13,8 +13,7 @@ import Button from '../../components/Button/Button';
 import './ConfirmAccount.scss';
 
 function ConfirmAccount() {
-
-// Declaration States Variables
+  // Declaration States Variables
   const [isConfirmed, setIsConfirmed] = useState(false);
 
   const token = document.location.hash.split('?')[1];
@@ -26,12 +25,8 @@ function ConfirmAccount() {
         .then(() => {
           setIsConfirmed(true);
         })
-        .catch((error) => {
+        .catch(() => {
           setIsConfirmed(false);
-          console.error(
-            "Une erreur est survenue lors de la confirmation d'email.",
-            error
-          );
         });
     }
     confirmEmail();
