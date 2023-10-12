@@ -36,21 +36,15 @@ function InputField({
   const dispatch = useAppDispatch();
   // Declaration State Variables
   const [value, setValue] = useState('');
-  const [previousValueLength, setpreviousValueLength] = useState(0); // State for the previous input value (for suggestions localisation)
 
   // Fetch states from Redux store
   const suggestions = useAppSelector((state) => state.trip.suggestions);
 
   // EVENT HANDLER to handle changes in the input component
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    // If specific input "localisation", set the auto suggestions from the geoapify API
+    // If specific input "localisation", set the auto suggestions from the geoapify API with a debounce
     // Check /utils/handleLocalisation to see the function
-    handleSuggestionLocalisation(
-      event,
-      dispatch,
-      previousValueLength,
-      setpreviousValueLength
-    );
+    handleSuggestionLocalisation(event, dispatch);
     // Sanitize the input value using DOMPurify to prevent security vulnerabilities
     const sanitizedValue = DOMPurify.sanitize(event.target.value);
     setValue(sanitizedValue);
