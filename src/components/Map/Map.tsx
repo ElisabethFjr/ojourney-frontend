@@ -1,5 +1,7 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 // Import component from Pigeon-maps
-import { Map, Marker } from 'pigeon-maps';
+import { Map, Marker, Overlay } from 'pigeon-maps';
 // Import Interface
 import { Proposition } from '../../@types';
 // Import Styles
@@ -12,22 +14,45 @@ interface MapProps {
 }
 // Function render a map with markers
 function MapDisplay({ lat, lon, links }: MapProps) {
+  const [handlingHover, setHandlingHover] = useState<Proposition>();
   const allLinks = links.map((link) => {
     return (
       <Marker
-        key={link.id}
+        key={link.title}
         width={40}
         anchor={[link.lat, link.lon]} // Latitude and longitude coordinates
-        color="#ff7d5cbd"
-        hover // Enable hover effect
+        color="#ff7d5c"
+        onMouseOver={() => setHandlingHover(link)}
       />
     );
   });
-
   return (
-    <Map height={300} center={[lat, lon]} defaultZoom={4}>
-      <Marker width={50} anchor={[lat, lon]} color="#ff7d5c" />
+    <Map height={300} center={[lat, lon]} defaultZoom={12}>
+      <Marker
+        width={50}
+        anchor={[lat, lon]}
+        color="#ff7d5c"
+        className="marker"
+        onMouseOver={() => setHandlingHover(undefined)}
+      />
       {allLinks}
+      {handlingHover ? (
+        <Overlay
+          anchor={[handlingHover.lat, handlingHover.lon]}
+          offset={[290, 50]}
+          className="marker-title"
+        >
+          <Link to={handlingHover.url} target="_blank">
+            <p
+              className="marker-title-p"
+              onMouseOut={() => setHandlingHover(undefined)}
+              onBlur={() => setHandlingHover(undefined)}
+            >
+              {handlingHover.title}
+            </p>
+          </Link>
+        </Overlay>
+      ) : null}
     </Map>
   );
 }
