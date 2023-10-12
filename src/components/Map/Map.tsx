@@ -4,6 +4,7 @@ import { Map, Marker } from 'pigeon-maps';
 import { Proposition } from '../../@types';
 // Import Styles
 import './Map.scss';
+import vars from '../../styles/_export.module.scss';
 
 interface MapProps {
   lat: number;
@@ -18,7 +19,8 @@ function MapDisplay({ lat, lon, links }: MapProps) {
         key={link.id}
         width={40}
         anchor={[link.lat, link.lon]} // Latitude and longitude coordinates
-        color="#ff7d5cbd"
+        color={vars.colorPrimary}
+        aria-label={`Votre position, Latitude: ${lat}, Longitude: ${lon}`}
         hover // Enable hover effect
       />
     );
@@ -26,7 +28,12 @@ function MapDisplay({ lat, lon, links }: MapProps) {
 
   return (
     <Map height={300} center={[lat, lon]} defaultZoom={4}>
-      <Marker width={50} anchor={[lat, lon]} color="#ff7d5c" />
+      <Marker
+        width={50}
+        anchor={[lat, lon]}
+        color={vars.colorPrimary}
+        aria-label={`Votre position, Latitude: ${lat}, Longitude: ${lon}`}
+      />
       {allLinks}
     </Map>
   );

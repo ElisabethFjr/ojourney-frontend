@@ -58,14 +58,25 @@ function SignUpForm() {
   };
 
   return (
-    <form className="form-content" onSubmit={handleSubmit}>
+    <form
+      className="form-content"
+      onSubmit={handleSubmit}
+      aria-label="Formulaire d'inscription"
+    >
       {/* ConfirmModal */}
       {showModalConfirm && (
-        <ConfirmModal closeModal={() => setShowModalConfirm(false)} />
+        <ConfirmModal
+          closeModal={() => setShowModalConfirm(false)}
+          aria-label="Confirmation Modal"
+        />
       )}
       {/* Error Message */}
       {errorMessage && (
-        <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
+        <ErrorMessage
+          icon="fa-solid fa-xmark"
+          text={errorMessage}
+          aria-label="Message d'erreur"
+        />
       )}
       {/* Input Lastname */}
       <InputField
@@ -75,6 +86,7 @@ function SignUpForm() {
         icon="fa-solid fa-user"
         maxlength={100}
         required
+        aria-label="Nom"
       />
       {/* Input Firstname */}
       <InputField
@@ -84,6 +96,7 @@ function SignUpForm() {
         icon="fa-solid fa-user"
         maxlength={100}
         required
+        aria-label="Prénom"
       />
       {/* Input Email */}
       <InputField
@@ -93,6 +106,7 @@ function SignUpForm() {
         icon="fa-solid fa-at"
         maxlength={320}
         required
+        aria-label="Adresse e-mail"
       />
       {/* Input Password */}
       <InputField
@@ -113,12 +127,14 @@ function SignUpForm() {
         maxlength={128}
         required
         autocomplete="off"
+        aria-label="Confirmation du mot de passe"
       />
       {/* Submit Button */}
       <Button
         text="S'inscrire"
         customClass="color button-style--width"
         type="submit"
+        aria-label="Bouton d'inscription"
       />
     </form>
   );

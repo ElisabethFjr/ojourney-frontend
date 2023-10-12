@@ -84,10 +84,15 @@ function PropositionCard({
       {/* Display icons edit/delete buttons only if the current user is the author of the proposition or the trip creator */}
       {isPropositionAuthor || isTripCreator ? (
         <div className="proposition-card-icons">
-          <ButtonIcon icon="fa-solid fa-pen" handleClick={handleClickEdit} />
+          <ButtonIcon
+            icon="fa-solid fa-pen"
+            handleClick={handleClickEdit}
+            aria-label="Edit Button"
+          />
           <ButtonIcon
             icon="fa-solid fa-trash"
             handleClick={handleClickDelete}
+            aria-label="Delete Button"
           />
         </div>
       ) : null}
@@ -103,13 +108,19 @@ function PropositionCard({
               ? { color: vars.colorPrimary }
               : { color: vars.colorText }
           }
+          aria-label="Like Button"
         >
           <i className="proposition-card-like-icon fa-regular fa-thumbs-up" />
           J&lsquo;aime
         </button>
       </div>
       {/* Proposition Card */}
-      <Link to={url} target="_blank" className="proposition-card">
+      <Link
+        to={url}
+        target="_blank"
+        className="proposition-card"
+        aria-label="Link to Proposition Details"
+      >
         <img
           className="proposition-card-image"
           src={srcImage}
@@ -128,17 +139,27 @@ function PropositionCard({
               : 'Membre supprimé'}
           </p>
           {description && (
-            <div className="proposition-card-description">
+            <div
+              className="proposition-card-description"
+              aria-label="Description"
+            >
               <p className="proposition-card-description-text">{description}</p>
             </div>
           )}
           <div className="proposition-card-localisation">
             <i className="fa-solid fa-location-dot" />
-            <p className="proposition-card-localisation-name">{localisation}</p>
+            <p
+              className="proposition-card-localisation-name"
+              aria-label="Localisation"
+            >
+              {localisation}
+            </p>
           </div>
           <div className="proposition-card-url">
             <i className="fa-solid fa-square-arrow-up-right" />
-            <p className="proposition-card-url-detail">Voir détail</p>
+            <p className="proposition-card-url-detail" aria-label="URL Detail">
+              Voir détail
+            </p>
           </div>
         </div>
       </Link>

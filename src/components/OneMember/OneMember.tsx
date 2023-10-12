@@ -93,7 +93,7 @@ function OneMember({
           }
         }}
         role="button"
-        aria-label="Click on the member to open member menu"
+        aria-label="Cliquez sur le membre pour ouvrir le menu du mebre"
         tabIndex={0}
         ref={divRef}
       >
@@ -105,6 +105,7 @@ function OneMember({
               className="member-menu-btn"
               type="button"
               onClick={handleClickInfo}
+              aria-label="Voir les informations du membre"
             >
               Voir les infos
             </button>
@@ -113,6 +114,7 @@ function OneMember({
                 className="member-menu-btn"
                 type="button"
                 onClick={handleClick}
+                aria-label={`Supprimer ${member.firstname} du voyage`}
               >
                 Supprimer
               </button>

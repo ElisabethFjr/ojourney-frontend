@@ -46,6 +46,7 @@ function InputFieldImage({ handleFile, text }: InputFieldImageProps) {
         type="button"
         onClick={handleClick}
         icon="fa-regular fa-image"
+        aria-label="Ajouter une image"
       />
     </div>
   );
