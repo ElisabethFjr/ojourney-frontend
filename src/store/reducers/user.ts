@@ -1,14 +1,14 @@
 // Imports
 import { createReducer, createAsyncThunk } from '@reduxjs/toolkit';
 
-// Import Toast
+// Import from Modules
 import { toast } from 'react-toastify';
 
-// Imports Axios
+// Imports Axios Instance
 import { AxiosError } from 'axios';
 import axiosInstance from '../../utils/axios';
 
-// Import types
+// Import Interface Types
 import { Proposition, Trip } from '../../@types';
 
 // Type user states
@@ -51,7 +51,7 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = null;
+const env = 'dev';
 
 // Create LOGIN action
 export const login = createAsyncThunk(

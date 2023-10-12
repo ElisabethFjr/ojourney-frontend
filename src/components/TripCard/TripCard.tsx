@@ -71,12 +71,12 @@ function TripCard({
   };
 
   // Handler delete actions on click on the trash icon, depending on author status
-  const dispatchDeleteAction = () => {
+  const dispatchDeleteAction = async () => {
     if (isTripAuthor) {
       dispatch(deleteTrip(tripId)); // If author, dispatch the deleteTrip action
     } else {
       // If just member, dispatch the deleteMember action to leave the trip
-      dispatch(deleteMember({ tripId, memberId }));
+      await dispatch(deleteMember({ tripId, memberId }));
       navigate('/my-trips');
     }
   };
@@ -103,6 +103,7 @@ function TripCard({
           <p className="trip-card-description">{description}</p>
         </div>
       </Link>
+      {/* Display the Delete Modale if the trash button is clicked */}
       {showModalDeleteConfirm && (
         <ModalDeleteConfirm
           dispatchDeleteAction={dispatchDeleteAction}

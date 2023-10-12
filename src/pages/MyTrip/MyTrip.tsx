@@ -234,6 +234,7 @@ function MyTrip() {
           <ul>{allPropositions}</ul>
         )}
       </section>
+      {/* Display the Delete Modale if the trash button is clicked */}
       {showModalDeleteConfirm && (
         <ModalDeleteConfirm
           dispatchDeleteAction={() => dispatch(deleteTrip(tripId))}

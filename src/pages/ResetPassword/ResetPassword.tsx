@@ -23,8 +23,10 @@ function ResetPassword() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // ErrorMessage
   const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
 
+  // Extract link token from the url
   const token = document.location.hash.split('?')[1];
 
+  // Event handler for the Reset Password form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Set the loading button pending

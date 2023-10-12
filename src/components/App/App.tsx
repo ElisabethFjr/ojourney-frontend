@@ -46,6 +46,7 @@ import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  // Initializing Hooks
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

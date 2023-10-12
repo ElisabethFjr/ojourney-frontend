@@ -9,7 +9,6 @@ import { deleteProposition, toggleLike } from '../../store/reducers/trip';
 // Import Styles
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
-
 // Import Styles
 import vars from '../../styles/_export.module.scss';
 import './PropositionCard.scss';
@@ -50,31 +49,30 @@ function PropositionCard({
   const tripId = id_trip ?? '';
   const propositionId = id_link ?? '';
 
-  // Does the connected user like this trip?
-  const isUserLikedTrip = useAppSelector(
-    (state) => state.user.data.id && likes.includes(state.user.data.id)
-  );
-
-  // Fetch states from Redux store
-  const members = useAppSelector((state) => state.trip.trip.members);
-  // Function to find the author name based on the proposition.user_id
-  const isPropositionAuthor = members.find((member) => member.id === userId);
-
   // Declaration State Variable
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
 
-  // Event handler to open the modal DeleteConfirmation if click on delete a trip
+  // Fetch states from Redux store
+  const members = useAppSelector((state) => state.trip.trip.members); // All members of a trip
+  const userLikedProposition = useAppSelector(
+    (state) => state.user.data.id && likes.includes(state.user.data.id)
+  ); // Does the connected user like this proposition?
+
+  // Function to find the author name based on the proposition.user_id
+  const isPropositionAuthor = members.find((member) => member.id === userId);
+
+  // EVENT HANDLER for open the modal DeleteConfirmation if click on delete a trip
   const handleClickDelete = () => {
     setShowModalDeleteConfirm(!showModalDeleteConfirm);
   };
 
-  // Event handler to open the EditProposition page
+  // EVENT HANDLER for open the EditProposition page
   const handleClickEdit = () => {
     navigate(`/edit-proposition/${id_trip}/${id_link}`);
   };
 
-  // Event handler to add a +1 like if clicked
+  // EVENT HANDLER for add a +1 like if clicked
   const handleClickVote = () => {
     dispatch(toggleLike({ tripId, propositionId }));
   };
@@ -99,7 +97,7 @@ function PropositionCard({
           type="button"
           onClick={handleClickVote}
           style={
-            isUserLikedTrip
+            userLikedProposition
               ? { color: vars.colorPrimary }
               : { color: vars.colorText }
           }

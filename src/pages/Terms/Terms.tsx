@@ -27,8 +27,9 @@ function Terms() {
       <section className="terms-container">
         <h2 className="terms-subtitle">Hébergement du site</h2>
         <p className="terms-text">
-          Le site O&apos;Journey est hébergé par ..., une société ... dont le
-          siège social est situé à ....
+          Le site O&apos;Journey est hébergé par Vercel, une société américaine
+          de Platform &apos;as a service cloud&apos;, dont le siège social est
+          situé à San Francisco, Californie, U.S.
         </p>
       </section>
       <section className="terms-container">
@@ -49,7 +50,8 @@ function Terms() {
           respecter votre vie privée et à minimiser l&apos;impact des cookies
           sur votre navigation. Si vous avez des préoccupations ou des questions
           concernant l&apos;utilisation des cookies sur notre site, veuillez
-          nous contacter à l&apos;adresse e-mail suivante :
+          nous contacter via notre formulaire de Contact ou à l&apos;adresse
+          e-mail suivante : ojourney.website@gmail.com.
         </p>
       </section>
     </Main>

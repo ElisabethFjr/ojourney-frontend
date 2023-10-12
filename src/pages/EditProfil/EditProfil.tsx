@@ -42,7 +42,7 @@ function EditProfil() {
     setValue(sanitizedValue);
   };
 
-  // Handle form submission
+  // Event handler for the Confirm Profil form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;

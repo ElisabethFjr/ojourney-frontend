@@ -16,7 +16,7 @@ function SignUpForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error message
   const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
 
-  // Handle SignUp form submit
+  // Event Handler fot the SignUp form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Set the loading button pending
