@@ -21,6 +21,7 @@ export interface InputFieldProps {
   required?: boolean;
   autocomplete?: string;
   maxlength?: number;
+  handleSuggestionSelected?: (selected: boolean) => void;
 }
 
 function InputField({
@@ -31,6 +32,7 @@ function InputField({
   required,
   autocomplete,
   maxlength,
+  handleSuggestionSelected,
 }: InputFieldProps) {
   // Access the Redux dispatch function using the 'useAppDispatch' hook.
   const dispatch = useAppDispatch();
@@ -53,6 +55,9 @@ function InputField({
   // EVENT HANDLER on the click on a suggested localisation
   const handleClickSuggestion = (newValue: string) => {
     setValue(newValue);
+    if (handleSuggestionSelected) {
+      handleSuggestionSelected(true);
+    }
     dispatch(resetSuggestions());
   };
 

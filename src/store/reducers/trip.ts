@@ -1,17 +1,17 @@
-// Imports
+// Imports Redux Toolkit
 import {
   createReducer,
   createAsyncThunk,
   createAction,
 } from '@reduxjs/toolkit';
 
-// Import Toast
+// Import from Modules
 import { toast } from 'react-toastify';
 
-// Import axios
+// Import Axios Instance
 import axiosInstance from '../../utils/axios';
 
-// Import types
+// Import Interface Types
 import { Member, Proposition, Suggestion } from '../../@types';
 
 // Type trip states
@@ -220,6 +220,9 @@ const tripReducer = createReducer(initialState, (builder) => {
       state.isLoading = false;
     })
     // UPDATE Trip
+    .addCase(updateTrip.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(updateTrip.fulfilled, (state, action) => {
       state.trip = {
         ...state.trip,
@@ -227,9 +230,11 @@ const tripReducer = createReducer(initialState, (builder) => {
       };
       toast.success('Le voyage a bien été modifié !');
       state.errorMessage = null;
+      state.isLoading = false;
     })
-    .addCase(updateTrip.rejected, () => {
+    .addCase(updateTrip.rejected, (state) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+      state.isLoading = false;
     })
     // SET/RESET Suggestions Destination in NewTrip and EditTrip
     .addCase(setSuggestions.fulfilled, (state, action) => {
@@ -239,6 +244,9 @@ const tripReducer = createReducer(initialState, (builder) => {
       state.suggestions = [];
     })
     // ADD Proposition
+    .addCase(addProposition.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(addProposition.fulfilled, (state, action) => {
       state.trip = {
         ...state.trip,
@@ -246,11 +254,16 @@ const tripReducer = createReducer(initialState, (builder) => {
       };
       toast.success('La proposition a bien été ajoutée !');
       state.errorMessage = null;
+      state.isLoading = false;
     })
-    .addCase(addProposition.rejected, () => {
+    .addCase(addProposition.rejected, (state) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+      state.isLoading = false;
     })
     // UPDATE Proposition
+    .addCase(updateProposition.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(updateProposition.fulfilled, (state, action) => {
       state.trip = {
         ...state.trip,
@@ -258,9 +271,11 @@ const tripReducer = createReducer(initialState, (builder) => {
       };
       toast.success('La proposition a bien été modifée !');
       state.errorMessage = null;
+      state.isLoading = false;
     })
-    .addCase(updateProposition.rejected, () => {
+    .addCase(updateProposition.rejected, (state) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+      state.isLoading = false;
     })
     // DELETE Proposition
     .addCase(deleteProposition.fulfilled, (state, action) => {
@@ -284,11 +299,15 @@ const tripReducer = createReducer(initialState, (builder) => {
     .addCase(deleteMember.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
+    // TOGGLE like on a proposition
     .addCase(toggleLike.fulfilled, (state, action) => {
       state.trip = {
         ...state.trip,
         ...action.payload,
       };
+    })
+    .addCase(toggleLike.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // FETCH One Member infos
     .addCase(informationMember.fulfilled, (state, action) => {
@@ -296,6 +315,9 @@ const tripReducer = createReducer(initialState, (builder) => {
         ...state.trip,
         ...action.payload,
       };
+    })
+    .addCase(informationMember.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     });
 });
 

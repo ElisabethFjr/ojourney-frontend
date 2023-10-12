@@ -2,11 +2,13 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Import Curstom Redux Hook
-import { useAppDispatch } from '../../hooks/redux';
+// Import Custom Redux Hook
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
+// Import Custom Redux Hook
 import changeDateFormat from '../../utils/formatDate';
 
+// Import Redux Actions
 import { addTrip } from '../../store/reducers/user';
 
 // Imports Layouts & Components
@@ -31,10 +33,18 @@ function NewTrip() {
   // Declaration state variables
   const [startDate, setStartDate] = useState<Date | undefined>(undefined); // Trip start date
   const [endDate, setEndDate] = useState<Date | undefined>(undefined); // Trip end date
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [file, setFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error message
+  const [file, setFile] = useState<File | null>(null); // Selected file
+  const [imageUrl, setImageUrl] = useState<string | null>(null); // Image URL
+  const [isSuggestionSelected, setSuggestionSelected] = useState(false); // Suggestion selection indicator
+
+  // Fetch states from Redux store
+  const isLoading = useAppSelector((state) => state.user.isLoading);
+
+  // Event handler for selected suggestion localisation
+  const handleSuggestionSelected = (selected: boolean) => {
+    setSuggestionSelected(selected);
+  };
 
   // Event handler for start date change
   const handleStartDateChange = (date: Date) => {
@@ -55,9 +65,9 @@ function NewTrip() {
     }
   };
 
+  // Event handler for the New Trip form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsLoading(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
 
@@ -68,6 +78,14 @@ function NewTrip() {
     const destination = formData.get('localisation') as string;
     if (!destination || !startDate || !endDate) {
       setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+
+    // Check if user doesn't selected a localsation suggestion from the API
+    if (!isSuggestionSelected) {
+      setErrorMessage(
+        'Veuillez sélectionner une destination dans la lise de suggestion.'
+      );
       return;
     }
 
@@ -84,8 +102,7 @@ function NewTrip() {
     }
 
     // Dispatch addTrip action on the form submission
-    dispatch(addTrip(formData));
-    setIsLoading(false);
+    await dispatch(addTrip(formData));
     navigate(`/my-trips`);
   };
 
@@ -121,6 +138,7 @@ function NewTrip() {
               icon="fa-solid fa-location-dot"
               maxlength={100}
               required
+              handleSuggestionSelected={handleSuggestionSelected}
             />
 
             {/* Dates Picker Inputs (Start - End) */}
@@ -147,6 +165,8 @@ function NewTrip() {
                 src={imageUrl}
                 alt={file.name}
                 crossOrigin="anonymous"
+                width="35%"
+                height="auto"
               />
             )}
 

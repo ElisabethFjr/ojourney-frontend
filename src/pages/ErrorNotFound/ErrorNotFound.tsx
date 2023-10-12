@@ -1,3 +1,4 @@
+// Import Image
 import road from '../../assets/images/road.png';
 
 // Import Styles
@@ -15,6 +16,9 @@ function ErrorNotFound() {
         className="error-image"
         src={road}
         alt="Autocollant de route O'Journey orange jaune erreur 404"
+        width="90%"
+        height="auto"
+
       />
     </main>
   );

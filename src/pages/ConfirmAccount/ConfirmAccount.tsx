@@ -1,9 +1,11 @@
-// Import react
+// Imports React Hook
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// Import axios instance
+
+// Import Axios Instance
 import axiosInstance from '../../utils/axios';
 
+// Imports Layout & Components
 import Main from '../../layout/Main/Main';
 import Button from '../../components/Button/Button';
 
@@ -11,6 +13,7 @@ import Button from '../../components/Button/Button';
 import './ConfirmAccount.scss';
 
 function ConfirmAccount() {
+  // Declaration States Variables
   const [isConfirmed, setIsConfirmed] = useState(false);
 
   const token = document.location.hash.split('?')[1];
@@ -22,12 +25,8 @@ function ConfirmAccount() {
         .then(() => {
           setIsConfirmed(true);
         })
-        .catch((error) => {
+        .catch(() => {
           setIsConfirmed(false);
-          error(
-            "Une erreur est survenue lors de la confirmation d'email.",
-            error
-          );
         });
     }
     confirmEmail();

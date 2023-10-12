@@ -30,6 +30,7 @@ function EditPassword() {
 
   // Get user data from the Redux store.
   const userData = useAppSelector((state) => state.user.data);
+  const isLoading = useAppSelector((state) => state.user.isLoading);
 
   // Declaration state variables
   const [password, setPassword] = useState('');
@@ -46,7 +47,7 @@ function EditPassword() {
     setValue(sanitizedValue);
   };
 
-  // Function to handle form submission
+  // Event handler for the Edit Password form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -75,7 +76,7 @@ function EditPassword() {
     formData.delete('confirmation');
 
     // Dispatch the updated password to Redux store
-    dispatch(updatePassword({ formData, id: userData.id }));
+    await dispatch(updatePassword({ formData, id: userData.id }));
     navigate('/profil');
   };
 
@@ -146,6 +147,7 @@ function EditPassword() {
             text="Modifier votre mot de passe"
             customClass="color button-style--width button-style--height"
             type="submit"
+            isLoading={isLoading}
           />
         </form>
       </div>

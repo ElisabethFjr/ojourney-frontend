@@ -23,6 +23,7 @@ function Profil() {
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
+  const isLoading = useAppSelector((state) => state.user.isLoading);
 
   // States variables declaration
   const [showModalConfirmPassword, setShowModalConfirmPassword] =
@@ -49,7 +50,7 @@ function Profil() {
     const formData = new FormData(form);
     formData.append('consent_commercial', commercialConsent.toString());
     formData.append('consent_newsletter', newsletterConsent.toString());
-    dispatch(updateConsent({ formData, id: userData.id }));
+    await dispatch(updateConsent({ formData, id: userData.id }));
     navigate('/profil');
   };
 
@@ -134,7 +135,6 @@ function Profil() {
                 htmlFor="consentCommercial"
                 className="profil-card-toggle-text"
               >
-                {' '}
                 commercial :
               </label>
               <input
@@ -197,6 +197,7 @@ function Profil() {
                 text="Changer vos données"
                 customClass="color"
                 type="submit"
+                isLoading={isLoading}
               />
             </div>
           </form>

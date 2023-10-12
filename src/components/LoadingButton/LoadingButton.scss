@@ -9,9 +9,9 @@
 }
 
 .button-loader {
-  width: 24px;
-  height: 24px;
-  background: v.$color-accent;
+  width: 18px;
+  height: 18px;
+  background: v.$color-white;
   display: block;
   position: relative;
   box-sizing: border-box;
@@ -24,9 +24,9 @@
   top: 0;
   transform: rotate(45deg);
   position: absolute;
-  width: 24px;
-  height: 24px;
-  background: v.$color-accent;
+  width: 18px;
+  height: 18px;
+  background: v.$color-white;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 
@@ -54,5 +54,5 @@
 
 .button-loader-text {
   padding-right: 1rem;
-  color: v.$color-accent;
+  color: v.$color-white;
 }

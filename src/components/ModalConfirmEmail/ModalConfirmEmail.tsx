@@ -20,8 +20,9 @@ interface ModalConfirmEmailProps {
 
 function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
   // State Variable
-  const [isOpen, setIsOpen] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(true); // Open Modal
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error Message
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
 
   // Close modal
   const handleClose = () => {
@@ -32,6 +33,8 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
   // Event handler on the invite member submit form
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Set the loading button pending
+    setIsLoading(true);
     // Get the current form
     const form = event.currentTarget;
     // Create a FormData object
@@ -54,9 +57,11 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
       .then(() => {
         setIsOpen(!isOpen);
         closeModal(true);
+        setIsLoading(false);
         toast.success("L'email a bien été envoyé !");
       })
       .catch((error) => {
+        setIsLoading(false);
         if (
           error.response &&
           error.response.status === 404 &&
@@ -93,7 +98,12 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
               icon="fa-solid fa-envelope-circle-check"
               required
             />
-            <Button text="Confirmer" type="submit" customClass="color" />
+            <Button
+              text="Confirmer"
+              type="submit"
+              customClass="color"
+              isLoading={isLoading}
+            />
           </form>
         </ModalContainer>
       )}

@@ -12,12 +12,15 @@ import './SignUpForm.scss';
 
 function SignUpForm() {
   // Declaration state variables
-  const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false); // State to display or not confirmation modal
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State to display an error message
+  const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false); // Confirmation modal display
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error message
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
 
-  // Handle SignUp form submit
+  // Event Handler fot the SignUp form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Set the loading button pending
+    setIsLoading(true);
     // Get the current from
     const form = event.currentTarget;
     // Create a FormData Object
@@ -45,8 +48,10 @@ function SignUpForm() {
       .post('/signUp', jsonData)
       .then(() => {
         setShowModalConfirm(true);
+        setIsLoading(false);
       })
       .catch((error) => {
+        setIsLoading(false);
         if (error.response.data.error.trim() === 'User already exists !') {
           setErrorMessage('Un compte est déjà associé à cette adresse email.');
         } else {
@@ -122,6 +127,7 @@ function SignUpForm() {
         text="S'inscrire"
         customClass="color button-style--width"
         type="submit"
+        isLoading={isLoading}
       />
     </form>
   );

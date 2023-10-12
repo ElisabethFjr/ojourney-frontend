@@ -19,6 +19,8 @@ function Contact() {
               src={sendmessage}
               className="contact-image"
               alt="Send message to contact O'Journey"
+              width="100%"
+              height="auto"
             />
           </div>
 

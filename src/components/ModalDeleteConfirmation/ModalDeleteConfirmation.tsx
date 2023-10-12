@@ -39,7 +39,7 @@ function ModalDeleteConfirm({
 
   // Event handler to delete
   const handleDelete = async () => {
-    dispatchDeleteAction();
+    await dispatchDeleteAction();
     handleClose();
     navigate(urlNavigate);
   };

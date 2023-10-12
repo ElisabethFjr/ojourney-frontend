@@ -26,12 +26,8 @@ function ConfirmInvite() {
         .then(() => {
           setIsConfirmed(true);
         })
-        .catch((error) => {
+        .catch(() => {
           setIsConfirmed(false);
-          error(
-            "Une erreur est survenue lors de la l'invitation du membre.",
-            error
-          );
         });
     }
     confirmInvite();

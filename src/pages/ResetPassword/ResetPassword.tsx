@@ -20,12 +20,17 @@ function ResetPassword() {
   const navigate = useNavigate();
 
   // Declaration state variables
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // ErrorMessage
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
 
+  // Extract link token from the url
   const token = document.location.hash.split('?')[1];
 
+  // Event handler for the Reset Password form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Set the loading button pending
+    setIsLoading(true);
     // Get the current form element
     const form = event.currentTarget;
     // Create a FormData object
@@ -57,15 +62,16 @@ function ResetPassword() {
     const jsonData = Object.fromEntries(formData.entries());
 
     await axiosInstance
-    // Send request PATCH to URL with token in json
+      // Send request PATCH to URL with token in json
       .patch(`/reset?reset=${token}`, jsonData)
       .then(() => {
         // Redirects to the page
         navigate('/signin-signup');
+        setIsLoading(false);
         toast.success('Le mot de passe a été réinitialiser avec succès !');
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        setIsLoading(false);
         toast.error('Une erreur est survenue, veuillez réessayer plus tard.');
       });
   };
@@ -108,6 +114,7 @@ function ResetPassword() {
             text="Confirmer"
             type="submit"
             customClass="color button-style--width"
+            isLoading={isLoading}
           />
         </form>
       </div>

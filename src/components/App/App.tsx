@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { ToastContainer, Slide } from 'react-toastify';
 // Import Redux Hooks
 import { useAppDispatch } from '../../hooks/redux';
-import { checkUserToken } from '../../store/reducers/user';
+import { checkUserInfos } from '../../store/reducers/user';
 
 // Import axios instance
 import axiosInstance from '../../utils/axios';
@@ -46,17 +46,15 @@ import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  // Initializing Hooks
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // Declaration state variable
-  const [loading, setLoading] = useState(true);
-
-  // Check the connected user's token for authentication, if ok dispatch the user's data
+  // Check the connected user's information for authentication (token or cookies), if ok dispatch the user's data
   useEffect(() => {
     if (localStorage.getItem('userToken')) {
-      dispatch(checkUserToken());
+      dispatch(checkUserInfos());
     }
   }, [dispatch]);
 
@@ -64,18 +62,6 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
-
-  // Use a timeout to add a loading screen for 2 seconds
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
-
-  // If page loading, render the Loading component
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <div className="app-container">
@@ -107,13 +93,9 @@ function App() {
         <Route
           path="/my-trips"
           element={
-            loading ? (
-              <Loading />
-            ) : (
-              <PrivateRoute>
-                <MyTrips />
-              </PrivateRoute>
-            )
+            <PrivateRoute>
+              <MyTrips />
+            </PrivateRoute>
           }
         />
         <Route
