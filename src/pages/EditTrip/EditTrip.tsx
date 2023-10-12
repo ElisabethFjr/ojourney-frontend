@@ -171,7 +171,7 @@ function EditTrip() {
     }
 
     // Dispatch udpateTrip action on the form submission
-    dispatch(updateTrip({ formData, tripId }));
+    await dispatch(updateTrip({ formData, tripId }));
     navigate(`/my-trip/${tripId}`);
   };
 

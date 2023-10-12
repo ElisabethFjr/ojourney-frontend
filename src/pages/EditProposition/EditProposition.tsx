@@ -144,7 +144,7 @@ function EditProposition() {
     }
 
     // Dispatch udpateProposition action on the form submission
-    dispatch(
+    await dispatch(
       updateProposition({
         formData,
         tripId: idTrip,

@@ -16,11 +16,14 @@ import './ForgotPassword.scss';
 
 function ForgotPassword() {
   const [showModalForgotPassword, setShowModalForgotPassword] =
-    useState<boolean>(false); // State to display or not confirmation modal
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State to display an error message
+    useState<boolean>(false); // Show Confirmation Modal
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error message
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Set the loading button pending
+    setIsLoading(true);
     // Get the current form element
     const form = event.currentTarget;
     // Create a FormData object
@@ -42,9 +45,10 @@ function ForgotPassword() {
       .post('/reset', jsonData)
       .then(() => {
         setShowModalForgotPassword(true);
+        setIsLoading(false);
       })
       .catch((error) => {
-        console.error(error);
+        setIsLoading(false);
         // Set the error message state with the server's error message if available
         if (
           error.response.data.error.trim() === "This user doesn't exist in DB !"
@@ -92,6 +96,7 @@ function ForgotPassword() {
             text="Confirmer"
             customClass="color button-style--width"
             type="submit"
+            isLoading={isLoading}
           />
         </form>
       </section>

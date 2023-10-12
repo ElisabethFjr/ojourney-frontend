@@ -80,6 +80,7 @@ function SignInForm() {
           text="Se Connecter"
           customClass="color button-style--width"
           type="submit"
+          isLoading={isLoading}
         />
         {/* Forgot Password Link */}
         <div className="signin-forgot-password">
@@ -92,7 +93,6 @@ function SignInForm() {
             onClick={handleClickConfirmEmail}
             type="button"
             customClass="link"
-            isLoading={isLoading}
           />
         </div>
       </form>

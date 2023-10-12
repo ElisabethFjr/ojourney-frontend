@@ -7,7 +7,7 @@ import DOMPurify from 'dompurify';
 
 // Imports Redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { updateUserData } from '../../store/reducers/user';
+import { updateUserProfil } from '../../store/reducers/user';
 
 // Imports Layout & Components
 import Main from '../../layout/Main/Main';
@@ -24,6 +24,7 @@ function EditProfil() {
 
   // Get user data and environment from Redux store
   const userData = useAppSelector((state) => state.user.data);
+  const isLoading = useAppSelector((state) => state.user.isLoading);
 
   // Declaration States Variables
   const [lastname, setLastname] = useState(userData.lastname || '');
@@ -57,7 +58,7 @@ function EditProfil() {
     }
 
     // Dispatch the updated user data to Redux store
-    dispatch(updateUserData({ formData, id: userData.id }));
+    await dispatch(updateUserProfil({ formData, id: userData.id }));
     navigate('/profil');
   };
 
@@ -147,6 +148,7 @@ function EditProfil() {
             text="Modifier"
             customClass="color button-style--width"
             type="submit"
+            isLoading={isLoading}
           />
         </form>
       </div>

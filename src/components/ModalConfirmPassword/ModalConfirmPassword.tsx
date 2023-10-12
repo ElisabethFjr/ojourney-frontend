@@ -32,6 +32,7 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data);
+  const isLoading = useAppSelector((state) => state.user.isLoading);
 
   // Close Modal
   const handleClose = () => {
@@ -101,7 +102,12 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
                 customClass="outline-dark"
                 onClick={handleClose}
               />
-              <Button text="Supprimer" type="submit" customClass="danger" />
+              <Button
+                text="Supprimer"
+                type="submit"
+                customClass="danger"
+                isLoading={isLoading}
+              />
             </div>
           </form>
         </ModalContainer>
