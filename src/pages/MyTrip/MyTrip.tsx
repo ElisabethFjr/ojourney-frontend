@@ -143,6 +143,8 @@ function MyTrip() {
           src={trip.url_image}
           alt={trip.alt_image}
           crossOrigin="anonymous"
+          width="40%"
+          height="100%"
         />
         <div className="one-trip-overview-container">
           <div className="one-trip-overview-infos">

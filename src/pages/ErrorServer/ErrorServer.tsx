@@ -17,6 +17,8 @@ function ErrorServer() {
         className="error-image"
         src={road}
         alt="O'Journey road sticker orange yellow error server 500"
+        width="90%"
+        height="auto"
       />
     </main>
   );

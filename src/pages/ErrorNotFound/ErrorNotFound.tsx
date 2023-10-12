@@ -1,7 +1,7 @@
-//Import Image
+// Import Image
 import road from '../../assets/images/road.png';
 
-//Import Styles
+// Import Styles
 import './ErrorNotFound.scss';
 
 function ErrorNotFound() {
@@ -16,6 +16,8 @@ function ErrorNotFound() {
         className="error-image"
         src={road}
         alt="O'Journey road sticker orange yellow error 404"
+        width="90%"
+        height="auto"
       />
     </main>
   );
