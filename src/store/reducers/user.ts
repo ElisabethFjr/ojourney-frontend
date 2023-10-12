@@ -80,11 +80,8 @@ export const login = createAsyncThunk(
 
 // Create LOGOUT action
 export const logout = createAsyncThunk('user/logout', async () => {
-  if (env === 'dev') {
-    localStorage.removeItem('userToken');
-  } else {
-    await axiosInstance.get('/logout');
-  }
+  localStorage.removeItem('userToken');
+  await axiosInstance.get('/logout');
 });
 
 // Create action to FETCH user data
@@ -97,8 +94,8 @@ export const fetchUserInfos = createAsyncThunk(
 );
 
 // Create action to CHECK user data with token
-export const checkUserToken = createAsyncThunk(
-  'user/checkUserToken',
+export const checkUserInfos = createAsyncThunk(
+  'user/checkUserInfos',
   async () => {
     const { data } = await axiosInstance.get('/user');
     return data;
@@ -205,6 +202,7 @@ const userReducer = createReducer(initialState, (builder) => {
           break;
       }
       state.errorMessage = errorMessage;
+      state.isLoading = false;
     })
     .addCase(login.fulfilled, (state, action) => {
       state.data = {
@@ -213,6 +211,10 @@ const userReducer = createReducer(initialState, (builder) => {
       };
       state.isConnected = true;
       state.errorMessage = null;
+      state.isLoading = false;
+    })
+    .addCase(login.pending, (state) => {
+      state.isLoading = true;
     })
     // Logout
     .addCase(logout.fulfilled, (state) => {
@@ -231,14 +233,14 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isLoading = false;
     })
     // Check User Data Token
-    .addCase(checkUserToken.fulfilled, (state, action) => {
+    .addCase(checkUserInfos.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
         ...action.payload,
       };
       state.isConnected = true;
     })
-    .addCase(checkUserToken.rejected, (state) => {
+    .addCase(checkUserInfos.rejected, (state) => {
       state.isConnected = false;
     })
     // Update User Data
@@ -308,8 +310,13 @@ const userReducer = createReducer(initialState, (builder) => {
       };
       toast.success('Le voyage a bien été crée !');
       state.errorMessage = null;
+      state.isLoading = false;
     })
-    .addCase(addTrip.rejected, () => {
+    .addCase(addTrip.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(addTrip.rejected, (state) => {
+      state.isLoading = false;
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Delete Trip

@@ -10,6 +10,7 @@ import { nanoid } from 'nanoid';
 
 // Import Utils functions
 import changeDateFormat from '../../utils/formatDate';
+import handleSuggestionLocalisation from '../../utils/handleLocalisation';
 
 // Imports Redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -23,8 +24,8 @@ import Button from '../../components/Button/Button';
 import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
+// Import Style
 import './EditTrip.scss';
-import handleSuggestionLocalisation from '../../utils/handleLocalisation';
 
 function EditTrip() {
   // Set Locale to fr
@@ -40,30 +41,34 @@ function EditTrip() {
 
   // Fetch states from Redux store
   const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
-  const suggestions = useAppSelector((state) => state.trip.suggestions);
+  const suggestions = useAppSelector((state) => state.trip.suggestions); // Localisation Suggestion
+  const isLoading = useAppSelector((state) => state.trip.isLoading); // Loading Indicatior
 
   // States variables declaration
   const [localisation, setLocalisation] = useState<string>(
     trip.localisation || ''
-  );
+  ); // Trip localisation
   const [startDate, setStartDate] = useState<Date | null>(
     trip.date_start ? new Date(trip.date_start) : null
-  );
+  ); // Trip Start Date
   const [endDate, setEndDate] = useState<Date | null>(
     trip.date_end ? new Date(trip.date_end) : null
-  );
+  ); // Trip End Date
   const [description, setDescription] = useState<string>(
     trip?.description || ''
-  );
-  const [file, setFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  ); // Trip Description
+  const [file, setFile] = useState<File | null>(null); // Selected file
+  const [imageUrl, setImageUrl] = useState<string | null>(null); // Image URL
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error Message
+  const [isSuggestionSelected, setIsSuggestionSelected] = useState(false); // Localisation suggestion selection indicator
 
   // EVENT HANDLER input and textarea changes
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     setValue: (value: string) => void
   ) => {
+    // Reset the suggestion selection indicator
+    setIsSuggestionSelected(false);
     // If specific input "localisation", set the auto suggestions from the geoapify API with a debounce
     // Check /utils/handleLocalisation to see the function
     handleSuggestionLocalisation(event, dispatch);
@@ -75,6 +80,7 @@ function EditTrip() {
   // EVENT HANDLER on the click on a suggested localisation
   const handleClickSuggestion = (newValue: string) => {
     setLocalisation(newValue);
+    setIsSuggestionSelected(true); // Suggestion clicked
     dispatch(resetSuggestions());
   };
 
@@ -139,6 +145,14 @@ function EditTrip() {
     // Check all required fields and set an errorMessage if one is missing
     if (!localisation || !startDate || !endDate) {
       setErrorMessage('Veuillez renseigner tous les champs obligatoires.');
+      return;
+    }
+
+    // Check if the user changed the "localisation" input but did not select a suggestion
+    if (localisation !== trip.localisation && !isSuggestionSelected) {
+      setErrorMessage(
+        'Veuillez sélectionner une destination dans la liste de suggestion.'
+      );
       return;
     }
 
@@ -293,6 +307,7 @@ function EditTrip() {
               text="Modifier le voyage"
               type="submit"
               customClass="color button-style--width"
+              isLoading={isLoading}
             />
           </form>
         </FormContainer>

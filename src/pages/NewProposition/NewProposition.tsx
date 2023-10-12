@@ -5,6 +5,9 @@ import { FormEvent, useState } from 'react';
 // Import Curstom Redux Hook
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
+// Import Redux Actions
+import { addProposition } from '../../store/reducers/trip';
+
 // Imports Layouts & Conponents
 import Main from '../../layout/Main/Main';
 import FormContainer from '../../layout/FormContainer/FormContainer';
@@ -16,7 +19,6 @@ import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 // Import Style
 import './NewProposition.scss';
-import { addProposition } from '../../store/reducers/trip';
 
 function NewProposition() {
   // Initialize Hooks
@@ -29,14 +31,14 @@ function NewProposition() {
 
   // Declaration state variables
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+
   // Fetch states from Redux store
   const propositions = useAppSelector((state) => state.trip.trip.links);
+  const isLoading = useAppSelector((state) => state.trip.isLoading);
 
   // Event handler for the newProposition form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsLoading(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
 
@@ -62,8 +64,6 @@ function NewProposition() {
 
     // Dispatch addproposition action on the form submission
     dispatch(addProposition({ formData, tripId }));
-    setIsLoading(false);
-
     navigate(`/my-trip/${id}`);
   };
 

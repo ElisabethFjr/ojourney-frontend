@@ -13,11 +13,14 @@ const handleSuggestionLocalisation = (
     if (handleSuggestionLocalisation.timeoutId) {
       clearTimeout(handleSuggestionLocalisation.timeoutId);
     }
-    // Set a timeout to delay the API call by 600 milliseconds (avoid mutliple call api at every value change)
-    handleSuggestionLocalisation.timeoutId = setTimeout(() => {
-      // Dispatch the setSuggestions action with the input value to fetch suggestions
-      dispatch(setSuggestions({ value: event.target.value }));
-    }, 600);
+    // Check if the input value is not empty before dispatching calls API
+    if (event.target.value !== '') {
+      // Set a timeout to delay the API call by 600 milliseconds (avoid mutliple call api at every value change)
+      handleSuggestionLocalisation.timeoutId = setTimeout(() => {
+        // Dispatch the setSuggestions action with the input value to fetch suggestions
+        dispatch(setSuggestions({ value: event.target.value }));
+      }, 600);
+    }
   }
 };
 
