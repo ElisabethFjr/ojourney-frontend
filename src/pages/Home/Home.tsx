@@ -19,7 +19,7 @@ function Home() {
             Organisez vos voyages en groupe avec <span>O&apos;Journey.</span>
           </h1>
           <p className="home-overview">
-            Simplifiez la planification de votre futur voyages avec vos proches.
+            Simplifiez la planification de vos futurs voyages avec vos proches.
             Regroupez informations et idées, décidez ensemble et vivez des
             aventures inoubliables. Connectez-vous ou créez un compte pour
             commencer.
@@ -28,6 +28,7 @@ function Home() {
             to={isConnected ? '/new-trip' : '/signin-signup'}
             className="home-link"
           >
+            {/* Button */}
             <Button
               type="button"
               text="Commencer à planifier"
