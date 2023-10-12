@@ -51,7 +51,7 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = null;
+const env = 'dev';
 
 // Create LOGIN action
 export const login = createAsyncThunk(
@@ -80,11 +80,8 @@ export const login = createAsyncThunk(
 
 // Create LOGOUT action
 export const logout = createAsyncThunk('user/logout', async () => {
-  if (env === 'dev') {
-    localStorage.removeItem('userToken');
-  } else {
-    await axiosInstance.get('/logout');
-  }
+  localStorage.removeItem('userToken');
+  await axiosInstance.get('/logout');
 });
 
 // Create action to FETCH user data
@@ -308,8 +305,13 @@ const userReducer = createReducer(initialState, (builder) => {
       };
       toast.success('Le voyage a bien été crée !');
       state.errorMessage = null;
+      state.isLoading = false;
     })
-    .addCase(addTrip.rejected, () => {
+    .addCase(addTrip.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(addTrip.rejected, (state) => {
+      state.isLoading = false;
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Delete Trip

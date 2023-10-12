@@ -34,8 +34,9 @@ function EditProposition() {
   const idTrip = tripId ?? ''; // Trip id
 
   // Fetch states from Redux store
-  const propositions = useAppSelector((state) => state.trip.trip.links);
-  const suggestions = useAppSelector((state) => state.trip.suggestions);
+  const propositions = useAppSelector((state) => state.trip.trip.links); // Trip Propositions
+  const suggestions = useAppSelector((state) => state.trip.suggestions); // Localisation Suggestions
+  const isLoading = useAppSelector((state) => state.trip.isLoading); // Loading Indicatior
 
   // Find the proposition id to edit to get the current data
   const editedProposition = propositions.find(
@@ -51,7 +52,7 @@ function EditProposition() {
     editedProposition?.description || ''
   );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSuggestionSelected, setIsSuggestionSelected] = useState(false); // Localisation suggestion selection indicator
 
   // Event handler input and textarea changes
   const handleInputChange = (
@@ -69,6 +70,7 @@ function EditProposition() {
   // EVENT HANDLER on the click on a suggested localisation
   const handleClickSuggestion = (newValue: string) => {
     setLocalisation(newValue);
+    setIsSuggestionSelected(true); // Suggestion clicked
     dispatch(resetSuggestions());
   };
 
@@ -105,7 +107,6 @@ function EditProposition() {
   // Event handler for the EditProposition form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsLoading(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
 
@@ -118,17 +119,30 @@ function EditProposition() {
       return;
     }
 
+    // Error : Check if the user changed the "localisation" input but did not select a suggestion
+    if (
+      localisation !== editedProposition?.localisation &&
+      !isSuggestionSelected
+    ) {
+      setErrorMessage(
+        'Veuillez sélectionner une destination dans la liste de suggestion.'
+      );
+      return;
+    }
+
     // Error : Check if edited url already exist in the trip
     const existedProposition = propositions.some(
       (proposition) => proposition.url === url
     );
-    // Existing and current editing proposition url
+
+    // Error : Check if current editing proposition url already exists
     const isEditingExistingProposition =
       editedProposition && editedProposition.url === url;
     if (existedProposition && !isEditingExistingProposition) {
       setErrorMessage("L'URL existe déjà dans le store.");
       return;
     }
+
     // Dispatch udpateProposition action on the form submission
     dispatch(
       updateProposition({
@@ -137,7 +151,6 @@ function EditProposition() {
         propositionId: idProposition,
       })
     );
-    setIsLoading(false);
     navigate(`/my-trip/${idTrip}`);
   };
 

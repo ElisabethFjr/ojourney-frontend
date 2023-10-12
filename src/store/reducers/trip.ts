@@ -227,9 +227,14 @@ const tripReducer = createReducer(initialState, (builder) => {
       };
       toast.success('Le voyage a bien été modifié !');
       state.errorMessage = null;
+      state.isLoading = false;
     })
-    .addCase(updateTrip.rejected, () => {
+    .addCase(updateTrip.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(updateTrip.rejected, (state) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+      state.isLoading = false;
     })
     // SET/RESET Suggestions Destination in NewTrip and EditTrip
     .addCase(setSuggestions.fulfilled, (state, action) => {
@@ -246,9 +251,14 @@ const tripReducer = createReducer(initialState, (builder) => {
       };
       toast.success('La proposition a bien été ajoutée !');
       state.errorMessage = null;
+      state.isLoading = false;
     })
-    .addCase(addProposition.rejected, () => {
+    .addCase(addProposition.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(addProposition.rejected, (state) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+      state.isLoading = false;
     })
     // UPDATE Proposition
     .addCase(updateProposition.fulfilled, (state, action) => {
@@ -258,9 +268,14 @@ const tripReducer = createReducer(initialState, (builder) => {
       };
       toast.success('La proposition a bien été modifée !');
       state.errorMessage = null;
+      state.isLoading = false;
     })
-    .addCase(updateProposition.rejected, () => {
+    .addCase(updateProposition.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(updateProposition.rejected, (state) => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+      state.isLoading = false;
     })
     // DELETE Proposition
     .addCase(deleteProposition.fulfilled, (state, action) => {
