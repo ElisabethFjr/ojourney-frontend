@@ -120,6 +120,7 @@ function OneMember({
           </div>
         )}
       </div>
+      {/* Display the Information Member Modale on a click on a trip's member */}
       {showModalInformationMember && (
         <ModalInformationMember
           title="Carte d'information"
@@ -129,6 +130,7 @@ function OneMember({
           closeModal={() => setshowModalInformationMember(false)}
         />
       )}
+      {/* Display the Delete Modale if the trash button is clicked */}
       {showModalDeleteConfirm && (
         <ModalDeleteConfirm
           dispatchDeleteAction={() =>

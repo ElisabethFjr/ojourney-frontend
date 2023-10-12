@@ -65,6 +65,7 @@ function NewTrip() {
     }
   };
 
+  // Event handler for the New Trip form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;

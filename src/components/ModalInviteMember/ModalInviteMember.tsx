@@ -28,8 +28,8 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
 
   // Fetch states from Redux store
   const members = useAppSelector((state) => state.trip.trip.members); // Members of the trip
-  // Event handler on the invite member submit form
 
+  // Event handler on the invite member submit form
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Set the loading button pending

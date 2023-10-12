@@ -44,7 +44,7 @@ export interface Proposition {
   lon: number;
   image: string;
   alt_image: string;
-  likes: [];
+  likes: string[];
   total_likes: number;
 }
 

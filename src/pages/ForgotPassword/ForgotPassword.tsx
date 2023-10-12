@@ -20,6 +20,7 @@ function ForgotPassword() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error message
   const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
 
+  // Event handler for the Forgot Password form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Set the loading button pending

@@ -24,15 +24,15 @@ function SignInForm() {
   const isConnected = useAppSelector((state) => state.user.isConnected);
   const isLoading = useAppSelector((state) => state.user.isLoading);
 
-  // Event handler SignIn form submit
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  // Event handler on the SignIn form submission
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Get the current from
     const form = event.currentTarget;
     // Create a FormData Object
     const formData = new FormData(form);
     // Dispatch the login action with form data
-    dispatch(login(formData));
+    await dispatch(login(formData));
   };
   // State Varibles
   const [showModalConfirmEmail, setShowModalConfirmEmail] =

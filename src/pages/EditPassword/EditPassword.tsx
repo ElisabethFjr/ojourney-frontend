@@ -47,7 +47,7 @@ function EditPassword() {
     setValue(sanitizedValue);
   };
 
-  // Function to handle form submission
+  // Event handler for the Edit Password form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
