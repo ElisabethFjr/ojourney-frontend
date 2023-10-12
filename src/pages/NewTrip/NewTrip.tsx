@@ -164,6 +164,8 @@ function NewTrip() {
                 src={imageUrl}
                 alt={file.name}
                 crossOrigin="anonymous"
+                width="35%"
+                height="auto"
               />
             )}
 

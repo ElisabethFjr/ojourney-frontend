@@ -300,6 +300,8 @@ function EditTrip() {
                 src={imageUrl}
                 alt={file.name}
                 crossOrigin="anonymous"
+                width="35%"
+                height="auto"
               />
             )}
             {/* Form Submit Button */}
