@@ -122,7 +122,7 @@ function PropositionCard({
           </div>
           {/* Display the author's name or "Membre supprimé" if the member has been deleted */}
           <p className="proposition-card-author">
-            Creé par{' '}
+            Créé par{' '}
             {isPropositionAuthor
               ? `${isPropositionAuthor?.firstname} ${isPropositionAuthor?.lastname}`
               : 'Membre supprimé'}

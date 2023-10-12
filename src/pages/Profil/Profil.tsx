@@ -131,7 +131,7 @@ function Profil() {
           <form onSubmit={handleSubmit}>
             {/* Checkbox Button Commercial */}
             <div className="profil-card-toggle-container">
-              <p className="profil-card-toggle-text"> commercial :</p>
+              <p className="profil-card-toggle-text"> Commercial :</p>
               <input
                 className="profil-card-checkbox"
                 name="consent_commercial"

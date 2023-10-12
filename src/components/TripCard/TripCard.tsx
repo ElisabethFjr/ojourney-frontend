@@ -100,7 +100,7 @@ function TripCard({
             <h3 className="trip-card-header-title">{localisation}</h3>
           </div>
           <p className="trip-card-author">
-            Creé par {`${author?.firstname} ${author?.lastname}`}
+            Créé par {`${author?.firstname} ${author?.lastname}`}
           </p>
           <p className="trip-card-description">{description}</p>
         </div>
