@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 // Inmport Custom Hooks
 import { useAppDispatch } from '../../hooks/redux';
-import { logout } from '../../store/reducers/user';
+import { resetAuth } from '../../store/reducers/user';
 
 // Import Axios Instance
 import axiosInstance from '../../utils/axios';
@@ -31,7 +31,7 @@ function ConfirmInvite() {
         // Send request GET to URL with token
         .get(`/invite?invite=${token}`)
         .then(() => {
-          dispatch(logout());
+          dispatch(resetAuth()); // Reset Auth status to allow the invited member to log in
           setIsConfirmed(true);
         })
         .catch(() => {

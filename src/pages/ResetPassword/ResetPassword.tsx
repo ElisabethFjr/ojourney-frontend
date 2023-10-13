@@ -68,7 +68,7 @@ function ResetPassword() {
         // Redirects to the page
         navigate('/signin-signup');
         setIsLoading(false);
-        toast.success('Le mot de passe a été réinitialiser avec succès !');
+        toast.success('Le mot de passe a été réinitialisé avec succès !');
       })
       .catch(() => {
         setIsLoading(false);
