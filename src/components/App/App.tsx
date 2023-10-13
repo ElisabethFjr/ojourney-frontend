@@ -90,51 +90,60 @@ function App() {
   return (
     <div className="app-container">
       <Header />
-      {isLoading && <Loading />}
-      <Routes>
-        {/* Public Routes (visitor) */}
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/confirm-account" element={<ConfirmAccount />} />
-        <Route path="/confirm-invite" element={<ConfirmInvite />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/invite" element={<ConfirmInvite />} />
-        <Route path="*" element={<ErrorNotFound />} />
-        <Route path="/500" element={<ErrorServer />} />
-        {/* Public Routes for Login/Register (visitor) */}
-        <Route path="/signin-signup" element={<SignInUp />} />
-        {/* Private Routes (user connected) */}
-        <Route path="/profil" element={isAuth ? <Profil /> : <SignInUp />} />
-        <Route path="/my-trips" element={isAuth ? <MyTrips /> : <SignInUp />} />
-        <Route
-          path="/my-trip/:id"
-          element={isAuth ? <MyTrip /> : <SignInUp />}
-        />
-        <Route path="/new-trip" element={isAuth ? <NewTrip /> : <SignInUp />} />
-        <Route
-          path="/new-proposition/:id"
-          element={isAuth ? <NewProposition /> : <SignInUp />}
-        />
-        <Route
-          path="/edit-profil"
-          element={isAuth ? <EditProfil /> : <SignInUp />}
-        />
-        <Route
-          path="/edit-password"
-          element={isAuth ? <EditPassword /> : <SignInUp />}
-        />
-        <Route
-          path="/edit-trip/:id"
-          element={isAuth ? <EditTrip /> : <SignInUp />}
-        />
-        <Route
-          path="/edit-proposition/:tripId/:propositionId"
-          element={isAuth ? <EditProposition /> : <SignInUp />}
-        />
-      </Routes>
+      {!isAuth && isLoading ? (
+        <Loading />
+      ) : (
+        <Routes>
+          {/* Public Routes (visitor) */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/confirm-account" element={<ConfirmAccount />} />
+          <Route path="/confirm-invite" element={<ConfirmInvite />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/invite" element={<ConfirmInvite />} />
+          <Route path="*" element={<ErrorNotFound />} />
+          <Route path="/500" element={<ErrorServer />} />
+          {/* Public Routes for Login/Register (visitor) */}
+          <Route path="/signin-signup" element={<SignInUp />} />
+          {/* Private Routes (user connected) */}
+          <Route path="/profil" element={isAuth ? <Profil /> : <SignInUp />} />
+          <Route
+            path="/my-trips"
+            element={isAuth ? <MyTrips /> : <SignInUp />}
+          />
+          <Route
+            path="/my-trip/:id"
+            element={isAuth ? <MyTrip /> : <SignInUp />}
+          />
+          <Route
+            path="/new-trip"
+            element={isAuth ? <NewTrip /> : <SignInUp />}
+          />
+          <Route
+            path="/new-proposition/:id"
+            element={isAuth ? <NewProposition /> : <SignInUp />}
+          />
+          <Route
+            path="/edit-profil"
+            element={isAuth ? <EditProfil /> : <SignInUp />}
+          />
+          <Route
+            path="/edit-password"
+            element={isAuth ? <EditPassword /> : <SignInUp />}
+          />
+          <Route
+            path="/edit-trip/:id"
+            element={isAuth ? <EditTrip /> : <SignInUp />}
+          />
+          <Route
+            path="/edit-proposition/:tripId/:propositionId"
+            element={isAuth ? <EditProposition /> : <SignInUp />}
+          />
+        </Routes>
+      )}
       <Footer />
       <ToastContainer
         position="top-center"
