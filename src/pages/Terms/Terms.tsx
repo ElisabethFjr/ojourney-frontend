@@ -12,7 +12,7 @@ function Terms() {
       <section className="terms-container">
         <h2 className="terms-subtitle">Éditeur du site</h2>
         <p className="terms-text">
-          Le site web O&apos;Journey est édité par une équipe de développeur
+          Le site web O&apos;Journey est édité par une équipe de développeurs
           dans le cadre d&apos;une formation avec la société O&apos;Clock dont
           le siège social est situé au 10 rue de Penthievre à Paris (75008) et
           immatriculée sous le numéro 818 614 588 au RCS de Paris. L&apos;équipe
@@ -28,7 +28,7 @@ function Terms() {
         <h2 className="terms-subtitle">Hébergement du site</h2>
         <p className="terms-text">
           Le site O&apos;Journey est hébergé par Vercel, une société américaine
-          de Platform &apos;as a service cloud&apos;, dont le siège social est
+          de &apos;Platform as a service cloud&apos;, dont le siège social est
           situé à San Francisco, Californie, U.S.
         </p>
       </section>

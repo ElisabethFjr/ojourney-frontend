@@ -24,6 +24,12 @@
       color: v.$color-primary;
     }
 
+    &--signin-signup {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
     &--signin-signup,
     &--logout {
       padding: 0.6rem v.$gutter;
@@ -120,6 +126,8 @@
     opacity: 1;
   }
 }
+
+// RESPONSIVE Screen < 500px
 @media (max-width: 500px) {
   .text-disconnected {
     display: none;

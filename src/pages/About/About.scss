@@ -26,9 +26,8 @@
   &-card {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
     width: 200px;
-    height: 300px;
+    height: 350px;
     padding: v.$gutter;
     background-color: v.$color-white;
     border-radius: v.$border-radius;
@@ -36,8 +35,9 @@
   }
 
   &-name {
+    padding-top: 1.5rem;
     height: 40%;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
     text-align: center;
   }
@@ -48,5 +48,9 @@
     text-align: center;
   }
 
+  &-image {
+    max-width: 148px;
+    width: 100%;
+    height: auto;
+  }
 }
-
