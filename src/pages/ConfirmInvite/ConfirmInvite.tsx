@@ -2,6 +2,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+// Inmport Custom Hooks
+import { useAppDispatch } from '../../hooks/redux';
+import { resetAuth } from '../../store/reducers/user';
+
 // Import Axios Instance
 import axiosInstance from '../../utils/axios';
 
@@ -13,10 +17,13 @@ import Button from '../../components/Button/Button';
 import './ConfirmInvite.scss';
 
 function ConfirmInvite() {
+  // Initializing Hooks
+  const dispatch = useAppDispatch();
+
   // Declaration States Variables
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const token = document.location.hash.split('?')[1];
+  const token = document.location.search.split('?')[1];
 
   useEffect(() => {
     async function confirmInvite() {
@@ -24,6 +31,7 @@ function ConfirmInvite() {
         // Send request GET to URL with token
         .get(`/invite?invite=${token}`)
         .then(() => {
+          dispatch(resetAuth()); // Reset Auth status to allow the invited member to log in
           setIsConfirmed(true);
         })
         .catch(() => {
@@ -31,7 +39,7 @@ function ConfirmInvite() {
         });
     }
     confirmInvite();
-  }, [token]);
+  }, [token, dispatch]);
 
   return (
     <Main>

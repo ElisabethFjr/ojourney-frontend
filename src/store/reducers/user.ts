@@ -1,5 +1,9 @@
 // Imports
-import { createReducer, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createReducer,
+  createAsyncThunk,
+  createAction,
+} from '@reduxjs/toolkit';
 
 // Import from Modules
 import { toast } from 'react-toastify';
@@ -195,6 +199,9 @@ export const deleteTrip = createAsyncThunk(
   }
 );
 
+// Create action to reset auth status after invite trip
+export const resetAuth = createAction('user/resetAuth');
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
     // Login
@@ -264,13 +271,9 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isAuth = true;
       state.isLoading = false;
     })
-    .addCase(checkUserAuth.rejected, (state, action) => {
+    .addCase(checkUserAuth.rejected, (state) => {
       state.isAuth = false;
       state.isLoading = false;
-      if (action.error.code === 'ERR_BAD_REQUEST') {
-        state.errorMessage =
-          'Une erreur est survenue. Veuillez réessayer plus tard.';
-      }
     })
     // Update User Data
     .addCase(updateUserProfil.pending, (state) => {
@@ -378,6 +381,10 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(deleteTrip.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // Reset Auth
+    .addCase(resetAuth, (state) => {
+      state.isAuth = false;
     });
 });
 

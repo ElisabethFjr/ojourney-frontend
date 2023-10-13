@@ -13,6 +13,7 @@
   }
 
   &-list-link {
+    cursor: pointer;
     text-decoration: none;
     color: v.$color-text;
     font-weight: 700;
@@ -23,6 +24,12 @@
       color: v.$color-primary;
     }
 
+    &--signin-signup {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
     &--signin-signup,
     &--logout {
       padding: 0.6rem v.$gutter;
@@ -31,7 +38,6 @@
       color: v.$color-primary;
       font-weight: 700;
       font-size: v.$font-size;
-      cursor: pointer;
       transition: v.$ease-in-out;
 
       &:hover {
@@ -42,6 +48,7 @@
     }
   }
   &-toggle {
+    cursor: pointer;
     display: none;
     font-size: 2rem;
   }
@@ -119,6 +126,8 @@
     opacity: 1;
   }
 }
+
+// RESPONSIVE Screen < 500px
 @media (max-width: 500px) {
   .text-disconnected {
     display: none;
