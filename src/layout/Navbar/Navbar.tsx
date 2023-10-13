@@ -1,34 +1,39 @@
+// Import React Hooks
 import React, { useState, useEffect } from 'react';
+// Import React-Router-Dom
 import { NavLink } from 'react-router-dom';
+// Import Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+// Import Redux Actions
 import { checkUserAuth, logout } from '../../store/reducers/user';
 
 import './Navbar.scss';
-import Button from '../../components/Button/Button';
 
 function Navbar() {
+  // Initialize Hooks
   const dispatch = useAppDispatch();
+  // Declaration State Variables
   const [isOpen, setIsOpen] = useState(false);
-
+  // Check user authentication status
   useEffect(() => {
     dispatch(checkUserAuth());
   }, [dispatch]);
-
+  // Get the authentication status from Redux state
   const isAuth = useAppSelector((state) => state.user.isAuth);
-
+  // Handle user logout
   const handleLogout = () => {
     dispatch(logout());
   };
-
+  // Toggle the burger menu
   const toggleBurgerMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setIsOpen(!isOpen);
   };
-
+  // Close the burger menu
   const closeBurgerMenu = () => {
     setIsOpen(false);
   };
-
+  // Add a click event listener to close the menu
   useEffect(() => {
     document.body.addEventListener('click', closeBurgerMenu);
 
