@@ -100,8 +100,6 @@ export const checkUserAuth = createAsyncThunk(
     if (env === 'dev') {
       const token = localStorage.getItem('userToken');
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
-    } else {
-      axiosInstance.defaults.withCredentials = true;
     }
     const { data } = await axiosInstance.get('/user');
     if (data.token) {
