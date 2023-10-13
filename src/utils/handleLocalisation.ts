@@ -19,7 +19,7 @@ const handleSuggestionLocalisation = (
       handleSuggestionLocalisation.timeoutId = setTimeout(() => {
         // Dispatch the setSuggestions action with the input value to fetch suggestions
         dispatch(setSuggestions({ value: event.target.value }));
-      }, 600);
+      }, 500);
     }
   }
 };

@@ -34,8 +34,9 @@ function InputField({
   maxlength,
   handleSuggestionSelected,
 }: InputFieldProps) {
-  // Access the Redux dispatch function using the 'useAppDispatch' hook.
+  // Initializing Hooks
   const dispatch = useAppDispatch();
+
   // Declaration State Variables
   const [value, setValue] = useState('');
 

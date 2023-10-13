@@ -1,3 +1,5 @@
+// Import Axios Error
+import { AxiosError } from 'axios';
 // Import React-Router-Dom
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 // Import React Hooks
@@ -10,7 +12,6 @@ import { checkUserAuth } from '../../store/reducers/user';
 
 // Import axios instance
 import axiosInstance from '../../utils/axios';
-
 // Import Layout
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
@@ -51,8 +52,21 @@ function App() {
 
   // Check the connected user's information for authentication (token or cookies in headers), if ok dispatch the user's data
   useEffect(() => {
-    dispatch(checkUserAuth());
-  }, [dispatch]);
+    // Check if a user token is stored in the browser's localStorage
+    if (localStorage.getItem('userToken')) {
+      const token = localStorage.getItem('userToken');
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    }
+    try {
+      dispatch(checkUserAuth());
+    } catch (error) {
+      // Check if the error is related to an HTTP response and navigate to Home Page if user not connected
+      const axiosError = error as AxiosError;
+      if (axiosError.response && axiosError.response.status === 400) {
+        navigate('/');
+      }
+    }
+  }, [dispatch, navigate]);
 
   // Fetch Redux States
   const isAuth = useAppSelector((state) => state.user.isAuth);
@@ -62,6 +76,24 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  // Add the interceptor in a useEffect
+  useEffect(() => {
+    const interceptor = axiosInstance.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && error.response.status === 500) {
+          navigate('/500');
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    // Cleanup the interceptor when the component unmounts
+    return () => {
+      axiosInstance.interceptors.response.eject(interceptor);
+    };
+  }, [navigate]);
 
   return (
     <div className="app-container">
@@ -110,16 +142,6 @@ function App() {
           path="/edit-proposition/:tripId/:propositionId"
           element={isAuth ? <EditProposition /> : <SignInUp />}
         />
-        {/* Interceptor to redirect the user to the /500 route if status code of the response if 500 (Internal Server Error). */}
-        {axiosInstance.interceptors.response.use(
-          (response) => response,
-          (error) => {
-            if (error.response && error.response.status === 500) {
-              navigate('/500');
-            }
-            return Promise.reject(error);
-          }
-        )}
       </Routes>
       <Footer />
       <ToastContainer

@@ -100,8 +100,15 @@ export const checkUserAuth = createAsyncThunk(
     if (env === 'dev') {
       const token = localStorage.getItem('userToken');
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    } else {
+      axiosInstance.defaults.withCredentials = true;
     }
     const { data } = await axiosInstance.get('/user');
+    if (data.token) {
+      localStorage.removeItem('userToken');
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+      localStorage.setItem('userToken', data.token);
+    }
     return data;
   }
 );
@@ -240,8 +247,8 @@ const userReducer = createReducer(initialState, (builder) => {
       };
       state.isLoading = false;
     })
-    .addCase(fetchUserInfos.rejected, () => {
-      toast.error('Veuillez vous reconnecter.');
+    .addCase(fetchUserInfos.rejected, (state) => {
+      state.isLoading = false;
     })
     // Check User Data Token
     .addCase(checkUserAuth.pending, (state) => {

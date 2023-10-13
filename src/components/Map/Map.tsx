@@ -1,5 +1,5 @@
+// Import React Hooks
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 // Import component from Pigeon-maps
 import { Map, Marker, Overlay } from 'pigeon-maps';
 // Import Interface
@@ -15,7 +15,20 @@ interface MapProps {
 }
 // Function render a map with markers
 function MapDisplay({ lat, lon, links }: MapProps) {
-  const [handlingHover, setHandlingHover] = useState<Proposition>();
+  // Declaration State Variables
+  const [hoveredMarker, setHoveredMarker] = useState<Proposition | null>(null);
+
+  // EVENT HANDLER for the marker mouse hover
+  const handleMarkerHover = (link: Proposition) => {
+    setHoveredMarker(link);
+  };
+
+  // EVENT HANDLER for the marker mouse out
+  const handleMarkerLeave = () => {
+    setHoveredMarker(null);
+  };
+
+  // Create an array of markers based on the links data
   const allLinks = links.map((link) => {
     return (
       <Marker
@@ -25,39 +38,34 @@ function MapDisplay({ lat, lon, links }: MapProps) {
         color={vars.colorPrimary}
         aria-label={`Votre position, Latitude: ${lat}, Longitude: ${lon}`}
         hover // Enable hover effect
-
-        onMouseOver={() => setHandlingHover(link)}
-
+        onMouseOver={() => handleMarkerHover(link)}
+        onMouseOut={handleMarkerLeave}
       />
     );
   });
-  return (
 
+  return (
     <Map height={300} center={[lat, lon]} defaultZoom={12}>
       <Marker
         width={50}
         anchor={[lat, lon]}
         color={vars.colorPrimary}
-        className="marker"
-        onMouseOver={() => setHandlingHover(undefined)}
         aria-label={`Votre position, Latitude: ${lat}, Longitude: ${lon}`}
       />
       {allLinks}
-      {handlingHover ? (
+      {hoveredMarker ? (
         <Overlay
-          anchor={[handlingHover.lat, handlingHover.lon]}
+          anchor={[hoveredMarker.lat, hoveredMarker.lon]}
           offset={[290, 50]}
           className="marker-title"
         >
-          <Link to={handlingHover.url} target="_blank">
-            <p
-              className="marker-title-p"
-              onMouseOut={() => setHandlingHover(undefined)}
-              onBlur={() => setHandlingHover(undefined)}
-            >
-              {handlingHover.title}
-            </p>
-          </Link>
+          <p
+            className="marker-title-p"
+            onMouseOut={handleMarkerLeave}
+            onBlur={handleMarkerLeave}
+          >
+            {hoveredMarker.title}
+          </p>
         </Overlay>
       ) : null}
     </Map>

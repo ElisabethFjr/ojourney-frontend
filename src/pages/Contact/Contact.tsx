@@ -1,6 +1,5 @@
 // Import Layout & Components
 import Main from '../../layout/Main/Main';
-import FormContainer from '../../layout/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import TextareaField from '../../components/TextareaField/TextareaField';
@@ -25,7 +24,7 @@ function Contact() {
           </div>
 
           <form className="contact-form">
-            <h1 className="modal-title">Nous contacter</h1>
+            <h1 className="contact-title">Nous contacter</h1>
             {/* Input Name */}
             <InputField
               name="name"
