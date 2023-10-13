@@ -93,13 +93,21 @@
       padding: 0.6rem 0;
       text-align: center;
     }
-    &-list-link--signin-signup {
-      border: none;
-      color: v.$color-text;
+
+    &--signin-signup {
+      padding: 0rem v.$gutter;
+      border: 2px solid v.$color-primary;
+      border-radius: v.$border-radius;
+      color: v.$color-primary;
+      font-weight: 700;
+      font-size: v.$font-size;
+      cursor: pointer;
+      transition: v.$ease-in-out;
+
       &:hover {
-        border: none;
-        background-color: transparent;
-        color: v.$color-primary;
+        color: v.$color-white;
+        border: 2px solid v.$color-primary;
+        background-color: v.$color-primary;
       }
     }
   }
@@ -109,5 +117,10 @@
     height: calc(300px - 4.5rem);
     left: 0;
     opacity: 1;
+  }
+}
+@media (max-width: 500px) {
+  .text-disconnected {
+    display: none;
   }
 }
