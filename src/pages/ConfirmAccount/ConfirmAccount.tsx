@@ -16,7 +16,7 @@ function ConfirmAccount() {
   // Declaration States Variables
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const token = document.location.hash.split('?')[1];
+  const token = document.location.search.split('?')[1];
 
   useEffect(() => {
     async function confirmEmail() {

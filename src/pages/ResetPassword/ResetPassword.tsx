@@ -24,7 +24,7 @@ function ResetPassword() {
   const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
 
   // Extract link token from the url
-  const token = document.location.hash.split('?')[1];
+  const token = document.location.search.split('?')[1];
 
   // Event handler for the Reset Password form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
