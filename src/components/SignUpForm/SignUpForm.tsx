@@ -36,6 +36,7 @@ function SignUpForm() {
     // Check match password and confirmation, if not, display an error message
     if (password !== confirmation) {
       setErrorMessage("La confirmation de mot de passe n'est pas valide.");
+      setIsLoading(false);
       return;
     }
 

@@ -20,13 +20,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     margin-bottom: 3rem;
     font-size: v.$font-size;
   }
 
   &-toggle-button {
     width: 100%;
-    padding: 0.6rem v.$gutter;
+    padding: 0.6rem;
     font-weight: 700;
     border: none;
     border-bottom: 3px solid v.$color-grey-lightest;
@@ -43,6 +44,14 @@
     &.active {
       color: v.$color-primary;
       border-bottom: 3px solid v.$color-primary;
+    }
+  }
+}
+
+@media (max-width: 279px) {
+  .sign-form {
+    &-header {
+      flex-direction: column;
     }
   }
 }

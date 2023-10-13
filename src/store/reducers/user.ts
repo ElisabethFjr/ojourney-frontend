@@ -102,11 +102,15 @@ export const checkUserAuth = createAsyncThunk(
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
     }
     const { data } = await axiosInstance.get('/user');
+    // If the response data contains a token
     if (data.token) {
+      // Remove the existing user token from local storage
       localStorage.removeItem('userToken');
+      // Reset and set the new token in local storage
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       localStorage.setItem('userToken', data.token);
     }
+    // Else return data
     return data;
   }
 );
@@ -260,9 +264,13 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isAuth = true;
       state.isLoading = false;
     })
-    .addCase(checkUserAuth.rejected, (state) => {
+    .addCase(checkUserAuth.rejected, (state, action) => {
       state.isAuth = false;
       state.isLoading = false;
+      if (action.error.code === 'ERR_BAD_REQUEST') {
+        state.errorMessage =
+          'Une erreur est survenue. Veuillez réessayer plus tard.';
+      }
     })
     // Update User Data
     .addCase(updateUserProfil.pending, (state) => {
@@ -273,7 +281,6 @@ const userReducer = createReducer(initialState, (builder) => {
         ...state.data,
         ...action.payload,
       };
-
       toast.success('Les informations ont bien été mises à jour !');
       state.errorMessage = null;
       state.isLoading = false;

@@ -57,16 +57,8 @@ function App() {
       const token = localStorage.getItem('userToken');
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
     }
-    try {
-      dispatch(checkUserAuth());
-    } catch (error) {
-      // Check if the error is related to an HTTP response and navigate to Home Page if user not connected
-      const axiosError = error as AxiosError;
-      if (axiosError.response && axiosError.response.status === 400) {
-        navigate('/');
-      }
-    }
-  }, [dispatch, navigate]);
+    dispatch(checkUserAuth());
+  }, [dispatch]);
 
   // Fetch Redux States
   const isAuth = useAppSelector((state) => state.user.isAuth);
@@ -77,7 +69,7 @@ function App() {
     window.scrollTo(0, 0);
   }, [location]);
 
-  // Add the interceptor in a useEffect
+  // Handle the axios interceptor errors
   useEffect(() => {
     const interceptor = axiosInstance.interceptors.response.use(
       (response) => response,
