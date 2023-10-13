@@ -119,3 +119,8 @@
     opacity: 1;
   }
 }
+@media (max-width: 500px) {
+  .text-disconnected {
+    display: none;
+  }
+}
