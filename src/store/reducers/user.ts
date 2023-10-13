@@ -51,7 +51,7 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = null;
+const env = 'dev';
 
 // Create LOGIN action
 export const login = createAsyncThunk(
@@ -264,13 +264,9 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isAuth = true;
       state.isLoading = false;
     })
-    .addCase(checkUserAuth.rejected, (state, action) => {
+    .addCase(checkUserAuth.rejected, (state) => {
       state.isAuth = false;
       state.isLoading = false;
-      if (action.error.code === 'ERR_BAD_REQUEST') {
-        state.errorMessage =
-          'Une erreur est survenue. Veuillez réessayer plus tard.';
-      }
     })
     // Update User Data
     .addCase(updateUserProfil.pending, (state) => {
