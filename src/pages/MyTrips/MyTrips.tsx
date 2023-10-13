@@ -62,8 +62,8 @@ function MyTrips() {
             src={travel}
             alt="O'Journey en voyage en avion"
             crossOrigin="anonymous"
-            width="25%"
-            height="auto"
+            width="128"
+            height="128"
           />
           <p className="no-trip-message">Aucun voyage disponible.</p>
           <p className="no-trip-instruction">

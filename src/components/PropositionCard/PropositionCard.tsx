@@ -119,8 +119,8 @@ function PropositionCard({
           src={srcImage}
           alt={altImage}
           crossOrigin="anonymous"
-          width="40%"
-          height="100%"
+          width="300"
+          height="250"
         />
         <div className="proposition-card-infos">
           <div className="proposition-card-header">
