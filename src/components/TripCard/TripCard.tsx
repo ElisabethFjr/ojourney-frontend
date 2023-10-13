@@ -96,8 +96,8 @@ function TripCard({
           src={srcTripImage}
           alt={altImage}
           crossOrigin="anonymous"
-          width="40%"
-          height="100%"
+          width="300"
+          height="200"
         />
         <div className="trip-card-infos">
           <div className="trip-card-header">

@@ -25,7 +25,7 @@ interface UserState {
     consent_commercial: boolean;
   };
   trip: Trip | null;
-  isConnected: boolean;
+  isAuth: boolean;
   isLoading: boolean;
   checkedPassword: boolean;
   errorMessage: string | null;
@@ -44,14 +44,14 @@ export const initialState: UserState = {
     consent_commercial: false,
     consent_newsletter: false,
   },
-  isConnected: false,
+  isAuth: false,
   isLoading: false,
   checkedPassword: false,
   errorMessage: null,
   trip: null,
 };
 
-const env = null;
+const env = 'dev';
 
 // Create LOGIN action
 export const login = createAsyncThunk(
@@ -94,8 +94,8 @@ export const fetchUserInfos = createAsyncThunk(
 );
 
 // Create action to CHECK user data with token
-export const checkUserInfos = createAsyncThunk(
-  'user/checkUserInfos',
+export const checkUserAuth = createAsyncThunk(
+  'user/checkUserAuth',
   async () => {
     if (env === 'dev') {
       const token = localStorage.getItem('userToken');
@@ -197,7 +197,7 @@ const userReducer = createReducer(initialState, (builder) => {
         ...state.data,
         ...action.payload,
       };
-      state.isConnected = true;
+      state.isAuth = true;
       state.errorMessage = null;
       state.isLoading = false;
     })
@@ -224,7 +224,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(logout.fulfilled, (state) => {
       state.data = initialState.data; // Reset user data to initial state
       toast.success('Vous avez été déconnecté avec succès.');
-      state.isConnected = false;
+      state.isAuth = false;
     })
     .addCase(logout.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
@@ -244,15 +244,20 @@ const userReducer = createReducer(initialState, (builder) => {
       toast.error('Veuillez vous reconnecter.');
     })
     // Check User Data Token
-    .addCase(checkUserInfos.fulfilled, (state, action) => {
+    .addCase(checkUserAuth.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(checkUserAuth.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
         ...action.payload,
       };
-      state.isConnected = true;
+      state.isAuth = true;
+      state.isLoading = false;
     })
-    .addCase(checkUserInfos.rejected, (state) => {
-      state.isConnected = false;
+    .addCase(checkUserAuth.rejected, (state) => {
+      state.isAuth = false;
+      state.isLoading = false;
     })
     // Update User Data
     .addCase(updateUserProfil.pending, (state) => {
@@ -306,7 +311,7 @@ const userReducer = createReducer(initialState, (builder) => {
       // If correct password, delete the user account
       if (state.checkedPassword) {
         state.data = initialState.data; // Reset user data to initial state
-        state.isConnected = false; // Disconnection
+        state.isAuth = false; // Disconnection
         toast.success('Votre compte a bien été supprimé.');
         state.errorMessage = null;
         state.isLoading = false;

@@ -16,7 +16,7 @@ function Header() {
           className="header-logo"
           alt="O'Journey Logo"
           width="140"
-          height="auto"
+          height="58"
         />
       </Link>
       <Navbar />

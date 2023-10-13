@@ -17,9 +17,8 @@ function ErrorServer() {
         className="error-image"
         src={road}
         alt="Autocollant de route O'Journey orange jaune erreur serveur 500"
-        width="90%"
-        height="auto"
-
+        width="180"
+        height="180"
       />
     </main>
   );

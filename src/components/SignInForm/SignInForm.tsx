@@ -1,5 +1,5 @@
 // Import React Hooks & FormEvent
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 // Import React-Router-Dom
 import { Link, useNavigate } from 'react-router-dom';
 // Import Redux Hooks
@@ -21,7 +21,6 @@ function SignInForm() {
 
   // Fetch states from Redux store
   const errorMessage = useAppSelector((state) => state.user.errorMessage);
-  const isConnected = useAppSelector((state) => state.user.isConnected);
   const isLoading = useAppSelector((state) => state.user.isLoading);
 
   // Event handler on the SignIn form submission

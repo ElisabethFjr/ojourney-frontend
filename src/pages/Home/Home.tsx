@@ -1,18 +1,32 @@
 // Import React Hook
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
+import { useEffect } from 'react';
+import { checkUserAuth } from '../../store/reducers/user';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 // Import Components
 import Button from '../../components/Button/Button';
 
 // Import Styles
 import './Home.scss';
+import Loading from '../../components/Loading/Loading';
 
 function Home() {
-  const isConnected = useAppSelector((state) => state.user.isConnected);
+  // Initializing Hooks
+  const dispatch = useAppDispatch();
+
+  // Check the connected user's information for authentication (token or cookies in headers), if ok dispatch the user's data
+  useEffect(() => {
+    checkUserAuth();
+  }, [dispatch]);
+
+  // Fetch Redux States
+  const isAuth = useAppSelector((state) => state.user.isAuth);
+  const isLoading = useAppSelector((state) => state.user.isLoading);
 
   return (
     <main className="home">
+      {isLoading && <Loading />}
       <div className="home-container">
         <div className="home-container-box">
           <h1 className="home-title">
@@ -25,7 +39,7 @@ function Home() {
             commencer.
           </p>
           <Link
-            to={isConnected ? '/new-trip' : '/signin-signup'}
+            to={isAuth ? '/new-trip' : '/signin-signup'}
             className="home-link"
           >
             {/* Button */}

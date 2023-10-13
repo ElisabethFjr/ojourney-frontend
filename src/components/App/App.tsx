@@ -1,18 +1,12 @@
 // Import React-Router-Dom
-import {
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 // Import React Hooks
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 // Import React-Toastify
 import { ToastContainer, Slide } from 'react-toastify';
 // Import Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { checkUserInfos } from '../../store/reducers/user';
+import { checkUserAuth } from '../../store/reducers/user';
 
 // Import axios instance
 import axiosInstance from '../../utils/axios';
@@ -20,9 +14,6 @@ import axiosInstance from '../../utils/axios';
 // Import Layout
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
-// Import Component
-import Loading from '../Loading/Loading';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 // Import Pages
 import Home from '../../pages/Home/Home';
@@ -45,6 +36,7 @@ import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import ErrorNotFound from '../../pages/ErrorNotFound/ErrorNotFound';
 import ErrorServer from '../../pages/ErrorServer/ErrorServer';
+import Loading from '../Loading/Loading';
 
 // Import Styles
 import './App.scss';
@@ -57,37 +49,24 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // Declaration state variable
-  const [loading, setLoading] = useState(true);
-
-  // Fetch Redux States
-  const isConnected = useAppSelector((state) => state.user.isConnected);
-
   // Check the connected user's information for authentication (token or cookies in headers), if ok dispatch the user's data
   useEffect(() => {
-    dispatch(checkUserInfos());
+    dispatch(checkUserAuth());
   }, [dispatch]);
+
+  // Fetch Redux States
+  const isAuth = useAppSelector((state) => state.user.isAuth);
+  const isLoading = useAppSelector((state) => state.user.isLoading);
 
   // Scroll to the top of the page when the location changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  // Use a timeout to add a loading screen for 2 seconds
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1200);
-  }, []);
-
-  // If page loading, render the Loading component
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <div className="app-container">
       <Header />
+      {isLoading && <Loading />}
       <Routes>
         {/* Public Routes (visitor) */}
         <Route path="/" element={<Home />} />
@@ -102,82 +81,34 @@ function App() {
         <Route path="*" element={<ErrorNotFound />} />
         <Route path="/500" element={<ErrorServer />} />
         {/* Public Routes for Login/Register (visitor) */}
-        <Route
-          path="/signin-signup"
-          element={isConnected ? <Navigate to="/" /> : <SignInUp />}
-        />
+        <Route path="/signin-signup" element={<SignInUp />} />
         {/* Private Routes (user connected) */}
-        <Route
-          path="/profil"
-          element={
-            <PrivateRoute>
-              <Profil />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/my-trips"
-          element={
-            <PrivateRoute>
-              <MyTrips />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/profil" element={isAuth ? <Profil /> : <SignInUp />} />
+        <Route path="/my-trips" element={isAuth ? <MyTrips /> : <SignInUp />} />
         <Route
           path="/my-trip/:id"
-          element={
-            <PrivateRoute>
-              <MyTrip />
-            </PrivateRoute>
-          }
+          element={isAuth ? <MyTrip /> : <SignInUp />}
         />
-        <Route
-          path="/new-trip"
-          element={
-            <PrivateRoute>
-              <NewTrip />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/new-trip" element={isAuth ? <NewTrip /> : <SignInUp />} />
         <Route
           path="/new-proposition/:id"
-          element={
-            <PrivateRoute>
-              <NewProposition />
-            </PrivateRoute>
-          }
+          element={isAuth ? <NewProposition /> : <SignInUp />}
         />
         <Route
           path="/edit-profil"
-          element={
-            <PrivateRoute>
-              <EditProfil />
-            </PrivateRoute>
-          }
+          element={isAuth ? <EditProfil /> : <SignInUp />}
         />
         <Route
           path="/edit-password"
-          element={
-            <PrivateRoute>
-              <EditPassword />
-            </PrivateRoute>
-          }
+          element={isAuth ? <EditPassword /> : <SignInUp />}
         />
         <Route
           path="/edit-trip/:id"
-          element={
-            <PrivateRoute>
-              <EditTrip />
-            </PrivateRoute>
-          }
+          element={isAuth ? <EditTrip /> : <SignInUp />}
         />
         <Route
           path="/edit-proposition/:tripId/:propositionId"
-          element={
-            <PrivateRoute>
-              <EditProposition />
-            </PrivateRoute>
-          }
+          element={isAuth ? <EditProposition /> : <SignInUp />}
         />
         {/* Interceptor to redirect the user to the /500 route if status code of the response if 500 (Internal Server Error). */}
         {axiosInstance.interceptors.response.use(
