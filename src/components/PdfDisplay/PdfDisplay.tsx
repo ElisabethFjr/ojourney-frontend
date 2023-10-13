@@ -1,7 +1,9 @@
 // Import React-PDF/Renderer
-import { Document, Page, Text, View, StyleSheet, } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 // Import Interfaces
 import { User } from '../../@types';
+// Import Logo
+import logo from '../../assets/logo/logo.png';
 
 const styles = StyleSheet.create({
   page: {
@@ -23,6 +25,11 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontWeight: 'light',
     margin: 5,
+  },
+  headerImage: {
+    width: 100, 
+    height: 50,
+    alignSelf: 'center',
   },
 });
 
@@ -62,6 +69,7 @@ function PdfDisplay({ data }: PdfDisplayProps) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
+      <Image src={logo} style={styles.headerImage}/>
         <View style={styles.section}>
           <Text>{`${data.firstname} ${data.lastname}`}</Text>
           <Text style={styles.section}> Vos données personnelles : </Text>
