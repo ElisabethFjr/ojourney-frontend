@@ -231,7 +231,9 @@ function MyTrip() {
           </Link>
         </div>
         {propositions && propositions.length === 0 ? (
-          <p>Aucune proposition n&apos;a été ajoutée pour le moment !</p>
+          <p className="one-trip-propositions-text">
+            Aucune proposition n&apos;a été ajoutée pour le moment !
+          </p>
         ) : (
           <ul>{allPropositions}</ul>
         )}
