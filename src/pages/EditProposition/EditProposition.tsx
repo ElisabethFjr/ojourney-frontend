@@ -173,9 +173,7 @@ function EditProposition() {
             <h2 className="edit-proposition-form-title">Ma Proposition</h2>
 
             {/* Error Message */}
-            {errorMessage && (
-              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-            )}
+            {errorMessage && <ErrorMessage text={errorMessage} />}
 
             {/* Url Input */}
             <div className="field-edit">

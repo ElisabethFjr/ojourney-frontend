@@ -50,6 +50,7 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
     // Error : Check if input is empty before submit
     if (!jsonData.email) {
       setErrorMessage('Veuillez renseigner une adresse e-mail.');
+      setIsLoading(false);
       return;
     }
 
@@ -59,6 +60,7 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
     );
     if (isMemberAlreadyExists) {
       setErrorMessage('Ce membre existe déjà dans le voyage.');
+      setIsLoading(false);
       return;
     }
 
@@ -95,9 +97,7 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
           </p>
           <form className="modal-invite-member-input" onSubmit={handleSubmit}>
             {/* Error Message */}
-            {errorMessage && (
-              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-            )}
+            {errorMessage && <ErrorMessage text={errorMessage} />}
             {/* Email Input */}
             <InputField
               name="email"

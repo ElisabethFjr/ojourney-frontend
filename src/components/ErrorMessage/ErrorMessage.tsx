@@ -1,14 +1,13 @@
 import './ErrorMessage.scss';
 
 interface ErrorMessageProps {
-  icon: string;
   text: string;
 }
 
-function ErrorMessage({ icon, text }: ErrorMessageProps) {
+function ErrorMessage({ text }: ErrorMessageProps) {
   return (
     <div className="error-message-container">
-      <i className={`error-message-icon ${icon}`} />
+      <i className="error-message-icon fa-solid fa-circle-exclamation" />
       <p className="error-message-text">{text}</p>
     </div>
   );

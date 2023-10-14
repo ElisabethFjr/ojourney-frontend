@@ -142,9 +142,7 @@ function NewTrip() {
             <h2 className="new-trip-form-title">Nouveau voyage</h2>
 
             {/* Error Message */}
-            {errorMessage && (
-              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-            )}
+            {errorMessage && <ErrorMessage text={errorMessage} />}
 
             {/* Localisation Input */}
             <InputField

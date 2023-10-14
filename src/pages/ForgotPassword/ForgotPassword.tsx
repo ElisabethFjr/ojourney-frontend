@@ -38,6 +38,7 @@ function ForgotPassword() {
     // Check if field is empty and set an errorMessage
     if (!jsonData.email) {
       setErrorMessage('Veuillez renseigner votre email.');
+      setIsLoading(false);
       return;
     }
 
@@ -80,9 +81,7 @@ function ForgotPassword() {
             />
           )}
           {/* Error Message */}
-          {errorMessage && (
-            <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-          )}
+          {errorMessage && <ErrorMessage text={errorMessage} />}
           {/* Input Email */}
           <InputField
             name="email"

@@ -1,11 +1,8 @@
 // Import Hooks
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 // Import React-Router
 import { useNavigate } from 'react-router-dom';
-
-// Import Modules
-import DOMPurify from 'dompurify';
 
 // Import custom Redux hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -21,6 +18,8 @@ import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
 
 // Import Style
 import './EditPassword.scss';
+import InputPassword from '../../components/InputPassword/InputPassword';
+import InputField from '../../components/InputField/InputField';
 
 function EditPassword() {
   // Initialize the navigation hook
@@ -33,19 +32,11 @@ function EditPassword() {
   const isLoading = useAppSelector((state) => state.user.isLoading);
 
   // Declaration state variables
-  const [password, setPassword] = useState('');
-  const [confirmation, setConfirmation] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Function to handle input changes with sanitization
-  const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    setValue: (value: string) => void
-  ) => {
-    const { value } = event.target;
-    const sanitizedValue = DOMPurify.sanitize(value);
-    setValue(sanitizedValue);
-  };
+  // Regular expression to check the password
+  const passwordRegex =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/;
 
   // Event handler for the Edit Password form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -60,6 +51,14 @@ function EditPassword() {
     // Clear all Error Messages
     setErrorMessage(null);
 
+    // Check the strenght's password
+    if (!passwordRegex.test(newPassword)) {
+      setErrorMessage(
+        'Le mot de passe doit contenir au moins 10 caractères, 1 caractère spécial, 1 chiffre, 1 majuscule et 1 minuscule.'
+      );
+      return;
+    }
+
     // Check if the password and confirmation match
     if (newPassword !== confirmPassword) {
       setErrorMessage("La confirmation de mot de passe n'est pas valide.");
@@ -67,7 +66,7 @@ function EditPassword() {
     }
 
     // Check if one field is empty and set an errorMessag
-    if (!password || !confirmation) {
+    if (!newPassword || !confirmPassword) {
       setErrorMessage('Veuillez renseigner tous les champs obligatoires.');
       return;
     }
@@ -96,51 +95,21 @@ function EditPassword() {
           </div>
 
           {/* If ErroMessage, display the error */}
-          {errorMessage && (
-            <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-          )}
+          {errorMessage && <ErrorMessage text={errorMessage} />}
 
           {/* Input Password */}
-          <div className="field-edit">
-            <label className="field-edit-label" htmlFor="password">
-              Mot de passe
-            </label>
-            <input
-              className="field-edit-input"
-              value={password}
-              onChange={(event) => handleInputChange(event, setPassword)}
-              name="password"
-              placeholder="Modifier le mot de passe"
-              id="password"
-              type="password"
-              maxLength={128}
-              required
-            />
-            <div className="field-edit-icon">
-              <i className="fa-solid fa-lock" />
-            </div>
-          </div>
+          <InputPassword />
 
-          {/* Input Confirm Password */}
-          <div className="field-edit">
-            <label className="field-edit-label" htmlFor="confirmation">
-              Confirmation du mot de passe
-            </label>
-            <input
-              className="field-edit-input"
-              value={confirmation}
-              onChange={(event) => handleInputChange(event, setConfirmation)}
-              name="confirmation"
-              placeholder="Modifier le mot de passe"
-              id="confirmation"
-              type="password"
-              maxLength={128}
-              required
-            />
-            <div className="field-edit-icon">
-              <i className="fa-solid fa-lock" />
-            </div>
-          </div>
+          {/* Input Confirmation Password */}
+          <InputField
+            name="confirmation"
+            placeholder="Mot de passe (confirmation)"
+            type="password"
+            icon="fa-solid fa-lock"
+            maxlength={128}
+            required
+            autocomplete="off"
+          />
 
           {/* Button Submit */}
           <Button

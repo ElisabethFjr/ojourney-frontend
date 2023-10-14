@@ -76,9 +76,7 @@ function EditProfil() {
           </div>
 
           {/* If ErroMessage, display the error */}
-          {errorMessage && (
-            <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-          )}
+          {errorMessage && <ErrorMessage text={errorMessage} />}
 
           {/* Lastname Input */}
           <div className="field-edit">

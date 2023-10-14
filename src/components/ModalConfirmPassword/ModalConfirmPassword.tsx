@@ -84,9 +84,7 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
             saisissant votre mot de passe.
           </p>
           <form className="modal-delete-account-form" onSubmit={handleSubmit}>
-            {errorMessage && (
-              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-            )}
+            {errorMessage && <ErrorMessage text={errorMessage} />}
             <InputField
               name="password"
               placeholder="Mot de passe"
