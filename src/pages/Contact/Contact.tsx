@@ -53,7 +53,7 @@ function Contact() {
               text="Envoyer"
               type="submit"
               customClass="color button-style--width"
-              arial-label="Envoiez votre formulaire de contact"
+              arial-label="Envoyer le formulaire de contact"
             />
           </form>
         </div>

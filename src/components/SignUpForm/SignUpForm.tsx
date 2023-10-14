@@ -37,7 +37,7 @@ function SignUpForm() {
     // Clear all Error Messages
     setErrorMessage(null);
 
-    // Check the strenght's password
+    // Check the strength's password
     if (!passwordRegex.test(password)) {
       setErrorMessage(
         'Le mot de passe doit contenir au moins 10 caractères, 1 caractère spécial, 1 chiffre, 1 majuscule et 1 minuscule.'
@@ -70,7 +70,7 @@ function SignUpForm() {
           setErrorMessage('Un compte est déjà associé à cette adresse email.');
         } else {
           setErrorMessage(
-            'Une erreur est survenue lors de la rénitialisation de votre mot de passe.'
+            'Une erreur est survenue lors de la réinitialisation de votre mot de passe.'
           );
         }
       });

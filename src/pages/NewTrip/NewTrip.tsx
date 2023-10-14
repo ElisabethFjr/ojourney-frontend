@@ -97,7 +97,7 @@ function NewTrip() {
       return;
     }
 
-    // Check if user doesn't selected a localsation suggestion from the API
+    // Check if user doesn't selected a localisation suggestion from the API
     if (!isSuggestionSelected) {
       setErrorMessage(
         'Veuillez sélectionner une destination dans la lise de suggestion.'

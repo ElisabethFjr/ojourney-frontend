@@ -55,7 +55,7 @@ export const initialState: UserState = {
   trip: null,
 };
 
-const env = null;
+const env = 'dev';
 
 // Create LOGIN action
 export const login = createAsyncThunk(
@@ -207,6 +207,23 @@ export const deleteTrip = createAsyncThunk(
   'user/deleteTrip',
   async (tripId: string | null) => {
     const { data } = await axiosInstance.delete(`/trips/${tripId}`);
+    return data;
+  }
+);
+
+// Create action to LEAVE a trip (members of a trip)
+export const leaveTrip = createAsyncThunk(
+  'user/leaveTrip',
+  async ({
+    tripId,
+    memberId,
+  }: {
+    tripId: string | null;
+    memberId: string | null;
+  }) => {
+    const { data } = await axiosInstance.delete(
+      `/trips/${tripId}/members/${memberId}`
+    );
     return data;
   }
 );
@@ -383,6 +400,17 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
     })
     .addCase(deleteTrip.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // Leave Trip
+    .addCase(leaveTrip.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      toast.success('Vous avez quitté le voyage avec succès !');
+    })
+    .addCase(leaveTrip.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Reset Auth

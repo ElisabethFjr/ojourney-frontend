@@ -42,7 +42,7 @@ function EditTrip() {
   // Fetch states from Redux store
   const trip = useAppSelector((state) => state.trip.trip); // One Trip Data
   const suggestions = useAppSelector((state) => state.trip.suggestions); // Localisation Suggestion
-  const isLoading = useAppSelector((state) => state.trip.isLoading); // Loading Indicatior
+  const isLoading = useAppSelector((state) => state.trip.isLoading); // Loading Indicator
 
   // States variables declaration
   const [localisation, setLocalisation] = useState<string>(
@@ -108,7 +108,7 @@ function EditTrip() {
         onBlur={handleBlur}
       >
         {/* Localisation suggestion composed of 'line1' and 'line2' elements from the API */}
-        {/* Details localisation : address_line1 for the adress and address_line2 for the country) */}
+        {/* Details localisation : address_line1 for the address and address_line2 for the country) */}
         {suggestion.line1} {suggestion.line2}
       </div>
     );
@@ -186,7 +186,7 @@ function EditTrip() {
       return;
     }
 
-    // Dispatch udpateTrip action on the form submission
+    // Dispatch updateTrip action on the form submission
     await dispatch(updateTrip({ formData, tripId }));
     navigate(`/my-trip/${tripId}`);
   };
@@ -206,7 +206,7 @@ function EditTrip() {
           </div>
           <form onSubmit={handleSubmit}>
             <h2 className="edit-trip-form-title">Mon Voyage</h2>
-            {/* If ErroMessage, display the error */}
+            {/* If ErrorMessage, display the error */}
             {errorMessage && <ErrorMessage text={errorMessage} />}
 
             {/* Localisation Input */}

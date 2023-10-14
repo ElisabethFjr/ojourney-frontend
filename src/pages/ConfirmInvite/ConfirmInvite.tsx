@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-// Inmport Custom Hooks
+// Import Custom Hooks
 import { useAppDispatch } from '../../hooks/redux';
 import { resetAuth } from '../../store/reducers/user';
 

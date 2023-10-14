@@ -12,7 +12,7 @@ export const calculatePasswordScore = (passwordValue: string) => {
   return score;
 };
 
-// Get the password strength with its associated color and text based on the score, lenght and regex test
+// Get the password strength with its associated color and text based on the score, length and regex test
 export const getPasswordStrength = (password: string) => {
   const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^0-9a-zA-Z]).{10,}$/;
   const score = calculatePasswordScore(password);

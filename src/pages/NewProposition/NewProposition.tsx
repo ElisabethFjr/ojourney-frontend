@@ -2,13 +2,13 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 
-// Import Curstom Redux Hook
+// Import Custom Redux Hook
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 // Import Redux Actions
 import { addProposition } from '../../store/reducers/trip';
 
-// Imports Layouts & Conponents
+// Imports Layouts & Components
 import Main from '../../layout/Main/Main';
 import FormContainer from '../../layout/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
@@ -59,7 +59,7 @@ function NewProposition() {
       return;
     }
 
-    // Error : Check if user doesn't selected a localsation suggestion from the API
+    // Error : Check if user doesn't selected a localisation suggestion from the API
     if (!isSuggestionSelected) {
       setErrorMessage(
         'Veuillez sélectionner une destination dans la lise de suggestion.'

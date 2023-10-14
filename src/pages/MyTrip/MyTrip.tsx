@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import format from 'date-fns/format';
 
-// Import Curstom Redux Hook
+// Import Custom Redux Hook
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 // Import Layout & Components
@@ -174,7 +174,7 @@ function MyTrip() {
             <div className="one-trip-overview-buttons">
               <Link to={`/edit-trip/${id}`} className="edit-btn">
                 <Button
-                  text="Editer"
+                  text="Éditer"
                   icon="fa-solid fa-pen"
                   type="button"
                   customClass="outline-dark"

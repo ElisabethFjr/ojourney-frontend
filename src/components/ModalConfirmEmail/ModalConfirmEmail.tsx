@@ -65,7 +65,7 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
         setIsLoading(false);
         if (error.response.status === 404) {
           setErrorMessage(
-            "Vous n'avez pas de compte associé à cet adresse email."
+            "Vous n'avez pas de compte associé à cette adresse email."
           );
         } else if (error.response.status === 400) {
           setErrorMessage('Vous avez déjà validé votre adresse email.');

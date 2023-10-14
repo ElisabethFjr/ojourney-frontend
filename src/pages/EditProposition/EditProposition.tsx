@@ -6,7 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { nanoid } from 'nanoid';
 
-// Import Curstom Redux Hook
+// Import Custom Redux Hook
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { resetSuggestions, updateProposition } from '../../store/reducers/trip';
 
@@ -24,7 +24,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './EditProposition.scss';
 
 function EditProposition() {
-  // Inilialize Hooks
+  // Initialize Hooks
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -36,7 +36,7 @@ function EditProposition() {
   // Fetch states from Redux store
   const propositions = useAppSelector((state) => state.trip.trip.links); // Trip Propositions
   const suggestions = useAppSelector((state) => state.trip.suggestions); // Localisation Suggestions
-  const isLoading = useAppSelector((state) => state.trip.isLoading); // Loading Indicatior
+  const isLoading = useAppSelector((state) => state.trip.isLoading); // Loading Indicator
 
   // Find the proposition id to edit to get the current data
   const editedProposition = propositions.find(
@@ -98,7 +98,7 @@ function EditProposition() {
         onBlur={handleBlur}
       >
         {/* Localisation suggestion composed of 'line1' and 'line2' elements from the API */}
-        {/* Details localisation : address_line1 for the adress and address_line2 for the country) */}
+        {/* Details localisation : address_line1 for the address and address_line2 for the country) */}
         {suggestion.line1} {suggestion.line2}
       </div>
     );
@@ -143,7 +143,7 @@ function EditProposition() {
       return;
     }
 
-    // Dispatch udpateProposition action on the form submission
+    // Dispatch updateProposition action on the form submission
     await dispatch(
       updateProposition({
         formData,

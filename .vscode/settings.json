@@ -35,5 +35,6 @@
   "cSpell.words": [
     "airbnb"
   ],
-  "liveServer.settings.port": 5501
+  "liveServer.settings.port": 5501,
+  "cSpell.language": "en,fr-FR"
 }

@@ -75,7 +75,7 @@ function EditProfil() {
             />
           </div>
 
-          {/* If ErroMessage, display the error */}
+          {/* If ErrorMessage, display the error */}
           {errorMessage && <ErrorMessage text={errorMessage} />}
 
           {/* Lastname Input */}
