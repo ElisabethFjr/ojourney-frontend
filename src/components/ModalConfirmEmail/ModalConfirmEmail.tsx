@@ -62,14 +62,12 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
       })
       .catch((error) => {
         setIsLoading(false);
-        if (
-          error.response &&
-          error.response.status === 404 &&
-          error.response.data.error === "This user doesn't exist in DB !"
-        ) {
+        if (error.response.status === 404) {
           setErrorMessage(
-            "Vous n'avez pas de compte ou avez déjà validé votre email."
+            "Vous n'avez pas de compte associé à cet adresse email."
           );
+        } else if (error.response.status === 400) {
+          setErrorMessage('Vous avez déjà validé votre adresse email.');
         }
       });
   };

@@ -58,10 +58,26 @@ function NewTrip() {
 
   // Event handler for selecting an image file
   const handleFile = (fileUploaded: File | null) => {
+    // File selected
     if (fileUploaded !== null) {
-      setFile(fileUploaded);
-      const url = URL.createObjectURL(fileUploaded);
-      setImageUrl(url);
+      // Check the file size (the image need to be under 2MB)
+      if (fileUploaded.size > 2 * 1024 * 1024) {
+        setErrorMessage(
+          'La taille du fichier image ne peut pas dépasser 2 Mo.'
+        );
+        setFile(null); // Clear the file
+        setImageUrl(null); // Clear the image URL
+      } else {
+        setFile(fileUploaded);
+        const url = URL.createObjectURL(fileUploaded);
+        setImageUrl(url);
+        setErrorMessage(null); // Clear Error Message
+      }
+    } else {
+      // No file selected
+      setErrorMessage(null);
+      setFile(null);
+      setImageUrl(null);
     }
   };
 
