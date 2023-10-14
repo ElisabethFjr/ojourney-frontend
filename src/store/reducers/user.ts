@@ -72,12 +72,24 @@ export const login = createAsyncThunk(
       }
       return data;
     } catch (error) {
-      // Type error as an AxiosError to access specific axios properties (typescript)
+      // Type error as an AxiosError to access specific axios properties (TypeScript)
       const axiosError = error as AxiosError;
-      const errorMessage = (axiosError.response?.data as { error: string })
-        ?.error;
-      // Throw an error with the server's error message if available
-      throw new Error(errorMessage);
+      if (axiosError.response) {
+        const responseData =
+          (axiosError.response.data as { error: string }) || {};
+        const errorMessage = responseData.error;
+        if (axiosError.response.status === 400) {
+          throw new Error('Email ou mot de passe incorrect.');
+        } else if (
+          errorMessage === 'Please confirm your email before signing in !'
+        ) {
+          throw new Error(
+            'Veuillez confirmer votre email avant de vous connecter.'
+          );
+        }
+      }
+      // If no specific error was handled, throw a general error
+      throw new Error('Une erreur est survenue. Veuillez réessayer plus tard.');
     }
   }
 );
@@ -219,19 +231,10 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(login.rejected, (state, action) => {
       let errorMessage = '';
-      switch (action.error.message) {
-        case 'Wrong email or password !':
-          errorMessage = 'Email ou mot de passe incorrect.';
-          break;
-        case 'Please confirm your email before signing in !':
-          errorMessage =
-            'Veuillez confirmer votre email avant de vous connecter.';
-          break;
-        default:
-          errorMessage =
-            action.error.message ||
-            'Une erreur est survenue. Veuillez réessayer plus tard.';
-          break;
+      if (action.error) {
+        errorMessage =
+          action.error.message ||
+          'Une erreur est survenue. Veuillez réessayer plus tard.';
       }
       state.errorMessage = errorMessage;
       state.isLoading = false;

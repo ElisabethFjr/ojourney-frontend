@@ -18,8 +18,7 @@ function SignUpForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
 
   // Regular expression to check the password
-  const passwordRegex =
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^0-9a-zA-Z]).{10,}$/;
 
   // Event Handler fot the SignUp form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {

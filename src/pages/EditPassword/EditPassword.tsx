@@ -35,8 +35,7 @@ function EditPassword() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Regular expression to check the password
-  const passwordRegex =
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^0-9a-zA-Z]).{10,}$/;
 
   // Event handler for the Edit Password form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
