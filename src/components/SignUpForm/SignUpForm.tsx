@@ -7,6 +7,7 @@ import InputField from '../InputField/InputField';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ConfirmModal from '../ModalConfirmMessage/ModalConfirmMessage';
 import Button from '../Button/Button';
+import InputPassword from '../InputPassword/InputPassword';
 // Import Styles
 import './SignUpForm.scss';
 
@@ -15,6 +16,10 @@ function SignUpForm() {
   const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false); // Confirmation modal display
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error message
   const [isLoading, setIsLoading] = useState<boolean>(false); // Loading indicator
+
+  // Regular expression to check the password
+  const passwordRegex =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/;
 
   // Event Handler fot the SignUp form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -32,6 +37,15 @@ function SignUpForm() {
 
     // Clear all Error Messages
     setErrorMessage(null);
+
+    // Check the strenght's password
+    if (!passwordRegex.test(password)) {
+      setErrorMessage(
+        'Le mot de passe doit contenir au moins 10 caractères, 1 caractère spécial, 1 chiffre, 1 majuscule et 1 minuscule.'
+      );
+      setIsLoading(false);
+      return;
+    }
 
     // Check match password and confirmation, if not, display an error message
     if (password !== confirmation) {
@@ -73,9 +87,7 @@ function SignUpForm() {
         />
       )}
       {/* Error Message */}
-      {errorMessage && (
-        <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-      )}
+      {errorMessage && <ErrorMessage text={errorMessage} />}
       {/* Input Lastname */}
       <InputField
         name="lastname"
@@ -104,15 +116,7 @@ function SignUpForm() {
         required
       />
       {/* Input Password */}
-      <InputField
-        name="password"
-        placeholder="Mot de passe"
-        type="password"
-        icon="fa-solid fa-lock"
-        maxlength={128}
-        required
-        autocomplete="off"
-      />
+      <InputPassword />
       {/* Input Confirmation Password */}
       <InputField
         name="confirmation"

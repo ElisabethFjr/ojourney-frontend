@@ -14,6 +14,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 // Import Styles
 import './ResetPassword.scss';
+import InputPassword from '../../components/InputPassword/InputPassword';
 
 function ResetPassword() {
   // Initialize Hooks
@@ -25,6 +26,10 @@ function ResetPassword() {
 
   // Extract link token from the url
   const token = document.location.search.split('?')[1];
+
+  // Regular expression to check the password
+  const passwordRegex =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/;
 
   // Event handler for the Reset Password form submission
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -43,15 +48,26 @@ function ResetPassword() {
     // Clear all Error Messages
     setErrorMessage(null);
 
+    // Check the strenght's password
+    if (!passwordRegex.test(newPassword)) {
+      setErrorMessage(
+        'Le mot de passe doit contenir au moins 10 caractères, 1 caractère spécial, 1 chiffre, 1 majuscule et 1 minuscule.'
+      );
+      setIsLoading(false);
+      return;
+    }
+
     // Check if the password and confirmation match
     if (newPassword !== confirmPassword) {
       setErrorMessage("La confirmation de mot de passe n'est pas valide.");
+      setIsLoading(false);
       return;
     }
 
     // Check if one field is empty and set an errorMessage
     if (!newPassword || !confirmPassword) {
       setErrorMessage('Veuillez renseigner tous les champs obligatoires.');
+      setIsLoading(false);
       return;
     }
 
@@ -88,18 +104,10 @@ function ResetPassword() {
             Votre nouveau mot de passe
           </h2>
           {/* Error Message */}
-          {errorMessage && (
-            <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-          )}
+          {errorMessage && <ErrorMessage text={errorMessage} />}
           {/* Input Password */}
-          <InputField
-            name="password"
-            placeholder="Nouveau mot de passe"
-            type="password"
-            icon="fa-solid fa-lock"
-            maxlength={128}
-            required
-          />
+          <InputPassword />
+
           {/* Input Confirmation Password */}
           <InputField
             name="confirmation"
@@ -108,7 +116,9 @@ function ResetPassword() {
             icon="fa-solid fa-lock"
             maxlength={128}
             required
+            autocomplete="off"
           />
+
           {/* Submit Button */}
           <Button
             text="Confirmer"

@@ -207,9 +207,7 @@ function EditTrip() {
           <form onSubmit={handleSubmit}>
             <h2 className="edit-trip-form-title">Mon Voyage</h2>
             {/* If ErroMessage, display the error */}
-            {errorMessage && (
-              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-            )}
+            {errorMessage && <ErrorMessage text={errorMessage} />}
 
             {/* Localisation Input */}
             <div className="field-edit">

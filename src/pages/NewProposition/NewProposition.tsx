@@ -101,9 +101,7 @@ function NewProposition() {
             <h2 className="new-proposition-form-title">Proposition</h2>
 
             {/* Error Message */}
-            {errorMessage && (
-              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-            )}
+            {errorMessage && <ErrorMessage text={errorMessage} />}
 
             {/* URL Input */}
             <InputField

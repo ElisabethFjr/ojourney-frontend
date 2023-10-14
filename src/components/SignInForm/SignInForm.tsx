@@ -46,9 +46,7 @@ function SignInForm() {
     <div className="form-content">
       <form className="form-element" onSubmit={handleSubmit}>
         {/* If ErroMessage, display the error */}
-        {errorMessage && (
-          <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-        )}
+        {errorMessage && <ErrorMessage text={errorMessage} />}
         {/* Input Email */}
         <InputField
           name="email"

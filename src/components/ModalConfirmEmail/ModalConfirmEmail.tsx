@@ -48,6 +48,7 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
     // Check if input is empty before submit
     if (!jsonData.email) {
       setErrorMessage('Veuillez renseigner tous les champs.');
+      setIsLoading(false);
       return;
     }
 
@@ -86,9 +87,7 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
           </p>
           {/* If ErroMessage, display the error */}
           <form className="modal-confirm-email-form" onSubmit={handleSubmit}>
-            {errorMessage && (
-              <ErrorMessage icon="fa-solid fa-xmark" text={errorMessage} />
-            )}
+            {errorMessage && <ErrorMessage text={errorMessage} />}
             <InputField
               name="email"
               placeholder="E-mail"
