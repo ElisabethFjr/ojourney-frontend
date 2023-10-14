@@ -11,10 +11,10 @@ import Main from '../../layout/Main/Main';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import InputPassword from '../../components/InputPassword/InputPassword';
 
 // Import Styles
 import './ResetPassword.scss';
-import InputPassword from '../../components/InputPassword/InputPassword';
 
 function ResetPassword() {
   // Initialize Hooks

@@ -1,26 +1,35 @@
-import DOMPurify from 'dompurify';
+// Import React & Hooks
 import { ChangeEvent, useState } from 'react';
+// Import DOMPurify
+import DOMPurify from 'dompurify';
+// Import Utils Functions
 import {
   calculatePasswordScore,
   getPasswordStrength,
 } from '../../utils/passwordStrength';
-
+// Impot Syles
 import './InputPassword.scss';
 
 function InputPassword() {
-  const [password, setPassword] = useState<string>('');
-  const [focused, setFocused] = useState<boolean>(false);
+  // Declaration state variables
+  const [password, setPassword] = useState<string>(''); // Password value
+  const [focused, setFocused] = useState<boolean>(false); // Focus on the password input
 
+  // EVENT HANDLER on the input change value
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const sanitizedValue = DOMPurify.sanitize(event.target.value);
     setPassword(sanitizedValue);
   };
 
+  // Change password progress bar color & width depending on the password strength indicator (score)
   const changePasswordColor = () => {
+    // Regular expression to check strength password
     const regex =
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/;
+    // Calculate the password score and retrieve the strength information
     const score = calculatePasswordScore(password);
     const strengthInfo = getPasswordStrength(password);
+    // Adjust the progress bar style based on password strength
     if (regex.test(password) && score === 4 && password.length > 10) {
       return {
         width: '100%',
