@@ -1,20 +1,23 @@
+// Calculate the password strength score based on positive regex
 export const calculatePasswordScore = (passwordValue: string) => {
   let score = 0;
   const regexPositive = ['[A-Z]', '[a-z]', '[0-9]', '[@$!%*?&]'];
 
   regexPositive.forEach((regex) => {
+    // Check if the passwordValue matches the current regex pattern
     if (new RegExp(regex).test(passwordValue)) {
-      score += 1;
+      score += 1; // Increment the score if a match is found
     }
   });
   return score;
 };
 
+// Get the password strength with its associated color and text based on the score, lenght and regex test
 export const getPasswordStrength = (password: string) => {
   const regex =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/;
   const score = calculatePasswordScore(password);
-
+  // If the input password is empty, return no text and transparent color
   if (password.length === 0) {
     return { text: '', color: 'transparent' };
   }
