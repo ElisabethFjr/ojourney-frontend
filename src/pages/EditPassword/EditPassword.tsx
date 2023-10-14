@@ -50,7 +50,7 @@ function EditPassword() {
     // Clear all Error Messages
     setErrorMessage(null);
 
-    // Check the strenght's password
+    // Check the strength's password
     if (!passwordRegex.test(newPassword)) {
       setErrorMessage(
         'Le mot de passe doit contenir au moins 10 caractères, 1 caractère spécial, 1 chiffre, 1 majuscule et 1 minuscule.'
@@ -64,7 +64,7 @@ function EditPassword() {
       return;
     }
 
-    // Check if one field is empty and set an errorMessag
+    // Check if one field is empty and set an errorMessage
     if (!newPassword || !confirmPassword) {
       setErrorMessage('Veuillez renseigner tous les champs obligatoires.');
       return;
@@ -93,7 +93,7 @@ function EditPassword() {
             />
           </div>
 
-          {/* If ErroMessage, display the error */}
+          {/* If ErrorMessage, display the error */}
           {errorMessage && <ErrorMessage text={errorMessage} />}
 
           {/* Input Password */}

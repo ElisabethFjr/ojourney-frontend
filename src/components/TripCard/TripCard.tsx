@@ -1,13 +1,12 @@
 // Import React Hooks
 import { useEffect, useState } from 'react';
 // Import React-Router-Dom
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // Import Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 // Import Redux Actions
-import { deleteTrip } from '../../store/reducers/user';
-import { deleteMember } from '../../store/reducers/trip';
-// Import Axios Intance
+import { deleteTrip, leaveTrip } from '../../store/reducers/user';
+// Import Axios Instance
 import axiosInstance from '../../utils/axios';
 // Import Components
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
@@ -38,7 +37,6 @@ function TripCard({
 }: TripCardProps) {
   // Initialize Hooks
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   // Id variables
   const tripId = id;
@@ -76,8 +74,7 @@ function TripCard({
       dispatch(deleteTrip(tripId)); // If author, dispatch the deleteTrip action
     } else {
       // If just member, dispatch the deleteMember action to leave the trip
-      await dispatch(deleteMember({ tripId, memberId }));
-      navigate('/my-trips');
+      dispatch(leaveTrip({ tripId, memberId }));
     }
   };
 
@@ -109,7 +106,7 @@ function TripCard({
           <p className="trip-card-description">{description}</p>
         </div>
       </Link>
-      {/* Display the Delete Modale if the trash button is clicked */}
+      {/* Display the Delete Modal if the trash button is clicked */}
       {showModalDeleteConfirm && (
         <ModalDeleteConfirm
           dispatchDeleteAction={dispatchDeleteAction}

@@ -7,9 +7,9 @@ import { ToastContainer, Slide } from 'react-toastify';
 // Import Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { checkUserAuth } from '../../store/reducers/user';
-
 // Import axios instance
 import axiosInstance from '../../utils/axios';
+
 // Import Layout
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
@@ -36,12 +36,12 @@ import Terms from '../../pages/Terms/Terms';
 import ErrorNotFound from '../../pages/ErrorNotFound/ErrorNotFound';
 import ErrorServer from '../../pages/ErrorServer/ErrorServer';
 import Loading from '../Loading/Loading';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 // Import Styles
 import './App.scss';
 // Import styles 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 function App() {
   // Initializing Hooks

@@ -2,11 +2,11 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-// Import Curstom Redux Hook
+// Import Custom Redux Hook
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchUserInfos } from '../../store/reducers/user';
 
-// Imports Layout & Commponents
+// Imports Layout & Components
 import Main from '../../layout/Main/Main';
 import TripCard from '../../components/TripCard/TripCard';
 import Button from '../../components/Button/Button';

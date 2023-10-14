@@ -211,6 +211,23 @@ export const deleteTrip = createAsyncThunk(
   }
 );
 
+// Create action to LEAVE a trip (members of a trip)
+export const leaveTrip = createAsyncThunk(
+  'user/leaveTrip',
+  async ({
+    tripId,
+    memberId,
+  }: {
+    tripId: string | null;
+    memberId: string | null;
+  }) => {
+    const { data } = await axiosInstance.delete(
+      `/trips/${tripId}/members/${memberId}`
+    );
+    return data;
+  }
+);
+
 // Create action to reset auth status after invite trip
 export const resetAuth = createAction('user/resetAuth');
 
@@ -383,6 +400,17 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
     })
     .addCase(deleteTrip.rejected, () => {
+      toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    })
+    // Leave Trip
+    .addCase(leaveTrip.fulfilled, (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+      toast.success('Vous avez quitté le voyage avec succès !');
+    })
+    .addCase(leaveTrip.rejected, () => {
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
     })
     // Reset Auth

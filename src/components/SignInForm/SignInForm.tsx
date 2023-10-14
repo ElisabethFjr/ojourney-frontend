@@ -34,7 +34,7 @@ function SignInForm() {
     await dispatch(login(formData));
     navigate('/my-trips');
   };
-  // State Varibles
+  // State Variables
   const [showModalConfirmEmail, setShowModalConfirmEmail] =
     useState<boolean>(false);
 
@@ -45,7 +45,7 @@ function SignInForm() {
   return (
     <div className="form-content">
       <form className="form-element" onSubmit={handleSubmit}>
-        {/* If ErroMessage, display the error */}
+        {/* If ErrorMessage, display the error */}
         {errorMessage && <ErrorMessage text={errorMessage} />}
         {/* Input Email */}
         <InputField

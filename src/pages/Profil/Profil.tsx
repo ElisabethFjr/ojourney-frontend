@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { useState, FormEvent } from 'react';
 
-// Import Curstom Redux Hook
+// Import Custom Redux Hook
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { updateConsent } from '../../store/reducers/user';
 
@@ -17,7 +17,7 @@ import ModaleConfirmPassword from '../../components/ModalConfirmPassword/ModalCo
 import './Profil.scss';
 
 function Profil() {
-  // Inilialize Hooks
+  // Initialize Hooks
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 

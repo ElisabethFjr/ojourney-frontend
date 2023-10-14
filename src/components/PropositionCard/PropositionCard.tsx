@@ -85,7 +85,7 @@ function PropositionCard({
           <ButtonIcon
             icon="fa-solid fa-pen"
             handleClick={handleClickEdit}
-            aria-label="Editer proposition"
+            aria-label="Éditer proposition"
           />
           <ButtonIcon
             icon="fa-solid fa-trash"

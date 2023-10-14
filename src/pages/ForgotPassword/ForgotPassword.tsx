@@ -58,7 +58,7 @@ function ForgotPassword() {
           setErrorMessage("Aucun compte n'est associé à cette adresse email.");
         } else {
           setErrorMessage(
-            'Une erreur est survenue lors de la rénitialisation de votre mot de passe.'
+            'Une erreur est survenue lors de la réinitialisation de votre mot de passe.'
           );
         }
       });

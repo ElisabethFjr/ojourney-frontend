@@ -23,11 +23,11 @@ function ModalForgotPassword({ closeModal }: ModalForgotPasswordProps) {
         <ModalContainer handleClose={handleClose}>
           <i className="modal-forgot-password-icon fa-solid fa-envelope-circle-check" />
           <h1 className="modal-forgot-password-title modal-title">
-            Veuillez vérifier votre addresse mail.
+            Veuillez vérifier votre adresse mail.
           </h1>
           <p className="modal-forgot-password-text">
-            Vous avez reçu un mail contenant un lien pour rénitialiser votre mot
-            de passe.
+            Vous avez reçu un email contenant un lien pour réinitialiser votre
+            mot de passe.
           </p>
         </ModalContainer>
       )}

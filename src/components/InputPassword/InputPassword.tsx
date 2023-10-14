@@ -7,7 +7,7 @@ import {
   calculatePasswordScore,
   getPasswordStrength,
 } from '../../utils/passwordStrength';
-// Impot Syles
+// Import Styles
 import './InputPassword.scss';
 
 function InputPassword() {

@@ -47,7 +47,7 @@ function ResetPassword() {
     // Clear all Error Messages
     setErrorMessage(null);
 
-    // Check the strenght's password
+    // Check the strength's password
     if (!passwordRegex.test(newPassword)) {
       setErrorMessage(
         'Le mot de passe doit contenir au moins 10 caractères, 1 caractère spécial, 1 chiffre, 1 majuscule et 1 minuscule.'

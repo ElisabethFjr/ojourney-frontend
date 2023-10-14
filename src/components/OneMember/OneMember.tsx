@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Member, User } from '../../@types';
 // Import Redux Hooks
 import { useAppDispatch } from '../../hooks/redux';
-// Import Reduc Action
+// Import Redux Action
 import { deleteMember } from '../../store/reducers/trip';
 // Import Components
 import ModalDeleteConfirm from '../ModalDeleteConfirmation/ModalDeleteConfirmation';
@@ -38,14 +38,14 @@ function OneMember({
   // State Variable
   const [showModalDeleteConfirm, setShowModalDeleteConfirm] =
     useState<boolean>(false);
-  const [showModalInformationMember, setshowModalInformationMember] =
+  const [showModalInformationMember, setShowModalInformationMember] =
     useState<boolean>(false);
 
   const handleClick = () => {
     setShowModalDeleteConfirm(!showModalDeleteConfirm);
   };
   const handleClickInfo = () => {
-    setshowModalInformationMember(!showModalInformationMember);
+    setShowModalInformationMember(!showModalInformationMember);
   };
 
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -93,7 +93,7 @@ function OneMember({
           }
         }}
         role="button"
-        aria-label="Cliquez sur le membre pour ouvrir le menu du mebre"
+        aria-label="Cliquez sur le membre pour ouvrir le menu du membre"
         tabIndex={0}
         ref={divRef}
       >
@@ -129,7 +129,7 @@ function OneMember({
           lastname={`Nom : ${member.lastname}`}
           firstname={`Prénom : ${member.firstname}`}
           email={`Email : ${member.email}`}
-          closeModal={() => setshowModalInformationMember(false)}
+          closeModal={() => setShowModalInformationMember(false)}
         />
       )}
       {/* Display the Delete Modale if the trash button is clicked */}
