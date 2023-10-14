@@ -1,9 +1,7 @@
-// Import Axios Error
-import { AxiosError } from 'axios';
 // Import React-Router-Dom
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 // Import React Hooks
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // Import React-Toastify
 import { ToastContainer, Slide } from 'react-toastify';
 // Import Redux Hooks
@@ -43,12 +41,19 @@ import Loading from '../Loading/Loading';
 import './App.scss';
 // Import styles 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 function App() {
   // Initializing Hooks
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  // Declaration variable state
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Fetch states from Redux store
+  const isAuth = useAppSelector((state) => state.user.isAuth);
 
   // Check the connected user's information for authentication (token or cookies in headers), if ok dispatch the user's data
   useEffect(() => {
@@ -57,12 +62,10 @@ function App() {
       const token = localStorage.getItem('userToken');
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
     }
-    dispatch(checkUserAuth());
+    dispatch(checkUserAuth()).then(() => {
+      setIsLoading(false);
+    });
   }, [dispatch]);
-
-  // Fetch Redux States
-  const isAuth = useAppSelector((state) => state.user.isAuth);
-  const isLoading = useAppSelector((state) => state.user.isLoading);
 
   // Scroll to the top of the page when the location changes
   useEffect(() => {
@@ -89,62 +92,107 @@ function App() {
 
   return (
     <div className="app-container">
-      <Header />
-      {!isAuth && isLoading ? (
+      {isLoading ? (
         <Loading />
       ) : (
-        <Routes>
-          {/* Public Routes (visitor) */}
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/confirm-account" element={<ConfirmAccount />} />
-          <Route path="/confirm-invite" element={<ConfirmInvite />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/invite" element={<ConfirmInvite />} />
-          <Route path="*" element={<ErrorNotFound />} />
-          <Route path="/500" element={<ErrorServer />} />
-          {/* Public Routes for Login/Register (visitor) */}
-          <Route path="/signin-signup" element={<SignInUp />} />
-          {/* Private Routes (user connected) */}
-          <Route path="/profil" element={isAuth ? <Profil /> : <SignInUp />} />
-          <Route
-            path="/my-trips"
-            element={isAuth ? <MyTrips /> : <SignInUp />}
-          />
-          <Route
-            path="/my-trip/:id"
-            element={isAuth ? <MyTrip /> : <SignInUp />}
-          />
-          <Route
-            path="/new-trip"
-            element={isAuth ? <NewTrip /> : <SignInUp />}
-          />
-          <Route
-            path="/new-proposition/:id"
-            element={isAuth ? <NewProposition /> : <SignInUp />}
-          />
-          <Route
-            path="/edit-profil"
-            element={isAuth ? <EditProfil /> : <SignInUp />}
-          />
-          <Route
-            path="/edit-password"
-            element={isAuth ? <EditPassword /> : <SignInUp />}
-          />
-          <Route
-            path="/edit-trip/:id"
-            element={isAuth ? <EditTrip /> : <SignInUp />}
-          />
-          <Route
-            path="/edit-proposition/:tripId/:propositionId"
-            element={isAuth ? <EditProposition /> : <SignInUp />}
-          />
-        </Routes>
+        <>
+          <Header />
+          <Routes>
+            {/* Public Routes (visitor) */}
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/confirm-account" element={<ConfirmAccount />} />
+            <Route path="/confirm-invite" element={<ConfirmInvite />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/invite" element={<ConfirmInvite />} />
+            <Route path="*" element={<ErrorNotFound />} />
+            <Route path="/500" element={<ErrorServer />} />
+            {/* Public Route for Login/Register (visitor) */}
+            <Route
+              path="/signin-signup"
+              element={isAuth ? <MyTrips /> : <SignInUp />}
+            />
+            {/* Private Routes (user auth) */}
+            <Route
+              path="/profil"
+              element={
+                <PrivateRoute>
+                  <Profil />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/my-trips"
+              element={
+                <PrivateRoute>
+                  <MyTrips />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/my-trip/:id"
+              element={
+                <PrivateRoute>
+                  <MyTrip />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/new-trip"
+              element={
+                <PrivateRoute>
+                  <NewTrip />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/new-proposition/:id"
+              element={
+                <PrivateRoute>
+                  <NewProposition />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/edit-profil"
+              element={
+                <PrivateRoute>
+                  <EditProfil />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/edit-password"
+              element={
+                <PrivateRoute>
+                  <EditPassword />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/edit-trip/:id"
+              element={
+                <PrivateRoute>
+                  <EditTrip />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/edit-proposition/:tripId/:propositionId"
+              element={
+                <PrivateRoute>
+                  <EditProposition />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+
+          <Footer />
+        </>
       )}
-      <Footer />
       <ToastContainer
         position="top-center"
         autoClose={3000}

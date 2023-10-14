@@ -135,7 +135,7 @@ function Profil() {
                 htmlFor="consentCommercial"
                 className="profil-card-toggle-text"
               >
-                commercial :
+                Usage commercial :
               </label>
               <input
                 className="profil-card-checkbox"

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 // Import Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 // Import Redux Actions
-import { checkUserAuth, logout } from '../../store/reducers/user';
+import { logout } from '../../store/reducers/user';
 
 import './Navbar.scss';
 
@@ -14,10 +14,6 @@ function Navbar() {
   const dispatch = useAppDispatch();
   // Declaration State Variables
   const [isOpen, setIsOpen] = useState(false);
-  // Check user authentication status
-  useEffect(() => {
-    dispatch(checkUserAuth());
-  }, [dispatch]);
   // Get the authentication status from Redux state
   const isAuth = useAppSelector((state) => state.user.isAuth);
   // Handle user logout
