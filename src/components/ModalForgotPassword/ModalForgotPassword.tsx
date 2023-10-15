@@ -26,7 +26,7 @@ function ModalForgotPassword({ closeModal }: ModalForgotPasswordProps) {
             Veuillez vérifier votre adresse mail.
           </h1>
           <p className="modal-forgot-password-text">
-            Vous avez reçu un email contenant un lien pour réinitialiser votre
+            Vous avez reçu un e-mail contenant un lien pour réinitialiser votre
             mot de passe.
           </p>
         </ModalContainer>

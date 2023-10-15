@@ -59,16 +59,16 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
         setIsOpen(!isOpen);
         closeModal(true);
         setIsLoading(false);
-        toast.success("L'email a bien été envoyé !");
+        toast.success("L'e-mail a bien été envoyé !");
       })
       .catch((error) => {
         setIsLoading(false);
         if (error.response.status === 404) {
           setErrorMessage(
-            "Vous n'avez pas de compte associé à cette adresse email."
+            "Vous n'avez pas de compte associé à cette adresse e-mail."
           );
         } else if (error.response.status === 400) {
-          setErrorMessage('Vous avez déjà validé votre adresse email.');
+          setErrorMessage('Vous avez déjà validé votre adresse e-mail.');
         }
       });
   };
@@ -79,7 +79,7 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
         <ModalContainer handleClose={handleClose}>
           <i className="modal-confirm-email-icon fa-solid fa-envelope-circle-check" />
           <h1 className="modal-confirm-email-title modal-title">
-            Veuillez renseigner votre adresse email.
+            Veuillez renseigner votre adresse e-mail.
           </h1>
           <p className="modal-confirm-email-text">
             Vous allez recevoir un e-mail avec un lien afin de valider votre

@@ -99,7 +99,7 @@ function PdfDisplay({ data }: PdfDisplayProps) {
           <Text style={styles.section}> Vos données personnelles : </Text>
           <Text style={styles.text}>Votre identifiant : {data.id}</Text>
           <Text style={styles.text}>Votre prénom : {data.firstname}</Text>
-          <Text style={styles.text}>Votre email : {data.email}</Text>
+          <Text style={styles.text}>Votre e-mail : {data.email}</Text>
           <Text style={styles.text}>
             Votre consentement concernant l&apos;utilisation de vos données dans
             un but commercial : {data.consent_commercial}

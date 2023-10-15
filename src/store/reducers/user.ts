@@ -79,12 +79,12 @@ export const login = createAsyncThunk(
           (axiosError.response.data as { error: string }) || {};
         const errorMessage = responseData.error;
         if (axiosError.response.status === 400) {
-          throw new Error('Email ou mot de passe incorrect.');
+          throw new Error('E-mail ou mot de passe incorrect.');
         } else if (
-          errorMessage === 'Please confirm your email before signing in !'
+          errorMessage === 'Please confirm your e-mail before signing in !'
         ) {
           throw new Error(
-            'Veuillez confirmer votre email avant de vous connecter.'
+            'Veuillez confirmer votre e-mail avant de vous connecter.'
           );
         }
       }

@@ -123,7 +123,7 @@ function EditProfil() {
           {/* Email Input */}
           <div className="field">
             <label className="field-label" htmlFor="email">
-              Email
+              E-mail
             </label>
             <input
               className="field-input"

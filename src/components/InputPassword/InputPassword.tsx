@@ -7,6 +7,8 @@ import {
   calculatePasswordScore,
   getPasswordStrength,
 } from '../../utils/passwordStrength';
+// Import Styles
+import './InputPassword.scss';
 
 function InputPassword() {
   // Declaration state variables

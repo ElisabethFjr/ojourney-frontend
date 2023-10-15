@@ -73,7 +73,7 @@ function Profil() {
           <span className="profil-card-text">{userData.firstname}</span>
         </p>
         <p>
-          Email : <span className="profil-card-text">{userData.email}</span>
+          E-mail : <span className="profil-card-text">{userData.email}</span>
         </p>
         <p>
           Projet voyage(s) en cours :{' '}
