@@ -93,7 +93,7 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
             Inviter un membre
           </h1>
           <p className="modal-invite-member-text">
-            Veuillez renseigner l&apos;adresse email du membre à inviter.
+            Veuillez renseigner l&apos;adresse e-mail du membre à inviter.
           </p>
           <form className="modal-invite-member-input" onSubmit={handleSubmit}>
             {/* Error Message */}
@@ -101,6 +101,7 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
             {/* Email Input */}
             <InputField
               name="email"
+              label="E-mail"
               placeholder="E-mail"
               type="email"
               icon="fa-solid fa-envelope-circle-check"

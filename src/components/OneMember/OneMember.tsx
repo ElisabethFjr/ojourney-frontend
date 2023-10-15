@@ -128,7 +128,7 @@ function OneMember({
           title="Carte d'information"
           lastname={`Nom : ${member.lastname}`}
           firstname={`Prénom : ${member.firstname}`}
-          email={`Email : ${member.email}`}
+          email={`E-mail : ${member.email}`}
           closeModal={() => setShowModalInformationMember(false)}
         />
       )}

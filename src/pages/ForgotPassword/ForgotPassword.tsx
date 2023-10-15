@@ -37,7 +37,7 @@ function ForgotPassword() {
 
     // Check if field is empty and set an errorMessage
     if (!jsonData.email) {
-      setErrorMessage('Veuillez renseigner votre email.');
+      setErrorMessage('Veuillez renseigner votre e-mail.');
       setIsLoading(false);
       return;
     }
@@ -55,7 +55,7 @@ function ForgotPassword() {
         if (
           error.response.data.error.trim() === "This user doesn't exist in DB !"
         ) {
-          setErrorMessage("Aucun compte n'est associé à cette adresse email.");
+          setErrorMessage("Aucun compte n'est associé à cette adresse e-mail.");
         } else {
           setErrorMessage(
             'Une erreur est survenue lors de la réinitialisation de votre mot de passe.'
@@ -85,6 +85,7 @@ function ForgotPassword() {
           {/* Input Email */}
           <InputField
             name="email"
+            label="E-mail"
             placeholder="Votre e-mail"
             type="email"
             icon="fa-solid fa-at"

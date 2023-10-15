@@ -96,7 +96,7 @@ function EditTrip() {
     return (
       <div
         role="button"
-        className="field-edit-input-suggestion-item"
+        className="field-input-suggestion-item"
         tabIndex={0}
         onKeyDown={() =>
           handleClickSuggestion(`${suggestion.line1} ${suggestion.line2}`)
@@ -210,12 +210,12 @@ function EditTrip() {
             {errorMessage && <ErrorMessage text={errorMessage} />}
 
             {/* Localisation Input */}
-            <div className="field-edit">
-              <label className="field-edit-label" htmlFor="localisation">
+            <div className="field">
+              <label className="field-label" htmlFor="localisation">
                 Localisation
               </label>
               <input
-                className="field-edit-input"
+                className="field-input"
                 value={localisation}
                 onChange={(event) => handleInputChange(event, setLocalisation)}
                 name="localisation"
@@ -228,69 +228,65 @@ function EditTrip() {
               />
               {/* Display localisations suggestion list if it exists and if input name = localisation */}
               {suggestions && suggestions.length > 1 ? (
-                <div className="field-edit-input-suggestion-list">
+                <div className="field-input-suggestion-list">
                   {allSuggestions}
                 </div>
               ) : null}
-              <div className="field-edit-icon">
+              <div className="field-icon">
                 <i className="fa-solid fa-location-dot" />
               </div>
             </div>
 
             {/* Start Date Input */}
-            <div className="field-edit-date">
-              <label className="field-edit-date-label" htmlFor="date_start">
+            <div className="field">
+              <label className="field-label" htmlFor="date_start">
                 Date de début
               </label>
-              <div className="field-date-container">
-                <i className="field-edit-date-icon fa-solid fa-calendar" />
-                <DatePicker
-                  id="date_start"
-                  className="field-date-input"
-                  selected={startDate}
-                  onChange={handleStartDateChange}
-                  selectsStart
-                  startDate={startDate}
-                  endDate={endDate}
-                  placeholderText="Date de début (jj/mm/aaaa)"
-                  dateFormat="dd/MM/yyyy"
-                  locale="fr" // Set french locale
-                  required
-                />
-              </div>
+              <i className="field-icon fa-solid fa-calendar" />
+              <DatePicker
+                id="date_start"
+                className="field-input"
+                selected={startDate}
+                onChange={handleStartDateChange}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                placeholderText="Date de début (jj/mm/aaaa)"
+                dateFormat="dd/MM/yyyy"
+                locale="fr" // Set french locale
+                required
+              />
             </div>
 
             {/* End Date Input */}
-            <div className="field-edit-date">
-              <label className="field-edit-date-label" htmlFor="date_end">
+            <div className="field">
+              <label className="field-label" htmlFor="date_end">
                 Date de fin
               </label>
-              <div className="field-date-container">
-                <i className="field-edit-date-icon fa-solid fa-calendar" />
-                <DatePicker
-                  id="date_end"
-                  className="field-date-input"
-                  selected={endDate}
-                  onChange={handleEndDateChange}
-                  selectsEnd
-                  startDate={startDate}
-                  endDate={endDate}
-                  minDate={startDate}
-                  placeholderText="Date de fin (jj/mm/aaaa)"
-                  dateFormat="dd/MM/yyyy"
-                  locale="fr" // Set french locale
-                  required
-                />
-              </div>
+              <i className="field-icon fa-solid fa-calendar" />
+              <DatePicker
+                id="date_end"
+                className="field-input"
+                selected={endDate}
+                onChange={handleEndDateChange}
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+                placeholderText="Date de fin (jj/mm/aaaa)"
+                dateFormat="dd/MM/yyyy"
+                locale="fr" // Set french locale
+                required
+              />
             </div>
 
             {/* Description Textarea */}
-            <div className="field-edit">
-              <label className="field-edit-label" htmlFor="description">
+            <div className="field">
+              <label className="field-label" htmlFor="description">
                 Description
               </label>
               <textarea
-                className="field-edit-textarea"
+                className="field-textarea"
                 value={description}
                 onChange={(event) => handleInputChange(event, setDescription)}
                 name="description"
@@ -299,7 +295,7 @@ function EditTrip() {
                 id="description"
                 maxLength={200}
               />
-              <div className="field-edit-textarea-icon">
+              <div className="field-textarea-icon">
                 <i className="fa-solid fa-pen-nib" />
               </div>
             </div>

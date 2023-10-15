@@ -24,10 +24,10 @@ function ModalConfirmMessage({ closeModal }: ModalConfirmMessageProps) {
         <ModalContainer handleClose={handleClose}>
           <i className="modal-confirm-icon fa-solid fa-envelope-circle-check" />
           <h1 className="modal-confirm-title modal-title">
-            Veuillez vérifier votre adresse mail.
+            Veuillez vérifier votre adresse e-mail.
           </h1>
           <p className="modal-confirm-text">
-            Un email vous a été envoyé. Veuillez cliquer sur le lien pour
+            Un e-mail vous a été envoyé. Veuillez cliquer sur le lien pour
             valider l&apos;inscription.
           </p>
           <button

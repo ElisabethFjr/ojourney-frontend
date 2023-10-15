@@ -54,9 +54,12 @@ function InputPassword() {
   };
 
   return (
-    <div className="field-password">
+    <div className="field field-password-">
+      <label className="field-label" htmlFor="password">
+        Mot de passe
+      </label>
       <input
-        className="field-password-input"
+        className="field-input"
         value={password}
         onChange={handleChange}
         name="password"
@@ -64,18 +67,14 @@ function InputPassword() {
         autoComplete="off"
         id="password"
         type="password"
-        placeholder=" "
+        placeholder="Mot de passe"
         maxLength={128}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       />
-      <label className="field-password-label" htmlFor="password">
-        Mot de passe
-      </label>
-      <div className="field-password-icon">
+      <div className="field-icon">
         <i className="fa-solid fa-lock" />
       </div>
-
       {/* Display the password strength bar only when the input is focused */}
       {focused && (
         <div className="field-password-strength-meter">

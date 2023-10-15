@@ -147,6 +147,7 @@ function NewTrip() {
             {/* Localisation Input */}
             <InputField
               name="localisation"
+              label="Destination*"
               placeholder="Destination"
               type="text"
               icon="fa-solid fa-location-dot"
@@ -166,6 +167,7 @@ function NewTrip() {
             {/* Description Textarea */}
             <TextareaField
               name="description"
+              label="Description"
               placeholder="Description du voyage (facultatif)"
               icon="fa-solid fa-pen-nib"
               maxlength={200}

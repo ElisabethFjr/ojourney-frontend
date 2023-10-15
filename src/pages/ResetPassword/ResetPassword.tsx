@@ -110,7 +110,8 @@ function ResetPassword() {
           {/* Input Confirmation Password */}
           <InputField
             name="confirmation"
-            placeholder="Mot de passe (confirmation)"
+            label="Confirmation mot de passe"
+            placeholder="Mot de passe"
             type="password"
             icon="fa-solid fa-lock"
             maxlength={128}

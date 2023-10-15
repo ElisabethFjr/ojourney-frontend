@@ -8,8 +8,6 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ConfirmModal from '../ModalConfirmMessage/ModalConfirmMessage';
 import Button from '../Button/Button';
 import InputPassword from '../InputPassword/InputPassword';
-// Import Styles
-import './SignUpForm.scss';
 
 function SignUpForm() {
   // Declaration state variables
@@ -87,19 +85,21 @@ function SignUpForm() {
       )}
       {/* Error Message */}
       {errorMessage && <ErrorMessage text={errorMessage} />}
-      {/* Input Lastname */}
+      {/* Input Firstname */}
       <InputField
-        name="lastname"
-        placeholder="Nom"
+        name="firstname"
+        label="Prénom"
+        placeholder="Prénom"
         type="text"
         icon="fa-solid fa-user"
         maxlength={100}
         required
       />
-      {/* Input Firstname */}
+      {/* Input Lastname */}
       <InputField
-        name="firstname"
-        placeholder="Prénom"
+        name="lastname"
+        label="Nom"
+        placeholder="Nom"
         type="text"
         icon="fa-solid fa-user"
         maxlength={100}
@@ -108,7 +108,8 @@ function SignUpForm() {
       {/* Input Email */}
       <InputField
         name="email"
-        placeholder="Email"
+        label="E-mail"
+        placeholder="E-mail"
         type="email"
         icon="fa-solid fa-at"
         maxlength={320}
@@ -119,7 +120,8 @@ function SignUpForm() {
       {/* Input Confirmation Password */}
       <InputField
         name="confirmation"
-        placeholder="Mot de passe (confirmation)"
+        label="Confirmation mot de passe"
+        placeholder="Mot de passe"
         type="password"
         icon="fa-solid fa-lock"
         maxlength={128}
