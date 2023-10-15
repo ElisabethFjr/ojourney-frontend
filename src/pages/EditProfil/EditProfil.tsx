@@ -79,12 +79,12 @@ function EditProfil() {
           {errorMessage && <ErrorMessage text={errorMessage} />}
 
           {/* Lastname Input */}
-          <div className="field-edit">
-            <label className="field-edit-label" htmlFor="lastname">
+          <div className="field">
+            <label className="field-label" htmlFor="lastname">
               Nom
             </label>
             <input
-              className="field-edit-input"
+              className="field-input"
               value={lastname}
               onChange={(event) => handleInputChange(event, setLastname)}
               name="lastname"
@@ -94,18 +94,18 @@ function EditProfil() {
               type="text"
               maxLength={100}
             />
-            <div className="field-edit-icon">
+            <div className="field-icon">
               <i className="fa-solid fa-user" />
             </div>
           </div>
 
           {/* Firstname Input */}
-          <div className="field-edit">
-            <label className="field-edit-label" htmlFor="firstname">
+          <div className="field">
+            <label className="field-label" htmlFor="firstname">
               Prénom
             </label>
             <input
-              className="field-edit-input"
+              className="field-input"
               value={firstname}
               onChange={(event) => handleInputChange(event, setFirstname)}
               name="firstname"
@@ -115,18 +115,18 @@ function EditProfil() {
               type="text"
               maxLength={100}
             />
-            <div className="field-edit-icon">
+            <div className="field-icon">
               <i className="fa-solid fa-user" />
             </div>
           </div>
 
           {/* Email Input */}
-          <div className="field-edit">
-            <label className="field-edit-label" htmlFor="email">
+          <div className="field">
+            <label className="field-label" htmlFor="email">
               Email
             </label>
             <input
-              className="field-edit-input"
+              className="field-input"
               value={email}
               onChange={(event) => handleInputChange(event, setEmail)}
               name="email"
@@ -136,7 +136,7 @@ function EditProfil() {
               type="text"
               maxLength={320}
             />
-            <div className="field-edit-icon">
+            <div className="field-icon">
               <i className="fa-solid fa-at" />
             </div>
           </div>

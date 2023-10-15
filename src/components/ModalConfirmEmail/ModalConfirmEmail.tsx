@@ -90,6 +90,7 @@ function ModalConfirmEmail({ closeModal }: ModalConfirmEmailProps) {
             {errorMessage && <ErrorMessage text={errorMessage} />}
             <InputField
               name="email"
+              label="E-mail"
               placeholder="E-mail"
               type="email"
               icon="fa-solid fa-envelope-circle-check"

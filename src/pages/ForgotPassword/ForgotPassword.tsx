@@ -85,6 +85,7 @@ function ForgotPassword() {
           {/* Input Email */}
           <InputField
             name="email"
+            label="E-mail"
             placeholder="Votre e-mail"
             type="email"
             icon="fa-solid fa-at"

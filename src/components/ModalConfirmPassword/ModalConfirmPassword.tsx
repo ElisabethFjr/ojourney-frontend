@@ -87,6 +87,7 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
             {errorMessage && <ErrorMessage text={errorMessage} />}
             <InputField
               name="password"
+              label="Mot de passe"
               placeholder="Mot de passe"
               type="password"
               icon="fa-solid fa-lock"

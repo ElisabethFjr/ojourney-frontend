@@ -101,6 +101,7 @@ function ModalInviteMember({ id, closeModal }: ModalInviteMemberProps) {
             {/* Email Input */}
             <InputField
               name="email"
+              label="E-mail"
               placeholder="E-mail"
               type="email"
               icon="fa-solid fa-envelope-circle-check"

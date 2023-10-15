@@ -106,7 +106,8 @@ function NewProposition() {
             {/* URL Input */}
             <InputField
               name="url"
-              placeholder="Adresse URL"
+              label="Adresse URL*"
+              placeholder="Collez l'adresse URL ici"
               type="url"
               icon="fa-solid fa-link"
               required
@@ -115,6 +116,7 @@ function NewProposition() {
             {/* Localisation Input */}
             <InputField
               name="localisation"
+              label="Localisation*"
               placeholder="Localisation"
               type="text"
               icon="fa-solid fa-location-dot"
@@ -126,6 +128,7 @@ function NewProposition() {
             {/* Description Textarea */}
             <TextareaField
               name="description"
+              label="Description"
               placeholder="Description (facultatif)"
               icon="fa-solid fa-pen-nib"
               maxlength={200}

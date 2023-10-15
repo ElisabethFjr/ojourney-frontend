@@ -28,6 +28,7 @@ function Contact() {
             {/* Input Name */}
             <InputField
               name="name"
+              label="Nom"
               placeholder="Votre nom"
               type="text"
               icon="fa-solid fa-user"
@@ -36,6 +37,7 @@ function Contact() {
             {/* Input Email */}
             <InputField
               name="email"
+              label="E-mail"
               placeholder="Votre e-mail"
               type="email"
               icon="fa-solid fa-at"
@@ -44,6 +46,7 @@ function Contact() {
             {/* Textarea Message */}
             <TextareaField
               name="message"
+              label="Message"
               placeholder="Votre message"
               icon="fa-solid fa-pen-nib"
               maxlength={500}

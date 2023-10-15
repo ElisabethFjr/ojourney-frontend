@@ -10,14 +10,13 @@ import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { resetSuggestions } from '../../store/reducers/trip';
 // Import utils
 import handleSuggestionLocalisation from '../../utils/handleLocalisation';
-// Import Styles
-import './InputField.scss';
 
 export interface InputFieldProps {
   name: string;
-  placeholder: string;
-  type: string;
   icon: string;
+  placeholder: string;
+  label: string;
+  type: string;
   required?: boolean;
   autocomplete?: string;
   maxlength?: number;
@@ -28,6 +27,7 @@ function InputField({
   name,
   icon,
   placeholder,
+  label,
   type,
   required,
   autocomplete,
@@ -102,6 +102,9 @@ function InputField({
 
   return (
     <div className="field">
+      <label className="field-label" htmlFor={name}>
+        {label}
+      </label>
       <input
         className="field-input"
         value={value}
@@ -111,12 +114,9 @@ function InputField({
         autoComplete={autocomplete}
         id={name}
         type={type}
-        placeholder=" "
+        placeholder={placeholder}
         maxLength={maxlength}
       />
-      <label className="field-label" htmlFor={name}>
-        {placeholder}
-      </label>
       {/* Display localisations suggestion list if it exists and if input name = localisation */}
       {suggestions && suggestions.length > 1 && name === 'localisation' ? (
         <div className="field-input-suggestion-list">{allSuggestions}</div>

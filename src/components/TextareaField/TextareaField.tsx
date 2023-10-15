@@ -1,9 +1,9 @@
 import { useState, ChangeEvent } from 'react';
-import './TextareaField.scss';
 
 export interface TextareaFieldProps {
   name: string;
   placeholder: string;
+  label: string;
   icon: string;
   required?: boolean;
   autocomplete?: string;
@@ -13,6 +13,7 @@ export interface TextareaFieldProps {
 
 function TextareaField({
   name,
+  label,
   placeholder,
   icon,
   required,
@@ -27,24 +28,22 @@ function TextareaField({
 
   return (
     <div className="field">
-      <div className="field-container">
-        <textarea
-          className="field-textarea"
-          value={value}
-          onChange={handleChange}
-          name={name}
-          required={required}
-          autoComplete={autocomplete}
-          id={name}
-          placeholder=" "
-          maxLength={maxlength}
-        />
-        <label className="field-textarea-label" htmlFor={name}>
-          {placeholder}
-        </label>
-        <div className="field-textarea-icon">
-          <i className={icon} />
-        </div>
+      <label className="field-label" htmlFor={name}>
+        {label}
+      </label>
+      <textarea
+        className="field-textarea"
+        value={value}
+        onChange={handleChange}
+        name={name}
+        required={required}
+        autoComplete={autocomplete}
+        id={name}
+        placeholder={placeholder}
+        maxLength={maxlength}
+      />
+      <div className="field-textarea-icon">
+        <i className={icon} />
       </div>
     </div>
   );

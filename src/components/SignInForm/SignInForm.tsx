@@ -50,7 +50,8 @@ function SignInForm() {
         {/* Input Email */}
         <InputField
           name="email"
-          placeholder="Email"
+          label="E-mail"
+          placeholder="E-mail"
           type="email"
           icon="fa-solid fa-at"
           maxlength={320}
@@ -59,7 +60,8 @@ function SignInForm() {
         {/* Input Password */}
         <InputField
           name="password"
-          placeholder="Password"
+          label="Mot de passe"
+          placeholder="Mot de passe"
           type="password"
           icon="fa-solid fa-lock"
           maxlength={128}
