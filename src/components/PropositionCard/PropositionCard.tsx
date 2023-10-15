@@ -54,13 +54,16 @@ function PropositionCard({
     useState<boolean>(false);
 
   // Fetch states from Redux store
+  const userData = useAppSelector((state) => state.user.data);
   const members = useAppSelector((state) => state.trip.trip.members); // All members of a trip
   const userLikedProposition = useAppSelector(
     (state) => state.user.data.id && likes.includes(state.user.data.id)
   ); // Does the connected user like this proposition?
 
   // Function to find the author name based on the proposition.user_id
-  const isPropositionAuthor = members.find((member) => member.id === userId);
+  const propositionAuthor = members.find((member) => member.id === userId);
+  // Boolean to check if the user connected is the author of the proposition
+  const isPropositionAuthor = propositionAuthor?.id === userData.id;
 
   // EVENT HANDLER for open the modal DeleteConfirmation if click on delete a trip
   const handleClickDelete = () => {
@@ -129,8 +132,8 @@ function PropositionCard({
           {/* Display the author's name or "Membre supprimé" if the member has been deleted */}
           <p className="proposition-card-author">
             Créé par{' '}
-            {isPropositionAuthor
-              ? `${isPropositionAuthor?.firstname} ${isPropositionAuthor?.lastname}`
+            {propositionAuthor
+              ? `${propositionAuthor?.firstname} ${propositionAuthor?.lastname}`
               : 'Membre supprimé'}
           </p>
           {description && (

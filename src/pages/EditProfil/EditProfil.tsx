@@ -66,7 +66,11 @@ function EditProfil() {
     <Main>
       <h1 className="main-title">Modifier vos information personnelles</h1>
       <div className="edit-profil-container">
-        <form className="edit-profil-form" onSubmit={handleSubmit}>
+        <form
+          className="edit-profil-form"
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
           <div className="edit-profil-back-btn">
             <ButtonIcon
               icon="fa-solid fa-arrow-left"
@@ -89,7 +93,6 @@ function EditProfil() {
               onChange={(event) => handleInputChange(event, setLastname)}
               name="lastname"
               placeholder="Modifier le Nom"
-              autoComplete="autocomplete"
               id="lastname"
               type="text"
               maxLength={100}
@@ -110,7 +113,6 @@ function EditProfil() {
               onChange={(event) => handleInputChange(event, setFirstname)}
               name="firstname"
               placeholder="Modifier le Prénom"
-              autoComplete="autocomplete"
               id="firstname"
               type="text"
               maxLength={100}
@@ -131,7 +133,6 @@ function EditProfil() {
               onChange={(event) => handleInputChange(event, setEmail)}
               name="email"
               placeholder="Modifier l'Email"
-              autoComplete="autocomplete"
               id="email"
               type="text"
               maxLength={320}

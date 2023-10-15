@@ -204,7 +204,7 @@ function EditTrip() {
               aria-label="Retour à la page précédente"
             />
           </div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <h2 className="edit-trip-form-title">Mon Voyage</h2>
             {/* If ErrorMessage, display the error */}
             {errorMessage && <ErrorMessage text={errorMessage} />}
@@ -220,7 +220,6 @@ function EditTrip() {
                 onChange={(event) => handleInputChange(event, setLocalisation)}
                 name="localisation"
                 placeholder="Modifier la localisation"
-                autoComplete="autocomplete"
                 id="localisation"
                 type="text"
                 maxLength={100}
@@ -291,7 +290,6 @@ function EditTrip() {
                 onChange={(event) => handleInputChange(event, setDescription)}
                 name="description"
                 placeholder="Modifier la description"
-                autoComplete="autocomplete"
                 id="description"
                 maxLength={200}
               />

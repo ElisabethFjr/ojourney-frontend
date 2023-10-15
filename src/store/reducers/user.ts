@@ -386,9 +386,21 @@ const userReducer = createReducer(initialState, (builder) => {
       state.errorMessage = null;
       state.isLoading = false;
     })
-    .addCase(addTrip.rejected, (state) => {
+    .addCase(addTrip.rejected, (state, action) => {
       state.isLoading = false;
       toast.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+      if (action.error) {
+        const errorResponse = action.error;
+        if (
+          errorResponse.message ===
+          'Only .jpg, .jpeg, .png and .gif files are allowed !'
+        ) {
+          state.errorMessage =
+            'Type de fichier non pris en charge. Veuillez utiliser des fichiers .jpg, .jpeg, .png ou .gif.';
+        } else if (errorResponse.message === 'File too large') {
+          state.errorMessage = 'Le fichier est trop volumineux (2MB maximum).';
+        }
+      }
     })
     // Delete Trip
     .addCase(deleteTrip.fulfilled, (state, action) => {
