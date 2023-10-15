@@ -1,27 +1,16 @@
 @use '../../styles/variables' as v;
 
-.field-input-file {
+.field-image-input-file {
   display: none;
 }
 
-.field-input-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  margin: auto;
-  padding: 0.6rem v.$gutter;
-  background-color: v.$color-white;
-  border: 2px solid v.$color-primary;
-  border-radius: v.$border-radius;
-  color: v.$color-primary;
-  font-weight: 700;
-  font-size: v.$font-size;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: v.$color-primary-lightest2;
-  }
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
 }

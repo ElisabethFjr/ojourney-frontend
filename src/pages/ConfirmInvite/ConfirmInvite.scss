@@ -1,0 +1,16 @@
+@use '../../styles/variables' as v;
+
+.confirm {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    height: 100%;
+  }
+
+  &-title {
+    margin-bottom: 2rem;
+  }
+}

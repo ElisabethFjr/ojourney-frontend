@@ -1,0 +1,82 @@
+@use '../../styles/variables' as v;
+
+.button-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem v.$gutter;
+  border-radius: v.$border-radius;
+  font-size: v.$font-size;
+  font-weight: 700;
+  transition: v.$ease-in-out;
+  cursor: pointer;
+
+  // COLOR BUTTON
+  &--color {
+    background-color: v.$color-primary;
+    border: none;
+    color: v.$color-white;
+
+    &:hover {
+      background-color: v.$color-primary-darkest;
+    }
+  }
+
+  // DANGER BUTTON
+  &--danger {
+    background-color: rgba(204, 38, 55, 0.8);
+    border: none;
+    color: v.$color-white;
+
+    &:hover {
+      background-color: v.$color-red;
+    }
+  }
+
+  // OUTLINE BUTTON
+  &--outline {
+    background-color: transparent;
+    border: 2px solid v.$color-primary;
+    border-radius: v.$border-radius;
+    color: v.$color-primary;
+
+    &:hover {
+      background-color: v.$color-primary-lightest2;
+    }
+  }
+
+  // OUTLINE GREY BUTTON
+  &--outline-dark {
+    background-color: transparent;
+    border: 1px solid v.$color-text;
+    border-radius: v.$border-radius;
+    color: v.$color-text;
+
+    &:hover {
+      background-color: v.$color-accent-lightest;
+    }
+  }
+
+  // LARGE BUTTON
+  &--width {
+    width: 100%;
+  }
+
+  // HEIGHT BUTTON
+  &--height {
+    height: 2.7rem;
+  }
+
+  // LINK BUTTON
+  &--link {
+    background-color: transparent;
+    border: none;
+    color: v.$color-grey-darkest;
+    font-weight: 400;
+    font-size: small;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+@use './variables' as v;
+
+:export {
+  colorPrimary: v.$color-primary;
+  colorText: v.$color-text;
+}

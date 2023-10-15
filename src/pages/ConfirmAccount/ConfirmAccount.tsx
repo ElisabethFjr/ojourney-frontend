@@ -1,32 +1,36 @@
+// Imports React Hook
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+// Import Axios Instance
 import axiosInstance from '../../utils/axios';
 
-import ButtonColor from '../../components/Button/ButtonColor/ButtonColor';
+// Imports Layout & Components
 import Main from '../../layout/Main/Main';
+import Button from '../../components/Button/Button';
 
+// Import styles
 import './ConfirmAccount.scss';
 
 function ConfirmAccount() {
+  // Declaration States Variables
   const [isConfirmed, setIsConfirmed] = useState(false);
-  const token = new URLSearchParams(document.location.search);
+
+  const token = document.location.search.split('?')[1];
 
   useEffect(() => {
     async function confirmEmail() {
       await axiosInstance
         .get(`/confirm?confirm=${token}`)
-        .then((response) => {
+        .then(() => {
           setIsConfirmed(true);
-          console.log('Réponse ok');
-          console.log(`Réponse: ${response.data}`);
         })
-        .catch((error) => {
+        .catch(() => {
           setIsConfirmed(false);
-          console.log('Erreur');
-          console.log(error);
         });
     }
     confirmEmail();
-  });
+  }, [token]);
 
   return (
     <Main>
@@ -40,7 +44,9 @@ function ConfirmAccount() {
               Vous pouvez maintenant vous connecter en cliquant sur le bouton
               ci-dessous.
             </p>
-            <ButtonColor text="Se Connecter" to="/signin-signup" />
+            <Link to="/signin-signup">
+              <Button text="Se Connecter" customClass="color" type="button" />
+            </Link>
           </>
         ) : (
           <>
@@ -48,7 +54,6 @@ function ConfirmAccount() {
               Désolé, la confirmation de compte a échoué.
             </h1>
             <p className="confirm-text">
-              {' '}
               Veuillez réessayer plus tard ou nous contacter.
             </p>
           </>

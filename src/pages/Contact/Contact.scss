@@ -1,1 +1,69 @@
 @use '../../styles/variables' as v;
+
+.contact {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &-overview-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    width: 100%;
+    min-height: 500px;
+    padding: v.$gutter;
+    background-color: v.$color-white;
+    border-radius: v.$border-radius;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  &-image-container {
+    width: 45%;
+  }
+
+  &-image {
+    text-align: center;
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+    margin: auto;
+    border-radius: v.$border-radius 0 0 v.$border-radius;
+  }
+
+  &-form {
+    width: 55%;
+  }
+
+  &-title {
+    margin-bottom: 2.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+}
+
+// RESPONSIVE Screen < 999px
+@media (max-width: 599px) {
+  .contact {
+    &-overview-page {
+      flex-direction: column;
+      padding: 1rem;
+    }
+    &-image {
+      max-width: 100px;
+      width: 100%;
+      height: auto;
+      margin: auto;
+      padding-bottom: 2rem;
+    }
+    &-form {
+      width: 100%;
+    }
+  }
+}

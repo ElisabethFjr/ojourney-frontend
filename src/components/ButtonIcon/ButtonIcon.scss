@@ -1,0 +1,44 @@
+@use '../../styles/variables' as v;
+
+.button-icon {
+  cursor: pointer;
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  background-color: v.$color-white;
+  color: v.$color-accent;
+  font-size: 1rem;
+  text-align: center;
+  transition: v.$ease-in-out;
+
+  &:hover {
+    background-color: v.$color-grey-lightest;
+  }
+
+  &--i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  // Custom Class Border
+  &--back {
+    font-size: 1.4rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: v.$color-grey-lightest2;
+  }
+
+  // Custom Class Like
+  &--like {
+    font-size: 1.2rem;
+    background-color: transparent;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}

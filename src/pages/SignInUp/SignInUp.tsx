@@ -1,11 +1,13 @@
+// Import React
 import { useState } from 'react';
 
+// Import Layout & Components
 import Main from '../../layout/Main/Main';
-
-import FormContainer from '../../components/FormContainer/FormContainer';
+import FormContainer from '../../layout/FormContainer/FormContainer';
 import SignInForm from '../../components/SignInForm/SignInForm';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 
+// Import Style
 import './SignInUp.scss';
 
 function SignInUp() {
@@ -26,22 +28,14 @@ function SignInUp() {
           <div className="sign-form-header">
             <button
               onClick={toggleForm}
-              className={
-                signIn
-                  ? 'sign-form-toggle-button button--active'
-                  : 'sign-form-toggle-button'
-              }
+              className={`sign-form-toggle-button ${signIn ? 'active' : ''}`}
               type="button"
             >
               Connexion
             </button>
             <button
               onClick={toggleForm}
-              className={
-                !signIn
-                  ? 'sign-form-toggle-button button--active'
-                  : 'sign-form-toggle-button'
-              }
+              className={`sign-form-toggle-button ${!signIn ? 'active' : ''}`}
               type="button"
             >
               Inscription

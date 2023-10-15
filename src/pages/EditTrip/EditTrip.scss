@@ -1,0 +1,22 @@
+@use '../../styles/variables' as v;
+
+// Edit Trip Page
+.edit-trip {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  &-form-title {
+    text-align: center;
+    padding-bottom: 2rem;
+  }
+  &-back-btn {
+    position: absolute;
+    top: 1.5rem;
+    z-index: 10;
+  }
+}

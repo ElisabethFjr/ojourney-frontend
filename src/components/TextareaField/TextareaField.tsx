@@ -1,13 +1,25 @@
-import React, { useState, ChangeEvent } from 'react';
-import './TextareaField.scss';
+import { useState, ChangeEvent } from 'react';
 
-interface TextareaFieldProps {
+export interface TextareaFieldProps {
   name: string;
   placeholder: string;
+  label: string;
   icon: string;
+  required?: boolean;
+  autocomplete?: string;
+  maxlength?: number;
+  ariaLabel?: string;
 }
 
-function TextareaField({ name, placeholder, icon }: TextareaFieldProps) {
+function TextareaField({
+  name,
+  label,
+  placeholder,
+  icon,
+  required,
+  autocomplete,
+  maxlength,
+}: TextareaFieldProps) {
   const [value, setValue] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -16,19 +28,22 @@ function TextareaField({ name, placeholder, icon }: TextareaFieldProps) {
 
   return (
     <div className="field">
-      <label className="field-label visually-hidden" htmlFor={name}>
-        {placeholder}
+      <label className="field-label" htmlFor={name}>
+        {label}
       </label>
-      <div className="field-container icon-textarea">
+      <textarea
+        className="field-textarea"
+        value={value}
+        onChange={handleChange}
+        name={name}
+        required={required}
+        autoComplete={autocomplete}
+        id={name}
+        placeholder={placeholder}
+        maxLength={maxlength}
+      />
+      <div className="field-textarea-icon">
         <i className={icon} />
-        <textarea
-          className="field-textarea"
-          value={value}
-          onChange={handleChange}
-          name={name}
-          placeholder={placeholder}
-          id={name}
-        />
       </div>
     </div>
   );

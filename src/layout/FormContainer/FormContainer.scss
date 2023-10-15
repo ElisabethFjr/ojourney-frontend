@@ -1,0 +1,22 @@
+@use '../../styles/variables' as v;
+
+.form-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  width: 100%;
+  min-height: 640px;
+  padding: v.$gutter;
+  background-color: v.$color-white;
+  border-radius: v.$border-radius;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+// RESPONSIVE Screen < 599px
+@media (max-width: 599px) {
+  .form-container {
+    margin: auto;
+    padding: v.$gutter 1rem;
+  }
+}

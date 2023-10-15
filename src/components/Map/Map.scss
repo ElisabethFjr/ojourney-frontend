@@ -1,0 +1,43 @@
+// .marker-title {
+//   background-color: aliceblue;
+//   box-shadow: 0 0 6px rgba(0, 0, 0, 0.404);
+//   padding: 0.5rem;
+//   border-radius: 0.5rem;
+//   border: 2px solid #ff7d5c;
+//   z-index: 0;
+// }
+
+.marker-title {
+  height: 45px;
+  width: 250px;
+  padding: 0.5rem;
+  background: #f8f9f9;
+  position: relative;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 3px solid #ff7d5c;
+  &-p {
+    height: 40px;
+    width: 230px;
+    color: black;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+.marker-title:before {
+  content: '';
+  position: absolute;
+  left: 100%;
+  bottom: 10%;
+  width: 0;
+  height: 0;
+  border-top: 13px solid transparent;
+  border-left: 26px solid #ff7d5c;
+  border-bottom: 13px solid transparent;
+}

@@ -22,44 +22,45 @@ function InputDatesPicker({
     <>
       {/* Start Date Input */}
       <div className="field">
-        <label className="field-label visually-hidden" htmlFor="date_start">
+        <label className="field-label" htmlFor="date_start">
           Date de début
         </label>
-        <div className="field-container">
-          <i className="fa-solid fa-calendar" />
-          <DatePicker
-            className="field-input"
-            selected={startDate}
-            onChange={onStartDateChange}
-            selectsStart
-            startDate={startDate}
-            endDate={endDate}
-            placeholderText="Date de début (jj/mm/aaaa)"
-            dateFormat="dd/MM/yyyy"
-            locale="fr" // set french locale
-          />
-        </div>
+        <i className="field-icon fa-solid fa-calendar" />
+        <DatePicker
+          id="date_start"
+          className="field-input"
+          selected={startDate}
+          onChange={onStartDateChange}
+          selectsStart
+          startDate={startDate}
+          endDate={endDate}
+          placeholderText="Date de début (jj/mm/aaaa)"
+          dateFormat="dd/MM/yyyy"
+          locale="fr" // Set french locale
+          required
+        />
       </div>
       {/* End Date Input */}
+
       <div className="field">
-        <label className="field-label visually-hidden" htmlFor="date_start">
+        <label className="field-label" htmlFor="date_end">
           Date de fin
         </label>
-        <div className="field-container">
-          <i className="fa-solid fa-calendar" />
-          <DatePicker
-            className="field-input"
-            selected={endDate}
-            onChange={onEndDateChange}
-            selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
-            placeholderText="Date de fin (jj/mm/aaaa)"
-            dateFormat="dd/MM/yyyy"
-            locale="fr" // set french locale
-          />
-        </div>
+        <i className="field-icon fa-solid fa-calendar" />
+        <DatePicker
+          id="date_end"
+          className="field-input"
+          selected={endDate}
+          onChange={onEndDateChange}
+          selectsEnd
+          startDate={startDate}
+          endDate={endDate}
+          minDate={startDate}
+          placeholderText="Date de fin (jj/mm/aaaa)"
+          dateFormat="dd/MM/yyyy"
+          locale="fr" // Set french locale
+          required
+        />
       </div>
     </>
   );

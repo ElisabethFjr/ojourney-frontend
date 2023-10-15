@@ -1,39 +1,125 @@
-import { useState } from 'react';
+// Import React Hook
+import { useState, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { format } from 'date-fns';
+// Import Custom Redux Hook
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
+// Import Custom Redux Hook
+import changeDateFormat from '../../utils/formatDate';
+
+// Import Redux Actions
+import { addTrip } from '../../store/reducers/user';
+
+// Imports Layouts & Components
 import Main from '../../layout/Main/Main';
-
-import FormContainer from '../../components/FormContainer/FormContainer';
+import FormContainer from '../../layout/FormContainer/FormContainer';
 import InputField from '../../components/InputField/InputField';
 import InputFieldImage from '../../components/InputFieldImage/InputFieldImage';
 import TextareaField from '../../components/TextareaField/TextareaField';
-import ButtonSubmit from '../../components/Button/ButtonSubmit/ButtonSubmit';
-
-import 'react-datepicker/dist/react-datepicker.css';
-import './NewTrip.scss';
+import Button from '../../components/Button/Button';
 import InputDatesPicker from '../../components/InputDatesPicker/InputDatesPicker';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import ButtonIcon from '../../components/ButtonIcon/ButtonIcon';
+
+// Import Styles
+import './NewTrip.scss';
 
 function NewTrip() {
-  // States variables declaration
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  // Initialize Hooks
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  // Declaration state variables
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined); // Trip start date
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined); // Trip end date
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error message
+  const [file, setFile] = useState<File | null>(null); // Selected file
+  const [imageUrl, setImageUrl] = useState<string | null>(null); // Image URL
+  const [isSuggestionSelected, setSuggestionSelected] = useState(false); // Suggestion selection indicator
+
+  // Fetch states from Redux store
+  const isLoading = useAppSelector((state) => state.user.isLoading);
+
+  // Event handler for selected suggestion localisation
+  const handleSuggestionSelected = (selected: boolean) => {
+    setSuggestionSelected(selected);
+  };
 
   // Event handler for start date change
   const handleStartDateChange = (date: Date) => {
-    console.log(date);
     setStartDate(date);
   };
 
   // Event handler for end date change
   const handleEndDateChange = (date: Date) => {
-    console.log(date);
     setEndDate(date);
   };
 
-  // Event handler for the image file selection
-  const handleFile = (file: File) => {
-    console.log('Fichier sélectionné :', file);
+  // Event handler for selecting an image file
+  const handleFile = (fileUploaded: File | null) => {
+    // File selected
+    if (fileUploaded !== null) {
+      // Check the file size (the image need to be under 2MB)
+      if (fileUploaded.size > 2 * 1024 * 1024) {
+        setErrorMessage(
+          'La taille du fichier image ne peut pas dépasser 2 Mo.'
+        );
+        setFile(null); // Clear the file
+        setImageUrl(null); // Clear the image URL
+      } else {
+        setFile(fileUploaded);
+        const url = URL.createObjectURL(fileUploaded);
+        setImageUrl(url);
+        setErrorMessage(null); // Clear Error Message
+      }
+    } else {
+      // No file selected
+      setErrorMessage(null);
+      setFile(null);
+      setImageUrl(null);
+    }
+  };
+
+  // Event handler for the New Trip form submission
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    // Clear all Error Messages
+    setErrorMessage(null);
+
+    // Check if missing required field
+    const destination = formData.get('localisation') as string;
+    if (!destination || !startDate || !endDate) {
+      setErrorMessage('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+
+    // Check if user doesn't selected a localisation suggestion from the API
+    if (!isSuggestionSelected) {
+      setErrorMessage(
+        'Veuillez sélectionner une destination dans la lise de suggestion.'
+      );
+      return;
+    }
+
+    // Format dates start and end
+    formData.append('date_start', startDate ? changeDateFormat(startDate) : '');
+    formData.append('date_end', endDate ? changeDateFormat(endDate) : '');
+
+    // Check if dates are the same and set an errorMessage
+    if (changeDateFormat(startDate) === changeDateFormat(endDate)) {
+      setErrorMessage(
+        'Les dates de début et de fin ne peuvent pas être identiques'
+      );
+      return;
+    }
+
+    // Dispatch addTrip action on the form submission
+    await dispatch(addTrip(formData));
+    navigate(`/my-trips`);
   };
 
   return (
@@ -41,31 +127,73 @@ function NewTrip() {
       <h1 className="main-title">Créer un nouveau voyage</h1>
       <section className="new-trip-container">
         <FormContainer>
-          <h2 className="new-trip-form-title">Nouveau voyage</h2>
-          {/* Localisation Input */}
-          <InputField
-            name="localisation"
-            placeholder="Destination"
-            type="text"
-            icon="fa-solid fa-location-dot"
-          />
-          {/* Dates Picker Inputs (Start - End) */}
-          <InputDatesPicker
-            startDate={startDate}
-            endDate={endDate}
-            onStartDateChange={handleStartDateChange}
-            onEndDateChange={handleEndDateChange}
-          />
-          {/* Description Textarea */}
-          <TextareaField
-            name="description"
-            placeholder="Description du voyage (facultatif)"
-            icon="fa-solid fa-pen-nib"
-          />
-          {/* Image File Selection Input */}
-          <InputFieldImage handleFile={handleFile} />
-          {/* Form Submit Button */}
-          <ButtonSubmit text="Créer le voyage" />
+          <form onSubmit={handleSubmit}>
+            {/* Back Button */}
+            <div className="new-trip-back-btn">
+              <ButtonIcon
+                icon="fa-solid fa-arrow-left"
+                handleClick={() => navigate(-1)} // Go back to the previous page
+                customClass="back"
+                aria-label="Retour à la page précédente"
+              />
+            </div>
+
+            {/* Form Title */}
+            <h2 className="new-trip-form-title">Nouveau voyage</h2>
+
+            {/* Error Message */}
+            {errorMessage && <ErrorMessage text={errorMessage} />}
+
+            {/* Localisation Input */}
+            <InputField
+              name="localisation"
+              label="Destination*"
+              placeholder="Destination"
+              type="text"
+              icon="fa-solid fa-location-dot"
+              maxlength={100}
+              required
+              handleSuggestionSelected={handleSuggestionSelected}
+            />
+
+            {/* Dates Picker Inputs (Start - End) */}
+            <InputDatesPicker
+              startDate={startDate || null}
+              endDate={endDate || null}
+              onStartDateChange={handleStartDateChange}
+              onEndDateChange={handleEndDateChange}
+            />
+
+            {/* Description Textarea */}
+            <TextareaField
+              name="description"
+              label="Description"
+              placeholder="Description du voyage (facultatif)"
+              icon="fa-solid fa-pen-nib"
+              maxlength={200}
+            />
+
+            {/* Image File Selection Input */}
+            <InputFieldImage handleFile={handleFile} text="Ajouter une image" />
+            {file && imageUrl && (
+              <img
+                className="new-trip-image"
+                src={imageUrl}
+                alt={file.name}
+                crossOrigin="anonymous"
+                width="157"
+                height="136"
+              />
+            )}
+
+            {/* Submit Button */}
+            <Button
+              text="Créer un voyage"
+              type="submit"
+              customClass="color button-style--width"
+              isLoading={isLoading}
+            />
+          </form>
         </FormContainer>
       </section>
     </Main>
