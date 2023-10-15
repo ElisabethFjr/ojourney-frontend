@@ -3,7 +3,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 // Import React Hooks
 import { useEffect, useState } from 'react';
 // Import React-Toastify
-import { ToastContainer, Slide } from 'react-toastify';
+import { ToastContainer, Slide, toast } from 'react-toastify';
 // Import Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { checkUserAuth } from '../../store/reducers/user';
@@ -77,8 +77,14 @@ function App() {
     const interceptor = axiosInstance.interceptors.response.use(
       (response) => response,
       (error) => {
-        if (error.response && error.response.status === 500) {
-          navigate('/error');
+        if (error.response) {
+          if (error.response.status === 429) {
+            toast.error(
+              'Vous avez effectué trop de tentatives. Votre adresse IP est temporairement bloquée pendant 30 minutes.'
+            );
+          } else if (error.response.status === 500) {
+            navigate('/error');
+          }
         }
         return Promise.reject(error);
       }

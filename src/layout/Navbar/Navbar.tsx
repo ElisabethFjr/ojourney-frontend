@@ -79,14 +79,14 @@ function Navbar() {
         </button>
       )}
       {!isAuth && (
-        <div className={`header-navbar-list-link ${isOpen ? '' : 'oui'}`}>
+        <div className="header-navbar-list-link">
           <NavLink
             to="/signin-signup"
             className="header-navbar-list-link--signin-signup none"
           >
             <i className="fa-solid fa-right-to-bracket" />
             <span className="text-disconnected">
-              &nbsp;Se Connecter/S &apos;inscrire
+              Se Connecter/S &apos;inscrire
             </span>
           </NavLink>
         </div>

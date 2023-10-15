@@ -168,7 +168,7 @@ function EditProposition() {
               aria-label="Retour à la page précédente"
             />
           </div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} autoComplete="off">
             {/* Form Title */}
             <h2 className="edit-proposition-form-title">Ma Proposition</h2>
 
@@ -186,7 +186,6 @@ function EditProposition() {
                 onChange={(event) => handleInputChange(event, setUrl)}
                 name="url"
                 placeholder="Modifier l'adresse URL"
-                autoComplete="autocomplete"
                 id="url"
                 type="url"
                 maxLength={100}
@@ -208,7 +207,6 @@ function EditProposition() {
                 onChange={(event) => handleInputChange(event, setLocalisation)}
                 name="localisation"
                 placeholder="Modifier la localisation"
-                autoComplete="autocomplete"
                 id="localisation"
                 type="text"
                 maxLength={100}
@@ -236,7 +234,6 @@ function EditProposition() {
                 onChange={(event) => handleInputChange(event, setDescription)}
                 name="description"
                 placeholder="Modifier la description"
-                autoComplete="autocomplete"
                 id="description"
                 maxLength={200}
               />

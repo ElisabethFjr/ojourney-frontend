@@ -82,7 +82,11 @@ function EditPassword() {
     <Main>
       <h1 className="main-title">Modifier votre mot de passe</h1>
       <div className="edit-password-container">
-        <form className="edit-password-form" onSubmit={handleSubmit}>
+        <form
+          className="edit-password-form"
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
           {/* Back Button */}
           <div className="edit-password-back-btn">
             <ButtonIcon
@@ -108,7 +112,6 @@ function EditPassword() {
             icon="fa-solid fa-lock"
             maxlength={128}
             required
-            autocomplete="off"
           />
 
           {/* Button Submit */}
