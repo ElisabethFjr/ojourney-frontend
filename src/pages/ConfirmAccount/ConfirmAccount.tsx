@@ -1,6 +1,6 @@
 // Imports React Hook
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Import Axios Instance
 import axiosInstance from '../../utils/axios';
@@ -13,8 +13,16 @@ import Button from '../../components/Button/Button';
 import './ConfirmAccount.scss';
 
 function ConfirmAccount() {
+  // Initializing Hooks
+  const navigate = useNavigate();
+
   // Declaration States Variables
   const [isConfirmed, setIsConfirmed] = useState(false);
+
+  // Event handler on the click on the button to open the Signin/SignUp form
+  const handleClick = () => {
+    navigate('/signin-signup');
+  };
 
   const token = document.location.search.split('?')[1];
 
@@ -44,9 +52,12 @@ function ConfirmAccount() {
               Vous pouvez maintenant vous connecter en cliquant sur le bouton
               ci-dessous.
             </p>
-            <Link to="/signin-signup">
-              <Button text="Se Connecter" customClass="color" type="button" />
-            </Link>
+            <Button
+              text="Se Connecter"
+              customClass="color"
+              type="button"
+              onClick={handleClick}
+            />
           </>
         ) : (
           <>

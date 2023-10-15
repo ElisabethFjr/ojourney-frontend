@@ -70,6 +70,7 @@ function Navbar() {
           type="button"
           onClick={toggleBurgerMenu}
           aria-label="Menu des liens de navigations"
+          title="Menu"
         >
           <i
             className={`header-navbar-toggle-icon fa-solid  ${
@@ -83,6 +84,8 @@ function Navbar() {
           <NavLink
             to="/signin-signup"
             className="header-navbar-list-link--signin-signup none"
+            aria-label="Se Connecter/S'inscrire"
+            title="Se Connecter/S'inscrire"
           >
             <i className="fa-solid fa-right-to-bracket" />
             <span className="text-disconnected">

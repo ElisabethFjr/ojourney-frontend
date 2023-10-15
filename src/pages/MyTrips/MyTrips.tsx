@@ -1,6 +1,6 @@
 // Import React Hook
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Import Custom Redux Hook
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -21,11 +21,17 @@ import './MyTrips.scss';
 function MyTrips() {
   // Initialize Hooks
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   // Fetch states from Redux store
   const userData = useAppSelector((state) => state.user.data); // User data
   const trips = useAppSelector((state) => state.user.data.trips); // User trips data
   const isLoading = useAppSelector((state) => state.user.isLoading); // Loading state
+
+  // EVENT HANDLER on the new trip button
+  const handleClick = () => {
+    navigate('/new-trip');
+  };
 
   useEffect(() => {
     dispatch(fetchUserInfos(userData.id));
@@ -64,32 +70,31 @@ function MyTrips() {
             crossOrigin="anonymous"
             width="128"
             height="128"
+            loading="lazy"
           />
           <p className="no-trip-message">Aucun voyage disponible.</p>
           <p className="no-trip-instruction">
             Commencez en créant un nouveau voyage.
           </p>
-          <Link to="/new-trip">
-            <Button
-              text="Nouveau voyage"
-              icon="fa-solid fa-plus"
-              type="button"
-              customClass="color"
-            />
-          </Link>
+          <Button
+            text="Nouveau voyage"
+            icon="fa-solid fa-plus"
+            type="button"
+            customClass="color"
+            onClick={handleClick}
+          />
         </section>
       ) : (
         // Display Trips
         <section className="trips-container">
           <div className="trips-btn">
-            <Link to="/new-trip">
-              <Button
-                text="Nouveau voyage"
-                icon="fa-solid fa-plus"
-                type="button"
-                customClass="color"
-              />
-            </Link>
+            <Button
+              text="Nouveau voyage"
+              icon="fa-solid fa-plus"
+              type="button"
+              customClass="color"
+              onClick={handleClick}
+            />
           </div>
           <ul className="trips-list">{allTrips}</ul>
         </section>

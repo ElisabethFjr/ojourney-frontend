@@ -134,7 +134,8 @@ function NewTrip() {
                 icon="fa-solid fa-arrow-left"
                 handleClick={() => navigate(-1)} // Go back to the previous page
                 customClass="back"
-                aria-label="Retour à la page précédente"
+                ariaLabel="Retour à la page précédente"
+                title="Retour"
               />
             </div>
 
@@ -183,6 +184,7 @@ function NewTrip() {
                 crossOrigin="anonymous"
                 width="157"
                 height="136"
+                loading="lazy"
               />
             )}
 

@@ -35,6 +35,16 @@ function Profil() {
     userData.consent_newsletter
   );
 
+  // Event Handler on the button to open the Edit Profil page
+  const handleClickEditProfil = () => {
+    navigate('/edit-profil/');
+  };
+
+  // Event Handler on the button to open the Edit Password page
+  const handleClickEditPassword = () => {
+    navigate('/edit-password');
+  };
+
   // Toggle consent state
   const handleCommercialToggle = () => {
     setCommercialConsent(!commercialConsent);
@@ -80,13 +90,12 @@ function Profil() {
           <span className="profil-card-text">{userData.trips.length}</span>
         </p>
         <div className="profil-card-btn-container">
-          <Link to="/edit-profil/">
-            <Button
-              text="Modifier les informations"
-              customClass="color"
-              type="button"
-            />
-          </Link>
+          <Button
+            text="Modifier les informations"
+            customClass="color"
+            type="button"
+            onClick={handleClickEditProfil}
+          />
         </div>
       </section>
       <section className="profil-card">
@@ -96,13 +105,12 @@ function Profil() {
           <span className="profil-card-text"> ************* </span>
         </p>
         <div className="profil-card-btn-container">
-          <Link to="/edit-password">
-            <Button
-              text="Changer le mot de passe"
-              customClass="color"
-              type="button"
-            />
-          </Link>
+          <Button
+            text="Changer le mot de passe"
+            customClass="color"
+            type="button"
+            onClick={handleClickEditPassword}
+          />
         </div>
       </section>
       <section className="profil-card">
