@@ -2,9 +2,9 @@
 import road from '../../assets/images/road.png';
 
 // Import Styles
-import './ErrorServer.scss';
+import './ErrorGeneric.scss';
 
-function ErrorServer() {
+function ErrorGeneric() {
   return (
     <main className="error">
       <h1 className="error-title">Erreur</h1>
@@ -23,4 +23,4 @@ function ErrorServer() {
   );
 }
 
-export default ErrorServer;
+export default ErrorGeneric;

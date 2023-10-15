@@ -8,8 +8,6 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ConfirmModal from '../ModalConfirmMessage/ModalConfirmMessage';
 import Button from '../Button/Button';
 import InputPassword from '../InputPassword/InputPassword';
-// Import Styles
-import './SignUpForm.scss';
 
 function SignUpForm() {
   // Declaration state variables

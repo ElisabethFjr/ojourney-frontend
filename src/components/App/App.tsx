@@ -34,7 +34,7 @@ import About from '../../pages/About/About';
 import Contact from '../../pages/Contact/Contact';
 import Terms from '../../pages/Terms/Terms';
 import ErrorNotFound from '../../pages/ErrorNotFound/ErrorNotFound';
-import ErrorServer from '../../pages/ErrorServer/ErrorServer';
+import ErrorGeneric from '../../pages/ErrorGeneric/ErrorGeneric';
 import Loading from '../Loading/Loading';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
@@ -78,7 +78,7 @@ function App() {
       (response) => response,
       (error) => {
         if (error.response && error.response.status === 500) {
-          navigate('/500');
+          navigate('/error');
         }
         return Promise.reject(error);
       }
@@ -109,7 +109,7 @@ function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/invite" element={<ConfirmInvite />} />
             <Route path="*" element={<ErrorNotFound />} />
-            <Route path="/500" element={<ErrorServer />} />
+            <Route path="/error" element={<ErrorGeneric />} />
             {/* Public Route for Login/Register (visitor) */}
             <Route
               path="/signin-signup"
