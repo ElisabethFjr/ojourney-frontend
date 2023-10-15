@@ -92,6 +92,7 @@ function ModaleConfirmPassword({ closeModal }: ModaleConfirmPasswordProps) {
               type="password"
               icon="fa-solid fa-lock"
               required
+              autocomplete="off"
               maxlength={128}
             />
             <div className="modal-delete-account-button-container">

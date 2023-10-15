@@ -127,7 +127,7 @@ function NewTrip() {
       <h1 className="main-title">Créer un nouveau voyage</h1>
       <section className="new-trip-container">
         <FormContainer>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} autoComplete="off">
             {/* Back Button */}
             <div className="new-trip-back-btn">
               <ButtonIcon
