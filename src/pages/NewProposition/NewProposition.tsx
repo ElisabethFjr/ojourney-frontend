@@ -86,7 +86,7 @@ function NewProposition() {
       <h1 className="main-title">Faire une proposition</h1>
       <section className="new-proposition-container">
         <FormContainer>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} autoComplete="off">
             {/* Back Button */}
             <div className="new-proposition-back-btn">
               <ButtonIcon
