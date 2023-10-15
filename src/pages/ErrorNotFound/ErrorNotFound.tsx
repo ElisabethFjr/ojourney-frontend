@@ -18,6 +18,7 @@ function ErrorNotFound() {
         alt="Autocollant de route O'Journey orange jaune erreur 404"
         width="180"
         height="180"
+        loading="lazy"
       />
     </main>
   );

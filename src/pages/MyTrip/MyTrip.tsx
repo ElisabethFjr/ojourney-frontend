@@ -1,6 +1,6 @@
 // Import React Hook
 import { useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import format from 'date-fns/format';
 
@@ -25,6 +25,7 @@ import { fetchTripData } from '../../store/reducers/trip';
 function MyTrip() {
   // Initialize Hooks
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   // Get the trip id from route parameters
   const { id } = useParams() ?? '';
@@ -91,6 +92,16 @@ function MyTrip() {
     setShowModalDeleteConfirm(!showModalDeleteConfirm);
   };
 
+  // Event handler to open the New Proposition form page
+  const handleClickNewProposition = () => {
+    navigate(`/new-proposition/${tripId}`);
+  };
+
+  // Event handler to open the Edit Trip page
+  const handleClickEditTrip = () => {
+    navigate(`/edit-trip/${id}`);
+  };
+
   // Display a list of all members into a button element from the members array fetch to the API
   const allMembers = members.map((member) => (
     <OneMember
@@ -145,6 +156,7 @@ function MyTrip() {
           crossOrigin="anonymous"
           width="300"
           height="200"
+          loading="lazy"
         />
         <div className="one-trip-overview-container">
           <div className="one-trip-overview-infos">
@@ -172,14 +184,13 @@ function MyTrip() {
 
           {isTripCreator && (
             <div className="one-trip-overview-buttons">
-              <Link to={`/edit-trip/${id}`} className="edit-btn">
-                <Button
-                  text="Éditer"
-                  icon="fa-solid fa-pen"
-                  type="button"
-                  customClass="outline-dark"
-                />
-              </Link>
+              <Button
+                text="Éditer"
+                icon="fa-solid fa-pen"
+                type="button"
+                customClass="outline-dark edit-btn"
+                onClick={handleClickEditTrip}
+              />
               <Button
                 text="Supprimer"
                 icon="fa-solid fa-trash"
@@ -193,20 +204,23 @@ function MyTrip() {
       </section>
       {/* ********** MEMBERS LIST */}
       <section className="one-trip-members">
-        {isTripCreator && (
-          <Button
-            text="Ajouter"
-            icon="fa-solid fa-user-plus"
-            type="button"
-            customClass="color"
-            onClick={handleClickAddMember}
-          />
-        )}
-        {trip.members && trip.members.length === 0 ? (
-          <p> Aucun membres pour le moment </p>
-        ) : (
-          <ul className="one-trip-members-list">{allMembers}</ul>
-        )}
+        <h2 className="one-trip-members-title">Liste des voyageurs</h2>
+        <div className="one-trip-members-container">
+          {isTripCreator && (
+            <Button
+              text="Ajouter"
+              icon="fa-solid fa-user-plus"
+              type="button"
+              customClass="color"
+              onClick={handleClickAddMember}
+            />
+          )}
+          {trip.members && trip.members.length === 0 ? (
+            <p> Aucun membres pour le moment </p>
+          ) : (
+            <ul className="one-trip-members-list">{allMembers}</ul>
+          )}
+        </div>
       </section>
       {/* ********** MAP */}
       {trip.lat && trip.lon ? (
@@ -221,14 +235,13 @@ function MyTrip() {
           <p className="one-trip-propositions-add-text">
             Faites une nouvelle proposition.
           </p>
-          <Link to={`/new-proposition/${tripId}`}>
-            <Button
-              text="Nouvelle proposition"
-              icon="fa-solid fa-plus"
-              type="button"
-              customClass="color"
-            />
-          </Link>
+          <Button
+            text="Nouvelle proposition"
+            icon="fa-solid fa-plus"
+            type="button"
+            customClass="color"
+            onClick={handleClickNewProposition}
+          />
         </div>
         {propositions && propositions.length === 0 ? (
           <p className="one-trip-propositions-text">

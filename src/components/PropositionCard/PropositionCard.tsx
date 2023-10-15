@@ -88,12 +88,14 @@ function PropositionCard({
           <ButtonIcon
             icon="fa-solid fa-pen"
             handleClick={handleClickEdit}
-            aria-label="Éditer proposition"
+            ariaLabel="Éditer proposition"
+            title="Éditer"
           />
           <ButtonIcon
             icon="fa-solid fa-trash"
             handleClick={handleClickDelete}
-            aria-label="Supprimer proposition"
+            ariaLabel="Supprimer proposition"
+            title="Supprimer"
           />
         </div>
       ) : null}
@@ -116,7 +118,12 @@ function PropositionCard({
         </button>
       </div>
       {/* Proposition Card */}
-      <Link to={url} target="_blank" className="proposition-card">
+      <Link
+        to={url}
+        target="_blank"
+        className="proposition-card"
+        rel="noopener, noreferrer, nofollow"
+      >
         <img
           className="proposition-card-image"
           src={srcImage}
@@ -124,6 +131,7 @@ function PropositionCard({
           crossOrigin="anonymous"
           width="300"
           height="250"
+          loading="lazy"
         />
         <div className="proposition-card-infos">
           <div className="proposition-card-header">

@@ -84,7 +84,8 @@ function TripCard({
         <ButtonIcon
           icon="fa-solid fa-trash"
           handleClick={handleClickDelete}
-          aria-label="Supprimer le voyage"
+          ariaLabel="Supprimer le voyage"
+          title="Supprimer"
         />
       </div>
       <Link to={linkHref} className="trip-card">
@@ -95,10 +96,11 @@ function TripCard({
           crossOrigin="anonymous"
           width="300"
           height="200"
+          loading="lazy"
         />
         <div className="trip-card-infos">
           <div className="trip-card-header">
-            <h3 className="trip-card-header-title">{localisation}</h3>
+            <h2 className="trip-card-header-title">{localisation}</h2>
           </div>
           <p className="trip-card-author">
             Créé par {`${author?.firstname} ${author?.lastname}`}

@@ -18,6 +18,7 @@ function ErrorGeneric() {
         alt="Autocollant de route O'Journey orange jaune erreur serveur 500"
         width="180"
         height="180"
+        loading="lazy"
       />
     </main>
   );

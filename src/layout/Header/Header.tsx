@@ -17,6 +17,7 @@ function Header() {
           alt="O'Journey Logo"
           width="140"
           height="58"
+          loading="lazy"
         />
       </Link>
       <Navbar />

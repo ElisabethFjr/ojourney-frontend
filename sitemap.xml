@@ -1,0 +1,47 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!--  created with Free Online Sitemap Generator www.xml-sitemaps.com  -->
+  <url>
+    <loc>https://o-journey.vercel.app/</loc>
+    <lastmod>2023-10-15T18:08:58+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://o-journey.vercel.app/signin-signup</loc>
+    <lastmod>2023-10-15T18:08:58+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://o-journey.vercel.app/my-trips</loc>
+    <lastmod>2023-10-15T18:08:58+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://o-journey.vercel.app/new-trip</loc>
+    <lastmod>2023-10-15T18:08:58+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://o-journey.vercel.app/my-trip/</loc>
+    <lastmod>2023-10-15T18:08:58+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://o-journey.vercel.app/edit-trip/</loc>
+    <lastmod>2023-10-15T18:08:58+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://o-journey.vercel.app/profil</loc>
+    <lastmod>2023-10-15T18:08:58+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://o-journey.vercel.app/edit-profil</loc>
+    <lastmod>2023-10-15T18:08:58+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://o-journey.vercel.app/about</loc>
+    <lastmod>2023-10-15T18:08:58+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://o-journey.vercel.app/terms</loc>
+    <lastmod>2023-10-15T18:08:58+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://o-journey.vercel.app/contact</loc>
+    <lastmod>2023-10-15T18:08:58+00:00</lastmod>
+  </url>
+</urlset>

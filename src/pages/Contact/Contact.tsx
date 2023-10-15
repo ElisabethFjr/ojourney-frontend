@@ -20,6 +20,7 @@ function Contact() {
               alt="Send message to contact O'Journey"
               width="150"
               height="150"
+              loading="lazy"
             />
           </div>
 

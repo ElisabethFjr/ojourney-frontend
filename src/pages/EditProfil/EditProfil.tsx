@@ -76,6 +76,8 @@ function EditProfil() {
               icon="fa-solid fa-arrow-left"
               handleClick={() => navigate(-1)} // Go back to the previous page
               customClass="back"
+              ariaLabel="Retour à la page précédente"
+              title="Retour"
             />
           </div>
 

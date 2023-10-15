@@ -201,7 +201,8 @@ function EditTrip() {
               icon="fa-solid fa-arrow-left"
               handleClick={() => navigate(-1)}
               customClass="back"
-              aria-label="Retour à la page précédente"
+              ariaLabel="Retour à la page précédente"
+              title="Retour"
             />
           </div>
           <form onSubmit={handleSubmit} autoComplete="off">
@@ -311,6 +312,7 @@ function EditTrip() {
                 crossOrigin="anonymous"
                 width="157"
                 height="136"
+                loading="lazy"
               />
             )}
             {/* Form Submit Button */}
