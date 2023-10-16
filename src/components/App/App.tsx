@@ -111,7 +111,6 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/confirm-account" element={<ConfirmAccount />} />
-            <Route path="/confirm-invite" element={<ConfirmInvite />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/invite" element={<ConfirmInvite />} />
