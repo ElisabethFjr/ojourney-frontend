@@ -15,10 +15,4 @@ if (localStorage.getItem('userToken')) {
     localStorage.getItem('userToken')?.replace(/"|_/g, '') || '';
 }
 
-// Check environment and set credentials if not in development
-const env = null;
-if (env !== 'dev' || !/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-  axiosInstance.defaults.withCredentials = true;
-}
-
 export default axiosInstance;
