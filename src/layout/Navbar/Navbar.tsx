@@ -43,24 +43,22 @@ function Navbar() {
       {isAuth && (
         <nav className={`header-navbar ${isOpen ? 'active' : ''}`}>
           <ul className="header-navbar-list">
-            <li className="header-navbar-list-link">
-              <NavLink to="/my-trips">Mes voyages</NavLink>
-            </li>
-            <li className="header-navbar-list-link">
-              <NavLink to="/new-trip">Nouveau voyage</NavLink>
-            </li>
-            <li className="header-navbar-list-link">
-              <NavLink to="/profil">Profil</NavLink>
-            </li>
-            <li className="header-navbar-list-link">
-              <NavLink
-                to="/"
-                onClick={handleLogout}
-                className="header-navbar-list-link--logout"
-              >
-                Se déconnecter
-              </NavLink>
-            </li>
+            <NavLink to="/my-trips" className="header-navbar-list-link">
+              <li>Mes voyages</li>
+            </NavLink>
+            <NavLink to="/new-trip" className="header-navbar-list-link">
+              <li>Nouveau voyage</li>
+            </NavLink>
+            <NavLink to="/profil" className="header-navbar-list-link">
+              <li>Profil</li>
+            </NavLink>
+            <NavLink
+              to="/"
+              onClick={handleLogout}
+              className="header-navbar-list-link--logout "
+            >
+              <li>Se déconnecter </li>
+            </NavLink>
           </ul>
         </nav>
       )}

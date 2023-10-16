@@ -61,10 +61,11 @@ function App() {
     if (localStorage.getItem('userToken')) {
       const token = localStorage.getItem('userToken');
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+      dispatch(checkUserAuth()).then(() => {
+        setIsLoading(false);
+      });
     }
-    dispatch(checkUserAuth()).then(() => {
-      setIsLoading(false);
-    });
+    setIsLoading(false);
   }, [dispatch]);
 
   // Scroll to the top of the page when the location changes

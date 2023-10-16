@@ -10,7 +10,7 @@
   border-bottom: 1px solid v.$color-grey-middle-lighten;
 
   &-title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   &-container {
@@ -20,6 +20,7 @@
 
   &-list {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
   }
 
@@ -79,5 +80,11 @@
     &:hover {
       background-color: v.$color-grey-lightest2;
     }
+  }
+}
+
+@media (max-width: 599px) {
+  .one-trip-members-container {
+    flex-direction: column;
   }
 }

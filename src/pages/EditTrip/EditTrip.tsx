@@ -167,7 +167,7 @@ function EditTrip() {
     // Check if the user changed the "localisation" input but did not select a suggestion
     if (localisation !== trip.localisation && !isSuggestionSelected) {
       setErrorMessage(
-        'Veuillez sélectionner une destination dans la liste de suggestion.'
+        'Veuillez sélectionner une destination dans la liste de suggestions.'
       );
       return;
     }
