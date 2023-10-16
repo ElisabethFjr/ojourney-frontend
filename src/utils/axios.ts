@@ -16,9 +16,9 @@ if (localStorage.getItem('userToken')) {
 }
 
 // Check environment and set credentials if not in development
-const env = null;
-if (env !== 'dev' || !/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-  axiosInstance.defaults.withCredentials = true;
-}
+// const env = 'dev';
+// if (env !== 'dev') {
+//   axiosInstance.defaults.withCredentials = true;
+// }
 
 export default axiosInstance;
