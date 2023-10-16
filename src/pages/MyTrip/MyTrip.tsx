@@ -225,9 +225,7 @@ function MyTrip() {
       {/* ********** MAP */}
       {trip.lat && trip.lon ? (
         <MapDisplay lat={trip.lat} lon={trip.lon} links={trip.links} />
-      ) : (
-        <p />
-      )}
+      ) : null}
       {/* ********** PROPOSITIONS LIST */}
       <section className="one-trip-propositions">
         <h2 className="one-trip-propositions-title">Propositions</h2>
