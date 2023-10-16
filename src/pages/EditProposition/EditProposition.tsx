@@ -125,7 +125,7 @@ function EditProposition() {
       !isSuggestionSelected
     ) {
       setErrorMessage(
-        'Veuillez sélectionner une destination dans la liste de suggestion.'
+        'Veuillez sélectionner une destination dans la liste de suggestions.'
       );
       return;
     }

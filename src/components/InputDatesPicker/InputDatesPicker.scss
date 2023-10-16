@@ -215,3 +215,16 @@
   width: 1px;
   white-space: nowrap;
 }
+
+// RESPONSIVE Screen < 499px
+@media (max-width: 499px) {
+  .react-datepicker__day-names {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    gap: 0.3rem;
+  }
+
+  .react-datepicker__week {
+    gap: 0.3rem;
+  }
+}
