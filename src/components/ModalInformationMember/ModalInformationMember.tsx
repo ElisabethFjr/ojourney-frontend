@@ -36,7 +36,9 @@ function ModalInformationMember({
           <h1 className="modal-information-title modal-title">{title}</h1>
           <p className="modal-information-text">{lastname}</p>
           <p className="modal-information-text">{firstname}</p>
-          <p className="modal-information-text">{email}</p>
+          <p className="modal-information-text">
+            <a href={`mailto:${email}`}>{email}</a>
+          </p>
         </ModalContainer>
       )}
     </div>
