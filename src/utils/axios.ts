@@ -15,4 +15,10 @@ if (localStorage.getItem('userToken')) {
     localStorage.getItem('userToken')?.replace(/"|_/g, '') || '';
 }
 
+// Check environment and set credentials if not in development
+// const env = 'dev';
+// if (env !== 'dev') {
+//   axiosInstance.defaults.withCredentials = true;
+// }
+
 export default axiosInstance;

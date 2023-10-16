@@ -55,6 +55,8 @@ export const initialState: UserState = {
   trip: null,
 };
 
+// const env = 'dev';
+
 // Create LOGIN action
 export const login = createAsyncThunk(
   'user/login',
@@ -64,8 +66,10 @@ export const login = createAsyncThunk(
       const objData = Object.fromEntries(formData);
       // Send a POST request to login user
       const { data } = await axiosInstance.post('/signIn', objData);
+      // if (env === 'dev') {
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       localStorage.setItem('userToken', data.token);
+      // }
       return data;
     } catch (error) {
       // Type error as an AxiosError to access specific axios properties (TypeScript)
@@ -109,8 +113,10 @@ export const fetchUserInfos = createAsyncThunk(
 export const checkUserAuth = createAsyncThunk(
   'user/checkUserAuth',
   async () => {
+    // if (env === 'dev') {
     const token = localStorage.getItem('userToken');
     axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    // }
     const { data } = await axiosInstance.get('/user');
     // If the response data contains a token
     if (data.token) {
