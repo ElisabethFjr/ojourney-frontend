@@ -58,7 +58,10 @@ function App() {
   // Check the connected user's information for authentication (token or cookies in headers), if ok dispatch the user's data
   useEffect(() => {
     // Check if a user token is stored in the browser's localStorage
-    if (localStorage.getItem('userToken')) {
+    if (
+      localStorage.getItem('userToken') ||
+      /iPad|iPhone|iPod/.test(navigator.userAgent)
+    ) {
       const token = localStorage.getItem('userToken');
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
     }
