@@ -66,7 +66,7 @@ export const login = createAsyncThunk(
       const objData = Object.fromEntries(formData);
       // Send a POST request to login user
       const { data } = await axiosInstance.post('/signIn', objData);
-      if (env === 'dev') {
+      if (env === 'dev' || /iPad|iPhone|iPod/.test(navigator.userAgent)) {
         axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
         localStorage.setItem('userToken', data.token);
       }
@@ -113,7 +113,7 @@ export const fetchUserInfos = createAsyncThunk(
 export const checkUserAuth = createAsyncThunk(
   'user/checkUserAuth',
   async () => {
-    if (env === 'dev') {
+    if (env === 'dev' || !/iPad|iPhone|iPod/.test(navigator.userAgent)) {
       const token = localStorage.getItem('userToken');
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
     }
