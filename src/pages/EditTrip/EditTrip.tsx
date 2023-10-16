@@ -178,6 +178,17 @@ function EditTrip() {
       formData.append('date_end', changeDateFormat(endDate));
     }
 
+    // Current Date
+    const currentDate = new Date() as Date; // Current Date
+
+    // Check if the start date is greater than the current date
+    if (startDate && startDate < currentDate) {
+      setErrorMessage(
+        'La date de début doit être ultérieure à la date actuelle.'
+      );
+      return;
+    }
+
     // Check if dates are same and set an errorMessage
     if (changeDateFormat(startDate) === changeDateFormat(endDate)) {
       setErrorMessage(

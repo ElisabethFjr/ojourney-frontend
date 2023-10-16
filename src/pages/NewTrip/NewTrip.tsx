@@ -32,7 +32,7 @@ function NewTrip() {
 
   // Declaration state variables
   const [startDate, setStartDate] = useState<Date | undefined>(undefined); // Trip start date
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined); // Trip end date
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined); // Trip end Date
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // Error message
   const [file, setFile] = useState<File | null>(null); // Selected file
   const [imageUrl, setImageUrl] = useState<string | null>(null); // Image URL
@@ -108,6 +108,17 @@ function NewTrip() {
     // Format dates start and end
     formData.append('date_start', startDate ? changeDateFormat(startDate) : '');
     formData.append('date_end', endDate ? changeDateFormat(endDate) : '');
+
+    // Current Date
+    const currentDate = new Date() as Date; // Current Date
+
+    // Check if the start date is greater than the current date
+    if (startDate && startDate < currentDate) {
+      setErrorMessage(
+        'La date de début doit être ultérieure à la date actuelle.'
+      );
+      return;
+    }
 
     // Check if dates are the same and set an errorMessage
     if (changeDateFormat(startDate) === changeDateFormat(endDate)) {
