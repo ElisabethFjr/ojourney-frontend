@@ -115,19 +115,40 @@ export const checkUserAuth = createAsyncThunk(
   async () => {
     // if (env === 'dev') {
     const token = localStorage.getItem('userToken');
-    axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
-    // }
-    const { data } = await axiosInstance.get('/user');
-    // If the response data contains a token
-    if (data.token) {
-      // Remove the existing user token from local storage
-      localStorage.removeItem('userToken');
-      // Reset and set the new token in local storage
-      axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-      localStorage.setItem('userToken', data.token);
+    if (token) {
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
     }
-    // Else return data
-    return data;
+    // }
+    try {
+      const { data } = await axiosInstance.get('/user');
+      // If the response data contains a token
+      if (data.token) {
+        // Remove the existing user token from local storage
+        localStorage.removeItem('userToken');
+        // Reset and set the new token in local storage
+        axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+        localStorage.setItem('userToken', data.token);
+      }
+      // Else return data
+      return data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response) {
+        const responseData =
+          (axiosError.response.data as { error: string }) || {};
+        const errorMessage = responseData.error;
+        // If token expired, delete if from local storage
+        if (
+          axiosError.response.status === 401 &&
+          errorMessage === 'Expired token'
+        ) {
+          localStorage.removeItem('userToken');
+          axiosInstance.defaults.headers.common.Authorization = null;
+        }
+      }
+      // If no specific error was handled, throw a general error
+      throw new Error('Une erreur est survenue. Veuillez réessayer plus tard.');
+    }
   }
 );
 
@@ -280,9 +301,6 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isLoading = false;
     })
     // Check User Data Token
-    .addCase(checkUserAuth.pending, (state) => {
-      state.isLoading = true;
-    })
     .addCase(checkUserAuth.fulfilled, (state, action) => {
       state.data = {
         ...state.data,
