@@ -24,7 +24,7 @@ function InputPassword() {
   // Change password progress bar color & width depending on the password strength indicator (score)
   const changePasswordColor = () => {
     // Regular expression to check strength password
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^0-9a-zA-Z]).{10,}$/;
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^0-9a-zA-Z]).{10,}$/;
     // Calculate the password score and retrieve the strength information
     const score = calculatePasswordScore(password);
     const strengthInfo = getPasswordStrength(password);
