@@ -1,6 +1,6 @@
 // Import React Hook
 import { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import format from 'date-fns/format';
 

@@ -1,6 +1,7 @@
 @use '../../styles/variables' as v;
 
 .one-trip {
+  // Overview section
   &-overview {
     display: flex;
     justify-content: flex-start;
@@ -50,6 +51,33 @@
     }
   }
 
+  // Members section
+  &-members {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.5rem 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid v.$color-grey-middle-lighten;
+
+    &-title {
+      font-size: 1.2rem;
+    }
+
+    &-container {
+      display: flex;
+      gap: 1rem;
+    }
+
+    &-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  }
+
+  // Propositions section
   &-propositions {
     width: 100%;
     &-title {
@@ -100,7 +128,8 @@
       }
     }
     // Members section
-    &-members {
+    &-members-container {
+      flex-direction: column;
       & .button-style {
         width: 60%;
       }
