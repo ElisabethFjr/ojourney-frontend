@@ -60,6 +60,14 @@
     width: 100%;
 
     &-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
       font-size: 1.5rem;
     }
   }

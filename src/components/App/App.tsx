@@ -36,7 +36,6 @@ import Terms from '../../pages/Terms/Terms';
 import ErrorNotFound from '../../pages/ErrorNotFound/ErrorNotFound';
 import ErrorGeneric from '../../pages/ErrorGeneric/ErrorGeneric';
 import Loading from '../Loading/Loading';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 // Import Styles
 import './App.scss';
@@ -61,11 +60,12 @@ function App() {
     if (localStorage.getItem('userToken')) {
       const token = localStorage.getItem('userToken');
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
-      dispatch(checkUserAuth()).then(() => {
+      dispatch(checkUserAuth()).finally(() => {
         setIsLoading(false);
       });
+    } else {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, [dispatch]);
 
   // Scroll to the top of the page when the location changes
@@ -124,75 +124,39 @@ function App() {
             {/* Private Routes (user auth) */}
             <Route
               path="/profil"
-              element={
-                <PrivateRoute>
-                  <Profil />
-                </PrivateRoute>
-              }
+              element={isAuth ? <Profil /> : <SignInUp />}
             />
             <Route
               path="/my-trips"
-              element={
-                <PrivateRoute>
-                  <MyTrips />
-                </PrivateRoute>
-              }
+              element={isAuth ? <MyTrips /> : <SignInUp />}
             />
             <Route
               path="/my-trip/:id"
-              element={
-                <PrivateRoute>
-                  <MyTrip />
-                </PrivateRoute>
-              }
+              element={isAuth ? <MyTrip /> : <SignInUp />}
             />
             <Route
               path="/new-trip"
-              element={
-                <PrivateRoute>
-                  <NewTrip />
-                </PrivateRoute>
-              }
+              element={isAuth ? <NewTrip /> : <SignInUp />}
             />
             <Route
               path="/new-proposition/:id"
-              element={
-                <PrivateRoute>
-                  <NewProposition />
-                </PrivateRoute>
-              }
+              element={isAuth ? <NewProposition /> : <SignInUp />}
             />
             <Route
               path="/edit-profil"
-              element={
-                <PrivateRoute>
-                  <EditProfil />
-                </PrivateRoute>
-              }
+              element={isAuth ? <EditProfil /> : <SignInUp />}
             />
             <Route
               path="/edit-password"
-              element={
-                <PrivateRoute>
-                  <EditPassword />
-                </PrivateRoute>
-              }
+              element={isAuth ? <EditPassword /> : <SignInUp />}
             />
             <Route
               path="/edit-trip/:id"
-              element={
-                <PrivateRoute>
-                  <EditTrip />
-                </PrivateRoute>
-              }
+              element={isAuth ? <EditTrip /> : <SignInUp />}
             />
             <Route
               path="/edit-proposition/:tripId/:propositionId"
-              element={
-                <PrivateRoute>
-                  <EditProposition />
-                </PrivateRoute>
-              }
+              element={isAuth ? <EditProposition /> : <SignInUp />}
             />
           </Routes>
 
