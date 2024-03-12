@@ -14,14 +14,14 @@ O'Journey is there to make your trip even more unforgetable !
 - `npm install` - To install all project's depedencies
 - `npm run dev` - To start the server
 
-## Technos
+## 🛠️ Technos
 - React
 - Typescript
 - Redux
 - SASS
 - Vite
 
-## Link
+## 🔗 Link
 
 https://o-journey.vercel.app/ 
 
