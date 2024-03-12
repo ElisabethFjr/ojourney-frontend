@@ -14,7 +14,15 @@ O'Journey is there to make your trip even more unforgetable !
 - `npm install` - To install all project's depedencies
 - `npm run dev` - To start the server
 
-## Dependencies
+## Technos
+- React
+- Typescript
+- Redux
+- SASS
+- Vite
 
-- `npm install react-router-dom` -
-- `npm install react`-
+## Link
+
+https://o-journey.vercel.app/ 
+
+
